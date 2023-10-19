@@ -1,38 +1,22 @@
 import React, {useState} from 'react';
 import Logo from '../logo'
 import './login.css';
+import Service from "../../api-services/service";
 
 const Login=()=> {
-   const [Email,setEmail]=useState('null');
-   const [Password,setPassword]=useState('null');
+
+   const MyService= new Service();
+
+
+   const [Email,setEmail]=useState('');
+   const [Password,setPassword]=useState('');
    const handleSignUp = () => {
       const requestBody = {
          email: Email,
          password: Password,
       };
 
-
-      fetch('https://localhost:7261/api/Account/Login', {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json',
-         },
-         body: JSON.stringify(requestBody),
-      })
-          .then((response) => {
-             if (response.status === 200) {
-                console.log(response.json());
-                console.log("Login successful !");
-             } else {
-                // Registration failed, handle error here
-                console.error('Login failed');
-                console.log(response.error[0]);
-             }
-          })
-          .catch((error) => {
-             // Handle network errors or other issues here
-             console.error('Error:', error);
-          });
+      return MyService.Login(requestBody);
    };
 
 
@@ -54,13 +38,13 @@ const Login=()=> {
                               <div className="row text-start mb-3">
                                  <div className="col-12 mb-3">
                                     <div className="form-floating">
-                                       <input type="email" className="form-control" id="input1" placeholder="Email"/>
+                                       <input type="email" className="form-control" id="input1" placeholder="Email" value={Email} onChange={(e) => setEmail(e.target.value)}/>
                                        <label htmlFor="input1">Email</label>
                                     </div>
                                  </div>
                                  <div className="col-12 mb-3">
                                     <div className="form-floating">
-                                       <input type="password" className="form-control" id="input2" placeholder="Password"/>
+                                       <input type="password" className="form-control" id="input2" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={Password}/>
                                        <label htmlFor="input2">Password</label>
                                     </div>
                                  </div>
@@ -77,7 +61,7 @@ const Login=()=> {
                                  </div>
                               </div>
                               <div className="text-center">
-                                 <button type="button" className="btn btn-primary">Sign In</button>
+                                 <button type="button" className="btn btn-primary" onClick={handleSignUp}>Sign In</button>
                               </div>
                               <div className="text-center mt-3">
                                  <p>or sign in with others account?</p>

@@ -1,3 +1,5 @@
+import {json} from "react-router-dom";
+
 export default class Service {
     _base_url = 'https://localhost:7261/api';
 
@@ -62,8 +64,57 @@ export default class Service {
         return  await this.getResource(`/Details/get-all-cities`);
     }
 
-    SendNewAnnounement=(formData)=>{
-        console.log(formData);
+    SendNewAnnounement=(data)=>{
+
+        console.log(JSON.stringify(data));
+
+        fetch('https://localhost:7261/api/Announcement/create-announcement', {
+            method: 'POST', // Use 'POST' method to send data to the server
+            headers: {
+                'Content-Type': 'application/json', // Set the content type to JSON
+            },
+            body: JSON.stringify(data), // Convert the JSON object to a string
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // Parse the response as JSON
+            })
+            .then(data => {
+                // Handle the response data here
+                console.log(data);
+            })
+            .catch(error => {
+                // Handle any errors that occurred during the fetch
+                console.error('Fetch error:', error);
+            });
+
+    }
+
+    Login=(requestBody)=>{
+
+        fetch('https://localhost:7261/api/Account/Login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        })
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log(response.json());
+                    console.log("Login successful !");
+                } else {
+                    // Registration failed, handle error here
+                    console.error('Login failed');
+                    console.log(response.error[0]);
+                }
+            })
+            .catch((error) => {
+                // Handle network errors or other issues here
+                console.error('Error:', error);
+            });
     }
 
 
