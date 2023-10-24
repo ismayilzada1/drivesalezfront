@@ -1,45 +1,47 @@
 import React, { useState } from 'react';
 import Logo from '../logo';
+import Service from "../../api-services/service";
+import { useNavigate } from 'react-router-dom';
+
 function Register(){
 
+    const MyService= new Service();
 
-    const [FirstName,setFirstName]=useState('Magomed');
-    const [LastName,setLastName]=useState('Ismayilzade');
-    const [Email,setEmail]=useState('Ismayilzade@gmail.com');
-    const [PhoneNumber,setPhoneNumber]=useState('0504561252');
-    const [Password,setPassword]=useState('P@ss12345');
-    const [ConfirmPassword,setConfirmPassword]=useState('P@ss12345');
+    const navigate = useNavigate();
+
+    const [FirstName,setFirstName]=useState('');
+    const [LastName,setLastName]=useState('');
+    const [Email,setEmail]=useState('');
+    const [PhoneNumber,setPhoneNumber]=useState('');
+    const [Password,setPassword]=useState('');
+    const [ConfirmPassword,setConfirmPassword]=useState('');
 
     const handleSignUp = () => {
         const requestBody = {
-            personName: FirstName,
-            email: Email,
-            phone: PhoneNumber,
-            password: Password,
-            confirmPassword: ConfirmPassword,
+            "firstName": FirstName,
+            "lastName": LastName,
+            "email": Email,
+            "phone": PhoneNumber,
+            "password": Password,
+            "confirmPassword": ConfirmPassword
         };
 
 
-        fetch('https://localhost:7261/api/Account/Register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(requestBody),
-        })
-            .then((response) => {
+        MyService.Register(requestBody)
+            .then(response => {
                 if (response.status === 200) {
-                    // Registration was successful, handle success here
-                    console.log('Registration successful');
+                    navigate('/VerifyEmail');
                 } else {
-                    // Registration failed, handle error here
-                    console.error('Registration failed');
+                    return response.json().then(errorData => {
+                        console.error('Registration failed. Status Code:', response.status, 'Error Data:', errorData);
+                        throw new Error('Registration failed');
+                    });
                 }
             })
-            .catch((error) => {
-                // Handle network errors or other issues here
-                console.error('Error:', error);
+            .catch(error => {
+                console.error('Registration failed:', error);
             });
+
     };
 
     return(
@@ -61,13 +63,13 @@ function Register(){
                                                         <div className="row text-start mb-3">
                                                             <div className="col-md-6">
                                                                 <div className="form-floating">
-                                                                    <input type="text" className="form-control" id="input1"   placeholder="First Name"/>
+                                                                    <input type="text" className="form-control" id="input1"   placeholder="First Name" value={FirstName} onChange={(e) => setFirstName(e.target.value)}/>
                                                                         <label htmlFor="input1">First Name</label>
                                                                 </div>
                                                             </div>
                                                             <div className="col-md-6">
                                                                 <div className="form-floating">
-                                                                    <input type="text" className="form-control" id="input2" placeholder="Last Name"/>
+                                                                    <input type="text" className="form-control" id="input2" placeholder="Last Name" value={LastName} onChange={(e) => setLastName(e.target.value)}/>
                                                                         <label htmlFor="input2">Last Name</label>
                                                                 </div>
                                                             </div>
@@ -75,13 +77,13 @@ function Register(){
                                                         <div className="row text-start mb-3">
                                                             <div className="col-md-6">
                                                                 <div className="form-floating">
-                                                                    <input type="email" className="form-control" id="input3" placeholder="Email"/>
+                                                                    <input type="email" className="form-control" id="input3" placeholder="Email" value={Email} onChange={(e) => setEmail(e.target.value)}/>
                                                                         <label htmlFor="input3">Email</label>
                                                                 </div>
                                                             </div>
                                                             <div className="col-md-6">
                                                                 <div className="form-floating">
-                                                                    <input type="text" className="form-control" id="input4" placeholder="Phone No"/>
+                                                                    <input type="text" className="form-control" id="input4" placeholder="Phone No" value={PhoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
                                                                         <label htmlFor="input4">Phone No</label>
                                                                 </div>
                                                             </div>
@@ -89,13 +91,13 @@ function Register(){
                                                         <div className="row text-start mb-3">
                                                             <div className="col-md-6">
                                                                 <div className="form-floating">
-                                                                    <input type="password" className="form-control" id="input5" placeholder="Password"/>
+                                                                    <input type="password" className="form-control" id="input5" placeholder="Password" value={Password} onChange={(e) => setPassword(e.target.value)}/>
                                                                         <label htmlFor="input5">Password</label>
                                                                 </div>
                                                             </div>
                                                             <div className="col-md-6">
                                                                 <div className="form-floating">
-                                                                    <input type="password" className="form-control" id="input6" placeholder="Confirm Password"/>
+                                                                    <input type="password" className="form-control" id="input6" placeholder="Confirm Password" value={ConfirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
                                                                         <label htmlFor="input6">Confirm Password</label>
                                                                 </div>
                                                             </div>
@@ -106,7 +108,7 @@ function Register(){
                                                                     use</label>
                                                         </div>
                                                         <div className="text-center">
-                                                            <button type="button" className="btn btn-primary">Sign Up</button>
+                                                            <button type="button" className="btn btn-primary" onClick={handleSignUp}>Sign Up</button>
                                                         </div>
                                                         <div className="text-center mt-3">
                                                             <p>or sign in with others account?</p>
