@@ -74,6 +74,7 @@ export default class Service {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    "Authorization":`Bearer ${localStorage.getItem("accessToken")}`
                 },
                 body: JSON.stringify(data),
             });
@@ -102,13 +103,11 @@ export default class Service {
 
             if (response.status === 200) {
                 const responseData = await response.json();
-                console.log(responseData);
-                console.log('Login successful!');
+                localStorage.setItem("accessToken",responseData.token);
             } else {
-                // Registration failed, handle error here
                 const errorData = await response.json();
-                console.error('Login failed:', errorData);
             }
+            return response;
         } catch (error) {
             console.error('Error:', error);
             throw error;
@@ -123,6 +122,40 @@ export default class Service {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(requestBody),
+            });
+
+            return response;
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
+    }
+
+    async  VerifyOTP(requestBody) {
+        try {
+            const response = await fetch('https://localhost:7261/api/Otp/verify-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            });
+
+            return response;
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
+    }
+
+    async SendOTP(email){
+        try {
+            const response = await fetch('https://localhost:7261/api/Otp/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(email),
             });
 
             return response;

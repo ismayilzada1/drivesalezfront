@@ -26,6 +26,12 @@ const NewAnnouncement=()=>
     const [selectedCountry, setSelectedCountry] = useState('');
     const [Cities, setCities] = useState([]);
 
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+
     const [formData, setFormData] = useState({
         model: '',
         bodyType: '',
@@ -151,14 +157,15 @@ const NewAnnouncement=()=>
     );
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
 
         console.log(formData);
+        setIsLoading(true);
 
 
         const data = {
-            "yearId": parseInt(formData.manufactureYear, 10), // Convert to a number
+            "yearId": parseInt(formData.manufactureYear, 10),
             "makeID": parseInt(selectedBrand,10),
             "modelID": parseInt(formData.model,10),
             "fuelTypeID": parseInt(formData.fuelType,10),
@@ -169,14 +176,14 @@ const NewAnnouncement=()=>
             "optionsIDs": formData.options,
             "colorID": parseInt(formData.color,10),
             "marketVersionID": parseInt(formData.marketVersion,10),
-            "horsePower": parseInt(formData.horsePower, 10), // Convert to a number
+            "horsePower": parseInt(formData.horsePower, 10),
             "isBrandNew": formData.brandNew,
-            "ownerQuantity": parseInt(formData.ownerQuantity, 10), // Convert to a number
-            "seatCount": parseInt(formData.seatCount, 10), // Convert to a number
+            "ownerQuantity": parseInt(formData.ownerQuantity, 10),
+            "seatCount": parseInt(formData.seatCount, 10),
             "vinCode": formData.vinCode,
-            "mileAge": parseInt(formData.mileage, 10), // Convert to a number
+            "mileAge": parseInt(formData.mileage, 10),
             "mileageType": parseInt(formData.distanceUnit,10),
-            "engineVolume": parseInt(formData.engineVolume, 10), // Convert to a number
+            "engineVolume": parseInt(formData.engineVolume, 10),
             "imageUrls": [
                 {
                     "id": 0,
@@ -193,7 +200,23 @@ const NewAnnouncement=()=>
             "currency": parseInt(formData.priceCurrency,10)
         };
 
-        MyService.SendNewAnnounement(data);
+
+        try {
+            const response= await MyService.SendNewAnnounement(data);
+
+
+            if (response.status === 200) {
+                setShowSuccessAlert(true);
+            } else {
+                setShowAlert(true);
+                setAlertMessage('Something went wrong !');
+            }
+        } catch (error) {
+            setShowAlert(true);
+            setAlertMessage('Something went wrong !');
+        }
+
+        setIsLoading(false);
     };
 
 
@@ -496,7 +519,18 @@ const NewAnnouncement=()=>
                                 </div>
                             </div>
 
-                            <button type="submit" onClick={handleSubmit}  className="btn btn-primary">Add New Announcement</button>
+                            <button type="submit" onClick={handleSubmit}  className="btn btn-primary" disabled={isLoading}>{isLoading ? 'Signing In...' : 'Sign In'}</button>
+
+                        {showAlert && (
+                            <div className="alert alert-warning mt-3" role="alert">
+                                {alertMessage}
+                            </div>
+                        )}
+                        {showSuccessAlert && (
+                            <div className="alert alert-success mt-3" role="alert">
+                                {alertMessage}
+                            </div>
+                        )}
                     </form>
                 </div>
             </div>

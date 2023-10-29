@@ -16,6 +16,9 @@ function Register(){
     const [Password,setPassword]=useState('');
     const [ConfirmPassword,setConfirmPassword]=useState('');
 
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const handleSignUp = () => {
         const requestBody = {
             "firstName": FirstName,
@@ -30,16 +33,25 @@ function Register(){
         MyService.Register(requestBody)
             .then(response => {
                 if (response.status === 200) {
-                    navigate('/VerifyEmail');
-                } else {
+                    localStorage.setItem('email',requestBody.email);
+                    setShowSuccessAlert(true);
+                    setAlertMessage('Registration successful. Check your email for OTP verification.');
+                    MyService.SendOTP(requestBody.email).then(()=>{
+                        navigate('/verifyEmail');
+                    })}
+                else {
                     return response.json().then(errorData => {
                         console.error('Registration failed. Status Code:', response.status, 'Error Data:', errorData);
+                        setShowAlert(true);
+                        setAlertMessage('Registration failed. Please check the provided information.');
                         throw new Error('Registration failed');
                     });
                 }
             })
             .catch(error => {
                 console.error('Registration failed:', error);
+                setShowAlert(true);
+                setAlertMessage('Registration failed. Please check the provided information.');
             });
 
     };
@@ -110,25 +122,18 @@ function Register(){
                                                         <div className="text-center">
                                                             <button type="button" className="btn btn-primary" onClick={handleSignUp}>Sign Up</button>
                                                         </div>
-                                                        <div className="text-center mt-3">
-                                                            <p>or sign in with others account?</p>
-                                                        </div>
-                                                        <div className="d-flex justify-content-center ">
-                                                            <ul className="list-group list-group-horizontal list-group-flush">
-                                                                <li className="list-group-item bg-transparent border-0">
-                                                                    <a href="#"><img src="../../assets/images/brands/15.png" className="img-fluid avatar avatar-30 avatar-rounded" alt="img60"/></a>
-                                                                </li>
-                                                                <li className="list-group-item bg-transparent border-0">
-                                                                    <a href="#"><img src="../../assets/images/brands/08.png" className="img-fluid avatar avatar-30 avatar-rounded" alt="gm"/></a>
-                                                                </li>
-                                                                <li className="list-group-item bg-transparent border-0">
-                                                                    <a href="#"><img src="../../assets/images/brands/10.png" className="img-fluid avatar avatar-30 avatar-rounded" alt="im"/></a>
-                                                                </li>
-                                                                <li className="list-group-item bg-transparent border-0">
-                                                                    <a href="#"><img src="../../assets/images/brands/13.png" className="img-fluid avatar avatar-30 avatar-rounded" alt="li"/></a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
+
+                                                        {showAlert && (
+                                                            <div className="alert alert-warning mt-3" role="alert">
+                                                                {alertMessage}
+                                                            </div>
+                                                        )}
+                                                        {showSuccessAlert && (
+                                                            <div className="alert alert-success mt-3" role="alert">
+                                                                {alertMessage}
+                                                            </div>
+                                                        )}
+
                                                     </form>
                                                     <div className="new-account mt-3 text-center">
                                                         <p className="mb-0">Already have an Account <a className="text-primary" href="../../dashboard/auth/sign-in.html">Sign in</a>

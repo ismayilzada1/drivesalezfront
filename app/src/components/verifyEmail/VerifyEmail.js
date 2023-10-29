@@ -1,7 +1,53 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './VerifyEmail.css';
 import Logo from "../logo";
+import Service from "../../api-services/service";
+import { useNavigate  } from 'react-router-dom';
+
 const VerifyEmail = () => {
+
+    const MyService= new Service();
+
+
+    const [otp,setOTP]=useState('');
+
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+    const handleVerify = async () => {
+        const requestBody = {
+            email: localStorage.getItem("email"),
+            otp: otp,
+        };
+
+        try {
+            const response = await MyService.VerifyOTP(requestBody);
+
+            if (response.status === 200) {
+                console.log("Verified Successfully");
+                setShowSuccessAlert(true);
+                setAlertMessage('Email verification successful.');
+            } else {
+                setShowAlert(true);
+                setAlertMessage('Email verification failed. Please check the OTP.');
+            }
+            console.log(response);
+
+        } catch (error) {
+            console.error('Verify failed:', error);
+            setShowAlert(true);
+            setAlertMessage('An error occurred during verification.');
+        }
+
+    };
+
+
+    useEffect(() => {
+        console.log(otp);
+        console.log(localStorage.getItem('email'));
+    }, [otp]);
+
     return (
         <div className="wrapper">
             <div className="main-auth-page">
@@ -20,13 +66,24 @@ const VerifyEmail = () => {
                                             <div>
                                                 <p className="mt-3 text-center">Please enter the OTP code sent to your email to verify your account.</p>
                                                 <div className="form-floating mb-3">
-                                                    <input type="text" className="form-control" id="floatingInput" placeholder="123456" />
+                                                    <input type="text" className="form-control" value={otp} onChange={(e) => setOTP(e.target.value)} id="floatingInput" placeholder="123456" />
                                                     <label htmlFor="floatingInput">OTP code</label>
                                                 </div>
                                             </div>
                                             <div className="text-center">
-                                                <button className="btn btn-primary mt-3">Verify</button>
+                                                <button onClick={handleVerify} className="btn btn-primary mt-3">Verify</button>
                                             </div>
+
+                                            {showAlert && (
+                                                <div className="alert alert-warning mt-3" role="alert">
+                                                    {alertMessage}
+                                                </div>
+                                            )}
+                                            {showSuccessAlert && (
+                                                <div className="alert alert-success mt-3" role="alert">
+                                                    {alertMessage}
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -41,17 +98,17 @@ const VerifyEmail = () => {
                     <div className="card-body">
                         <div className="auth-form">
                             <div className="text-center">
-                                <h2>Reset Password</h2>
+                                <h2>Verify Mail</h2>
                             </div>
                             <div>
                                 <p className="mt-3 text-center">Please enter the OTP code sent to your email to verify your account.</p>
                                 <div className="form-floating mb-3">
-                                    <input type="email" className="form-control" id="floatingInput" placeholder="123456" />
+                                    <input type="email" className="form-control"  value={otp} onChange={(e) => setOTP(e.target.value)} id="floatingInput" placeholder="123456" />
                                     <label htmlFor="floatingInput">OTP code</label>
                                 </div>
                             </div>
                             <div className="text-center">
-                                <button className="btn btn-primary mt-3">Verify</button>
+                                <button onClick={handleVerify} className="btn btn-primary mt-3">Verify</button>
                             </div>
                         </div>
                     </div>
