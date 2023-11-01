@@ -8,6 +8,7 @@ const VerifyEmail = () => {
 
     const MyService= new Service();
 
+    const navigate = useNavigate();
 
     const [otp,setOTP]=useState('');
 
@@ -28,6 +29,10 @@ const VerifyEmail = () => {
                 console.log("Verified Successfully");
                 setShowSuccessAlert(true);
                 setAlertMessage('Email verification successful.');
+                setTimeout(() => {
+                    navigate('/login');
+                }, 2000);
+
             } else {
                 setShowAlert(true);
                 setAlertMessage('Email verification failed. Please check the OTP.');

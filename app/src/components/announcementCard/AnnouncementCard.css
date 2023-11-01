@@ -1,0 +1,49 @@
+.announcement-card {
+    height: 100%;
+    min-width: 300px;
+}
+
+.card-img-top {
+    object-fit: cover;
+    height: 200px;
+}
+
+.announcement-card-body {
+    min-height: 150px;
+}
+
+.tall-image {
+    height: 260px;
+}
+
+
+.announcement-card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.announcement-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-key {
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 1440px) {
+    .announcement-card {
+        min-width: 300px;
+        margin-bottom: 20px;
+    }
+
+    .tall-image {
+        height: 150px;
+    }
+}

@@ -8,27 +8,31 @@ import NotFound from "../NotFound";
 import Footer from "../Footer";
 import Header from "../Header";
 import VerifyEmail from "../verifyEmail";
+import ForgotPassword from "../forgotPassword";
+import ResetPassword from "../resetPassword";
+import Home from "../home";
 
 class App extends Component {
     render() {
         return (
-            <div>
+            <div className="app-container">
                 <Routes>
-                    <Route
-                        path="/new-announcement"
-                        element={
-                            <>
-                                <Header />
-                                <NewAnnouncement />
-                            </>
-                        }
-                    />
+                    <Route path="/new-announcement" element={<NewAnnouncement />} />
+                    <Route path="/home" element={<Home />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/reset-password" element={<ResetPassword />} />
+                    <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/verifyEmail" element={<VerifyEmail />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
-                <Footer/>
+
+                {/*{window.location.pathname !== "/login" && window.location.pathname !== "/register" && (*/}
+                {/*    <div>*/}
+                {/*        <Header />*/}
+                {/*        <Footer/>*/}
+                {/*    </div>*/}
+                {/*)}*/}
             </div>
         );
     }

@@ -19,7 +19,14 @@ function Register(){
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-    const handleSignUp = () => {
+
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleSignUp = async() => {
+        setIsLoading(true);
+        setShowAlert(false);
+        setShowSuccessAlert(false);
+
         const requestBody = {
             "firstName": FirstName,
             "lastName": LastName,
@@ -30,30 +37,32 @@ function Register(){
         };
 
 
-        MyService.Register(requestBody)
-            .then(response => {
-                if (response.status === 200) {
-                    localStorage.setItem('email',requestBody.email);
-                    setShowSuccessAlert(true);
-                    setAlertMessage('Registration successful. Check your email for OTP verification.');
-                    MyService.SendOTP(requestBody.email).then(()=>{
-                        navigate('/verifyEmail');
-                    })}
-                else {
-                    return response.json().then(errorData => {
-                        console.error('Registration failed. Status Code:', response.status, 'Error Data:', errorData);
-                        setShowAlert(true);
-                        setAlertMessage('Registration failed. Please check the provided information.');
-                        throw new Error('Registration failed');
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Registration failed:', error);
+
+        try {
+            const response = await MyService.Register(requestBody);
+
+            if (response.status === 200) {
+                localStorage.setItem('email', requestBody.email);
+                setShowSuccessAlert(true);
+                setAlertMessage('Registration successful. Check your email for OTP verification.');
+                await MyService.SendOTP(requestBody.email);
+                navigate('/verifyEmail');
+            } else {
+                const errorData = await response.json();
+                console.error('Registration failed. Status Code:', response.status, 'Error Data:', errorData);
                 setShowAlert(true);
                 setAlertMessage('Registration failed. Please check the provided information.');
-            });
+            }
+        } catch (error) {
+            console.error('Registration failed:', error);
+            setShowAlert(true);
+            setAlertMessage('Registration failed. Please check the provided information.');
+        }
 
+        setIsLoading(false);
+
+
+        setIsLoading(false);
     };
 
     return(
@@ -120,7 +129,7 @@ function Register(){
                                                                     use</label>
                                                         </div>
                                                         <div className="text-center">
-                                                            <button type="button" className="btn btn-primary" onClick={handleSignUp}>Sign Up</button>
+                                                            <button type="button" className="btn btn-primary" onClick={handleSignUp} disabled={isLoading}> {isLoading ? 'Signing Up...' : 'Sign Up'}</button>
                                                         </div>
 
                                                         {showAlert && (
@@ -136,7 +145,7 @@ function Register(){
 
                                                     </form>
                                                     <div className="new-account mt-3 text-center">
-                                                        <p className="mb-0">Already have an Account <a className="text-primary" href="../../dashboard/auth/sign-in.html">Sign in</a>
+                                                        <p className="mb-0">Already have an Account <a className="text-primary" href="../login">Sign in</a>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -203,7 +212,7 @@ function Register(){
                                             </label>
                                     </div>
                                     <div className="text-center">
-                                        <button type="button" className="btn btn-primary" onClick={handleSignUp}>Sign Up</button>
+                                        <button type="button" className="btn btn-primary" onClick={handleSignUp} disabled={isLoading}> {isLoading ? 'Signing Up...' : 'Sign Up'}</button>
                                     </div>
                                     <div className="text-center mt-3">
                                         <p>or sign in with others account?</p>

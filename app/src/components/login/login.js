@@ -28,6 +28,9 @@ const Login = () => {
 
          if (response.status === 200) {
             setShowSuccessAlert(true);
+            setTimeout(() => {
+               navigate('/home');
+            }, 1000);
          } else {
             setShowAlert(true);
             setAlertMessage('Email or password is invalid');
@@ -43,7 +46,6 @@ const Login = () => {
 
    return (
        <div className="wrapper">
-
           <div className="main-auth-page">
              <Logo />
              <div className="clip-board">
@@ -79,7 +81,7 @@ const Login = () => {
                                            </div>
                                         </div>
                                         <div className="form-group">
-                                           <a href="#">Forgot Password?</a>
+                                           <a href="/forgot-password">Forgot Password?</a>
                                         </div>
                                      </div>
                                      <div className="text-center">
@@ -111,7 +113,7 @@ const Login = () => {
 
                                   </form>
                                   <div className="new-account mt-3 text-center">
-                                     <p>Don't have an account? <a className="" href="../../dashboard/auth/sign-up.html">Click here to sign up</a></p>
+                                     <p>Don't have an account? <a className="" href="../register">Click here to sign up</a></p>
                                   </div>
                                </div>
 
@@ -159,8 +161,8 @@ const Login = () => {
                             </div>
                          </div>
                          <div className="text-center">
-                            <button type="button" className="btn btn-primary" onClick={handleSignUp}>
-                               Sign In
+                            <button type="button" className="btn btn-primary" onClick={handleSignUp} disabled={isLoading}>
+                               {isLoading ? 'Signing In...' : 'Sign In'}
                             </button>
                          </div>
                          <div className="text-center mt-3">

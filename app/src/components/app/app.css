@@ -1,0 +1,5 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Set the container to fill the viewport height */
+}

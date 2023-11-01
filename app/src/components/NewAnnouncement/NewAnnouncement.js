@@ -22,6 +22,8 @@ const NewAnnouncement=()=>
     const [carConditions, setCarConditions] = useState([]);
     const [ManufactureYears, setManufactureYears] = useState([]);
 
+    const [photos, setPhotos] = useState([]);
+
     const [Countries, setCountries] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState('');
     const [Cities, setCities] = useState([]);
@@ -65,6 +67,13 @@ const NewAnnouncement=()=>
             ...formData,
             [name]: value,
         });
+    };
+
+    const handlePhotoUpload = (event,index) => {
+        const uploadedPhotos = event.target.files;
+        const updatedPhotos = [...photos];
+        updatedPhotos[index] = uploadedPhotos[0];
+        setPhotos(updatedPhotos);
     };
 
     const handleSelectChange = (event, field) => {
@@ -219,7 +228,7 @@ const NewAnnouncement=()=>
         setIsLoading(false);
     };
 
-
+    const customLabels = ["Front", "Rear", "Interior"];
     return(
         <div className="card">
             <div className="card-header d-flex justify-content-between">
@@ -288,6 +297,38 @@ const NewAnnouncement=()=>
                                     ))}
                                 </select>
                             </div>
+
+
+                            <div className="form-group col-md-12">
+                                <label className="form-label" htmlFor="photos">Upload Images:</label>
+                                <div className="input-group">
+                                    {Array.from({ length: 3 }).map((_, index) => (
+                                        <div className="input-group-prepend me-2 mb-1" key={index}>
+                                            <div className="text-center">{customLabels[index]}</div>
+                                            <label htmlFor={`imageUpload${index}`} className="input-group-text image-upload-label p-2">
+                                                <div className="image-upload-box">
+                                                    {photos[index] ? (
+                                                        <img src={URL.createObjectURL(photos[index])} alt={`Uploaded Image ${index + 1}`} className="uploaded-image" />
+                                                    ) : (
+                                                        <span className="plus-sign">+</span>
+                                                    )}
+                                                    <input
+                                                        type="file"
+                                                        accept="image/*"
+                                                        id={`imageUpload${index}`}
+                                                        style={{ display: "none" }}
+                                                        onChange={(event) => handlePhotoUpload(event, index)}
+                                                    />
+
+                                                </div>
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+
+
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="cname">Gearbox Type:</label>
                                 <select onChange={(e) => handleSelectChange(e, 'gearboxType')} className="form-control" id="cname">
@@ -519,7 +560,7 @@ const NewAnnouncement=()=>
                                 </div>
                             </div>
 
-                            <button type="submit" onClick={handleSubmit}  className="btn btn-primary" disabled={isLoading}>{isLoading ? 'Signing In...' : 'Sign In'}</button>
+                            <button type="submit" onClick={handleSubmit}  className="btn btn-primary" disabled={isLoading}>{isLoading ? 'Creating Announcement...' : 'Create Announcement'}</button>
 
                         {showAlert && (
                             <div className="alert alert-warning mt-3" role="alert">
