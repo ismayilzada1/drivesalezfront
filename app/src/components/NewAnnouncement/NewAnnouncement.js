@@ -21,8 +21,8 @@ const NewAnnouncement=()=>
     const [carOptions, setCarOptions] = useState([]);
     const [carConditions, setCarConditions] = useState([]);
     const [ManufactureYears, setManufactureYears] = useState([]);
+    const [images, setImages] = useState([]);
 
-    const [photos, setPhotos] = useState([]);
 
     const [Countries, setCountries] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState('');
@@ -69,11 +69,28 @@ const NewAnnouncement=()=>
         });
     };
 
-    const handlePhotoUpload = (event,index) => {
-        const uploadedPhotos = event.target.files;
-        const updatedPhotos = [...photos];
-        updatedPhotos[index] = uploadedPhotos[0];
-        setPhotos(updatedPhotos);
+
+    const handleImageUpload = (event) => {
+        const files = Array.from(event.target.files);
+
+        if (images.length + files.length > 22) {
+            return;
+        }
+
+        const imageObjects = files.map((file) => ({
+            file,
+            url: URL.createObjectURL(file),
+        }));
+
+        setImages((prevImages) => [...prevImages, ...imageObjects]);
+
+    };
+
+    const handleDeleteImage = (e,index) => {
+        e.preventDefault();
+        const newImages = [...images];
+        newImages.splice(index, 1);
+        setImages(newImages);
     };
 
     const handleSelectChange = (event, field) => {
@@ -302,28 +319,33 @@ const NewAnnouncement=()=>
                             <div className="form-group col-md-12">
                                 <label className="form-label" htmlFor="photos">Upload Images:</label>
                                 <div className="input-group">
-                                    {Array.from({ length: 3 }).map((_, index) => (
-                                        <div className="input-group-prepend me-2 mb-1" key={index}>
-                                            <div className="text-center">{customLabels[index]}</div>
-                                            <label htmlFor={`imageUpload${index}`} className="input-group-text image-upload-label p-2">
-                                                <div className="image-upload-box">
-                                                    {photos[index] ? (
-                                                        <img src={URL.createObjectURL(photos[index])} alt={`Uploaded Image ${index + 1}`} className="uploaded-image" />
-                                                    ) : (
-                                                        <span className="plus-sign">+</span>
-                                                    )}
-                                                    <input
-                                                        type="file"
-                                                        accept="image/*"
-                                                        id={`imageUpload${index}`}
-                                                        style={{ display: "none" }}
-                                                        onChange={(event) => handlePhotoUpload(event, index)}
-                                                    />
-
-                                                </div>
-                                            </label>
+                                    {images.map((image, index) => (
+                                        <div key={index} className="image-preview me-3 ms-3 mb-2 mt-2">
+                                            <div className="image-container">
+                                                <img
+                                                    src={image.url}
+                                                    alt={`Uploaded Image ${index + 1}`}
+                                                    className="uploaded-image"
+                                                    style={{ maxWidth: '250px', maxHeight: '250px' }}
+                                                />
+                                                <button className="delete-button" onClick={(e) => handleDeleteImage(e, index)}>
+                                                    &times;
+                                                </button>
+                                            </div>
                                         </div>
                                     ))}
+                                    <label className="input-group-text image-upload-label me-3 ms-3 mb-2 mt-2">
+                                        <div className="image-upload-box">
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                multiple
+                                                style={{ display: 'none' }}
+                                                onChange={handleImageUpload}
+                                            />
+                                            <span className="plus-sign">+</span>
+                                        </div>
+                                    </label>
                                 </div>
                             </div>
 
