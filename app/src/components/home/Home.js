@@ -100,17 +100,12 @@ const Home = () => {
     return (
         <div className="wrapper">
             <div className="bd-example">
-                <div className="row  row-cols-1 row-cols-md-3 mb-2">
-
+                <div className="d-flex flex-row flex-wrap justify-content-between">
                     {carData.map((car, index) => (
-                        <div className="col mt-3 announcement-card-div">
+                        <div className="col mb-2 ms-2 me-2" >
                         <AnnouncementCard key={index} {...car} />
                         </div>
                     ))}
-
-
-
-
                 </div>
             </div>
 

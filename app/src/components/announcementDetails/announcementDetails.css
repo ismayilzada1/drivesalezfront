@@ -1,0 +1,117 @@
+.img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    height: 70vh;
+    padding: 0 10px;
+    box-sizing: border-box;
+ }
+
+.image-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.carousel-inner {
+    text-align: center;
+}
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.6); /* Add a background for the captions */
+    color: #fff; /* Caption text color */
+    padding: 15px;
+}
+
+.vehicle-details-li {
+    background-color: transparent;
+}
+
+.thumbnail-container {
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    margin: 5px;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 10px;
+
+}
+
+
+.thumbnail-container:hover{opacity: 1}
+
+.thumbnail-image {
+    width: 100%;
+    height: 100%;
+    object-fit:cover;
+}
+
+.main-thumbnail-container{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+
+.modal-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+
+.carousel-item{
+    cursor:pointer;
+}
+
+@media (max-width: 768px) {
+    .image-container {
+        height: 26vh;
+    }
+
+
+    .carousel-inner {
+        height: 26vh;
+    }
+
+    .image-container img {
+        height: auto;
+    }
+
+    .thumbnail-container {
+        width: 50px;
+        height: 50px;
+    }
+
+    .main-thumbnail-container{
+        display:flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .carousel-indicator-button{
+        height: 10px !important;
+    }
+
+    .modal-image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-height: 30vh !important;
+    }
+
+    .modal-image-container  img{
+        max-width: 65vh !important;
+    }
+
+
+
+}

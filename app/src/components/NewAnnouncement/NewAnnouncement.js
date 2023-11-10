@@ -210,12 +210,7 @@ const NewAnnouncement=()=>
             "mileAge": parseInt(formData.mileage, 10),
             "mileageType": parseInt(formData.distanceUnit,10),
             "engineVolume": parseInt(formData.engineVolume, 10),
-            "imageUrls": [
-                {
-                    "id": 0,
-                    "url": "string"
-                }
-            ],
+            "imageUrls": [images],
             "countryId": parseInt(selectedCountry,10),
             "cityId": parseInt(formData.city,10),
             "applicationUserID": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
@@ -316,38 +311,6 @@ const NewAnnouncement=()=>
                             </div>
 
 
-                            <div className="form-group col-md-12">
-                                <label className="form-label" htmlFor="photos">Upload Images:</label>
-                                <div className="input-group">
-                                    {images.map((image, index) => (
-                                        <div key={index} className="image-preview me-3 ms-3 mb-2 mt-2">
-                                            <div className="image-container">
-                                                <img
-                                                    src={image.url}
-                                                    alt={`Uploaded Image ${index + 1}`}
-                                                    className="uploaded-image"
-                                                    style={{ maxWidth: '250px', maxHeight: '250px' }}
-                                                />
-                                                <button className="delete-button" onClick={(e) => handleDeleteImage(e, index)}>
-                                                    &times;
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))}
-                                    <label className="input-group-text image-upload-label me-3 ms-3 mb-2 mt-2">
-                                        <div className="image-upload-box">
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                multiple
-                                                style={{ display: 'none' }}
-                                                onChange={handleImageUpload}
-                                            />
-                                            <span className="plus-sign">+</span>
-                                        </div>
-                                    </label>
-                                </div>
-                            </div>
 
 
 
@@ -443,6 +406,40 @@ const NewAnnouncement=()=>
                                 <label className="form-label" htmlFor="pno">VIN Code:</label>
                                 <input onChange={handleInputChange} name="vinCode" type="text" className="form-control rounded" />
                             </div>
+
+                            <div className="form-group col-md-12">
+                                <label className="form-label" htmlFor="photos">Upload Images:</label>
+                                <div className="input-group">
+                                    {images.map((image, index) => (
+                                        <div key={index} className="image-preview me-3 ms-3 mb-2 mt-2">
+                                            <div className="image-container d-flex justify-content-center align-items-center">
+                                                <img
+                                                    src={image.url}
+                                                    alt={`Uploaded Image ${index + 1}`}
+                                                    className="uploaded-image"
+                                                    style={{ maxWidth: '250px', maxHeight: '250px' }}
+                                                />
+                                                <button className="delete-button" onClick={(e) => handleDeleteImage(e, index)}>
+                                                    &times;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <label className="input-group-text image-upload-label me-3 ms-3 mb-2 mt-2">
+                                        <div className="image-upload-box">
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                multiple
+                                                style={{ display: 'none' }}
+                                                onChange={handleImageUpload}
+                                            />
+                                            <span className="plus-sign">+</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
 
                             <div className="form-group col-md-12">
                                 <label className="form-label" htmlFor="pno">Options:</label>

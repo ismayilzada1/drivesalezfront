@@ -69,6 +69,9 @@ export default class Service {
     }
 
     async SendNewAnnounement(data) {
+
+        console.log(data);
+
         try {
             const response = await fetch('https://localhost:7261/api/Announcement/create-announcement', {
                 method: 'POST',

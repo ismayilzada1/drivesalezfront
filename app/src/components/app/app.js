@@ -11,6 +11,7 @@ import VerifyEmail from "../verifyEmail";
 import ForgotPassword from "../forgotPassword";
 import ResetPassword from "../resetPassword";
 import Home from "../home";
+import AnnouncementDetails from "../announcementDetails";
 
 class App extends Component {
     render() {
@@ -24,6 +25,7 @@ class App extends Component {
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/verifyEmail" element={<VerifyEmail />} />
+                    <Route path="/AnnouncementDetails" element={<AnnouncementDetails />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
 

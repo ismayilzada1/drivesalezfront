@@ -13,7 +13,7 @@ const NotFound=()=>{
                             <h2 className="mb-0 mt-4">Page Not Found.</h2>
                             <p className="mt-2">Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. </p>
                             <div className="d-flex justify-content-center">
-                                <a href="../../dashboard/index.html" className="btn btn-primary">Back to Home</a>
+                                <a href="/home" className="btn btn-primary">Back to Home</a>
                             </div>
                     </div>
                 </div>
