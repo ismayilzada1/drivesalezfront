@@ -70,6 +70,15 @@
     cursor:pointer;
 }
 
+.modal.fade {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.modal.fade .modal-body {
+    transition: transform 0.5s ease-in-out;
+}
+
+
 @media (max-width: 768px) {
     .image-container {
         height: 26vh;

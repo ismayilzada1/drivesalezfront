@@ -3,13 +3,20 @@ import "./announcementDetails.css";
 import Logo from "../logo";
 import Service from "../../api-services/service";
 import {useNavigate} from "react-router-dom";
-import { Modal, Button } from 'react-bootstrap';
+import {Modal, Button} from 'react-bootstrap';
+import {PiEngineBold} from "react-icons/pi";
+import {IoLogoModelS} from "react-icons/io";
+import {BsCalendarDate, BsFuelPump, BsTruck,BsPersonFill} from "react-icons/bs";
+import {FaRoad, FaHorse} from "react-icons/fa";
+import {TbManualGearbox, TbFlagPin} from "react-icons/tb";
+import {GiCarSeat, GiCarDoor, GiCarWheel} from "react-icons/gi";
+import {BiColorFill} from "react-icons/bi";
 
 
 const AnnouncementDetails = () => {
-    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-    const [isTransitioning, setIsTransitioning] = useState(false);
-    const [showModal, setShowModal] = useState(false);
+    const [selectedImageIndex, setSelectedImageIndex] = useState (0);
+    const [isTransitioning, setIsTransitioning] = useState (false);
+    const [showModal, setShowModal] = useState (false);
 
     const Images = [
         "https://turbo.azstatic.com/uploads/full/2023%2F10%2F06%2F18%2F54%2F05%2Fe0be1ac6-f7cd-4bf9-b468-79be4acf24fe%2F91840_lTUu1XOmMr8IQaB8QCujWw.jpg",
@@ -29,53 +36,49 @@ const AnnouncementDetails = () => {
 
     const handleThumbnailClick = (index) => {
         if (!isTransitioning) {
-            setSelectedImageIndex(index);
+            setSelectedImageIndex (index);
         }
     };
 
     const handleCloseModal = () => {
-        setShowModal(false);
+        setShowModal (false);
     };
 
     const handlePrevButtonClick = () => {
         if (!isTransitioning) {
-            setIsTransitioning(true);
-            setSelectedImageIndex((prevIndex) => (prevIndex - 1 >= 0 ? prevIndex - 1 : Images.length - 1));
-            // Add a timeout to re-enable the buttons after the carousel transition is done (adjust the timeout based on your transition duration)
-            setTimeout(() => {
-                setIsTransitioning(false);
-            }, 600); // Adjust the timeout value based on your transition duration (600ms in this example)
+            setIsTransitioning (true);
+            setSelectedImageIndex ((prevIndex) => (prevIndex - 1 >= 0 ? prevIndex - 1 : Images.length - 1));
+            setTimeout (() => {
+                setIsTransitioning (false);
+            }, 100);
         }
     };
 
     const handleNextButtonClick = () => {
         if (!isTransitioning) {
-            setIsTransitioning(true);
-            setSelectedImageIndex((prevIndex) => (prevIndex + 1 < Images.length ? prevIndex + 1 : 0));
-            // Add a timeout to re-enable the buttons after the carousel transition is done (adjust the timeout based on your transition duration)
-            setTimeout(() => {
-                setIsTransitioning(false);
-            }, 600); // Adjust the timeout value based on your transition duration (600ms in this example)
+            setIsTransitioning (true);
+            setSelectedImageIndex ((prevIndex) => (prevIndex + 1 < Images.length ? prevIndex + 1 : 0));
+            setTimeout (() => {
+                setIsTransitioning (false);
+            }, 100);
         }
     };
 
     const renderIndicators = () => {
-        return Images.map((_, index) => (
+        return Images.map ((_, index) => (
             <button
                 type="button"
                 data-bs-target="#carouselExampleCaptions"
                 data-bs-slide-to={index}
                 aria-label={`Slide ${index + 1}`}
-                onClick={() => handleThumbnailClick(index)}
+                onClick={() => handleThumbnailClick (index)}
                 className={`carousel-indicator-button ${selectedImageIndex === index ? 'active' : ''}`}
             ></button>
         ));
     };
 
 
-
-
-    return(
+    return (
         <>
 
 
@@ -85,11 +88,13 @@ const AnnouncementDetails = () => {
                         <div className="col-md-7">
                             <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
                                 <div className="carousel-indicators">
-                                    {renderIndicators()}
+                                    {renderIndicators ()}
                                 </div>
 
+
+
                                 <div className="carousel-inner">
-                                    {Images.map((image, index) => (
+                                    {Images.map ((image, index) => (
                                         <div
                                             key={index}
                                             className={`carousel-item ${index === 0 ? 'active' : ''}`}
@@ -99,7 +104,9 @@ const AnnouncementDetails = () => {
                                                     src={image}
                                                     className="d-block w-100"
                                                     alt={`Slide ${index}`}
-                                                    onClick={()=>{setShowModal(true);}}
+                                                    onClick={() => {
+                                                        setShowModal (true);
+                                                    }}
                                                 />
                                             </div>
                                         </div>
@@ -107,23 +114,23 @@ const AnnouncementDetails = () => {
                                 </div>
 
 
-
-                                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" onClick={handlePrevButtonClick}>
+                                <button className="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExampleCaptions" data-bs-slide="prev"
+                                        onClick={handlePrevButtonClick}>
                                     <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span className="visually-hidden">Previous</span>
                                 </button>
-                                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next" onClick={handleNextButtonClick}>
+                                <button className="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExampleCaptions" data-bs-slide="next"
+                                        onClick={handleNextButtonClick}>
                                     <span className="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span className="visually-hidden">Next</span>
                                 </button>
                             </div>
 
 
-
-
-
                             <div className="main-thumbnail-container mt-3">
-                                {Images.map((image, index) => (
+                                {Images.map ((image, index) => (
                                     <div className="col-md-2 mb-1" key={index}>
                                         <div className="thumbnail-container">
                                             <img
@@ -131,7 +138,7 @@ const AnnouncementDetails = () => {
                                                 className="thumbnail-image"
                                                 data-bs-target="#carouselExampleCaptions"
                                                 data-bs-slide-to={index}
-                                                onClick={() => handleThumbnailClick(index)}
+                                                onClick={() => handleThumbnailClick (index)}
                                                 style={{
                                                     opacity: selectedImageIndex === index ? 1 : 0.7,
                                                 }}
@@ -150,67 +157,166 @@ const AnnouncementDetails = () => {
                             <form action="#" method="post" className="border p-3 rounded">
                                 <h2 className="mb-3">Vehicle Details</h2>
                                 <ul className="list-group list-group-flush">
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Make</span>
+
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                <IoLogoModelS size={25} color="#f54141" opacity=".85"/>
+                                            </span>
+                                            <span>Make</span>
+                                        </span>
                                         <strong>BMW</strong>
                                     </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Model</span>
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                <IoLogoModelS size={25} color="#f54141" opacity=".85"/>
+                                            </span>
+
+                                            <span>Model</span>
+                                        </span>
+
                                         <strong>M50</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>First registration</span>
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                <BsCalendarDate size={22} color="#f54141" opacity=".85"/>
+                                            </span>
+
+                                            <span>First Registration</span>
+                                        </span>
+
                                         <strong>05/2022</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Mileage</span>
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                 <FaRoad size={22} color="#f54141" opacity=".85"/>
+                                            </span>
+                                            <span>Mileage</span>
+                                        </span>
                                         <strong>0 km</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Fuel</span>
+
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                 <BsFuelPump size={25} color="#f54141" opacity=".85"/>
+                                            </span>
+                                            <span>Fuel Type</span>
+                                        </span>
                                         <strong>Gasoline</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Engine size</span>
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                <PiEngineBold size={22} color="#f54141" opacity=".85"/>
+                                            </span>
+                                            <span>Engine Size</span>
+                                        </span>
                                         <strong>3000 cc</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Power</span>
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                 <FaHorse size={22} color="#f54141" opacity=".85" opacity=".85"/>
+                                            </span>
+                                            <span>Power</span>
+                                        </span>
                                         <strong>485 hp</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Gearbox</span>
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                <TbManualGearbox size={25} color="#f54141" opacity=".85"/>
+                                            </span>
+                                            <span>Gearbox</span>
+                                        </span>
                                         <strong>Manual</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Number of seats</span>
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                <GiCarSeat size={25} color="#f54141" opacity=".85"/>
+                                            </span>
+                                            <span>Number of Seats</span>
+                                        </span>
                                         <strong>4</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Doors</span>
+
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                <GiCarDoor size={25} color="#f54141" opacity=".85"/>
+                                            </span>
+                                            <span>Number of Doors</span>
+                                        </span>
                                         <strong>4</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Color</span>
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                <BiColorFill size={25} color="#f54141" opacity=".85"/>
+                                            </span>
+                                            <span>Color</span>
+                                        </span>
                                         <strong>Black</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Body Type</span>
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                <BsTruck size={25} color="#f54141" opacity=".85"/>
+                                            </span>
+                                            <span>Body Type</span>
+                                        </span>
                                         <strong>Coupe</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Wheel Drive</span>
+
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                <GiCarWheel size={25} color="#f54141" opacity=".85"/>
+                                            </span>
+                                            <span>Wheel Drive</span>
+                                        </span>
                                         <strong>Full</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Owner Quantity</span>
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                <BsPersonFill size={25} color="#f54141" opacity=".85"/>
+                                            </span>
+                                            <span>Owner Quantity</span>
+                                        </span>
                                         <strong>0</strong>
                                     </li>
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Market Version</span>
+
+
+                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                        <span className="d-flex align-items-center">
+                                            <span className="me-1">
+                                                <TbFlagPin size={25} color="#f54141" opacity=".85"/>
+                                            </span>
+                                            <span>Market Version</span>
+                                        </span>
                                         <strong>Europe</strong>
                                     </li>
+
                                 </ul>
                             </form>
 
@@ -255,30 +361,31 @@ const AnnouncementDetails = () => {
                         </div>
 
 
-
                     </div>
-                        <div className="row">
-                            <div className="col-md-8">
-                                <div className="tabs-content">
-                                    <h4>Vehicle Description</h4>
-                                    <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, alias animi, asperiores consequatur corporis deserunt doloribus facere, ipsam quidem recusandae reiciendis rem tenetur ullam. Libero maxime neque recusandae rerum veniam?</span><span>Amet at beatae, corporis dolorum eveniet in ipsa officiis quisquam soluta velit? Accusamus id, molestiae odit recusandae veniam voluptatum. Aperiam error eum nisi repellat reprehenderit tempora ullam vero voluptate voluptatibus?</span><span>Aperiam culpa dignissimos impedit laborum nobis quam rerum saepe sunt tempore vitae. Dolore excepturi iure quae quisquam quod saepe similique. Aliquam, et excepturi impedit minus non quaerat quas quo similique.</span><span>Aperiam blanditiis consectetur dignissimos dolore dolorum eius, ex fugiat inventore, iusto, nisi quam quasi? Hic, nostrum sit! Ab aperiam earum fugiat natus officia omnis quaerat quo! Adipisci dolores obcaecati voluptatum!</span><span>Deleniti dicta ea facilis fugit nihil, perferendis repudiandae sed! Asperiores culpa cupiditate est id itaque natus necessitatibus officiis perferendis quisquam, repellendus tempore temporibus tenetur, vel. Doloremque id quo vero voluptatum.</span></p>
-                                    <br/>
-                                </div>
-                            </div>
-
-                            <div className="col-md-4">
-                                <div className="tabs-content">
-                                    <h4>Vehicle Extras</h4>
-
-                                    <p>- ABS <br/>-Leather seats <br/>-Power Assisted Steering <br/>-Electric heated seats <br/>-New HU and AU <br/>-Xenon headlights</p>
-                                </div>
-
+                    <div className="row">
+                        <div className="col-md-8">
+                            <div className="tabs-content">
+                                <h4>Vehicle Description</h4>
+                                <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, alias animi, asperiores consequatur corporis deserunt doloribus facere, ipsam quidem recusandae reiciendis rem tenetur ullam. Libero maxime neque recusandae rerum veniam?</span><span>Amet at beatae, corporis dolorum eveniet in ipsa officiis quisquam soluta velit? Accusamus id, molestiae odit recusandae veniam voluptatum. Aperiam error eum nisi repellat reprehenderit tempora ullam vero voluptate voluptatibus?</span><span>Aperiam culpa dignissimos impedit laborum nobis quam rerum saepe sunt tempore vitae. Dolore excepturi iure quae quisquam quod saepe similique. Aliquam, et excepturi impedit minus non quaerat quas quo similique.</span><span>Aperiam blanditiis consectetur dignissimos dolore dolorum eius, ex fugiat inventore, iusto, nisi quam quasi? Hic, nostrum sit! Ab aperiam earum fugiat natus officia omnis quaerat quo! Adipisci dolores obcaecati voluptatum!</span><span>Deleniti dicta ea facilis fugit nihil, perferendis repudiandae sed! Asperiores culpa cupiditate est id itaque natus necessitatibus officiis perferendis quisquam, repellendus tempore temporibus tenetur, vel. Doloremque id quo vero voluptatum.</span>
+                                </p>
+                                <br/>
                             </div>
                         </div>
+
+                        <div className="col-md-4">
+                            <div className="tabs-content">
+                                <h4>Vehicle Extras</h4>
+
+                                <p>- ABS <br/>-Leather seats <br/>-Power Assisted Steering <br/>-Electric heated
+                                    seats <br/>-New HU and AU <br/>-Xenon headlights</p>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <Modal show={showModal} onHide={handleCloseModal} centered>
+            <Modal show={showModal} onHide={handleCloseModal} centered className="fade">
                 <Modal.Body className="modal-image-container">
                     <img
                         src={Images[selectedImageIndex]}
@@ -293,4 +400,4 @@ const AnnouncementDetails = () => {
     );
 }
 
-export  default AnnouncementDetails;
+export default AnnouncementDetails;

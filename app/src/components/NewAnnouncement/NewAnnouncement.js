@@ -186,9 +186,19 @@ const NewAnnouncement=()=>
     const handleSubmit = async(e) => {
         e.preventDefault();
 
-        console.log(formData);
         setIsLoading(true);
 
+        const imagesBase64 = await Promise.all(images.map(async (image) => {
+            const response = await fetch(image.url);
+            const blob = await response.blob();
+            const base64data = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+            return base64data;
+        }));
 
         const data = {
             "yearId": parseInt(formData.manufactureYear, 10),
@@ -210,10 +220,9 @@ const NewAnnouncement=()=>
             "mileAge": parseInt(formData.mileage, 10),
             "mileageType": parseInt(formData.distanceUnit,10),
             "engineVolume": parseInt(formData.engineVolume, 10),
-            "imageUrls": [images],
+            "imageUrls": imagesBase64,
             "countryId": parseInt(selectedCountry,10),
             "cityId": parseInt(formData.city,10),
-            "applicationUserID": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
             "barter": formData.barter,
             "onCredit": formData.credit,
             "description": formData.description,
@@ -221,9 +230,20 @@ const NewAnnouncement=()=>
             "currency": parseInt(formData.priceCurrency,10)
         };
 
-
         try {
-            const response= await MyService.SendNewAnnounement(data);
+
+            // const formData = new FormData();
+            //
+            // Object.entries(data).forEach(([key, value]) => {
+            //     if (Array.isArray(value)) {
+            //         value.forEach((item) => formData.append(key, item));
+            //     } else {
+            //         formData.append(key, value);
+            //     }
+            // });
+
+
+            const response= await MyService.SendNewAnnounement(formData);
 
 
             if (response.status === 200) {
@@ -258,7 +278,7 @@ const NewAnnouncement=()=>
                                     <option disabled selected >Select Vehicle Make</option>
                                     {carBrands.map((brand) => (
                                         <option key={brand.id} value={brand.id}>
-                                            {brand.name}
+                                            {brand.makeName}
                                         </option>
                                     ))}
                                 </select>
@@ -269,7 +289,7 @@ const NewAnnouncement=()=>
                                     <option disabled selected>Select Vehicle Model</option>
                                     {filteredModels.map((model) => (
                                         <option key={model.id} value={model.id}>
-                                            {model.name}
+                                            {model.modelName}
                                         </option>
                                     ))}
                                 </select>
@@ -280,7 +300,7 @@ const NewAnnouncement=()=>
                                     <option disabled selected>Select Vehicle Body Type</option>
                                     {carBodyTypes.map((bodyType) => (
                                         <option key={bodyType.id} value={bodyType.id}>
-                                            {bodyType.name}
+                                            {bodyType.bodyType}
                                         </option>
                                     ))}
 
@@ -304,7 +324,7 @@ const NewAnnouncement=()=>
                                     <option disabled selected>Select Drive Train Type</option>
                                     {carDriveTrainTypes.map((driveTrainType) => (
                                         <option key={driveTrainType.id} value={driveTrainType.id}>
-                                            {driveTrainType.name}
+                                            {driveTrainType.drivetrainType}
                                         </option>
                                     ))}
                                 </select>
@@ -320,7 +340,7 @@ const NewAnnouncement=()=>
                                     <option disabled selected>Select Gearbox Type</option>
                                     {carGearboxTypes.map((gearboxType) => (
                                         <option key={gearboxType.id} value={gearboxType.id}>
-                                            {gearboxType.name}
+                                            {gearboxType.gearboxType}
                                         </option>
                                     ))}
                                 </select>
@@ -361,7 +381,7 @@ const NewAnnouncement=()=>
                                     <option disabled selected>Select Vehicle Color</option>
                                     {carColors.map((color) => (
                                         <option key={color.id} value={color.id}>
-                                            {color.name}
+                                            {color.color}
                                         </option>
                                     ))}
                                 </select>
@@ -384,7 +404,7 @@ const NewAnnouncement=()=>
                                     <option disabled selected>Select Vehicle Market Version</option>
                                     {carMarketVersions.map((marketVersion) => (
                                         <option key={marketVersion.id} value={marketVersion.id}>
-                                            {marketVersion.name}
+                                            {marketVersion.marketVersion}
                                         </option>
                                     ))}
                                 </select>
@@ -518,7 +538,7 @@ const NewAnnouncement=()=>
                                         <option disabled selected>Select Country</option>
                                         {Countries.map((country) => (
                                             <option key={country.id} value={country.id}>
-                                                {country.name}
+                                                {country.countryName}
                                             </option>
                                         ))}
                                     </select>
@@ -530,7 +550,7 @@ const NewAnnouncement=()=>
                                         <option disabled selected>Select City</option>
                                         {filteredCities.map((city) => (
                                             <option key={city.id} value={city.id}>
-                                                {city.name}
+                                                {city.cityName}
                                             </option>
                                         ))}
                                     </select>

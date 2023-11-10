@@ -69,14 +69,11 @@ export default class Service {
     }
 
     async SendNewAnnounement(data) {
-
-        console.log(data);
-
         try {
             const response = await fetch('https://localhost:7261/api/Announcement/create-announcement', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'multipart/form-data',
                     "Authorization":`Bearer ${localStorage.getItem("accessToken")}`
                 },
                 body: JSON.stringify(data),
