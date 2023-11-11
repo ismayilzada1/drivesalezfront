@@ -13,6 +13,7 @@ import {GiCarSeat, GiCarDoor, GiCarWheel} from "react-icons/gi";
 import {BiColorFill} from "react-icons/bi";
 
 
+
 const AnnouncementDetails = () => {
     const [selectedImageIndex, setSelectedImageIndex] = useState (0);
     const [isTransitioning, setIsTransitioning] = useState (false);
@@ -154,22 +155,38 @@ const AnnouncementDetails = () => {
 
 
                         <div className="col-md-5">
-                            <form action="#" method="post" className="border p-3 rounded">
-                                <h2 className="mb-3">Vehicle Details</h2>
-                                <ul className="list-group list-group-flush">
 
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+
+
+
+
+                            <div className="accordion" id="detailsAccordion">
+
+                                <div className="accordion-item">
+                                    <h2 className="accordion-header" id="vehicleDetails">
+                                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVehicleDetails" aria-expanded="true" aria-controls="collapseVehicleDetails">
+                                            Vehicle Details
+                                        </button>
+                                    </h2>
+                                    <div id="collapseVehicleDetails" className="accordion-collapse collapse show" aria-labelledby="vehicleDetails">
+                                        <div className="accordion-body p-0">
+                                            <form action="#" method="post" className="border p-3 rounded">
+                                                <h2 className="mb-3">Vehicle Details</h2>
+                                                <ul className="list-group list-group-flush">
+
+
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                 <IoLogoModelS size={25} color="#f54141" opacity=".85"/>
                                             </span>
                                             <span>Make</span>
                                         </span>
-                                        <strong>BMW</strong>
-                                    </li>
+                                                        <strong>BMW</strong>
+                                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                 <IoLogoModelS size={25} color="#f54141" opacity=".85"/>
@@ -178,10 +195,10 @@ const AnnouncementDetails = () => {
                                             <span>Model</span>
                                         </span>
 
-                                        <strong>M50</strong>
-                                    </li>
+                                                        <strong>M50</strong>
+                                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                 <BsCalendarDate size={22} color="#f54141" opacity=".85"/>
@@ -190,178 +207,226 @@ const AnnouncementDetails = () => {
                                             <span>First Registration</span>
                                         </span>
 
-                                        <strong>05/2022</strong>
-                                    </li>
+                                                        <strong>05/2022</strong>
+                                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                  <FaRoad size={22} color="#f54141" opacity=".85"/>
                                             </span>
                                             <span>Mileage</span>
                                         </span>
-                                        <strong>0 km</strong>
-                                    </li>
+                                                        <strong>0 km</strong>
+                                                    </li>
 
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                  <BsFuelPump size={25} color="#f54141" opacity=".85"/>
                                             </span>
                                             <span>Fuel Type</span>
                                         </span>
-                                        <strong>Gasoline</strong>
-                                    </li>
+                                                        <strong>Gasoline</strong>
+                                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                 <PiEngineBold size={22} color="#f54141" opacity=".85"/>
                                             </span>
                                             <span>Engine Size</span>
                                         </span>
-                                        <strong>3000 cc</strong>
-                                    </li>
+                                                        <strong>3000 cc</strong>
+                                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                  <FaHorse size={22} color="#f54141" opacity=".85" opacity=".85"/>
                                             </span>
                                             <span>Power</span>
                                         </span>
-                                        <strong>485 hp</strong>
-                                    </li>
+                                                        <strong>485 hp</strong>
+                                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                 <TbManualGearbox size={25} color="#f54141" opacity=".85"/>
                                             </span>
                                             <span>Gearbox</span>
                                         </span>
-                                        <strong>Manual</strong>
-                                    </li>
+                                                        <strong>Manual</strong>
+                                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                 <GiCarSeat size={25} color="#f54141" opacity=".85"/>
                                             </span>
                                             <span>Number of Seats</span>
                                         </span>
-                                        <strong>4</strong>
-                                    </li>
+                                                        <strong>4</strong>
+                                                    </li>
 
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                 <GiCarDoor size={25} color="#f54141" opacity=".85"/>
                                             </span>
                                             <span>Number of Doors</span>
                                         </span>
-                                        <strong>4</strong>
-                                    </li>
+                                                        <strong>4</strong>
+                                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                 <BiColorFill size={25} color="#f54141" opacity=".85"/>
                                             </span>
                                             <span>Color</span>
                                         </span>
-                                        <strong>Black</strong>
-                                    </li>
+                                                        <strong>Black</strong>
+                                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                 <BsTruck size={25} color="#f54141" opacity=".85"/>
                                             </span>
                                             <span>Body Type</span>
                                         </span>
-                                        <strong>Coupe</strong>
-                                    </li>
+                                                        <strong>Coupe</strong>
+                                                    </li>
 
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                 <GiCarWheel size={25} color="#f54141" opacity=".85"/>
                                             </span>
                                             <span>Wheel Drive</span>
                                         </span>
-                                        <strong>Full</strong>
-                                    </li>
+                                                        <strong>Full</strong>
+                                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                 <BsPersonFill size={25} color="#f54141" opacity=".85"/>
                                             </span>
                                             <span>Owner Quantity</span>
                                         </span>
-                                        <strong>0</strong>
-                                    </li>
+                                                        <strong>0</strong>
+                                                    </li>
 
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>
                                         <span className="d-flex align-items-center">
                                             <span className="me-1">
                                                 <TbFlagPin size={25} color="#f54141" opacity=".85"/>
                                             </span>
                                             <span>Market Version</span>
                                         </span>
-                                        <strong>Europe</strong>
-                                    </li>
+                                                        <strong>Europe</strong>
+                                                    </li>
 
-                                </ul>
-                            </form>
+                                                </ul>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <div className="border p-3 rounded mt-2">
-                                <h2 className="mb-3 d-flex align-items-center justify-content-between">
-                                    Owner Details
-                                </h2>
-                                <ul className="list-group list-group-flush">
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Name</span>
-                                        <strong>Ahmad</strong>
-                                    </li>
+                                <div className="accordion-item ">
+                                    <h2 className="accordion-header" id="otherDetails">
+                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOtherDetails" aria-expanded="false" aria-controls="collapseOtherDetails" >
+                                            Other Details
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOtherDetails" className="accordion-collapse collapse" aria-labelledby="otherDetails">
+                                        <div className="accordion-body p-0">
+                                            <div className="d-flex flex-wrap flex-row">
+                                                <span className="badge badge-custom rounded-pill m-1 p-3">ABS</span>
+                                                <span className="badge badge-custom rounded-pill m-1 p-3">ESC</span>
+                                                <span className="badge badge-custom rounded-pill m-1 p-3">Heated Seats</span>
+                                                <span className="badge badge-custom rounded-pill m-1 p-3">Air Conditioning</span>
+                                                <span className="badge badge-custom rounded-pill m-1 p-3">4x4</span>
+                                                <span className="badge badge-custom rounded-pill m-1 p-3">BMW</span>
+                                                <span className="badge badge-custom rounded-pill m-1 p-3">Park Radar</span>
+                                                <span className="badge badge-custom rounded-pill m-1 p-3">Xenon lights</span>
+                                                <span className="badge badge-custom rounded-pill m-1 p-3">Leather interior</span>
+                                                <span className="badge badge-custom rounded-pill m-1 p-3">Sunroof</span>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Surname</span>
-                                        <strong>Ahmadzada</strong>
-                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Country</span>
-                                        <strong>Azerbaijan</strong>
-                                    </li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>City</span>
-                                        <strong>Baku</strong>
-                                    </li>
+                                <div className="accordion-item ">
+                                    <h2 className="accordion-header" id="ownerDetails">
+                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOwnerDetails" aria-expanded="false" aria-controls="collapseOwnerDetails" >
+                                            Owner Details
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOwnerDetails" className="accordion-collapse collapse" aria-labelledby="ownerDetails">
+                                        <div className="accordion-body p-0">
+                                            <div className="border p-3 rounded">
+                                                <h2 className="mb-3 d-flex align-items-center justify-content-between">
+                                                    Owner Details
+                                                </h2>
+                                                <ul className="list-group list-group-flush">
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
+                                                        <span>Name</span>
+                                                        <strong>Ahmad</strong>
+                                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>Phone number</span>
-                                        <strong className='text-danger'>+994 (55) 555 55 55</strong>
-                                    </li>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
+                                                        <span>Surname</span>
+                                                        <strong>Ahmadzada</strong>
+                                                    </li>
 
-                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
-                                        <span>E-mail</span>
-                                        <strong className='text-danger'>indian@gmail.com</strong>
-                                    </li>
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
+                                                        <span>Country</span>
+                                                        <strong>Azerbaijan</strong>
+                                                    </li>
 
-                                </ul>
+
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
+                                                        <span>City</span>
+                                                        <strong>Baku</strong>
+                                                    </li>
+
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
+                                                        <span>Phone number</span>
+                                                        <strong className='text-danger'>+994 (55) 555 55 55</strong>
+                                                    </li>
+
+                                                    <li className="list-group-item vehicle-details-li d-flex justify-content-between">
+                                                        <span>E-mail</span>
+                                                        <strong className='text-danger'>indian@gmail.com</strong>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
+
                         </div>
 
 
+
                     </div>
+
+
+
                     <div className="row">
                         <div className="col-md-8">
                             <div className="tabs-content">
@@ -372,15 +437,6 @@ const AnnouncementDetails = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-4">
-                            <div className="tabs-content">
-                                <h4>Vehicle Extras</h4>
-
-                                <p>- ABS <br/>-Leather seats <br/>-Power Assisted Steering <br/>-Electric heated
-                                    seats <br/>-New HU and AU <br/>-Xenon headlights</p>
-                            </div>
-
-                        </div>
                     </div>
                 </div>
             </div>

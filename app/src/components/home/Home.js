@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Logo from '../logo';
 import './Home.css';
 import AnnouncementCard from "../announcementCard";
+import { Form, Row, Col, Button,Collapse } from 'react-bootstrap';
 
 const Home = () => {
     const carData = [
@@ -97,8 +98,146 @@ const Home = () => {
         }
     ];
 
+    const [showDetails, setShowDetails] = useState(false);
+
+    const toggleDetails = () => {
+        setShowDetails(!showDetails);
+    };
+
+    // Function to clear the form
+    const clearForm = () => {
+        // Add logic to clear form fields (reset the state, if controlled components)
+    };
+
+    // Function to perform search
+    const search = () => {
+        // Add logic to handle search based on form values
+    };
+
     return (
         <div className="wrapper">
+            <section className="featured-places mb-5">
+                <Row className="container">
+                    <Form onSubmit={search}>
+                        <Row>
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formUsedNew">
+                                    <Form.Label>Used/New:</Form.Label>
+                                    <Form.Control as="select">
+                                        <option value="">All</option>
+                                        <option value="new">New vehicle</option>
+                                        <option value="used">Used vehicle</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formVehicleType">
+                                    <Form.Label>Vehicle Type:</Form.Label>
+                                    <Form.Control as="select">
+                                        <option value="">-- All --</option>
+                                        {/* Add vehicle type options */}
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formMake">
+                                    <Form.Label>Make:</Form.Label>
+                                    <Form.Control as="select">
+                                        <option value="">-- All --</option>
+                                        {/* Add make options */}
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formModel">
+                                    <Form.Label>Model:</Form.Label>
+                                    <Form.Control as="select">
+                                        <option value="">-- All --</option>
+                                        {/* Add model options */}
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formPrice">
+                                    <Form.Label>Price:</Form.Label>
+                                    <Form.Control as="select">
+                                        <option value="">-- All --</option>
+                                        {/* Add price options */}
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formMileage">
+                                    <Form.Label>Mileage:</Form.Label>
+                                    <Form.Control as="select">
+                                        <option value="">-- All --</option>
+                                        {/* Add mileage options */}
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formEngineSize">
+                                    <Form.Label>Engine size:</Form.Label>
+                                    <Form.Control as="select">
+                                        <option value="">-- All --</option>
+                                        {/* Add engine size options */}
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formPower">
+                                    <Form.Label>Power:</Form.Label>
+                                    <Form.Control as="select">
+                                        <option value="">-- All --</option>
+                                        {/* Add power options */}
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+
+                            <Collapse in={showDetails}>
+                                <Row>
+                                    <Col lg={3} md={4} sm={6} xs={12}>
+                                        <Form.Group controlId="formDoors">
+                                            <Form.Label>Doors:</Form.Label>
+                                            <Form.Control as="select">
+                                                <option value="">-- All --</option>
+                                                {/* Add doors options */}
+                                            </Form.Control>
+                                        </Form.Group>
+                                    </Col>
+                                    <Col lg={3} md={4} sm={6} xs={12}>
+                                        <Form.Group controlId="formSeats">
+                                            <Form.Label>Number of seats:</Form.Label>
+                                            <Form.Control as="select">
+                                                <option value="">-- All --</option>
+                                                {/* Add seats options */}
+                                            </Form.Control>
+                                        </Form.Group>
+                                    </Col>
+                                </Row>
+                            </Collapse>
+                        </Row>
+
+                        <div className="d-flex justify-content-end mt-3">
+                            <Button  className="btn round-btn text-white me-2" onClick={clearForm}>
+                                <i className="fas fa-broom"></i>
+                            </Button>
+                            <Button variant="primary" className="me-2" onClick={toggleDetails}>
+                                {showDetails ? 'Less Filters ↑' : 'More Filters ↓'}
+                            </Button>
+                            <Button type="submit" variant="dark" className="border-2">
+                                Search Vehicles
+                            </Button>
+                        </div>
+                    </Form>
+                </Row>
+            </section>
+
+
+
+
+
             <div className="bd-example">
                 <div className="d-flex flex-row flex-wrap justify-content-between">
                     {carData.map((car, index) => (

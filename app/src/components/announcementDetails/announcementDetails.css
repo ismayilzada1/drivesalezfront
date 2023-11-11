@@ -79,6 +79,19 @@
 }
 
 
+
+.badge-custom {
+    background-color: #f54114;
+    color: #ffffff;
+    font-size: .75rem;
+    opacity: .85;
+    cursor: pointer;
+}
+
+.badge-custom:hover{
+    opacity: 1;
+}
+
 @media (max-width: 768px) {
     .image-container {
         height: 26vh;
