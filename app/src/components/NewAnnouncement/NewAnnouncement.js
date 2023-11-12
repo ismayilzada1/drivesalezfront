@@ -193,57 +193,52 @@ const NewAnnouncement=()=>
             const blob = await response.blob();
             const base64data = await new Promise((resolve, reject) => {
                 const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                reader.onloadend = () => resolve(reader.result);
                 reader.onerror = reject;
                 reader.readAsDataURL(blob);
             });
             return base64data;
         }));
 
+
         const data = {
+
             "yearId": parseInt(formData.manufactureYear, 10),
-            "makeID": parseInt(selectedBrand,10),
-            "modelID": parseInt(formData.model,10),
-            "fuelTypeID": parseInt(formData.fuelType,10),
-            "gearboxID": parseInt(formData.gearboxType,10),
-            "driveTrainTypeID": parseInt(formData.driveTrainType,10),
-            "bodyTypeID": parseInt(formData.bodyType,10),
-            "conditionsIDs": formData.conditions,
-            "optionsIDs": formData.options,
-            "colorID": parseInt(formData.color,10),
-            "marketVersionID": parseInt(formData.marketVersion,10),
+            "makeId": parseInt(selectedBrand,10),
+            "modelId": parseInt(formData.model,10),
+            "fuelTypeId": parseInt(formData.fuelType,10),
+            "gearboxId": parseInt(formData.gearboxType,10),
+            "drivetrainTypeId": parseInt(formData.driveTrainType,10),
+            "bodyTypeId": parseInt(formData.bodyType,10),
+            "conditionsIds": formData.conditions,
+            "optionsIds": formData.options,
+            "colorId": parseInt(formData.color,10),
+            "marketVersionId": parseInt(formData.marketVersion,10),
             "horsePower": parseInt(formData.horsePower, 10),
             "isBrandNew": formData.brandNew,
             "ownerQuantity": parseInt(formData.ownerQuantity, 10),
             "seatCount": parseInt(formData.seatCount, 10),
             "vinCode": formData.vinCode,
-            "mileAge": parseInt(formData.mileage, 10),
+            "mileage": parseInt(formData.mileage, 10),
             "mileageType": parseInt(formData.distanceUnit,10),
             "engineVolume": parseInt(formData.engineVolume, 10),
-            "imageUrls": imagesBase64,
+            "imageData": imagesBase64,
             "countryId": parseInt(selectedCountry,10),
             "cityId": parseInt(formData.city,10),
             "barter": formData.barter,
             "onCredit": formData.credit,
             "description": formData.description,
             "price": parseInt(formData.price, 10),
-            "currency": parseInt(formData.priceCurrency,10)
+            "currencyId": parseInt(formData.priceCurrency,10),
         };
 
         try {
 
-            // const formData = new FormData();
-            //
-            // Object.entries(data).forEach(([key, value]) => {
-            //     if (Array.isArray(value)) {
-            //         value.forEach((item) => formData.append(key, item));
-            //     } else {
-            //         formData.append(key, value);
-            //     }
-            // });
 
 
-            const response= await MyService.SendNewAnnounement(formData);
+
+
+            const response= await MyService.SendNewAnnounement(data);
 
 
             if (response.status === 200) {

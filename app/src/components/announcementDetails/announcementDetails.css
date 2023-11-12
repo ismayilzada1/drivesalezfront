@@ -3,7 +3,6 @@
     align-items: center;
     justify-content: center;
     height: 70vh;
-    padding: 0 10px;
     box-sizing: border-box;
     position:relative;
  }
@@ -24,7 +23,7 @@
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
-    z-index: 999d;
+    z-index: 2;
 }
 
 .carousel-inner {
@@ -35,6 +34,20 @@
     background: rgba(0, 0, 0, 0.6); /* Add a background for the captions */
     color: #fff; /* Caption text color */
     padding: 15px;
+}
+
+.carousel-control-prev
+{
+    z-index:3;
+}
+
+.carousel-control-next
+{
+    z-index:3;
+}
+
+.carousel-indicators{
+    z-index:3;
 }
 
 .vehicle-details-li {

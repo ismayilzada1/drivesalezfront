@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Logo from '../logo';
 import './Home.css';
 import AnnouncementCard from "../announcementCard";
-import { Form, Row, Col, Button,Collapse } from 'react-bootstrap';
+import { Form, Row, Col, Button,Collapse,Dropdown } from 'react-bootstrap';
 
 const Home = () => {
     const carData = [
@@ -127,6 +127,31 @@ const Home = () => {
         setIsOnCreditrFilter(!isOnCreditFilter);
     };
 
+
+
+
+    const [selectedValues, setSelectedValues] = useState([]);
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const handleCheckboxChange = (value) => {
+        if (selectedValues.includes(value)) {
+            setSelectedValues(selectedValues.filter((item) => item !== value));
+        } else {
+            setSelectedValues([...selectedValues, value]);
+        }
+    };
+
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    };
+
+    const options = [
+        { value: 'black', label: 'Qara', color: '#000000' },
+        { value: 'gray', label: 'Yaş Asfalt', color: '#505050' },
+        { value: 'brown', label: 'Boz', color: '#808080' },
+    ];
+
+
     return (
         <Row className="wrapper">
 
@@ -209,11 +234,14 @@ const Home = () => {
                             </Col>
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formMileage">
-                                    <Form.Label>Gearbox Type:</Form.Label>
+                                    <Form.Label>Fuel Type:</Form.Label>
                                     <Form.Control as="select" className='form-control'>
                                         <option value="">All</option>
-                                        <option value="">Auto</option>
-                                        <option value="">Manual</option>
+                                        <option value="">Gasoline</option>
+                                        <option value="">Diesel</option>
+                                        <option value="">Hybrid</option>
+                                        <option value="">Electric</option>
+
                                     </Form.Control>
                                 </Form.Group>
                             </Col>
@@ -240,6 +268,31 @@ const Home = () => {
                             <Collapse in={showDetails} className='mt-2 pe-0'>
                                 <Row>
                                     <Col lg={3} md={4} sm={6} xs={12}>
+                                        <Form.Group controlId="formWheelDrive">
+                                            <Form.Label>Wheel Drive:</Form.Label>
+                                            <Form.Control as="select">
+                                                <option>All</option>
+                                                <option>FWD</option>
+                                                <option>RWD</option>
+                                                <option>AWD</option>
+                                            </Form.Control>
+                                        </Form.Group>
+                                    </Col>
+
+                                    <Col lg={3} md={4} sm={6} xs={12}>
+                                        <Form.Group controlId="formColor">
+                                            <Form.Label>Color:</Form.Label>
+                                            <Form.Control as="select">
+                                                <option>All</option>
+                                                <option>Blue</option>
+                                                <option>White</option>
+                                                <option>AWD</option>
+                                            </Form.Control>
+                                        </Form.Group>
+                                    </Col>
+
+
+                                    <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formDoors">
                                             <Form.Label>Doors:</Form.Label>
                                             <Form.Control as="select">
@@ -264,6 +317,9 @@ const Home = () => {
                                             </Form.Control>
                                         </Form.Group>
                                     </Col>
+
+
+
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formMileage">

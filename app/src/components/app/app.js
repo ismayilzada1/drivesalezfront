@@ -19,7 +19,7 @@ class App extends Component {
             <div className="app-container">
                 <Routes>
                     <Route path="/new-announcement" element={<NewAnnouncement />} />
-                    <Route path="/home" element={<Home />} />
+                    <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />

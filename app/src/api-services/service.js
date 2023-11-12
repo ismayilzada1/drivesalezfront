@@ -69,11 +69,16 @@ export default class Service {
     }
 
     async SendNewAnnounement(data) {
+
         try {
+
+            console.log("main data");
+            console.log(JSON.stringify(data));
+
             const response = await fetch('https://localhost:7261/api/Announcement/create-announcement', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                    'Content-Type': 'application/json',
                     "Authorization":`Bearer ${localStorage.getItem("accessToken")}`
                 },
                 body: JSON.stringify(data),
@@ -116,7 +121,7 @@ export default class Service {
 
     async  Register(requestBody) {
         try {
-            const response = await fetch('https://localhost:7261/api/Account/Register', {
+            const response = await fetch('https://localhost:7261/api/Account/register-default-account', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

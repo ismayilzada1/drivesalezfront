@@ -29,7 +29,7 @@ const Login = () => {
          if (response.status === 200) {
             setShowSuccessAlert(true);
             setTimeout(() => {
-               navigate('/home');
+               navigate('/');
             }, 1000);
          } else {
             setShowAlert(true);

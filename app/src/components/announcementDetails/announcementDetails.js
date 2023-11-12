@@ -18,7 +18,7 @@ const AnnouncementDetails = () => {
     const [selectedImageIndex, setSelectedImageIndex] = useState (0);
     const [isTransitioning, setIsTransitioning] = useState (false);
     const [showModal, setShowModal] = useState (false);
-
+    const [transitioningIndex, setTransitioningIndex] = useState(null);
     const Images = [
         "https://turbo.azstatic.com/uploads/full/2023%2F10%2F06%2F18%2F54%2F05%2Fe0be1ac6-f7cd-4bf9-b468-79be4acf24fe%2F91840_lTUu1XOmMr8IQaB8QCujWw.jpg",
         "https://turbo.azstatic.com/uploads/full/2023%2F10%2F06%2F18%2F54%2F05%2Fc1c43a7e-d5d5-40ea-8684-6478cb7d39d7%2F91823_RMtAP2aDlUdrOxVQ0dYGyQ.jpg",
@@ -35,48 +35,59 @@ const AnnouncementDetails = () => {
         "https://turbo.azstatic.com/uploads/full/2023%2F09%2F28%2F01%2F07%2F06%2F9942c584-99d8-438e-a6ed-4bf44aea3b5d%2F91825_696pcr8dg1Su4YILfiRKPQ.jpg",
     ];
 
-    const handleThumbnailClick = (index) => {
-        if (!isTransitioning) {
-            setSelectedImageIndex (index);
-        }
-    };
 
     const handleCloseModal = () => {
         setShowModal (false);
     };
 
+
+
+
+    const handleThumbnailClick = (index) => {
+        if (!isTransitioning) {
+            setTransitioningIndex(index);
+        }
+    };
+
     const handlePrevButtonClick = () => {
         if (!isTransitioning) {
-            setIsTransitioning (true);
-            setSelectedImageIndex ((prevIndex) => (prevIndex - 1 >= 0 ? prevIndex - 1 : Images.length - 1));
-            setTimeout (() => {
-                setIsTransitioning (false);
-            }, 100);
+            setTransitioningIndex((prevIndex) => (prevIndex - 1 + Images.length) % Images.length);
         }
     };
 
     const handleNextButtonClick = () => {
         if (!isTransitioning) {
-            setIsTransitioning (true);
-            setSelectedImageIndex ((prevIndex) => (prevIndex + 1 < Images.length ? prevIndex + 1 : 0));
-            setTimeout (() => {
-                setIsTransitioning (false);
-            }, 100);
+            setTransitioningIndex((prevIndex) => (prevIndex + 1) % Images.length);
         }
     };
 
+    useEffect(() => {
+        if (transitioningIndex !== null) {
+            setIsTransitioning(true);
+            setSelectedImageIndex(transitioningIndex);
+
+            const transitionTimeout = setTimeout(() => {
+                setIsTransitioning(false);
+                setTransitioningIndex(null);
+            }, 100);
+
+            return () => clearTimeout(transitionTimeout);
+        }
+    }, [transitioningIndex]);
+
     const renderIndicators = () => {
-        return Images.map ((_, index) => (
+        return Images.map((_, index) => (
             <button
+                key={index}
                 type="button"
                 data-bs-target="#carouselExampleCaptions"
                 data-bs-slide-to={index}
-                aria-label={`Slide ${index + 1}`}
-                onClick={() => handleThumbnailClick (index)}
+                onClick={() => handleThumbnailClick(index)}
                 className={`carousel-indicator-button ${selectedImageIndex === index ? 'active' : ''}`}
             ></button>
         ));
     };
+
 
 
     return (
@@ -130,8 +141,6 @@ const AnnouncementDetails = () => {
                                     <span className="visually-hidden">Next</span>
                                 </button>
                             </div>
-
-
                             <div className="main-thumbnail-container mt-3">
                                 {Images.map ((image, index) => (
                                     <div className="col-md-2 mb-1" key={index}>
@@ -151,11 +160,15 @@ const AnnouncementDetails = () => {
                                     </div>
                                 ))}
                             </div>
-
-
+                            <div className="d-flex justify-content-start mt-2">
+                                <div className="tabs-content">
+                                    <h4>Vehicle Description</h4>
+                                    <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, alias animi, asperiores consequatur corporis deserunt doloribus facere, ipsam quidem recusandae reiciendis rem tenetur ullam. Libero maxime neque recusandae rerum veniam?</span><span>Amet at beatae, corporis dolorum eveniet in ipsa officiis quisquam soluta velit? Accusamus id, molestiae odit recusandae veniam voluptatum. Aperiam error eum nisi repellat reprehenderit tempora ullam vero voluptate voluptatibus?</span><span>Aperiam culpa dignissimos impedit laborum nobis quam rerum saepe sunt tempore vitae. Dolore excepturi iure quae quisquam quod saepe similique. Aliquam, et excepturi impedit minus non quaerat quas quo similique.</span><span>Aperiam blanditiis consectetur dignissimos dolore dolorum eius, ex fugiat inventore, iusto, nisi quam quasi? Hic, nostrum sit! Ab aperiam earum fugiat natus officia omnis quaerat quo! Adipisci dolores obcaecati voluptatum!</span><span>Deleniti dicta ea facilis fugit nihil, perferendis repudiandae sed! Asperiores culpa cupiditate est id itaque natus necessitatibus officiis perferendis quisquam, repellendus tempore temporibus tenetur, vel. Doloremque id quo vero voluptatum.</span>
+                                    </p>
+                                    <br/>
+                                </div>
+                            </div>
                         </div>
-
-
                         <div className="col-md-5">
 
 
@@ -422,33 +435,19 @@ const AnnouncementDetails = () => {
                             </div>
 
                         </div>
-
-
-
                     </div>
-
-
-
                     <div className="row">
-                        <div className="col-md-8">
-                            <div className="tabs-content">
-                                <h4>Vehicle Description</h4>
-                                <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, alias animi, asperiores consequatur corporis deserunt doloribus facere, ipsam quidem recusandae reiciendis rem tenetur ullam. Libero maxime neque recusandae rerum veniam?</span><span>Amet at beatae, corporis dolorum eveniet in ipsa officiis quisquam soluta velit? Accusamus id, molestiae odit recusandae veniam voluptatum. Aperiam error eum nisi repellat reprehenderit tempora ullam vero voluptate voluptatibus?</span><span>Aperiam culpa dignissimos impedit laborum nobis quam rerum saepe sunt tempore vitae. Dolore excepturi iure quae quisquam quod saepe similique. Aliquam, et excepturi impedit minus non quaerat quas quo similique.</span><span>Aperiam blanditiis consectetur dignissimos dolore dolorum eius, ex fugiat inventore, iusto, nisi quam quasi? Hic, nostrum sit! Ab aperiam earum fugiat natus officia omnis quaerat quo! Adipisci dolores obcaecati voluptatum!</span><span>Deleniti dicta ea facilis fugit nihil, perferendis repudiandae sed! Asperiores culpa cupiditate est id itaque natus necessitatibus officiis perferendis quisquam, repellendus tempore temporibus tenetur, vel. Doloremque id quo vero voluptatum.</span>
-                                </p>
-                                <br/>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
 
-            <Modal show={showModal} onHide={handleCloseModal} centered className="fade">
+            <Modal show={showModal} onHide={handleCloseModal} centered className="fade" backdrop="true">
                 <Modal.Body className="modal-image-container">
                     <img
                         src={Images[selectedImageIndex]}
                         alt={`Slide ${selectedImageIndex}`}
                         className="modal-image"
+                        onClick={(e) => e.stopPropagation()}
                     />
                 </Modal.Body>
             </Modal>

@@ -31,7 +31,12 @@ function Register(){
             "firstName": FirstName,
             "lastName": LastName,
             "email": Email,
-            "phone": PhoneNumber,
+            "phoneNumbers": [
+                {
+                    "id": 0,
+                    "phoneNumber": PhoneNumber
+                }
+            ],
             "password": Password,
             "confirmPassword": ConfirmPassword
         };
