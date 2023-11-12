@@ -114,46 +114,71 @@ const Home = () => {
         // Add logic to handle search based on form values
     };
 
+
+    const [isBarterFilter, setIsBarterFilter] = useState(false);
+
+    const handleIsBarterFilterToggle = () => {
+        setIsBarterFilter(!isBarterFilter);
+    };
+
+    const [isOnCreditFilter, setIsOnCreditrFilter] = useState(false);
+
+    const handleIsOnCreditFilterToggle = () => {
+        setIsOnCreditrFilter(!isOnCreditFilter);
+    };
+
     return (
-        <div className="wrapper">
+        <Row className="wrapper">
+
             <section className="featured-places mb-5">
                 <Row className="container">
                     <Form onSubmit={search}>
                         <Row>
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formUsedNew">
+                                    <Form.Label>Body Type:</Form.Label>
+                                    <Form.Control as="select" className='form-control'>
+                                        <option value="">All</option>
+                                        <option>Sedan</option>
+                                        <option>Cabrio</option>
+                                        <option>Coupe</option>
+                                        <option>Truck</option>
+                                        <option>SUV/Off-Road</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formUsedNew">
+                                    <Form.Label>Make:</Form.Label>
+                                    <Form.Control as="select" className='form-control'>
+                                        <option value="">All</option>
+                                        <option>BMW</option>
+                                        <option>Mercedes-Benz</option>
+                                        <option>Audi</option>
+                                        <option>Ford</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formUsedNew">
+                                    <Form.Label>Model:</Form.Label>
+                                    <Form.Control as="select" className='form-control'>
+                                        <option value="">All</option>
+                                        <option >E220</option>
+                                        <option >E230</option>
+                                        <option >E63s</option>
+                                        <option >M5</option>
+                                        <option >525i</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            </Col>
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formUsedNew">
                                     <Form.Label>Used/New:</Form.Label>
-                                    <Form.Control as="select">
+                                    <Form.Control as="select" className='form-control'>
                                         <option value="">All</option>
                                         <option value="new">New vehicle</option>
                                         <option value="used">Used vehicle</option>
-                                    </Form.Control>
-                                </Form.Group>
-                            </Col>
-                            <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formVehicleType">
-                                    <Form.Label>Vehicle Type:</Form.Label>
-                                    <Form.Control as="select">
-                                        <option value="">-- All --</option>
-                                        {/* Add vehicle type options */}
-                                    </Form.Control>
-                                </Form.Group>
-                            </Col>
-                            <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formMake">
-                                    <Form.Label>Make:</Form.Label>
-                                    <Form.Control as="select">
-                                        <option value="">-- All --</option>
-                                        {/* Add make options */}
-                                    </Form.Control>
-                                </Form.Group>
-                            </Col>
-                            <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formModel">
-                                    <Form.Label>Model:</Form.Label>
-                                    <Form.Control as="select">
-                                        <option value="">-- All --</option>
-                                        {/* Add model options */}
                                     </Form.Control>
                                 </Form.Group>
                             </Col>
@@ -161,48 +186,68 @@ const Home = () => {
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formPrice">
                                     <Form.Label>Price:</Form.Label>
-                                    <Form.Control as="select">
-                                        <option value="">-- All --</option>
-                                        {/* Add price options */}
+                                    <div className="input-group input-group-rounded">
+                                        <input type="number" className="form-control " placeholder="Min" aria-label="Minimum Price" />
+                                        <input type="number" className="form-control " placeholder="Max" aria-label="Maximum Price" />
+                                        <Form.Control as="select" className='form-control short-input'>
+                                            <option>AZN</option>
+                                            <option>USD</option>
+                                            <option>EUR</option>
+                                        </Form.Control>
+                                    </div>
+                                </Form.Group>
+                            </Col>
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formMileage">
+                                    <Form.Label>Gearbox Type:</Form.Label>
+                                    <Form.Control as="select" className='form-control'>
+                                        <option value="">All</option>
+                                        <option value="">Auto</option>
+                                        <option value="">Manual</option>
                                     </Form.Control>
                                 </Form.Group>
                             </Col>
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formMileage">
-                                    <Form.Label>Mileage:</Form.Label>
-                                    <Form.Control as="select">
-                                        <option value="">-- All --</option>
-                                        {/* Add mileage options */}
+                                    <Form.Label>Gearbox Type:</Form.Label>
+                                    <Form.Control as="select" className='form-control'>
+                                        <option value="">All</option>
+                                        <option value="">Auto</option>
+                                        <option value="">Manual</option>
                                     </Form.Control>
                                 </Form.Group>
                             </Col>
                             <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formEngineSize">
-                                    <Form.Label>Engine size:</Form.Label>
-                                    <Form.Control as="select">
-                                        <option value="">-- All --</option>
-                                        {/* Add engine size options */}
-                                    </Form.Control>
-                                </Form.Group>
-                            </Col>
-                            <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formPower">
-                                    <Form.Label>Power:</Form.Label>
-                                    <Form.Control as="select">
-                                        <option value="">-- All --</option>
-                                        {/* Add power options */}
-                                    </Form.Control>
+                                <Form.Group controlId="formPrice">
+                                    <Form.Label>Year:</Form.Label>
+                                    <div className="input-group input-group-rounded">
+                                        <Form.Control as="select" className='form-control form-floating' placeholder="Max" aria-label="Maximum Price">
+                                            <option>Max Year</option>
+                                            <option>2022</option>
+                                            <option>2023</option>
+
+                                        </Form.Control>
+                                        <Form.Control as="select" className='form-control' placeholder="Max" aria-label="Maximum Price">
+                                            <option>Min Year</option>
+                                            <option>2022</option>
+                                            <option>2023</option>
+                                        </Form.Control>
+                                    </div>
                                 </Form.Group>
                             </Col>
 
-                            <Collapse in={showDetails}>
+
+                            <Collapse in={showDetails} className='mt-2 pe-0'>
                                 <Row>
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formDoors">
                                             <Form.Label>Doors:</Form.Label>
                                             <Form.Control as="select">
-                                                <option value="">-- All --</option>
-                                                {/* Add doors options */}
+                                                <option>All</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
                                             </Form.Control>
                                         </Form.Group>
                                     </Col>
@@ -210,11 +255,54 @@ const Home = () => {
                                         <Form.Group controlId="formSeats">
                                             <Form.Label>Number of seats:</Form.Label>
                                             <Form.Control as="select">
-                                                <option value="">-- All --</option>
-                                                {/* Add seats options */}
+                                                <option >All</option>
+                                                <option >2</option>
+                                                <option >3</option>
+                                                <option >4</option>
+                                                <option >5</option>
+                                                <option >6</option>
                                             </Form.Control>
                                         </Form.Group>
                                     </Col>
+
+                                    <Col lg={3} md={4} sm={6} xs={12}>
+                                        <Form.Group controlId="formMileage">
+                                            <Form.Label>Mileage:</Form.Label>
+                                            <div className="input-group input-group-rounded">
+                                                <input type="number" className="form-control " placeholder="Min" aria-label="Minimum Mileage" />
+                                                <input type="number" className="form-control " placeholder="Max" aria-label="Maximum Mileage" />
+                                                <Form.Control as="select" className='form-control short-input'>
+                                                    <option>KM</option>
+                                                    <option>MI</option>
+                                                </Form.Control>
+                                            </div>
+                                        </Form.Group>
+                                    </Col>
+
+                                    <Col lg={3} md={4} sm={6} xs={12} className='d-flex justify-content-around flex-row align-items-center p-0'>
+                                        <Button
+                                            className='border-0 pe-4 ps-4 mt-auto '
+                                            style={{
+                                                backgroundColor: isBarterFilter ? 'rgb(255, 85, 10)' : 'rgb(200, 200, 200)',
+                                                color: isBarterFilter ? 'white' : 'black',
+                                            }}
+                                            onClick={handleIsBarterFilterToggle}
+                                        >
+                                            Barter
+                                        </Button>
+
+                                        <Button
+                                            className='border-0 ms-2 pe-4 ps-4 mt-auto'
+                                            style={{
+                                                backgroundColor: isOnCreditFilter ? 'rgb(255, 85, 10)' : 'rgb(200, 200, 200)',
+                                                color: isOnCreditFilter ? 'white' : 'black',
+                                            }}
+                                            onClick={handleIsOnCreditFilterToggle}
+                                        >
+                                            OnCredit
+                                        </Button>
+                                    </Col>
+
                                 </Row>
                             </Collapse>
                         </Row>
@@ -270,7 +358,7 @@ const Home = () => {
                     </ul>
                 </nav>
             </div>
-        </div>
+        </Row>
     );
 };
 

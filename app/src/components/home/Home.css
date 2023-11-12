@@ -2,7 +2,13 @@
     padding-top:70px !important;
 }
 
+.input-group-rounded {
+    border-radius: 10px;
+}
 
+.short-input {
+    max-width: 4.5rem;
+}
 
 
 @media screen and (max-width: 1440px) {

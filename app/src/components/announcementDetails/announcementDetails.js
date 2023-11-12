@@ -100,10 +100,12 @@ const AnnouncementDetails = () => {
                                             key={index}
                                             className={`carousel-item ${index === 0 ? 'active' : ''}`}
                                         >
+
                                             <div className="image-container img-container">
+                                                <div className="background-container"  style={{backgroundImage: `url(${image})`}}></div>
                                                 <img
                                                     src={image}
-                                                    className="d-block w-100"
+                                                    className="d-block"
                                                     alt={`Slide ${index}`}
                                                     onClick={() => {
                                                         setShowModal (true);
