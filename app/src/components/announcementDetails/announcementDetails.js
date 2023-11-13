@@ -4,16 +4,6 @@ import Logo from "../logo";
 import Service from "../../api-services/service";
 import {useNavigate} from "react-router-dom";
 import {Modal, Button} from 'react-bootstrap';
-import {PiEngineBold} from "react-icons/pi";
-import {IoLogoModelS} from "react-icons/io";
-import {BsCalendarDate, BsFuelPump, BsTruck,BsPersonFill} from "react-icons/bs";
-import {FaRoad, FaHorse} from "react-icons/fa";
-import {TbManualGearbox, TbFlagPin} from "react-icons/tb";
-import {GiCarSeat, GiCarDoor, GiCarWheel} from "react-icons/gi";
-import {BiColorFill} from "react-icons/bi";
-
-
-
 
 const AnnouncementDetails = () => {
     const [selectedImageIndex, setSelectedImageIndex] = useState (0);
@@ -41,8 +31,6 @@ const AnnouncementDetails = () => {
 
     const handleTabClick = (tabId) => {
         setActiveTab(tabId);
-
-        console.log (activeTab);
     };
 
 
@@ -55,35 +43,34 @@ const AnnouncementDetails = () => {
 
     const handleThumbnailClick = (index) => {
         if (!isTransitioning) {
-            setTransitioningIndex(index);
+            setIsTransitioning(true);
+            setSelectedImageIndex(index);
         }
     };
 
     const handlePrevButtonClick = () => {
         if (!isTransitioning) {
-            setTransitioningIndex((prevIndex) => (prevIndex - 1 + Images.length) % Images.length);
+            setIsTransitioning(true);
+            setSelectedImageIndex((prevIndex) => (prevIndex - 1 + Images.length) % Images.length);
         }
     };
 
     const handleNextButtonClick = () => {
         if (!isTransitioning) {
-            setTransitioningIndex((prevIndex) => (prevIndex + 1) % Images.length);
+            setIsTransitioning(true);
+            setSelectedImageIndex((prevIndex) => (prevIndex + 1) % Images.length);
         }
     };
 
     useEffect(() => {
-        if (transitioningIndex !== null) {
-            setIsTransitioning(true);
-            setSelectedImageIndex(transitioningIndex);
+        const transitionTimeout = setTimeout(() => {
+            setIsTransitioning(false);
+        }, 1000);
+        console.log(selectedImageIndex);
 
-            const transitionTimeout = setTimeout(() => {
-                setIsTransitioning(false);
-                setTransitioningIndex(null);
-            }, 100);
 
-            return () => clearTimeout(transitionTimeout);
-        }
-    }, [transitioningIndex]);
+        return () => clearTimeout(transitionTimeout);
+    }, [isTransitioning]);
 
     const renderIndicators = () => {
         return Images.map((_, index) => (
@@ -102,372 +89,16 @@ const AnnouncementDetails = () => {
 
     return (
         <>
-
-
-            {/*<div className="services mt-5">*/}
-            {/*    <div className="container">*/}
-            {/*        <div className="row">*/}
-            {/*            <div className="col-md-7">*/}
-            {/*                <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">*/}
-            {/*                    <div className="carousel-indicators">*/}
-            {/*                        {renderIndicators ()}*/}
-            {/*                    </div>*/}
-
-
-
-            {/*                    <div className="carousel-inner">*/}
-            {/*                        {Images.map ((image, index) => (*/}
-            {/*                            <div*/}
-            {/*                                key={index}*/}
-            {/*                                className={`carousel-item ${index === 0 ? 'active' : ''}`}*/}
-            {/*                            >*/}
-
-            {/*                                <div className="image-container img-container">*/}
-            {/*                                    <div className="background-container"  style={{backgroundImage: `url(${image})`}}></div>*/}
-            {/*                                    <img*/}
-            {/*                                        src={image}*/}
-            {/*                                        className="d-block"*/}
-            {/*                                        alt={`Slide ${index}`}*/}
-            {/*                                        onClick={() => {*/}
-            {/*                                            setShowModal (true);*/}
-            {/*                                        }}*/}
-            {/*                                    />*/}
-            {/*                                </div>*/}
-            {/*                            </div>*/}
-            {/*                        ))}*/}
-            {/*                    </div>*/}
-
-
-            {/*                    <button className="carousel-control-prev" type="button"*/}
-            {/*                            data-bs-target="#carouselExampleCaptions" data-bs-slide="prev"*/}
-            {/*                            onClick={handlePrevButtonClick}>*/}
-            {/*                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>*/}
-            {/*                        <span className="visually-hidden">Previous</span>*/}
-            {/*                    </button>*/}
-            {/*                    <button className="carousel-control-next" type="button"*/}
-            {/*                            data-bs-target="#carouselExampleCaptions" data-bs-slide="next"*/}
-            {/*                            onClick={handleNextButtonClick}>*/}
-            {/*                        <span className="carousel-control-next-icon" aria-hidden="true"></span>*/}
-            {/*                        <span className="visually-hidden">Next</span>*/}
-            {/*                    </button>*/}
-            {/*                </div>*/}
-            {/*                <div className="main-thumbnail-container mt-3">*/}
-            {/*                    {Images.map ((image, index) => (*/}
-            {/*                        <div className="col-md-2 mb-1" key={index}>*/}
-            {/*                            <div className="thumbnail-container">*/}
-            {/*                                <img*/}
-            {/*                                    src={image}*/}
-            {/*                                    className="thumbnail-image"*/}
-            {/*                                    data-bs-target="#carouselExampleCaptions"*/}
-            {/*                                    data-bs-slide-to={index}*/}
-            {/*                                    onClick={() => handleThumbnailClick (index)}*/}
-            {/*                                    style={{*/}
-            {/*                                        opacity: selectedImageIndex === index ? 1 : 0.7,*/}
-            {/*                                    }}*/}
-            {/*                                    alt={'vehicleImage'}*/}
-            {/*                                />*/}
-            {/*                            </div>*/}
-            {/*                        </div>*/}
-            {/*                    ))}*/}
-            {/*                </div>*/}
-
-
-
-
-            {/*                <div className="d-flex justify-content-start mt-2">*/}
-            {/*                    <div className="tabs-content">*/}
-            {/*                        <h4>Vehicle Description</h4>*/}
-            {/*                        <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, alias animi, asperiores consequatur corporis deserunt doloribus facere, ipsam quidem recusandae reiciendis rem tenetur ullam. Libero maxime neque recusandae rerum veniam?</span><span>Amet at beatae, corporis dolorum eveniet in ipsa officiis quisquam soluta velit? Accusamus id, molestiae odit recusandae veniam voluptatum. Aperiam error eum nisi repellat reprehenderit tempora ullam vero voluptate voluptatibus?</span><span>Aperiam culpa dignissimos impedit laborum nobis quam rerum saepe sunt tempore vitae. Dolore excepturi iure quae quisquam quod saepe similique. Aliquam, et excepturi impedit minus non quaerat quas quo similique.</span><span>Aperiam blanditiis consectetur dignissimos dolore dolorum eius, ex fugiat inventore, iusto, nisi quam quasi? Hic, nostrum sit! Ab aperiam earum fugiat natus officia omnis quaerat quo! Adipisci dolores obcaecati voluptatum!</span><span>Deleniti dicta ea facilis fugit nihil, perferendis repudiandae sed! Asperiores culpa cupiditate est id itaque natus necessitatibus officiis perferendis quisquam, repellendus tempore temporibus tenetur, vel. Doloremque id quo vero voluptatum.</span>*/}
-            {/*                        </p>*/}
-            {/*                        <br/>*/}
-            {/*                    </div>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*            <div className="col-md-5">*/}
-
-
-
-
-
-
-            {/*                <div className="accordion" id="detailsAccordion">*/}
-
-            {/*                    <div className="accordion-item">*/}
-            {/*                        <h2 className="accordion-header" id="vehicleDetails">*/}
-            {/*                            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVehicleDetails" aria-expanded="true" aria-controls="collapseVehicleDetails">*/}
-            {/*                                Vehicle Details*/}
-            {/*                            </button>*/}
-            {/*                        </h2>*/}
-            {/*                        <div id="collapseVehicleDetails" className="accordion-collapse collapse show" aria-labelledby="vehicleDetails">*/}
-            {/*                            <div className="accordion-body p-0">*/}
-            {/*                                <form action="#" method="post" className="border p-3 rounded">*/}
-            {/*                                    <h2 className="mb-3">Vehicle Details</h2>*/}
-            {/*                                    <ul className="list-group list-group-flush">*/}
-
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                    <IoLogoModelS size={25} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Make</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>BMW</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                    <IoLogoModelS size={25} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-
-            {/*                                <span>Model</span>*/}
-            {/*                            </span>*/}
-
-            {/*                                            <strong>M50</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                    <BsCalendarDate size={22} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-
-            {/*                                <span>First Registration</span>*/}
-            {/*                            </span>*/}
-
-            {/*                                            <strong>05/2022</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                     <FaRoad size={22} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Mileage</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>0 km</strong>*/}
-            {/*                                        </li>*/}
-
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                     <BsFuelPump size={25} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Fuel Type</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>Gasoline</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                    <PiEngineBold size={22} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Engine Size</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>3000 cc</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                     <FaHorse size={22} color="#f54141" opacity=".85" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Power</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>485 hp</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                    <TbManualGearbox size={25} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Gearbox</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>Manual</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                    <GiCarSeat size={25} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Number of Seats</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>4</strong>*/}
-            {/*                                        </li>*/}
-
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                    <GiCarDoor size={25} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Number of Doors</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>4</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                    <BiColorFill size={25} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Color</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>Black</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                    <BsTruck size={25} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Body Type</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>Coupe</strong>*/}
-            {/*                                        </li>*/}
-
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                    <GiCarWheel size={25} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Wheel Drive</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>Full</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                    <BsPersonFill size={25} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Owner Quantity</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>0</strong>*/}
-            {/*                                        </li>*/}
-
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between" style={{ paddingLeft: 0 }}>*/}
-            {/*                            <span className="d-flex align-items-center">*/}
-            {/*                                <span className="me-1">*/}
-            {/*                                    <TbFlagPin size={25} color="#f54141" opacity=".85"/>*/}
-            {/*                                </span>*/}
-            {/*                                <span>Market Version</span>*/}
-            {/*                            </span>*/}
-            {/*                                            <strong>Europe</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                    </ul>*/}
-            {/*                                </form>*/}
-            {/*                            </div>*/}
-            {/*                        </div>*/}
-            {/*                    </div>*/}
-
-            {/*                    <div className="accordion-item ">*/}
-            {/*                        <h2 className="accordion-header" id="otherDetails">*/}
-            {/*                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOtherDetails" aria-expanded="false" aria-controls="collapseOtherDetails" >*/}
-            {/*                                Other Details*/}
-            {/*                            </button>*/}
-            {/*                        </h2>*/}
-            {/*                        <div id="collapseOtherDetails" className="accordion-collapse collapse" aria-labelledby="otherDetails">*/}
-            {/*                            <div className="accordion-body p-0">*/}
-            {/*                                <div className="d-flex flex-wrap flex-row">*/}
-            {/*                                    <span className="badge badge-custom rounded-pill m-1 p-3">ABS</span>*/}
-            {/*                                    <span className="badge badge-custom rounded-pill m-1 p-3">ESC</span>*/}
-            {/*                                    <span className="badge badge-custom rounded-pill m-1 p-3">Heated Seats</span>*/}
-            {/*                                    <span className="badge badge-custom rounded-pill m-1 p-3">Air Conditioning</span>*/}
-            {/*                                    <span className="badge badge-custom rounded-pill m-1 p-3">4x4</span>*/}
-            {/*                                    <span className="badge badge-custom rounded-pill m-1 p-3">BMW</span>*/}
-            {/*                                    <span className="badge badge-custom rounded-pill m-1 p-3">Park Radar</span>*/}
-            {/*                                    <span className="badge badge-custom rounded-pill m-1 p-3">Xenon lights</span>*/}
-            {/*                                    <span className="badge badge-custom rounded-pill m-1 p-3">Leather interior</span>*/}
-            {/*                                    <span className="badge badge-custom rounded-pill m-1 p-3">Sunroof</span>*/}
-
-
-            {/*                                </div>*/}
-            {/*                            </div>*/}
-            {/*                        </div>*/}
-            {/*                    </div>*/}
-
-
-            {/*                    <div className="accordion-item ">*/}
-            {/*                        <h2 className="accordion-header" id="ownerDetails">*/}
-            {/*                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOwnerDetails" aria-expanded="false" aria-controls="collapseOwnerDetails" >*/}
-            {/*                                Owner Details*/}
-            {/*                            </button>*/}
-            {/*                        </h2>*/}
-            {/*                        <div id="collapseOwnerDetails" className="accordion-collapse collapse" aria-labelledby="ownerDetails">*/}
-            {/*                            <div className="accordion-body p-0">*/}
-            {/*                                <div className="border p-3 rounded">*/}
-            {/*                                    <h2 className="mb-3 d-flex align-items-center justify-content-between">*/}
-            {/*                                        Owner Details*/}
-            {/*                                    </h2>*/}
-            {/*                                    <ul className="list-group list-group-flush">*/}
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between">*/}
-            {/*                                            <span>Name</span>*/}
-            {/*                                            <strong>Ahmad</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between">*/}
-            {/*                                            <span>Surname</span>*/}
-            {/*                                            <strong>Ahmadzada</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between">*/}
-            {/*                                            <span>Country</span>*/}
-            {/*                                            <strong>Azerbaijan</strong>*/}
-            {/*                                        </li>*/}
-
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between">*/}
-            {/*                                            <span>City</span>*/}
-            {/*                                            <strong>Baku</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between">*/}
-            {/*                                            <span>Phone number</span>*/}
-            {/*                                            <strong className='text-danger'>+994 (55) 555 55 55</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                        <li className="list-group-item vehicle-details-li d-flex justify-content-between">*/}
-            {/*                                            <span>E-mail</span>*/}
-            {/*                                            <strong className='text-danger'>indian@gmail.com</strong>*/}
-            {/*                                        </li>*/}
-
-            {/*                                    </ul>*/}
-            {/*                                </div>*/}
-            {/*                            </div>*/}
-            {/*                        </div>*/}
-            {/*                    </div>*/}
-
-            {/*                </div>*/}
-
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*        <div className="row">*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-
-
-
-
             <section className="section mt-2" id="trainers">
                 <div className="container">
-                    <div id="carouselExampleCaptions" className="carousel slide" data-bs-ride="carousel">
+                    <div id="carouselExampleCaptions" className="carousel slide" >
                         <div className="carousel-indicators">
                             {renderIndicators ()}
                         </div>
 
 
 
-                        <div className="carousel-inner">
+                        <div className="carousel-inner" >
                             {Images.map ((image, index) => (
                                 <div
                                     key={index}
@@ -661,24 +292,26 @@ const AnnouncementDetails = () => {
                                                     <h4>Contact Details</h4>
 
                                                     <div className="row">
-                                                        <div className="col-sm-6">
-                                                            <label>Name</label>
+                                                        <div className="col-sm-8">
+                                                            <label>Name Surname</label>
 
                                                             <p>John Smith</p>
                                                         </div>
-                                                        <div className="col-sm-6">
-                                                            <label>Phone</label>
 
-                                                            <p>123-456-789 </p>
-                                                        </div>
-                                                        <div className="col-sm-6">
-                                                            <label>Mobile phone</label>
-                                                            <p>456789123 </p>
-                                                        </div>
-                                                        <div className="col-sm-6">
+                                                        <div className="col-sm-8">
                                                             <label>Email</label>
                                                             <p><a href="#">john@carsales.com</a></p>
                                                         </div>
+
+                                                        <div className="col-sm-8">
+                                                            <label className="mb-2">Mobile phones</label>
+                                                            <p className='m-2'>050 456 12 52</p>
+                                                            <p className='m-2'>050 456 12 52</p>
+                                                            <p className='m-2'>050 456 12 52</p>
+                                                            <p className='m-2'>050 456 12 52</p>
+                                                        </div>
+
+
                                                     </div>
                                                 </article>
 

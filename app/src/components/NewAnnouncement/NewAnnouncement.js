@@ -103,7 +103,6 @@ const NewAnnouncement=()=>
     };
 
     useEffect(() => {
-
         MyService.getAllCarModels()
             .then((data) => setCarModels(data))
             .catch((error) => console.error('Error fetching car makes:', error));

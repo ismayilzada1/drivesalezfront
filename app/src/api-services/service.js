@@ -69,12 +69,7 @@ export default class Service {
     }
 
     async SendNewAnnounement(data) {
-
         try {
-
-            console.log("main data");
-            console.log(JSON.stringify(data));
-
             const response = await fetch('https://localhost:7261/api/Announcement/create-announcement', {
                 method: 'POST',
                 headers: {
@@ -88,8 +83,7 @@ export default class Service {
                 throw new Error('Network response was not ok');
             }
 
-            const responseData = await response.json();
-            console.log(responseData);
+            return response;
         } catch (error) {
             console.error('Fetch error:', error);
             throw error;
