@@ -234,10 +234,6 @@ const NewAnnouncement=()=>
 
         try {
 
-
-
-
-
             const response= await MyService.SendNewAnnounement(data);
 
 
