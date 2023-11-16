@@ -65,12 +65,24 @@ const AnnouncementDetails = () => {
     useEffect(() => {
         const transitionTimeout = setTimeout(() => {
             setIsTransitioning(false);
-        }, 1000);
-        console.log(selectedImageIndex);
-
+        }, 200);
 
         return () => clearTimeout(transitionTimeout);
     }, [isTransitioning]);
+
+    useEffect(() => {
+        const carousel = document.getElementById("carouselExampleCaptions");
+        const carouselItems = carousel.querySelectorAll(".carousel-item");
+
+        carouselItems.forEach((item, index) => {
+            if (index === selectedImageIndex) {
+                item.classList.add("active");
+            } else {
+                item.classList.remove("active");
+            }
+        });
+    }, [selectedImageIndex]);
+
 
     const renderIndicators = () => {
         return Images.map((_, index) => (
@@ -78,7 +90,6 @@ const AnnouncementDetails = () => {
                 key={index}
                 type="button"
                 data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to={index}
                 onClick={() => handleThumbnailClick(index)}
                 className={`carousel-indicator-button ${selectedImageIndex === index ? 'active' : ''}`}
             ></button>
@@ -122,13 +133,13 @@ const AnnouncementDetails = () => {
 
 
                         <button className="carousel-control-prev" type="button"
-                                data-bs-target="#carouselExampleCaptions" data-bs-slide="prev"
+                                data-bs-target="#carouselExampleCaptions"
                                 onClick={handlePrevButtonClick}>
                             <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span className="visually-hidden">Previous</span>
                         </button>
                         <button className="carousel-control-next" type="button"
-                                data-bs-target="#carouselExampleCaptions" data-bs-slide="next"
+                                data-bs-target="#carouselExampleCaptions"
                                 onClick={handleNextButtonClick}>
                             <span className="carousel-control-next-icon" aria-hidden="true"></span>
                             <span className="visually-hidden">Next</span>
@@ -142,7 +153,7 @@ const AnnouncementDetails = () => {
                                         src={image}
                                         className="thumbnail-image"
                                         data-bs-target="#carouselExampleCaptions"
-                                        data-bs-slide-to={index}
+
                                         onClick={() => handleThumbnailClick (index)}
                                         style={{
                                             opacity: selectedImageIndex === index ? 1 : 0.7,

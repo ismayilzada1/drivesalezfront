@@ -149,10 +149,24 @@ const Home = () => {
         { value: 'black', label: 'Qara', color: '#000000' },
         { value: 'gray', label: 'Yaş Asfalt', color: '#505050' },
         { value: 'brown', label: 'Boz', color: '#808080' },
+        { value: 'red', label: 'qirmizi', color: '#fff' },
+        { value: 'blue', label: 'goy', color: '#fff' },
+
+
     ];
+
+    const placeholderText =
+        selectedValues.length > 0
+            ? selectedValues.length <= 3
+                ? selectedValues.map((value) => options.find((option) => option.value === value)?.label).join(', ')
+                : `Selected (${selectedValues.length})`
+            : 'Choose color';
 
 
     return (
+
+
+
         <Row className="wrapper">
 
             <section className="featured-places mb-5">
@@ -359,6 +373,37 @@ const Home = () => {
                                         </Button>
                                     </Col>
 
+
+                                    <Col lg={3} md={4} sm={6} xs={12}>
+
+                                        <div className="dropdown">
+                                            <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"  onClick={toggleDropdown}  aria-expanded="false">
+                                                {placeholderText}
+                                            </button>
+                                            <ul className={`dropdown-menu${showDropdown ? ' show' : ''} scrollable-dropdown`}  aria-labelledby="dropdownMenuButton">
+
+                                                {options.map((option) => (
+                                                    <li className="form-check" key={option.value}>
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            value={option.value}
+                                                            id={`Checkme${option.value}`}
+                                                            checked={selectedValues.includes(option.value)}
+                                                            onChange={() => handleCheckboxChange(option.value)}
+                                                        />
+                                                        <label className="form-check-label" htmlFor={`Checkme${option.value}`}>
+                                                            {option.label}
+                                                        </label>
+                                                    </li>
+                                                ))}
+
+
+                                            </ul>
+                                        </div>
+
+
+                                    </Col>
                                 </Row>
                             </Collapse>
                         </Row>

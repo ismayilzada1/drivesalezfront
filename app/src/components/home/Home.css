@@ -10,6 +10,11 @@
     max-width: 4.5rem;
 }
 
+.scrollable-dropdown {
+    max-height: 9rem;
+    overflow-y: auto;
+}
+
 
 @media screen and (max-width: 1440px) {
     .announcement-card-div {

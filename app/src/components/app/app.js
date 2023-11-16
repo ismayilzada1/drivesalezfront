@@ -26,6 +26,7 @@ class App extends Component {
                     <Route path="/register" element={<Register />} />
                     <Route path="/verifyEmail" element={<VerifyEmail />} />
                     <Route path="/AnnouncementDetails" element={<AnnouncementDetails />} />
+                    <Route path="/header" element={<Header />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
 
