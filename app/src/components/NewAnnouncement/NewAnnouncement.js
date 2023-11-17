@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Logo from '../logo';
 import './NewAnnouncement.css'
 import Service from "../../api-services/service";
+import LoadingPage from "../LoadingPage";
+
 const NewAnnouncement=()=>
 {
 
@@ -103,57 +105,64 @@ const NewAnnouncement=()=>
     };
 
     useEffect(() => {
-        MyService.getAllCarModels()
-            .then((data) => setCarModels(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
 
-        MyService.getAllCarColors()
-            .then((data) => setCarColors(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
+        setIsLoading(true);
 
-        MyService.getAllCarFuelTypes()
-            .then((data) => setCarFuelTypes(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
-
-        MyService.getAllCarBodyTypes()
-            .then((data) => setCarBodyTypes(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
-
-        MyService.getAllCarDriveTrainTypes()
-            .then((data) => setCarDriveTrainTypes(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
-
-        MyService.getAllCarGearboxTypes()
-            .then((data) => setCarGearboxTypes(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
-
-        MyService.getAllCarMarketVersions()
-            .then((data) => setCarMarketVersions(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
-
-        MyService.getAllCarOptions()
-            .then((data) => setCarOptions(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
-
-        MyService.getAllCarConditions()
-            .then((data) => setCarConditions(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
-
-        MyService.getAllCarMakes()
-            .then((data) => setCarBrands(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
-
-        MyService.getAllManufactureYears()
-            .then((data) => setManufactureYears(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
-
-        MyService.getAllCountries()
-            .then((data) => setCountries(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
-
-        MyService.getAllCities()
-            .then((data) => setCities(data))
-            .catch((error) => console.error('Error fetching car makes:', error));
+        Promise.all([
+            MyService.getAllCarModels(),
+            MyService.getAllCarColors(),
+            MyService.getAllCarFuelTypes(),
+            MyService.getAllCarBodyTypes(),
+            MyService.getAllCarDriveTrainTypes(),
+            MyService.getAllCarGearboxTypes(),
+            MyService.getAllCarMarketVersions(),
+            MyService.getAllCarOptions(),
+            MyService.getAllCarConditions(),
+            MyService.getAllCarMakes(),
+            MyService.getAllManufactureYears(),
+            MyService.getAllCountries(),
+            MyService.getAllCities(),
+        ])
+            .then(([
+                       carModelsData,
+                       carColorsData,
+                       carFuelTypesData,
+                       carBodyTypesData,
+                       carDriveTrainTypesData,
+                       carGearboxTypesData,
+                       carMarketVersionsData,
+                       carOptionsData,
+                       carConditionsData,
+                       carBrandsData,
+                       manufactureYearsData,
+                       countriesData,
+                       citiesData,
+                   ]) => {
+                setCarModels(carModelsData);
+                setCarColors(carColorsData);
+                setCarFuelTypes(carFuelTypesData);
+                setCarBodyTypes(carBodyTypesData);
+                setCarDriveTrainTypes(carDriveTrainTypesData);
+                setCarGearboxTypes(carGearboxTypesData);
+                setCarMarketVersions(carMarketVersionsData);
+                setCarOptions(carOptionsData);
+                setCarConditions(carConditionsData);
+                setCarBrands(carBrandsData);
+                setManufactureYears(manufactureYearsData);
+                setCountries(countriesData);
+                setCities(citiesData);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            })
+            .finally(() => {
+                if (carModels.length === 0) {
+                    console.warn('No car models data received.');
+                }
+                else{
+                    setIsLoading(false);
+                }
+            });
 
     }, []);
 
@@ -253,6 +262,9 @@ const NewAnnouncement=()=>
     const customLabels = ["Front", "Rear", "Interior"];
     return(
         <div className="card">
+            {isLoading && <LoadingPage />}
+
+
             <div className="card-header d-flex justify-content-between">
                 <div className="header-title">
                     <h4 className="card-title">Vehicle Information</h4>

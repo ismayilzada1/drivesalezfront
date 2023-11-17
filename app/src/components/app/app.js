@@ -12,6 +12,7 @@ import ForgotPassword from "../forgotPassword";
 import ResetPassword from "../resetPassword";
 import Home from "../home";
 import AnnouncementDetails from "../announcementDetails";
+import LoadingPage from "../LoadingPage";
 
 class App extends Component {
     render() {
@@ -27,6 +28,7 @@ class App extends Component {
                     <Route path="/verifyEmail" element={<VerifyEmail />} />
                     <Route path="/AnnouncementDetails" element={<AnnouncementDetails />} />
                     <Route path="/header" element={<Header />} />
+                    <Route path="/loading" element={<LoadingPage />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
 
