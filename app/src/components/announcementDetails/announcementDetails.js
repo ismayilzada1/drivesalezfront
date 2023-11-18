@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./announcementDetails.css";
 import Logo from "../logo";
-import Service from "../../api-services/service";
 import {useNavigate} from "react-router-dom";
 import {Modal, Button} from 'react-bootstrap';
 
@@ -338,7 +337,14 @@ const AnnouncementDetails = () => {
 
 
 
-            <Modal show={showModal} onHide={handleCloseModal} centered className="fade" backdrop="true">
+            <Modal
+                show={showModal}
+                onHide={handleCloseModal}
+                centered
+                className="fade"
+                backdrop="static"
+                dialogClassName="modal-dialog-fullscreen"
+            >
                 <Modal.Body className="modal-image-container">
                     <img
                         src={Images[selectedImageIndex]}
@@ -346,8 +352,25 @@ const AnnouncementDetails = () => {
                         className="modal-image"
                         onClick={(e) => e.stopPropagation()}
                     />
+                    <div className="thumbnails-container">
+                        {Images.map((image, index) => (
+                            <img
+                                key={index}
+                                src={image}
+                                alt={`Thumbnail ${index}`}
+                                className={`thumbnail-image ${selectedImageIndex === index ? 'active' : ''}`}
+                                onClick={() => handleThumbnailClick(index)}
+                            />
+                        ))}
+                    </div>
                 </Modal.Body>
+                <Modal.Footer className='d-flex justify-content-center align-items-center bg-black p-0 m-0 border-0'>
+                    <Button variant="secondary" onClick={handleCloseModal}>
+                        Close
+                    </Button>
+                </Modal.Footer>
             </Modal>
+
 
         </>
     );
