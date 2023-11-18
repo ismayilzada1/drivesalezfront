@@ -7,9 +7,13 @@ import {Modal, Button} from 'react-bootstrap';
 
 const AnnouncementDetails = () => {
     const [selectedImageIndex, setSelectedImageIndex] = useState (0);
+
+
     const [isTransitioning, setIsTransitioning] = useState (false);
     const [showModal, setShowModal] = useState (false);
     const [transitioningIndex, setTransitioningIndex] = useState(null);
+
+
     const Images = [
         "https://turbo.azstatic.com/uploads/full/2023%2F10%2F06%2F18%2F54%2F05%2Fe0be1ac6-f7cd-4bf9-b468-79be4acf24fe%2F91840_lTUu1XOmMr8IQaB8QCujWw.jpg",
         "https://turbo.azstatic.com/uploads/full/2023%2F10%2F06%2F18%2F54%2F05%2Fc1c43a7e-d5d5-40ea-8684-6478cb7d39d7%2F91823_RMtAP2aDlUdrOxVQ0dYGyQ.jpg",

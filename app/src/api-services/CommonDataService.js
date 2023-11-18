@@ -1,5 +1,3 @@
-import { json } from "react-router-dom";
-
 export default class CommonDataService {
     _base_url = 'https://localhost:7261/api';
 

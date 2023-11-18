@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import './VerifyEmail.css';
 import Logo from "../logo";
-import Service from "../../api-services/service";
+import Service from "../../api-services/OtpService";
 import { useNavigate  } from 'react-router-dom';
 
 const VerifyEmail = () => {

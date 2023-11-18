@@ -1,5 +1,3 @@
-import { json } from "react-router-dom";
-
 export default class AnnouncementService {
     _baseUrl = 'https://localhost:7261/api';
 
