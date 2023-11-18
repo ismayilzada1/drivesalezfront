@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import Logo from '../logo';
 import './NewAnnouncement.css'
-import Service from "../../api-services/service";
+import announcementService from "../../api-services/AnnouncementService";
+import commonDataService from "../../api-services/CommonDataService";
 import LoadingPage from "../LoadingPage";
 
 const NewAnnouncement=()=>
+    
 {
 
-    const MyService= new Service();
+    const AnnouncementService= new announcementService();
+    const CommonDataService= new commonDataService();
 
     const [carBrands, setCarBrands] = useState([]);
-    const [selectedBrand, setSelectedBrand] = useState('');
-
     const [carModels, setCarModels] = useState([]);
-
     const [carBodyTypes, setCarBodyTypes] = useState([]);
     const [carFuelTypes, setCarFuelTypes] = useState([]);
     const [carDriveTrainTypes, setCarDriveTrainTypes] = useState([]);
@@ -27,8 +27,11 @@ const NewAnnouncement=()=>
 
 
     const [Countries, setCountries] = useState([]);
-    const [selectedCountry, setSelectedCountry] = useState('');
     const [Cities, setCities] = useState([]);
+
+
+    const [selectedBrand, setSelectedBrand] = useState('');
+    const [selectedCountry, setSelectedCountry] = useState('');
 
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
@@ -49,19 +52,44 @@ const NewAnnouncement=()=>
         manufactureYear:'',
         city:'',
         mileage:'',
-        distanceUnit:'KM',
+        distanceUnit:'',
         ownerQuantity:'',
         engineVolume:'',
         horsePower:'',
         seatCount:'',
         vinCode:'',
         price:'',
-        priceCurrency:'1',
+        priceCurrency:'',
         credit:false,
         barter:false,
         brandNew:false,
         description:'',
     });
+
+    const isFormValid = () => {
+        // Check if all required fields have values
+        return (
+            formData.model !== '' &&
+            formData.bodyType !== '' &&
+            formData.fuelType !== '' &&
+            formData.driveTrainType !== '' &&
+            formData.gearboxType !== '' &&
+            formData.color !== '' &&
+            formData.marketVersion !== '' &&
+            formData.manufactureYear !== '' &&
+            formData.city !== '' &&
+            formData.mileage !== '' &&
+            formData.distanceUnit !== '' &&
+            formData.ownerQuantity !== '' &&
+            formData.engineVolume !== '' &&
+            formData.horsePower !== '' &&
+            formData.seatCount !== '' &&
+            formData.vinCode !== '' &&
+            formData.price !== '' &&
+            formData.priceCurrency !== '' &&
+            formData.description !== ''
+        );
+    };
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -105,23 +133,22 @@ const NewAnnouncement=()=>
     };
 
     useEffect(() => {
-
         setIsLoading(true);
 
         Promise.all([
-            MyService.getAllCarModels(),
-            MyService.getAllCarColors(),
-            MyService.getAllCarFuelTypes(),
-            MyService.getAllCarBodyTypes(),
-            MyService.getAllCarDriveTrainTypes(),
-            MyService.getAllCarGearboxTypes(),
-            MyService.getAllCarMarketVersions(),
-            MyService.getAllCarOptions(),
-            MyService.getAllCarConditions(),
-            MyService.getAllCarMakes(),
-            MyService.getAllManufactureYears(),
-            MyService.getAllCountries(),
-            MyService.getAllCities(),
+            CommonDataService.getAllCarModels(),
+            CommonDataService.getAllCarColors(),
+            CommonDataService.getAllCarFuelTypes(),
+            CommonDataService.getAllCarBodyTypes(),
+            CommonDataService.getAllCarDriveTrainTypes(),
+            CommonDataService.getAllCarGearboxTypes(),
+            CommonDataService.getAllCarMarketVersions(),
+            CommonDataService.getAllCarOptions(),
+            CommonDataService.getAllCarConditions(),
+            CommonDataService.getAllCarMakes(),
+            CommonDataService.getAllManufactureYears(),
+            CommonDataService.getAllCountries(),
+            CommonDataService.getAllCities(),
         ])
             .then(([
                        carModelsData,
@@ -158,6 +185,7 @@ const NewAnnouncement=()=>
             .finally(() => {
                 if (carModels.length === 0) {
                     console.warn('No car models data received.');
+                    setIsLoading(false);
                 }
                 else{
                     setIsLoading(false);
@@ -167,50 +195,45 @@ const NewAnnouncement=()=>
     }, []);
 
 
-    useEffect(() => {
-        console.log(selectedBrand);
-        console.log(formData)
-    }, [formData]);
+    const handleBrandChange = (event) => setSelectedBrand(event.target.value);
 
-    const handleBrandChange = (event) => {
-        setSelectedBrand(event.target.value);
-        console.log(selectedCountry);
+
+    const handleCountryChange = (event) => setSelectedCountry(event.target.value);
+
+
+    const filteredCities = Cities.filter( (city) => city.country.id == selectedCountry );
+
+
+    const filteredVehicleModels = carModels.filter( (model) => model.make.id == selectedBrand );
+
+
+    const convertImageToBase64 = async (image) => {
+        const response = await fetch(image.url);
+        const blob = await response.blob();
+        const base64data = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
+        return base64data;
     };
-
-    const handleCountryChange = (event) => {
-        setSelectedCountry(event.target.value);
-    };
-
-    const filteredCities = Cities.filter(
-        (city) => city.country.id == selectedCountry
-    );
-
-
-    const filteredModels = carModels.filter(
-        (model) => model.make.id == selectedBrand
-    );
-
 
     const handleSubmit = async(e) => {
         e.preventDefault();
 
         setIsLoading(true);
 
-        const imagesBase64 = await Promise.all(images.map(async (image) => {
-            const response = await fetch(image.url);
-            const blob = await response.blob();
-            const base64data = await new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(blob);
-            });
-            return base64data;
-        }));
+        if (!isFormValid()) {
+            setShowAlert(true);
+            setAlertMessage('Please fill out all required fields.');
+            return;
+        }
+
+        const imagesBase64 = await Promise.all(images.map(convertImageToBase64));
 
 
         const data = {
-
             "yearId": parseInt(formData.manufactureYear, 10),
             "makeId": parseInt(selectedBrand,10),
             "modelId": parseInt(formData.model,10),
@@ -240,9 +263,12 @@ const NewAnnouncement=()=>
             "currencyId": parseInt(formData.priceCurrency,10),
         };
 
+        console.log(data);
+
         try {
 
-            const response= await MyService.SendNewAnnounement(data);
+            const response= await AnnouncementService.SendNewAnnounement(data);
+
 
 
             if (response.status === 200) {
@@ -259,7 +285,27 @@ const NewAnnouncement=()=>
         setIsLoading(false);
     };
 
-    const customLabels = ["Front", "Rear", "Interior"];
+
+    const CustomDropdown = ({ options, OnChange, value, mainLabel, dataProperty, id }) => (
+        <div className="form-group col-md-6">
+            <label className="form-label" htmlFor={id}>
+                {mainLabel}:
+            </label>
+            <select onChange={OnChange} className="form-control" id={id} value={value}>
+                <option disabled value="" defaultValue={value === ""}>
+                    Select {mainLabel}
+                </option>
+                {options.map((option) => (
+                    <option key={option.id} value={option.id}>
+                        {option[dataProperty]}
+                    </option>
+                ))}
+            </select>
+        </div>
+    );
+
+
+
     return(
         <div className="card">
             {isLoading && <LoadingPage />}
@@ -274,79 +320,63 @@ const NewAnnouncement=()=>
                 <div className="new-user-info">
                     <form>
                         <div className="row">
-                            <div className="form-group col-md-6">
-                                <label className="form-label" htmlFor="fname">Make: </label>
-                                <select  onChange={handleBrandChange}  className="form-control" id="fname">
-                                    <option disabled selected >Select Vehicle Make</option>
-                                    {carBrands.map((brand) => (
-                                        <option key={brand.id} value={brand.id}>
-                                            {brand.makeName}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label className="form-label" htmlFor="lname">Model: </label>
-                                <select onChange={(e) => handleSelectChange(e, 'model')}  className="form-control" id="lname">
-                                    <option disabled selected>Select Vehicle Model</option>
-                                    {filteredModels.map((model) => (
-                                        <option key={model.id} value={model.id}>
-                                            {model.modelName}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label className="form-label" htmlFor="add1">Body Type: </label>
-                                <select onChange={(e) => handleSelectChange(e, 'bodyType')}  className="form-control" id="add1">
-                                    <option disabled selected>Select Vehicle Body Type</option>
-                                    {carBodyTypes.map((bodyType) => (
-                                        <option key={bodyType.id} value={bodyType.id}>
-                                            {bodyType.bodyType}
-                                        </option>
-                                    ))}
 
-                                </select>
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label className="form-label" htmlFor="add2">Fuel Type:</label>
-                                <select onChange={(e) => handleSelectChange(e, 'fuelType')} className="form-control" id="add2">
-                                    <option disabled selected>Select Vehicle Fuel Type</option>
-                                    {carFuelTypes.map((ft) => (
-                                        <option key={ft.id} value={ft.id}>
-                                            {ft.fuelType}
-                                        </option>
-                                    ))}
-
-                                </select>
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label className="form-label" htmlFor="cname">Drive Train Type:</label>
-                                <select onChange={(e) => handleSelectChange(e, 'driveTrainType')} className="form-control" id="cname">
-                                    <option disabled selected>Select Drive Train Type</option>
-                                    {carDriveTrainTypes.map((driveTrainType) => (
-                                        <option key={driveTrainType.id} value={driveTrainType.id}>
-                                            {driveTrainType.drivetrainType}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                            <CustomDropdown
+                                mainLabel="Make"
+                                dataProperty="makeName"
+                                id="makeId"
+                                options={carBrands}
+                                OnChange={handleBrandChange}
+                                value={selectedBrand}
+                            />
 
 
+                            <CustomDropdown
+                                mainLabel="Model"
+                                dataProperty="modelName"
+                                id="modelId"
+                                options={filteredVehicleModels}
+                                OnChange={(e) => handleSelectChange(e, 'model')}
+                                value={formData.model}
+                            />
+
+                            <CustomDropdown
+                                mainLabel="Body Type"
+                                dataProperty="bodyType"
+                                id="bodyTypeId"
+                                options={carBodyTypes}
+                                OnChange={(e) => handleSelectChange(e, 'bodyType')}
+                                value={formData.bodyType}
+                            />
+
+                            <CustomDropdown
+                                mainLabel="Fuel Type"
+                                dataProperty="fuelType"
+                                id="fuelTypeId"
+                                options={carFuelTypes}
+                                OnChange={(e) => handleSelectChange(e, 'fuelType')}
+                                value={formData.fuelType}
+                            />
+
+                            <CustomDropdown
+                                mainLabel="Drive Train Type"
+                                dataProperty="drivetrainType"
+                                id="drivetrainTypeId"
+                                options={carDriveTrainTypes}
+                                OnChange={(e) => handleSelectChange(e, 'driveTrainType')}
+                                value={formData.driveTrainType}
+                            />
 
 
+                            <CustomDropdown
+                                mainLabel="Gearbox Type"
+                                dataProperty="gearboxType"
+                                id="gearboxTypeId"
+                                options={carGearboxTypes}
+                                OnChange={(e) => handleSelectChange(e, 'gearboxType')}
+                                value={formData.gearboxType}
+                            />
 
-                            <div className="form-group col-md-6">
-                                <label className="form-label" htmlFor="cname">Gearbox Type:</label>
-                                <select onChange={(e) => handleSelectChange(e, 'gearboxType')} className="form-control" id="cname">
-                                    <option disabled selected>Select Gearbox Type</option>
-                                    {carGearboxTypes.map((gearboxType) => (
-                                        <option key={gearboxType.id} value={gearboxType.id}>
-                                            {gearboxType.gearboxType}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
 
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="mobno">Mileage</label>
@@ -365,63 +395,46 @@ const NewAnnouncement=()=>
                                 </div>
                             </div>
 
-
-                            <div className="form-group col-md-6">
-                                <label className="form-label" htmlFor="year">Year:</label>
-                                <select onChange={(e) => handleSelectChange(e, 'manufactureYear')} className="form-control" id="year">
-                                    <option disabled selected>Select Vehicle Year</option>
-                                    {ManufactureYears.map((year) => (
-                                        <option key={year.id} value={year.id}>
-                                            {year.year}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="form-group col-md-6">
-                                <label className="form-label" htmlFor="pno">Color:</label>
-                                <select onChange={(e) => handleSelectChange(e, 'color')} className="form-control" id="pno">
-                                    <option disabled selected>Select Vehicle Color</option>
-                                    {carColors.map((color) => (
-                                        <option key={color.id} value={color.id}>
-                                            {color.color}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                            <CustomDropdown
+                                mainLabel="Year"
+                                dataProperty="year"
+                                id="manufactureYearId"
+                                options={ManufactureYears}
+                                OnChange={(e) => handleSelectChange(e, 'manufactureYear')}
+                                value={formData.manufactureYear}
+                            />
+                            <CustomDropdown
+                                mainLabel="Color"
+                                dataProperty="color"
+                                id="colorId"
+                                options={carColors}
+                                OnChange={(e) => handleSelectChange(e, 'color')}
+                                value={formData.color}
+                            />
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="pno">Owner Quantity:</label>
                                 <input onChange={handleInputChange} type="number" name="ownerQuantity" className="form-control rounded" min="0"/>
                             </div>
-
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="pno">Engine Volume:</label>
                                 <input onChange={handleInputChange} name="engineVolume" type="number" className="form-control rounded" min="0"/>
                             </div>
-
-
-
-                            <div className="form-group col-md-6">
-                                <label className="form-label" htmlFor="pno">Market Version:</label>
-                                <select onChange={(e) => handleSelectChange(e, 'marketVersion')} className="form-control" id="pno">
-                                    <option disabled selected>Select Vehicle Market Version</option>
-                                    {carMarketVersions.map((marketVersion) => (
-                                        <option key={marketVersion.id} value={marketVersion.id}>
-                                            {marketVersion.marketVersion}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-
+                            <CustomDropdown
+                                mainLabel="Market Version"
+                                dataProperty="marketVersion"
+                                id="marketVersionId"
+                                options={carMarketVersions}
+                                OnChange={(e) => handleSelectChange(e, 'marketVersion')}
+                                value={formData.marketVersion}
+                            />
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="pno">Horse Power:</label>
                                 <input onChange={handleInputChange} name="horsePower" type="number" className="form-control rounded" min="0"/>
                             </div>
-
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="pno">Seat Count:</label>
                                 <input onChange={handleInputChange} name="seatCount" type="number" className="form-control rounded" min="0"/>
                             </div>
-
 
 
                             <div className="form-group col-md-12">
@@ -461,7 +474,6 @@ const NewAnnouncement=()=>
                                     </label>
                                 </div>
                             </div>
-
 
                             <div className="form-group col-md-12">
                                 <label className="form-label" htmlFor="pno">Options:</label>
@@ -528,35 +540,29 @@ const NewAnnouncement=()=>
                                 </div>
                             </div>
 
-
-
                         </div>
+
                         <hr/>
                             <h5 className="mb-3">Announcement Information</h5>
                             <div className="row">
-                                <div className="form-group col-md-6">
-                                    <label className="form-label" htmlFor="pno">Country:</label>
-                                    <select onChange={handleCountryChange} className="form-control" id="pno">
-                                        <option disabled selected>Select Country</option>
-                                        {Countries.map((country) => (
-                                            <option key={country.id} value={country.id}>
-                                                {country.countryName}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
 
-                                <div className="form-group col-md-6">
-                                    <label className="form-label" htmlFor="pno">City:</label>
-                                    <select onChange={(e) => handleSelectChange(e, 'city')} className="form-control" id="pno">
-                                        <option disabled selected>Select City</option>
-                                        {filteredCities.map((city) => (
-                                            <option key={city.id} value={city.id}>
-                                                {city.cityName}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
+                                <CustomDropdown
+                                    mainLabel="Country"
+                                    dataProperty="countryName"
+                                    id="countryNameId"
+                                    options={Countries}
+                                    OnChange={handleCountryChange}
+                                    value={selectedCountry}
+                                />
+
+                                <CustomDropdown
+                                    mainLabel="City"
+                                    dataProperty="cityName"
+                                    id="cityNameId"
+                                    options={filteredCities}
+                                    OnChange={(e) => handleSelectChange(e, 'city')}
+                                    value={formData.city}
+                                />
 
                                 <div className="form-group col-md-4">
                                     <label className="form-label pe-2" htmlFor="credit_checkbox">Credit: </label>
