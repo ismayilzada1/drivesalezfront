@@ -18,6 +18,7 @@ class App extends Component {
     render() {
         return (
             <div className="app-container">
+                <Header/>
                 <Routes>
                     <Route path="/new-announcement" element={<NewAnnouncement />} />
                     <Route path="/" element={<Home />} />

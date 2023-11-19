@@ -33,8 +33,8 @@
 }
 
 .carousel-caption {
-    background: rgba(0, 0, 0, 0.6); /* Add a background for the captions */
-    color: #fff; /* Caption text color */
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
     padding: 15px;
 }
 
@@ -145,6 +145,152 @@
 }
 
 
+.badge-custom {
+    background-color: #f54114;
+    color: #ffffff;
+    font-size: .75rem;
+    opacity: .85;
+    cursor: pointer;
+}
+
+.badge-custom:hover {
+    opacity: 1;
+}
+
+
+.active-tab {
+    opacity: 1 !important;
+    visibility: visible !important;
+    max-height: 65rem !important; /* Adjust this value based on your content */
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out, max-height 0.5s ease-in-out;
+}
+
+.fade-in-element {
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 1s ease-in-out, visibility 1s ease-in-out, max-height 1s ease-in-out;
+}
+
+
+html,
+body {
+    /*background: #fff;*/
+    /*font-family: 'Poppins', sans-serif;*/
+}
+
+
+/*
+--------------------------------------------
+Our Classes
+--------------------------------------------
+*/
+
+#our-classes {
+    margin-bottom: 140px;
+}
+
+#tabs ul {
+    margin: 0;
+    padding: 0;
+}
+
+#tabs ul li {
+    margin-bottom: 30px;
+    display: inline-block;
+    width: 100%;
+}
+
+#tabs ul li:last-child {
+    margin-bottom: 0px;
+}
+
+#tabs ul li a {
+    text-transform: capitalize;
+    width: 100%;
+    padding: 30px 30px;
+    display: inline-block;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    font-size: 19px;
+    color: #232d39;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+#tabs .main-rounded-button a {
+    text-align: center;
+    padding: 20px 30px;
+    width: 100%;
+    border-radius: 5px;
+    display: inline-block;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    font-size: 19px;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    background-color: #ed563b;
+}
+
+#tabs .main-rounded-button a:hover {
+    background-color: #f9735b;
+}
+
+#tabs ul li a .fa {
+    font-size: 32px;
+    height: 32px;
+    color: #ed563b;
+    margin-right: 15px;
+    display: inline-block;
+}
+
+#tabs ul .ui-tabs-active span {
+    background: #faf5b2;
+    border: #faf5b2;
+    line-height: 90px;
+    border-bottom: none;
+}
+
+#tabs ul .ui-tabs-active a {
+    color: #ed563b;
+}
+
+#tabs ul .ui-tabs-active span {
+    color: #1e1e1e;
+}
+
+.tabs-content {
+    margin-left: 30px;
+    text-align: left;
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+.tabs-content img {
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.tabs-content h4 {
+    font-size: 23px;
+    font-weight: 700;
+    color: #232d39;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.tabs-content p {
+    font-size: 14px;
+    color: #7a7a7a;
+    margin-bottom: 28px;
+}
+
+
 
 @media (max-width: 768px) {
     .thumbnails-container {
@@ -181,149 +327,7 @@
 
 
 
-    .badge-custom {
-        background-color: #f54114;
-        color: #ffffff;
-        font-size: .75rem;
-        opacity: .85;
-        cursor: pointer;
-    }
 
-    .badge-custom:hover {
-        opacity: 1;
-    }
-
-
-    .active-tab {
-        opacity: 1 !important;
-        visibility: visible !important;
-        max-height: 65rem !important; /* Adjust this value based on your content */
-        transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out, max-height 0.5s ease-in-out;
-    }
-
-    .fade-in-element {
-        opacity: 0;
-        visibility: hidden;
-        max-height: 0;
-        overflow: hidden;
-        transition: opacity 1s ease-in-out, visibility 1s ease-in-out, max-height 1s ease-in-out;
-    }
-
-
-    html,
-    body {
-        background: #fff;
-        font-family: 'Poppins', sans-serif;
-    }
-
-
-    /*
-    --------------------------------------------
-    Our Classes
-    --------------------------------------------
-    */
-    #our-classes {
-        margin-bottom: 140px;
-    }
-
-    #tabs ul {
-        margin: 0;
-        padding: 0;
-    }
-
-    #tabs ul li {
-        margin-bottom: 30px;
-        display: inline-block;
-        width: 100%;
-    }
-
-    #tabs ul li:last-child {
-        margin-bottom: 0px;
-    }
-
-    #tabs ul li a {
-        text-transform: capitalize;
-        width: 100%;
-        padding: 30px 30px;
-        display: inline-block;
-        background-color: #fff;
-        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        font-size: 19px;
-        color: #232d39;
-        letter-spacing: 0.5px;
-        font-weight: 600;
-        transition: all 0.3s;
-    }
-
-    #tabs .main-rounded-button a {
-        text-align: center;
-        padding: 20px 30px;
-        width: 100%;
-        border-radius: 5px;
-        display: inline-block;
-        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
-        color: #fff;
-        font-size: 19px;
-        letter-spacing: 0.5px;
-        font-weight: 600;
-        background-color: #ed563b;
-    }
-
-    #tabs .main-rounded-button a:hover {
-        background-color: #f9735b;
-    }
-
-    #tabs ul li a .fa {
-        font-size: 32px;
-        height: 32px;
-        color: #ed563b;
-        margin-right: 15px;
-        display: inline-block;
-    }
-
-    #tabs ul .ui-tabs-active span {
-        background: #faf5b2;
-        border: #faf5b2;
-        line-height: 90px;
-        border-bottom: none;
-    }
-
-    #tabs ul .ui-tabs-active a {
-        color: #ed563b;
-    }
-
-    #tabs ul .ui-tabs-active span {
-        color: #1e1e1e;
-    }
-
-    .tabs-content {
-        margin-left: 30px;
-        text-align: left;
-        display: inline-block;
-        transition: all 0.3s;
-    }
-
-    .tabs-content img {
-        max-width: 100%;
-        overflow: hidden;
-        border-radius: 5px;
-    }
-
-    .tabs-content h4 {
-        font-size: 23px;
-        font-weight: 700;
-        color: #232d39;
-        letter-spacing: 0.5px;
-        margin-bottom: 20px;
-        margin-top: 30px;
-    }
-
-    .tabs-content p {
-        font-size: 14px;
-        color: #7a7a7a;
-        margin-bottom: 28px;
-    }
 
 
 }
