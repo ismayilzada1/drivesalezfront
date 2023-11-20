@@ -16,7 +16,7 @@ const ColorDropDownSelect = ({ options, selectedValues, toggleDropdown, handleCh
     return (
         <div className="dropdown">
             <Form.Group>
-                <button className="btn btn-primary dropdown-toggle" type="button" onClick={toggleDropdown} aria-expanded="false">
+                <button className="btn btn-outline-primary dropdown-toggle" type="button" onClick={toggleDropdown} aria-expanded="false">
                     {getPlaceholderText()}
                 </button>
                 <ul className={`dropdown-menu${showDropdown ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">

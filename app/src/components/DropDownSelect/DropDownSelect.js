@@ -2,19 +2,24 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import './DropDownSelect.css';
 
-const DropDownSelect = ({ options, selectedValues, toggleDropdown, handleCheckboxChange, showDropdown }) => {
+const DropDownSelect = ({ options, selectedValues, toggleDropdown, handleCheckboxChange, showDropdown,valueName }) => {
     const getPlaceholderText = () => {
         if (Array.isArray(selectedValues) && selectedValues.length > 0) {
-            return selectedValues.length <= 3
-                ? selectedValues
-                    .map((value) => options.find((option) => option.value === value)?.label)
-                    .filter((label) => label !== undefined)
-                    .join(', ')
-                : `Selected (${selectedValues.length})`;
+            const selectedLabels = selectedValues.map((value) => {
+                const option = options.find((opt) => opt.id === value);
+                return option ? option[valueName] : null;
+            });
+
+            const filteredLabels = selectedLabels.filter((label) => label !== null);
+
+            return filteredLabels.length > 0
+                ? (filteredLabels.length <= 3 ? filteredLabels.join(', ') : `Selected (${filteredLabels.length})`)
+                : 'Choose an option';
         } else {
             return 'Choose an option';
         }
     };
+
 
 
 
@@ -31,13 +36,13 @@ const DropDownSelect = ({ options, selectedValues, toggleDropdown, handleCheckbo
                             <input
                                 className="form-check-input"
                                 type="checkbox"
-                                value={option.value}
-                                id={`Checkme${option.value}`}
-                                checked={selectedValues.includes(option.value)}
-                                onChange={() => handleCheckboxChange(option.value)}
+                                value={option.id}
+                                id={`Checkme${option.id}`}
+                                checked={selectedValues.includes(option.id)}
+                                onChange={() => handleCheckboxChange(option.id)}
                             />
-                            <label className="form-check-label" htmlFor={`Checkme${option.value}`}>
-                                {option.label}
+                            <label className="form-check-label" htmlFor={`Checkme${option.id}`}>
+                                {option[valueName]}
                             </label>
                         </li>
                     ))}

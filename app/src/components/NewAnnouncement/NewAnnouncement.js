@@ -67,7 +67,6 @@ const NewAnnouncement=()=>
     });
 
     const isFormValid = () => {
-        // Check if all required fields have values
         return (
             formData.model !== '' &&
             formData.bodyType !== '' &&
