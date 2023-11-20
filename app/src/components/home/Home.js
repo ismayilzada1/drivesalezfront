@@ -3,6 +3,9 @@ import Logo from '../logo';
 import './Home.css';
 import AnnouncementCard from "../announcementCard";
 import { Form, Row, Col, Button,Collapse,Dropdown } from 'react-bootstrap';
+import ColorDropdownSelect from '../ColorDropDownSelect'
+import useDropdown from "../../hooks/useDropdown";
+import DropDownSelect from "../DropDownSelect";
 
 const Home = () => {
     const carData = [
@@ -104,6 +107,8 @@ const Home = () => {
         setShowDetails(!showDetails);
     };
 
+
+
     // Function to clear the form
     const clearForm = () => {
         // Add logic to clear form fields (reset the state, if controlled components)
@@ -113,6 +118,8 @@ const Home = () => {
     const search = () => {
         // Add logic to handle search based on form values
     };
+
+
 
 
     const [isBarterFilter, setIsBarterFilter] = useState(false);
@@ -130,20 +137,18 @@ const Home = () => {
 
 
 
-    const [selectedValues, setSelectedValues] = useState([]);
-    const [showDropdown, setShowDropdown] = useState(false);
 
-    const handleCheckboxChange = (value) => {
-        if (selectedValues.includes(value)) {
-            setSelectedValues(selectedValues.filter((item) => item !== value));
-        } else {
-            setSelectedValues([...selectedValues, value]);
-        }
-    };
+    const { selectedValues, showDropdown, handleCheckboxChange, toggleDropdown } = useDropdown();
 
-    const toggleDropdown = () => {
-        setShowDropdown(!showDropdown);
-    };
+    const {
+        selectedValues: selectedValuesBodyType,
+        showDropdown: showDropdownBodyType,
+        handleCheckboxChange: handleCheckboxChangeBodyType,
+        toggleDropdown: toggleDropdownBodyType
+    } = useDropdown();
+
+
+
 
     const options = [
         { value: 'black', label: 'Qara', color: '#000000' },
@@ -152,15 +157,22 @@ const Home = () => {
         { value: 'red', label: 'qirmizi', color: '#fff' },
         { value: 'blue', label: 'goy', color: '#fff' },
 
-
     ];
 
-    const placeholderText =
-        selectedValues.length > 0
-            ? selectedValues.length <= 3
-                ? selectedValues.map((value) => options.find((option) => option.value === value)?.label).join(', ')
-                : `Selected (${selectedValues.length})`
-            : 'Choose color';
+    const bodyTypeOptions = [
+        { value: 'sedan', label: 'Sedan' },
+        { value: 'coupe', label: 'Coupe' },
+        { value: 'hatchback', label: 'Hatchback' },
+        { value: 'convertible', label: 'Convertible' },
+        { value: 'suv', label: 'SUV (Sport Utility Vehicle)' },
+        { value: 'crossover', label: 'Crossover' },
+        { value: 'minivan', label: 'Minivan' },
+        { value: 'pickup', label: 'Pickup Truck' },
+        { value: 'wagon', label: 'Wagon' },
+        { value: 'van', label: 'Van' },
+    ];
+
+
 
 
     return (
@@ -173,19 +185,22 @@ const Home = () => {
                 <Row className="container">
                     <Form onSubmit={search}>
                         <Row>
+
                             <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formUsedNew">
+                                <Form.Group controlId="formBodyType">
                                     <Form.Label>Body Type:</Form.Label>
-                                    <Form.Control as="select" className='form-control'>
-                                        <option value="">All</option>
-                                        <option>Sedan</option>
-                                        <option>Cabrio</option>
-                                        <option>Coupe</option>
-                                        <option>Truck</option>
-                                        <option>SUV/Off-Road</option>
-                                    </Form.Control>
+                                    <DropDownSelect
+                                        options={bodyTypeOptions}
+                                        selectedValues={selectedValuesBodyType}
+                                        toggleDropdown={toggleDropdownBodyType}
+                                        handleCheckboxChange={handleCheckboxChangeBodyType}
+                                        showDropdown={showDropdownBodyType}
+                                    />
                                 </Form.Group>
                             </Col>
+
+
+
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formUsedNew">
                                     <Form.Label>Make:</Form.Label>
@@ -376,31 +391,17 @@ const Home = () => {
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
 
-                                        <div className="dropdown">
-                                            <button className="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"  onClick={toggleDropdown}  aria-expanded="false">
-                                                {placeholderText}
-                                            </button>
-                                            <ul className={`dropdown-menu${showDropdown ? ' show' : ''} scrollable-dropdown`}  aria-labelledby="dropdownMenuButton">
+                                        <Form.Group controlId="formSeats">
+                                            <Form.Label>Vehicle Color: </Form.Label>
+                                            <ColorDropdownSelect
+                                                options={options}
+                                                selectedValues={selectedValues}
+                                                toggleDropdown={toggleDropdown}
+                                                handleCheckboxChange={handleCheckboxChange}
+                                                showDropdown={showDropdown}
+                                            />
+                                        </Form.Group>
 
-                                                {options.map((option) => (
-                                                    <li className="form-check" key={option.value}>
-                                                        <input
-                                                            className="form-check-input"
-                                                            type="checkbox"
-                                                            value={option.value}
-                                                            id={`Checkme${option.value}`}
-                                                            checked={selectedValues.includes(option.value)}
-                                                            onChange={() => handleCheckboxChange(option.value)}
-                                                        />
-                                                        <label className="form-check-label" htmlFor={`Checkme${option.value}`}>
-                                                            {option.label}
-                                                        </label>
-                                                    </li>
-                                                ))}
-
-
-                                            </ul>
-                                        </div>
 
 
                                     </Col>
