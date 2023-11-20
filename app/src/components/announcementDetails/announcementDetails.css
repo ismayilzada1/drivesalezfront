@@ -191,6 +191,10 @@ Our Classes
     margin-bottom: 140px;
 }
 
+#tabs{
+    font-family: 'Poppins', sans-serif;
+}
+
 #tabs ul {
     margin: 0;
     padding: 0;

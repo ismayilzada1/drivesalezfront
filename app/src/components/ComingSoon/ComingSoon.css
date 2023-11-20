@@ -1,0 +1,224 @@
+#header {
+    position: relative;
+    width: 100%;
+    padding: 80px 0 0 0;
+    color: #000; /* Set text color to black */
+}
+
+#header h1 {
+    margin: 0 0 40px 0;
+    font-size: 45px;
+    font-weight: 700;
+    line-height: 56px;
+    color: #000; /* Set text color to black */
+}
+
+#header h2, h3, h4 {
+    color: #333; /* Dark gray text color */
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+#header .countdown {
+    margin-bottom: 80px;
+}
+
+#header .countdown div {
+    text-align: center;
+    border: 2px solid rgba(0, 0, 0, 0.8); /* Dark border color */
+    border-radius: 8px;
+    margin: 10px 10px;
+    width: 100px;
+    padding: 15px 0;
+    background-color: #fff; /* Set background color to white */
+}
+
+#header .countdown div h3 {
+    font-weight: 700;
+    font-size: 32px;
+    margin-bottom: 15px;
+    color: #000; /* Set text color to black */
+}
+
+#header .countdown div h4 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+@media (max-width: 575px) {
+    #header h1 {
+        margin: 0 0 20px 0;
+        font-size: 35px;
+        font-weight: 600;
+        line-height: 46px;
+        color: #000; /* Set text color to black */
+    }
+
+    #header h2, h3, h4 {
+        color: #333; /* Dark gray text color */
+        margin-bottom: 6px;
+        font-size: 18px;
+    }
+
+    #header .countdown div {
+        width: 70px;
+        padding: 10px 0;
+        margin: 10px 8px;
+    }
+
+    #header .countdown div h3 {
+        font-size: 28px;
+        margin-bottom: 10px;
+    }
+
+    #header .countdown div h4 {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    #header {
+        padding-top: 50px;
+    }
+
+    .subscribe h4 {
+        font-size: 12px !important;
+    }
+}
+
+#header .subscribe {
+    font-size: 15px;
+    text-align: center;
+}
+
+#header .subscribe h4 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000; /* Set text color to black */
+    position: relative;
+    padding-bottom: 12px;
+}
+
+#header .subscribe .subscribe-form {
+    min-width: 300px;
+    margin-top: 10px;
+    background: #fff; /* Set background color to white */
+    padding: 6px 10px;
+    position: relative;
+    border-radius: 50px;
+    text-align: left;
+}
+
+#header .subscribe .subscribe-form input[type=email] {
+    border: 0;
+    padding: 4px 8px;
+    width: calc(100% - 100px);
+}
+
+#header .subscribe .subscribe-form input[type=submit] {
+    position: absolute;
+    top: 0;
+    right: -2px;
+    bottom: 0;
+    border: 0;
+    background: none;
+    font-size: 16px;
+    padding: 0 20px;
+    background: #f54114; /* Button background color */
+    color: #fff; /* Button text color */
+    transition: 0.3s;
+    border-radius: 50px;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+#header .subscribe .subscribe-form input[type=submit]:hover {
+    background: #f6542c; /* Hovered button background color */
+}
+
+#header .subscribe .error-message {
+    display: none;
+    color: #ed3c0d;
+    text-align: center;
+    padding: 15px;
+    font-weight: 600;
+}
+
+#header .subscribe .sent-message {
+    display: none;
+    color: #18d26e;
+    text-align: center;
+    padding: 15px;
+    font-weight: 600;
+}
+
+#header .subscribe .loading {
+    display: none;
+    text-align: center;
+    padding: 15px;
+}
+
+#header .subscribe .loading:before {
+    content: "";
+    display: inline-block;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    margin: 0 10px -6px 0;
+    border: 3px solid #18d26e;
+    border-top-color: #eee;
+    animation: animate-loading-notify 1s linear infinite;
+}
+
+.countdown-tab{
+    cursor: pointer;
+    transition:all .6s ease-in-out;
+}
+
+.countdown-tab:hover{
+    background-color: rgba(245,65,20,.9) !important;
+
+    & h3 {
+        color: #fff !important;
+    }
+
+    & h4 {
+        color: #fff !important;
+    }
+}
+
+
+@keyframes animate-loading-notify {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#header .social-links {
+    margin-top: 40px;
+}
+
+#header .social-links a {
+    font-size: 16px;
+    color: #000; /* Set text color to black */
+    margin: 0 3px;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    transition: 0.3s;
+    border: 1px solid rgba(0, 0, 0, 0.5); /* Dark border color */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#header .social-links a i {
+    line-height: 0;
+}
+
+#header .social-links a:hover {
+    background: #f54114; /* Hovered background color */
+    border-color: #f54114; /* Hovered border color */
+}

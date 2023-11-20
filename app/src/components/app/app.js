@@ -13,6 +13,7 @@ import ResetPassword from "../resetPassword";
 import Home from "../home";
 import AnnouncementDetails from "../announcementDetails";
 import LoadingPage from "../LoadingPage";
+import ComingSoon  from '../ComingSoon'
 
 class App extends Component {
     render() {
@@ -26,13 +27,14 @@ class App extends Component {
                     <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/coming-soon" element={<ComingSoon  />} />
                     <Route path="/verifyEmail" element={<VerifyEmail />} />
                     <Route path="/AnnouncementDetails" element={<AnnouncementDetails />} />
                     <Route path="/header" element={<Header />} />
                     <Route path="/loading" element={<LoadingPage />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
-
+                <Footer/>
                 {/*{window.location.pathname !== "/login" && window.location.pathname !== "/register" && (*/}
                 {/*    <div>*/}
                 {/*        <Header />*/}

@@ -44,7 +44,7 @@ const Header = () => {
                 </span>
                 </button>
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <div className="collapse navbar-collapse rounded" id="navbarSupportedContent">
 
                     <ul className="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
 
@@ -53,11 +53,11 @@ const Header = () => {
                         </li>
 
                         <li className="nav-item d-none d-lg-block me-3">
-                            <a className="nav-link" aria-current="page" href="#">Motorcycles</a>
+                            <a className="nav-link" aria-current="page" href="/coming-soon">Motorcycles</a>
                         </li>
 
                         <li className="nav-item d-none d-lg-block me-3">
-                            <a className="nav-link" aria-current="page" href="#">Trucks</a>
+                            <a className="nav-link" aria-current="page" href="/coming-soon">Trucks</a>
                         </li>
 
 
@@ -93,7 +93,7 @@ const Header = () => {
 
                         <li className='nav-item'>
 
-                            <button className='btn btn-plus btn-square d-flex justify-content-center align-items-center' style={{ backgroundColor: '#f54114', color: '#ffffff',border:'none' }}>
+                            <button  className='btn btn-plus btn-square d-flex justify-content-center align-items-center' style={{ backgroundColor: '#f54114', color: '#ffffff',border:'none' }}>
                                 {isMobile ? <i className="fas fa-plus"></i> : <><i className="fas fa-plus me-2"></i>Add Vehicle</>}
                             </button>
 
