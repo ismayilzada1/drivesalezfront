@@ -1,28 +1,23 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const useDropdown = () => {
-    const [selectedValues, setSelectedValues] = useState([]);
+const useDropdown = (initialState) => {
+    const [selectedOption, setSelectedOption] = useState(initialState);
     const [showDropdown, setShowDropdown] = useState(false);
 
-    const handleCheckboxChange = (value) => {
-        setSelectedValues((prevSelectedValues) => {
-            if (prevSelectedValues.includes(value)) {
-                return prevSelectedValues.filter((item) => item !== value);
-            } else {
-                return [...prevSelectedValues, value];
-            }
-        });
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
     };
 
-    const toggleDropdown = () => {
-        setShowDropdown((prevShowDropdown) => !prevShowDropdown);
+    const handleOptionSelect = (option) => {
+        setSelectedOption(option);
+        setShowDropdown(false);
     };
 
     return {
-        selectedValues,
+        selectedOption,
         showDropdown,
-        handleCheckboxChange,
         toggleDropdown,
+        handleOptionSelect,
     };
 };
 

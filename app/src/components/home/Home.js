@@ -4,6 +4,7 @@ import './Home.css';
 import AnnouncementCard from "../announcementCard";
 import { Form, Row, Col, Button,Collapse,Dropdown } from 'react-bootstrap';
 import ColorDropdownSelect from '../ColorDropDownSelect'
+import useDropdownWithCheckboxes from "../../hooks/useDropdownWithCheckboxes";
 import useDropdown from "../../hooks/useDropdown";
 import DropDownSelect from "../DropDownSelect";
 import commonDataService from '../../api-services/CommonDataService'
@@ -242,6 +243,26 @@ const Home = () => {
     const handleIsOnCreditFilterToggle = () => setIsOnCreditFilter(!isOnCreditFilter);
 
 
+    const {
+        selectedOption:selectedOptionMake,
+        showDropdown:showDropdownMake,
+        toggleDropdown:toggleDropdownMake,
+        handleOptionSelect:handleOptionSelectMake
+    } = useDropdown(null);
+
+    const {
+        selectedOption:selectedOptionUsedNew,
+        showDropdown:showDropdownUsedNew,
+        toggleDropdown:toggleDropdownUsedNew,
+        handleOptionSelect:handleOptionSelectUsedNew
+    } = useDropdown(null);
+
+    const {
+        selectedOption:selectedOptionCountry,
+        showDropdown:showDropdownCountry,
+        toggleDropdown:toggleDropdownCountry,
+        handleOptionSelect:handleOptionSelectCountry
+    } = useDropdown(null);
 
 
 
@@ -249,28 +270,28 @@ const Home = () => {
         selectedValues:selectedValuesColors,
         showDropdown:showDropdownColors,
         handleCheckboxChange:handleCheckboxChangeColors,
-        toggleDropdown:toggleDropdownColors } = useDropdown();
+        toggleDropdown:toggleDropdownColors } = useDropdownWithCheckboxes();
 
     const {
         selectedValues: selectedValuesBodyType,
         showDropdown: showDropdownBodyType,
         handleCheckboxChange: handleCheckboxChangeBodyType,
         toggleDropdown: toggleDropdownBodyType
-    } = useDropdown();
+    } = useDropdownWithCheckboxes();
 
     const {
         selectedValues: selectedValuesModels,
         showDropdown: showDropdownModels,
         handleCheckboxChange: handleCheckboxChangeModels,
         toggleDropdown: toggleDropdownModels
-    } = useDropdown();
+    } = useDropdownWithCheckboxes();
 
     const {
         selectedValues: selectedValuesGearboxTypes,
         showDropdown: showDropdownGearboxTypes,
         handleCheckboxChange: handleCheckboxChangeGearboxTypes,
         toggleDropdown: toggleDropdownGearboxTypes
-    } = useDropdown();
+    } = useDropdownWithCheckboxes();
 
 
     const {
@@ -278,14 +299,23 @@ const Home = () => {
         showDropdown: showDropdownCities,
         handleCheckboxChange: handleCheckboxChangeCities,
         toggleDropdown: toggleDropdownCities
-    } = useDropdown();
+    } = useDropdownWithCheckboxes();
 
     const {
         selectedValues: selectedValuesFuelTypes,
         showDropdown: showDropdownFuelTypes,
         handleCheckboxChange: handleCheckboxChangeFuelTypes,
         toggleDropdown: toggleDropdownFuelTypes
-    } = useDropdown();
+    } = useDropdownWithCheckboxes();
+
+
+    const {
+        selectedValues: selectedValuesMarketVersion,
+        showDropdown: showDropdownMarketVersion,
+        handleCheckboxChange: handleCheckboxChangeMarketVersion,
+        toggleDropdown: toggleDropdownMarketVersion
+    } = useDropdownWithCheckboxes();
+
 
 
     useEffect(() => {
@@ -298,7 +328,7 @@ const Home = () => {
 
 
 
-    const options = [
+    const optionsMake = [
         { id: 1, name: 'BMW' },
         { id: 2, name: 'Mercedes Benz' },
         { id: 3, name: 'Audi' },
@@ -307,17 +337,26 @@ const Home = () => {
 
     ];
 
-    const [showDropdown, setShowDropdown] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(null);
+    const optionsUsedNew = [
+        { id: 1, name: 'All' },
+        { id: 2, name: 'Used' },
+        { id: 3, name: 'New' },
 
-    const toggleDropdown = () => {
-        setShowDropdown(!showDropdown);
-    };
+    ];
 
-    const handleOptionSelect = (option) => {
-        setSelectedOption(option);
-        setShowDropdown(false);
-    };
+    const optionsCountries = [
+        { id: 1, name: 'Azerbaijan' },
+        { id: 2, name: 'Poland' },
+    ];
+
+    const optionsMarketVersions = [
+        { id: 1, name: 'Usa' },
+        { id: 2, name: 'Europe' },
+        { id: 3, name: 'Asia' },
+        { id: 4, name: 'Middle east' },
+
+    ];
+
 
 
     return (
@@ -333,34 +372,17 @@ const Home = () => {
                     <Form onSubmit={search}>
                         <Row>
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formMake">
-                                    <Form.Label>Make:</Form.Label>
-                                    <Form.Control
-                                        as="select"
-                                        className='form-control'
-                                        value={selectedBrand}
-                                        onChange={(e) => setSelectedBrand(e.target.value)}
-                                    >
-                                        <option value="">All</option>
-                                        {carBrands.map((brand) => (
-                                            <option key={brand.id} value={brand.id}>
-                                                {brand.makeName}
-                                            </option>
-                                        ))}
-                                    </Form.Control>
-                                </Form.Group>
-                            </Col>
+
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Label>Make:</Form.Label>
                                 <Form.Group>
-                                    <button className="btn btn-outline-primary dropdown-toggle" onClick={toggleDropdown} type="button"  aria-expanded="false">
-                                        {selectedOption ? selectedOption.name : 'Choose Make'}
+                                    <button className="btn btn-outline-primary dropdown-toggle" onClick={toggleDropdownMake} type="button"  aria-expanded="false">
+                                        {selectedOptionMake ? selectedOptionMake.name : 'Choose Make'}
                                     </button>
-                                    <ul className={`rounded dropdown-menu${showDropdown ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">
-                                        {options.map((option) => (
-                                            <li className="form-check custom-form-check" onClick={() => handleOptionSelect(option)} key={option.value}>
+                                    <ul className={`rounded dropdown-menu${showDropdownMake ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">
+                                        {optionsMake.map((option) => (
+                                            <li className="form-check custom-form-check" onClick={() => handleOptionSelectMake(option)} key={option.value}>
                                                 <label className="form-check-label custom-form-label"  htmlFor={`Checkme${option.id}`}>
                                                     {option.name}
                                                 </label>
@@ -419,13 +441,20 @@ const Home = () => {
                             </Col>
 
                             <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formUsedNew">
-                                    <Form.Label>Used/New:</Form.Label>
-                                    <Form.Control as="select" className='form-control'>
-                                        <option value="">All</option>
-                                        <option value="new">New</option>
-                                        <option value="used">Used</option>
-                                    </Form.Control>
+                                <Form.Label>Used/New:</Form.Label>
+                                <Form.Group>
+                                    <button className="btn btn-outline-primary dropdown-toggle" onClick={toggleDropdownUsedNew} type="button"  aria-expanded="false">
+                                        {selectedOptionUsedNew ? selectedOptionUsedNew.name : 'Choose Make'}
+                                    </button>
+                                    <ul className={`rounded dropdown-menu${showDropdownUsedNew ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">
+                                        {optionsUsedNew.map((option) => (
+                                            <li className="form-check custom-form-check" onClick={() => handleOptionSelectUsedNew(option)} key={option.value}>
+                                                <label className="form-check-label custom-form-label"  htmlFor={`Checkme${option.id}`}>
+                                                    {option.name}
+                                                </label>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </Form.Group>
                             </Col>
 
@@ -522,21 +551,20 @@ const Home = () => {
                             </Col>
 
                             <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formCountry">
-                                    <Form.Label>Country:</Form.Label>
-                                    <Form.Control
-                                        as="select"
-                                        className='form-control'
-                                        value={selectedCountry}
-                                        onChange={(e) => setSelectedCountry(e.target.value)}
-                                    >
-                                        <option value="">All</option>
-                                        {Countries.map((country) => (
-                                            <option key={country.id} value={country.id}>
-                                                {country.countryName}
-                                            </option>
+                                <Form.Label>Country:</Form.Label>
+                                <Form.Group>
+                                    <button className="btn btn-outline-primary dropdown-toggle" onClick={toggleDropdownCountry} type="button"  aria-expanded="false">
+                                        {selectedOptionCountry ? selectedOptionCountry.name : 'Choose Make'}
+                                    </button>
+                                    <ul className={`rounded dropdown-menu${showDropdownCountry ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">
+                                        {optionsCountries.map((option) => (
+                                            <li className="form-check custom-form-check" onClick={() => handleOptionSelectCountry(option)} key={option.value}>
+                                                <label className="form-check-label custom-form-label"  htmlFor={`Checkme${option.id}`}>
+                                                    {option.name}
+                                                </label>
+                                            </li>
                                         ))}
-                                    </Form.Control>
+                                    </ul>
                                 </Form.Group>
                             </Col>
 
@@ -586,14 +614,16 @@ const Home = () => {
 
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
-                                        <Form.Group controlId="formDoors">
+                                        <Form.Group controlId="formBodyType">
                                             <Form.Label>Market Version:</Form.Label>
-                                            <Form.Control as="select">
-                                                <option>All</option>
-                                                <option>Europe</option>
-                                                <option>Asia</option>
-                                                <option>Middle East</option>
-                                            </Form.Control>
+                                            <DropDownSelect
+                                                options={optionsMarketVersions}
+                                                selectedValues={selectedValuesMarketVersion}
+                                                toggleDropdown={toggleDropdownMarketVersion}
+                                                handleCheckboxChange={handleCheckboxChangeMarketVersion}
+                                                showDropdown={showDropdownMarketVersion}
+                                                valueName={'name'}
+                                            />
                                         </Form.Group>
                                     </Col>
                                     <Col lg={3} md={4} sm={6} xs={12}>
