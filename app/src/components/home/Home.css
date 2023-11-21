@@ -19,6 +19,16 @@
     margin-left:5px;
 }
 
+.custom-form-check,.custom-form-label{
+    cursor: pointer !important;
+}
+
+.custom-form-check:hover{
+    background-color: #f6542c;
+    color:white;
+}
+
+
 
 @media screen and (max-width: 1440px) {
     .announcement-card-div {

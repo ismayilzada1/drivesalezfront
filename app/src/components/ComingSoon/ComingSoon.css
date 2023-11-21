@@ -11,12 +11,22 @@
     font-weight: 700;
     line-height: 56px;
     color: #000; /* Set text color to black */
+    transition: all .5s ease-in-out;
+    cursor: pointer;
+
 }
 
 #header h2, h3, h4 {
-    color: #333; /* Dark gray text color */
+    color: #333;
     margin-bottom: 10px;
     font-size: 22px;
+    transition: all .5s ease-in-out;
+    cursor: pointer;
+
+}
+
+#header h1:hover,h2:hover,h3:hover,h4:hover{
+    color:#f6542c !important;
 }
 
 #header .countdown {
@@ -47,11 +57,15 @@
 
 @media (max-width: 575px) {
     #header h1 {
-        margin: 0 0 20px 0;
-        font-size: 35px;
+        margin: 0 0 40px 0;
+        font-size: 3rem;
         font-weight: 600;
         line-height: 46px;
         color: #000; /* Set text color to black */
+    }
+
+    #header h2{
+        padding:30px 0;
     }
 
     #header h2, h3, h4 {
@@ -62,8 +76,8 @@
 
     #header .countdown div {
         width: 70px;
-        padding: 10px 0;
-        margin: 10px 8px;
+        padding: 25px 0;
+        margin: 20px 10px;
     }
 
     #header .countdown div h3 {
@@ -77,11 +91,15 @@
     }
 
     #header {
-        padding-top: 50px;
+        padding-top: 70px;
     }
 
     .subscribe h4 {
         font-size: 12px !important;
+    }
+
+    .social-links{
+        padding:40px 0;
     }
 }
 
@@ -106,6 +124,7 @@
     position: relative;
     border-radius: 50px;
     text-align: left;
+    outline:2px solid #f6542c;
 }
 
 #header .subscribe .subscribe-form input[type=email] {
@@ -173,6 +192,7 @@
     transition:all .6s ease-in-out;
 }
 
+
 .countdown-tab:hover{
     background-color: rgba(245,65,20,.9) !important;
 
@@ -221,4 +241,68 @@
 #header .social-links a:hover {
     background: #f54114; /* Hovered background color */
     border-color: #f54114; /* Hovered border color */
+}
+
+
+
+@media (min-width: 768px) and (max-width: 1025px) {
+    #header {
+        padding-top: 100px;
+    }
+
+    #header h1 {
+        font-size: 5rem;
+    }
+
+    #header h2 {
+        padding: 50px 0;
+    }
+
+    #header h2, #header h3, #header h4 {
+        font-size: 2.5rem;
+    }
+
+    #header .countdown div {
+        padding: 50px 80px;
+        margin: 30px 20px;
+        display:flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    #header .countdown div h3 {
+        font-size: 3rem;
+        margin-bottom: 10px;
+    }
+
+    #header .countdown div h4 {
+        font-size: 2rem;
+    }
+
+    #header .subscribe h4 {
+        font-size: 2.2rem;
+    }
+
+    .subscribe-form input[type=email] {
+        width: calc(100% - 40px);
+    }
+
+    .subscribe-form input[type=submit]{
+        font-size: 1.4rem !important;
+    }
+
+    #header .social-links {
+        padding: 80px 0;
+        padding-bottom: 20%;
+    }
+
+    #header .social-links a{
+        font-size: 28px;
+        margin: 0 6px;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+    }
 }

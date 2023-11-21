@@ -298,7 +298,26 @@ const Home = () => {
 
 
 
+    const options = [
+        { id: 1, name: 'BMW' },
+        { id: 2, name: 'Mercedes Benz' },
+        { id: 3, name: 'Audi' },
+        { id: 4, name: 'Ford' },
+        { id: 5, name: 'Lamborghini' },
 
+    ];
+
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [selectedOption, setSelectedOption] = useState(null);
+
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    };
+
+    const handleOptionSelect = (option) => {
+        setSelectedOption(option);
+        setShowDropdown(false);
+    };
 
 
     return (
@@ -330,6 +349,24 @@ const Home = () => {
                                             </option>
                                         ))}
                                     </Form.Control>
+                                </Form.Group>
+                            </Col>
+
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Label>Make:</Form.Label>
+                                <Form.Group>
+                                    <button className="btn btn-outline-primary dropdown-toggle" onClick={toggleDropdown} type="button"  aria-expanded="false">
+                                        {selectedOption ? selectedOption.name : 'Choose Make'}
+                                    </button>
+                                    <ul className={`rounded dropdown-menu${showDropdown ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">
+                                        {options.map((option) => (
+                                            <li className="form-check custom-form-check" onClick={() => handleOptionSelect(option)} key={option.value}>
+                                                <label className="form-check-label custom-form-label"  htmlFor={`Checkme${option.id}`}>
+                                                    {option.name}
+                                                </label>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </Form.Group>
                             </Col>
 
