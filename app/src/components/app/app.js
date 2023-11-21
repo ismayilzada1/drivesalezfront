@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route,useLocation } from 'react-router-dom';
 import './app.css'
 import NewAnnouncement from "../NewAnnouncement";
 import Register from "../register";
@@ -15,11 +15,25 @@ import AnnouncementDetails from "../announcementDetails";
 import LoadingPage from "../LoadingPage";
 import ComingSoon  from '../ComingSoon'
 
-class App extends Component {
-    render() {
+function App() {
+
+    const location = useLocation();
+
+    const excludeHeaderFooterPaths = [
+        "/login",
+        "/register",
+        "/verifyEmail",
+        "/reset-password",
+        "/forgot-password"
+
+    ];
+
+    const shouldDisplayHeaderFooter = !excludeHeaderFooterPaths.includes(location.pathname);
+
+
         return (
             <div className="app-container">
-                <Header/>
+                {shouldDisplayHeaderFooter && <Header />}
                 <Routes>
                     <Route path="/new-announcement" element={<NewAnnouncement />} />
                     <Route path="/" element={<Home />} />
@@ -30,20 +44,13 @@ class App extends Component {
                     <Route path="/coming-soon" element={<ComingSoon  />} />
                     <Route path="/verifyEmail" element={<VerifyEmail />} />
                     <Route path="/AnnouncementDetails" element={<AnnouncementDetails />} />
-                    <Route path="/header" element={<Header />} />
                     <Route path="/loading" element={<LoadingPage />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
-                <Footer/>
-                {/*{window.location.pathname !== "/login" && window.location.pathname !== "/register" && (*/}
-                {/*    <div>*/}
-                {/*        <Header />*/}
-                {/*        <Footer/>*/}
-                {/*    </div>*/}
-                {/*)}*/}
+                {shouldDisplayHeaderFooter && <Footer />}
             </div>
         );
-    }
+
 }
 
 export default App;

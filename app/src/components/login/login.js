@@ -28,6 +28,7 @@ const Login = () => {
 
          if (response.status === 200) {
             setShowSuccessAlert(true);
+            localStorage.setItem('isLoggedIn', 'true');
             setTimeout(() => {
                navigate('/');
             }, 1000);

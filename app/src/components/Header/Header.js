@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
@@ -16,6 +19,29 @@ const Header = () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    const handleAddVehicleButton=()=>navigate('/new-announcement');
+
+
+    const handleSignUpButton=()=>navigate('/register');
+
+
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
+    useEffect(() => {
+        const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+        setIsLoggedIn(storedIsLoggedIn === 'true');
+    }, []);
+
+
+    const handleLogout = () => {
+
+
+        setIsLoggedIn(false);
+        localStorage.setItem('isLoggedIn', 'false');
+    };
 
     return (
 
@@ -70,7 +96,7 @@ const Header = () => {
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                             >
-                                Categories
+                                Menu
                             </a>
                             <ul className="dropdown-menu mx-auto" aria-labelledby="navbarDropdown">
                                 <li>
@@ -91,14 +117,6 @@ const Header = () => {
                             </ul>
                         </li>
 
-                        <li className='nav-item'>
-
-                            <button  className='btn btn-plus btn-square d-flex justify-content-center align-items-center' style={{ backgroundColor: '#f54114', color: '#ffffff',border:'none' }}>
-                                {isMobile ? <i className="fas fa-plus"></i> : <><i className="fas fa-plus me-2"></i>Add Vehicle</>}
-                            </button>
-
-
-                        </li>
 
                         <li className="nav-item dropdown">
                             <a href="#" className="nav-link" id="mail-drop" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
@@ -176,8 +194,19 @@ const Header = () => {
                             </div>
                         </li>
 
-                        <li className="nav-item dropdown">
-                            <a className="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                        <li className='nav-item'>
+                            <button onClick={handleAddVehicleButton} className='btn btn-plus btn-square d-flex justify-content-center align-items-center' style={{ backgroundColor: '#f54114', color: '#ffffff',border:'none' }}>
+                                {isMobile ? <i className="fas fa-plus"></i> : <><i className="fas fa-plus me-2"></i>Add Vehicle</>}
+                            </button>
+                        </li>
+
+
+
+                        {isLoggedIn ?
+                            (
+                                <li className="nav-item dropdown">
+                                <a className="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="../assets/images/avatars/01.png" alt="User-Profile" className="img-fluid avatar avatar-50 avatar-rounded"/>
                                 <div className="caption ms-3 d-none d-md-block ">
                                     <h6 className="mb-0 caption-title">Austin Robertson</h6>
@@ -190,7 +219,18 @@ const Header = () => {
                                 <li><hr className="dropdown-divider"/></li>
                                 <li><a className="dropdown-item" href="../dashboard/auth/sign-in.html">Logout</a></li>
                             </ul>
-                        </li>
+                                </li>
+                            ) :
+                            (
+                                <li className='nav-item ms-2'>
+                                    <button onClick={handleSignUpButton}  className='btn btn-plus btn-square d-flex justify-content-center align-items-center' style={{ backgroundColor: '#f54114', color: '#ffffff',border:'none' }}>
+                                        {isMobile ? <i className="fas fa-user"></i> : <><i className="fas fa-user me-2"></i>Sign up</>}
+                                    </button>
+                                </li>
+                            )}
+
+
+
                     </ul>
                 </div>
 
