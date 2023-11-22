@@ -181,6 +181,15 @@ body {
 }
 
 
+.modal-header{
+    background-color: black;
+    border:0;
+}
+
+.btn-close{
+    color:white !important;
+}
+
 /*
 --------------------------------------------
 Our Classes

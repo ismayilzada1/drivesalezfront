@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Form } from 'react-bootstrap';
 import './DropDownSelectWithCheckboxes.css';
 
@@ -20,6 +20,10 @@ const DropDownSelectWithCheckboxes = ({ options, selectedValues, toggleDropdown,
         }
     };
 
+
+    useEffect (() => {
+        console.log(selectedValues);
+    }, [selectedValues]);
 
 
 

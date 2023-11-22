@@ -104,13 +104,6 @@ const Home = () => {
 
 
 
-    const filteredCities = Cities.filter( (city) => city.country.id == selectedCountry );
-
-
-    const filteredVehicleModels = carModels.filter( (model) => model.make.id == selectedBrand );
-
-
-
 
 
 
@@ -220,17 +213,7 @@ const Home = () => {
 
 
 
-    // Function to clear the form
-    const clearForm = () => {
-        console.log(selectedOptionMake);
 
-        // Add logic to clear form fields (reset the state, if controlled components)
-    };
-
-    // Function to perform search
-    const search = () => {
-        // Add logic to handle search based on form values
-    };
 
 
 
@@ -249,7 +232,21 @@ const Home = () => {
         showDropdown:showDropdownMake,
         toggleDropdown:toggleDropdownMake,
         handleOptionSelect:handleOptionSelectMake
-    } = useDropdown();
+    } = useDropdown(null);
+
+    const {
+        selectedOption:selectedOptionMaxYear,
+        showDropdown:showDropdownMaxYear,
+        toggleDropdown:toggleDropdownMaxYear,
+        handleOptionSelect:handleOptionSelectMaxYear
+    } = useDropdown(null);
+
+    const {
+        selectedOption:selectedOptionMinYear,
+        showDropdown:showDropdownMinYear,
+        toggleDropdown:toggleDropdownMinYear,
+        handleOptionSelect:handleOptionSelectMinYear
+    } = useDropdown(null);
 
     const {
         selectedOption:selectedOptionUsedNew,
@@ -265,34 +262,41 @@ const Home = () => {
         handleOptionSelect:handleOptionSelectCountry
     } = useDropdown(null);
 
-
+    const {
+        selectedValues: selectedValuesBodyTypes,
+        showDropdown: showDropdownBodyTypes,
+        handleCheckboxChange: handleCheckboxChangeBodyTypes,
+        toggleDropdown: toggleDropdownBodyTypes } = useDropdownWithCheckboxes(null);
 
     const {
         selectedValues:selectedValuesColors,
         showDropdown:showDropdownColors,
         handleCheckboxChange:handleCheckboxChangeColors,
-        toggleDropdown:toggleDropdownColors } = useDropdownWithCheckboxes();
+        toggleDropdown:toggleDropdownColors } = useDropdownWithCheckboxes(null);
+
+
 
     const {
-        selectedValues: selectedValuesBodyType,
-        showDropdown: showDropdownBodyType,
-        handleCheckboxChange: handleCheckboxChangeBodyType,
-        toggleDropdown: toggleDropdownBodyType
-    } = useDropdownWithCheckboxes();
+        selectedValues: selectedValuesDriveTrainType,
+        showDropdown: showDropdownDriveTrainType,
+        handleCheckboxChange: handleCheckboxChangeDriveTrainType,
+        toggleDropdown: toggleDropdownDriveTrainType
+    } = useDropdownWithCheckboxes(null);
+
 
     const {
         selectedValues: selectedValuesModels,
         showDropdown: showDropdownModels,
         handleCheckboxChange: handleCheckboxChangeModels,
         toggleDropdown: toggleDropdownModels
-    } = useDropdownWithCheckboxes();
+    } = useDropdownWithCheckboxes(null);
 
     const {
         selectedValues: selectedValuesGearboxTypes,
         showDropdown: showDropdownGearboxTypes,
         handleCheckboxChange: handleCheckboxChangeGearboxTypes,
         toggleDropdown: toggleDropdownGearboxTypes
-    } = useDropdownWithCheckboxes();
+    } = useDropdownWithCheckboxes(null);
 
 
     const {
@@ -300,14 +304,21 @@ const Home = () => {
         showDropdown: showDropdownCities,
         handleCheckboxChange: handleCheckboxChangeCities,
         toggleDropdown: toggleDropdownCities
-    } = useDropdownWithCheckboxes();
+    } = useDropdownWithCheckboxes(null);
 
     const {
         selectedValues: selectedValuesFuelTypes,
         showDropdown: showDropdownFuelTypes,
         handleCheckboxChange: handleCheckboxChangeFuelTypes,
         toggleDropdown: toggleDropdownFuelTypes
-    } = useDropdownWithCheckboxes();
+    } = useDropdownWithCheckboxes(null);
+
+    const {
+        selectedValues: selectedValuesSeatCount,
+        showDropdown: showDropdownSeatCount,
+        handleCheckboxChange: handleCheckboxChangeSeatCount,
+        toggleDropdown: toggleDropdownSeatCount
+    } = useDropdownWithCheckboxes(null);
 
 
     const {
@@ -315,35 +326,28 @@ const Home = () => {
         showDropdown: showDropdownMarketVersion,
         handleCheckboxChange: handleCheckboxChangeMarketVersion,
         toggleDropdown: toggleDropdownMarketVersion
-    } = useDropdownWithCheckboxes();
+    } = useDropdownWithCheckboxes(null);
 
     const {
         selectedValues: selectedValuesOwnerQuantity,
         showDropdown: showDropdownOwnerQuantity,
         handleCheckboxChange: handleCheckboxChangeOwnerQuantity,
         toggleDropdown: toggleDropdownOwnerQuantity
-    } = useDropdownWithCheckboxes();
+    } = useDropdownWithCheckboxes(null);
 
 
 
     useEffect(() => {
         selectedValuesModels.length=0;
-    }, [selectedBrand]);
+    }, [selectedOptionMake]);
 
     useEffect(() => {
         selectedValuesCities.length=0;
-    }, [selectedCountry]);
+    }, [selectedOptionCountry]);
 
 
 
-    const optionsMake = [
-        { id: 1, name: 'BMW' },
-        { id: 2, name: 'Mercedes Benz' },
-        { id: 3, name: 'Audi' },
-        { id: 4, name: 'Ford' },
-        { id: 5, name: 'Lamborghini' },
 
-    ];
 
     const optionsUsedNew = [
         { id: 1, name: 'All' },
@@ -352,18 +356,6 @@ const Home = () => {
 
     ];
 
-    const optionsCountries = [
-        { id: 1, name: 'Azerbaijan' },
-        { id: 2, name: 'Poland' },
-    ];
-
-    const optionsMarketVersions = [
-        { id: 1, name: 'Usa' },
-        { id: 2, name: 'Europe' },
-        { id: 3, name: 'Asia' },
-        { id: 4, name: 'Middle east' },
-
-    ];
 
     const optionsOwnerQuantity = [
         { id: 1, name: '1' },
@@ -371,6 +363,53 @@ const Home = () => {
         { id: 3, name: '3' },
         { id: 4, name: '4 or more' },
     ];
+
+    const optionsSeatCount = [
+        { id: 1, name: '1' },
+        { id: 2, name: '2' },
+        { id: 3, name: '3' },
+        { id: 4, name: '4' },
+        { id: 5, name: '5' },
+        { id: 6, name: '6' },
+        { id: 7, name: '7' },
+        { id: 8, name: '8+' },
+    ];
+
+
+
+    const filteredCities = Cities.filter((city) => {
+        return city.country && selectedOptionCountry && city.country.id === selectedOptionCountry.id;
+    });
+
+
+
+    const filteredVehicleModels = carModels.filter((model) => {
+        return model.make && selectedOptionMake && model.make.id === selectedOptionMake.id;
+    });
+
+
+    // Function to clear the form
+    const clearForm = () => {
+        console.log(selectedValuesModels);
+        // Add logic to clear form fields (reset the state, if controlled components)
+    };
+
+    // Function to perform search
+    const search = () => {
+        // Add logic to handle search based on form values
+    };
+
+    // Separate useEffect for "Make" dropdown
+    useEffect(() => {
+        // Fetch data or perform actions related to the "Make" dropdown
+        console.log('Make dropdown selected:', selectedOptionMake);
+    }, [selectedOptionMake]);
+
+    // Separate useEffect for "Gearbox Type" dropdown
+    useEffect(() => {
+        // Fetch data or perform actions related to the "Gearbox Type" dropdown
+        console.log('Gearbox Type dropdown selected:', selectedValuesGearboxTypes);
+    }, [selectedValuesGearboxTypes]);
 
 
 
@@ -386,19 +425,13 @@ const Home = () => {
                 <Row className="container">
                     <Form onSubmit={search}>
                         <Row>
-
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Label>Make:</Form.Label>
-                                <Form.Group>
-                                <DropDownSelect options={optionsMake} selectedOption={selectedOptionMake} handleOptionSelect={handleOptionSelectMake} toggleDropdown={toggleDropdownMake} showDropdown={showDropdownMake} valueName='name'/>
-                                </Form.Group>
+                                <DropDownSelect options={carBrands} selectedOption={selectedOptionMake} handleOptionSelect={handleOptionSelectMake} toggleDropdown={toggleDropdownMake} showDropdown={showDropdownMake} valueName='makeName'/>
                             </Col>
 
-
-
-
                             <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formBodyType">
+                                <Form.Group controlId="formModel">
                                     <Form.Label>Vehicle Model:</Form.Label>
                                     <DropDownSelectWithCheckboxes
                                         options={filteredVehicleModels}
@@ -412,7 +445,7 @@ const Home = () => {
                             </Col>
 
                             <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formBodyType">
+                                <Form.Group controlId="formGearboxType">
                                     <Form.Label>Gearbox Type: </Form.Label>
                                     <DropDownSelectWithCheckboxes
                                         options={carGearboxTypes}
@@ -425,20 +458,20 @@ const Home = () => {
                                 </Form.Group>
                             </Col>
 
-
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formBodyType">
-                                    <Form.Label>Body Type:</Form.Label>
+                                    <Form.Label>Vehicle Body Type: </Form.Label>
                                     <DropDownSelectWithCheckboxes
                                         options={carBodyTypes}
-                                        selectedValues={selectedValuesBodyType}
-                                        toggleDropdown={toggleDropdownBodyType}
-                                        handleCheckboxChange={handleCheckboxChangeBodyType}
-                                        showDropdown={showDropdownBodyType}
-                                        valueName="bodyType"
+                                        selectedValues={selectedValuesBodyTypes}
+                                        toggleDropdown={toggleDropdownBodyTypes}
+                                        handleCheckboxChange={handleCheckboxChangeBodyTypes}
+                                        showDropdown={showDropdownBodyTypes}
+                                        valueName={'bodyType'}
                                     />
                                 </Form.Group>
                             </Col>
+
 
 
 
@@ -470,8 +503,8 @@ const Home = () => {
                                 <Form.Group controlId="formPrice">
                                     <Form.Label>Price:</Form.Label>
                                     <div className="input-group input-group-rounded">
-                                        <input type="number" className="form-control " placeholder="Min" aria-label="Minimum Price" />
-                                        <input type="number" className="form-control " placeholder="Max" aria-label="Maximum Price" />
+                                        <input type="number" className="form-control " placeholder="Min" min='0' aria-label="Minimum Price" />
+                                        <input type="number" className="form-control " placeholder="Max" min='0' aria-label="Maximum Price" />
                                         <Form.Control as="select" className='form-control short-input'>
                                             <option>AZN</option>
                                             <option>USD</option>
@@ -485,8 +518,8 @@ const Home = () => {
                                 <Form.Group controlId="formMileage">
                                     <Form.Label>Mileage:</Form.Label>
                                     <div className="input-group input-group-rounded">
-                                        <input type="number" className="form-control " placeholder="Min" aria-label="Minimum Mileage" />
-                                        <input type="number" className="form-control " placeholder="Max" aria-label="Maximum Mileage" />
+                                        <input type="number" className="form-control " placeholder="Min" min='0' aria-label="Minimum Mileage" />
+                                        <input type="number" className="form-control " placeholder="Max" min='0' aria-label="Maximum Mileage" />
                                         <Form.Control as="select" className='form-control short-input'>
                                             <option>KM</option>
                                             <option>MI</option>
@@ -499,19 +532,7 @@ const Home = () => {
 
 
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formOwnerQuantity">
-                                    <Form.Label>Owner Quantity: </Form.Label>
-                                    <DropDownSelectWithCheckboxes
-                                        options={optionsOwnerQuantity}
-                                        selectedValues={selectedValuesOwnerQuantity}
-                                        toggleDropdown={toggleDropdownOwnerQuantity}
-                                        handleCheckboxChange={handleCheckboxChangeOwnerQuantity}
-                                        showDropdown={showDropdownOwnerQuantity}
-                                        valueName={'name'}
-                                    />
-                                </Form.Group>
-                            </Col>
+
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formSeats">
@@ -527,80 +548,84 @@ const Home = () => {
                                 </Form.Group>
                             </Col>
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formBodyType">
-                                    <Form.Label>Market Version:</Form.Label>
-                                    <DropDownSelectWithCheckboxes
-                                        options={optionsMarketVersions}
-                                        selectedValues={selectedValuesMarketVersion}
-                                        toggleDropdown={toggleDropdownMarketVersion}
-                                        handleCheckboxChange={handleCheckboxChangeMarketVersion}
-                                        showDropdown={showDropdownMarketVersion}
-                                        valueName={'name'}
-                                    />
-                                </Form.Group>
-                            </Col>
+
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formPrice">
-                                    <Form.Label>Year:</Form.Label>
+                                    <Form.Label>Max Year:</Form.Label>
                                     <div className="input-group input-group-rounded">
-                                        <Form.Control as="select" className='form-control form-floating' placeholder="Max" aria-label="Maximum Price">
-                                            <option>Max Year</option>
-                                            <option>2022</option>
-                                            <option>2023</option>
+                                        <DropDownSelect options={ManufactureYears} selectedOption={selectedOptionMaxYear} handleOptionSelect={handleOptionSelectMaxYear} toggleDropdown={toggleDropdownMaxYear} showDropdown={showDropdownMaxYear} valueName='year'/>
+                                    </div>
+                                </Form.Group>
+                            </Col>
 
-                                        </Form.Control>
-                                        <Form.Control as="select" className='form-control' placeholder="Max" aria-label="Maximum Price">
-                                            <option>Min Year</option>
-                                            <option>2022</option>
-                                            <option>2023</option>
-                                        </Form.Control>
+
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formPrice">
+                                    <Form.Label>Min Year:</Form.Label>
+                                    <div className="input-group input-group-rounded">
+                                        <DropDownSelect options={ManufactureYears} selectedOption={selectedOptionMinYear} handleOptionSelect={handleOptionSelectMinYear} toggleDropdown={toggleDropdownMinYear} showDropdown={showDropdownMinYear} valueName='year'/>
                                     </div>
                                 </Form.Group>
                             </Col>
 
 
 
-
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formBodyType">
+                                    <Form.Label>Market Version:</Form.Label>
+                                    <DropDownSelectWithCheckboxes
+                                        options={carMarketVersions}
+                                        selectedValues={selectedValuesMarketVersion}
+                                        toggleDropdown={toggleDropdownMarketVersion}
+                                        handleCheckboxChange={handleCheckboxChangeMarketVersion}
+                                        showDropdown={showDropdownMarketVersion}
+                                        valueName={'marketVersion'}
+                                    />
+                                </Form.Group>
+                            </Col>
 
 
 
 
                             <Collapse in={showDetails} className='mt-2 pe-0'>
                                 <Row>
+
                                     <Col lg={3} md={4} sm={6} xs={12}>
-                                        <Form.Group controlId="formWheelDrive">
-                                            <Form.Label>Wheel Drive:</Form.Label>
-                                            <Form.Control as="select">
-                                                <option>All</option>
-                                                <option>FWD</option>
-                                                <option>RWD</option>
-                                                <option>AWD</option>
-                                            </Form.Control>
+                                        <Form.Group controlId="formOwnerQuantity">
+                                            <Form.Label>Owner Quantity: </Form.Label>
+                                            <DropDownSelectWithCheckboxes
+                                                options={optionsOwnerQuantity}
+                                                selectedValues={selectedValuesOwnerQuantity}
+                                                toggleDropdown={toggleDropdownOwnerQuantity}
+                                                handleCheckboxChange={handleCheckboxChangeOwnerQuantity}
+                                                showDropdown={showDropdownOwnerQuantity}
+                                                valueName={'name'}
+                                            />
                                         </Form.Group>
                                     </Col>
 
-
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formWheelDrive">
                                             <Form.Label>Wheel Drive:</Form.Label>
-                                            <Form.Control as="select">
-                                                <option>All</option>
-                                                <option>Blue</option>
-                                                <option>White</option>
-                                                <option>AWD</option>
-                                            </Form.Control>
+                                            <DropDownSelectWithCheckboxes
+                                                options={carDriveTrainTypes}
+                                                selectedValues={selectedValuesDriveTrainType}
+                                                toggleDropdown={toggleDropdownDriveTrainType}
+                                                handleCheckboxChange={handleCheckboxChangeDriveTrainType}
+                                                showDropdown={showDropdownDriveTrainType}
+                                                valueName="drivetrainType"
+                                            />
                                         </Form.Group>
                                     </Col>
+
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Label>Country:</Form.Label>
                                         <Form.Group>
-                                            <DropDownSelect options={optionsCountries} selectedOption={selectedOptionCountry} handleOptionSelect={handleOptionSelectCountry} toggleDropdown={toggleDropdownCountry} showDropdown={showDropdownCountry} valueName='name'/>
+                                            <DropDownSelect options={Countries} selectedOption={selectedOptionCountry} handleOptionSelect={handleOptionSelectCountry} toggleDropdown={toggleDropdownCountry} showDropdown={showDropdownCountry} valueName='countryName'/>
                                         </Form.Group>
                                     </Col>
-
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formCity">
@@ -616,84 +641,44 @@ const Home = () => {
                                         </Form.Group>
                                     </Col>
 
-
-
-
                                     <Col lg={3} md={4} sm={6} xs={12}>
-                                        <Form.Group controlId="formSeats">
-                                            <Form.Label>Number of seats:</Form.Label>
-                                            <Form.Control as="select">
-                                                <option >All</option>
-                                                <option >2</option>
-                                                <option >3</option>
-                                                <option >4</option>
-                                                <option >5</option>
-                                                <option >6</option>
-                                            </Form.Control>
+                                        <Form.Group controlId="formSeatCount">
+                                            <Form.Label>Seat Count:</Form.Label>
+                                            <DropDownSelectWithCheckboxes
+                                                options={optionsSeatCount}
+                                                selectedValues={selectedValuesSeatCount}
+                                                toggleDropdown={toggleDropdownSeatCount}
+                                                handleCheckboxChange={handleCheckboxChangeSeatCount}
+                                                showDropdown={showDropdownSeatCount}
+                                                valueName="name"
+                                            />
                                         </Form.Group>
                                     </Col>
+
+
+
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formPrice">
                                             <Form.Label>Horse Power:</Form.Label>
                                             <div className="input-group input-group-rounded">
-                                                <Form.Control as="select" className='form-control form-floating' placeholder="Max" aria-label="Maximum Price">
-                                                    <option>Max Hp</option>
-                                                    <option>900</option>
-                                                    <option>800</option>
-                                                    <option>600</option>
-                                                    <option>500</option>
-                                                    <option>400</option>
-                                                    <option>300</option>
-                                                    <option>200</option>
-                                                    <option>100</option>
-                                                    <option>50</option>
-                                                    <option>20</option>
-
-                                                </Form.Control>
-                                                <Form.Control as="select" className='form-control' placeholder="Max" aria-label="Maximum Price">
-                                                    <option>Min Hp</option>
-                                                    <option>Max Hp</option>
-                                                    <option>900</option>
-                                                    <option>800</option>
-                                                    <option>600</option>
-                                                    <option>500</option>
-                                                    <option>400</option>
-                                                    <option>300</option>
-                                                    <option>200</option>
-                                                    <option>100</option>
-                                                    <option>50</option>
-                                                    <option>20</option>
-                                                </Form.Control>
+                                                <input type="number" className="form-control " placeholder="Min" min='0' aria-label="Minimum" />
+                                                <input type="number" className="form-control " placeholder="Max" min='0' aria-label="Maximum" />
                                             </div>
                                         </Form.Group>
                                     </Col>
-
-
-
-
-
-
 
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
-                                        <Form.Group controlId="formPrice">
+                                        <Form.Group controlId="formEngineVolume">
                                             <Form.Label>Engine Volume:</Form.Label>
                                             <div className="input-group input-group-rounded">
-                                                <Form.Control as="select" className='form-control form-floating' placeholder="Max" aria-label="Maximum Price">
-                                                    <option>Max Volume</option>
-                                                    <option>2022</option>
-                                                    <option>2023</option>
-
-                                                </Form.Control>
-                                                <Form.Control as="select" className='form-control' placeholder="Max" aria-label="Maximum Price">
-                                                    <option>Min Volume</option>
-                                                    <option>2022</option>
-                                                    <option>2023</option>
-                                                </Form.Control>
+                                                <input type="number" className="form-control " placeholder="Min" min='0' aria-label="Minimum" />
+                                                <input type="number" className="form-control " placeholder="Max" min='0' aria-label="Maximum" />
                                             </div>
                                         </Form.Group>
                                     </Col>
+
 
                                     <Col lg={3} md={4} sm={6} xs={12} className='d-flex justify-content-around flex-row align-items-center p-0'>
                                         <Button

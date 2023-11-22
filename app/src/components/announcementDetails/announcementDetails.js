@@ -343,8 +343,9 @@ const AnnouncementDetails = () => {
                 centered
                 className="fade"
                 backdrop="static"
-                dialogClassName="modal-dialog-fullscreen"
-            >
+                dialogClassName="modal-dialog-fullscreen">
+                <Modal.Header closeButton className="modal-header">
+                </Modal.Header>
                 <Modal.Body className="modal-image-container">
                     <img
                         src={Images[selectedImageIndex]}
@@ -364,11 +365,6 @@ const AnnouncementDetails = () => {
                         ))}
                     </div>
                 </Modal.Body>
-                <Modal.Footer className='d-flex justify-content-center align-items-center bg-black p-0 m-0 border-0'>
-                    <Button variant="secondary" onClick={handleCloseModal}>
-                        Close
-                    </Button>
-                </Modal.Footer>
             </Modal>
 
 

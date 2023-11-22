@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const useDropdown = (initialState) => {
-    const [selectedOption, setSelectedOption] = useState(initialState);
+    const [selectedOption, setSelectedOption] = useState(null);
     const [showDropdown, setShowDropdown] = useState(false);
 
     const toggleDropdown = () => {
@@ -11,7 +11,9 @@ const useDropdown = (initialState) => {
     const handleOptionSelect = (option) => {
         setSelectedOption(option);
         setShowDropdown(false);
-    };
+        };
+
+
 
     return {
         selectedOption,

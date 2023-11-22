@@ -5,6 +5,7 @@ const useDropdownWithCheckboxes = () => {
     const [showDropdown, setShowDropdown] = useState(false);
 
     const handleCheckboxChange = (value) => {
+        console.log("event triggered");
         setSelectedValues((prevSelectedValues) => {
             if (prevSelectedValues.includes(value)) {
                 return prevSelectedValues.filter((item) => item !== value);
@@ -17,6 +18,8 @@ const useDropdownWithCheckboxes = () => {
     const toggleDropdown = () => {
         setShowDropdown((prevShowDropdown) => !prevShowDropdown);
     };
+
+
 
     return {
         selectedValues,
