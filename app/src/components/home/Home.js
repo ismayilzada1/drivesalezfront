@@ -421,7 +421,7 @@ const Home = () => {
 
             {isLoading && <LoadingPage />}
 
-            <section className="featured-places mb-5">
+            <section className="featured-places mb-2">
                 <Row className="container">
                     <Form onSubmit={search}>
                         <Row>
@@ -680,7 +680,7 @@ const Home = () => {
                                     </Col>
 
 
-                                    <Col lg={3} md={4} sm={6} xs={12} className='d-flex justify-content-around flex-row align-items-center p-0'>
+                                    <Col lg={3} md={4} sm={6} xs={12} className='d-flex justify-content-around flex-row align-items-center p-0 mt-3'>
                                         <Button
                                             className='border-0 pe-4 ps-4 mt-auto '
                                             style={{
@@ -713,7 +713,7 @@ const Home = () => {
                             </Collapse>
                         </Row>
 
-                        <div className="d-flex justify-content-end mt-3">
+                        <div className=" filter-search-buttons d-flex justify-content-end mt-3">
                             <Button  className="btn round-btn text-white me-2" onClick={clearForm}>
                                 <i className="fas fa-broom"></i>
                             </Button>
