@@ -1,47 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
-import './DropDownSelect.css';
+import './DropDownSelect.css'; // Adjust the path based on your project structure
 
-const DropDownSelect = ({ options, selectedValues, toggleDropdown, handleCheckboxChange, showDropdown,valueName }) => {
-    const getPlaceholderText = () => {
-        if (Array.isArray(selectedValues) && selectedValues.length > 0) {
-            const selectedLabels = selectedValues.map((value) => {
-                const option = options.find((opt) => opt.id === value);
-                return option ? option[valueName] : null;
-            });
+const DropDownSelect = ({ options, selectedOption, handleOptionSelect, toggleDropdown, showDropdown, valueName }) => {
 
-            const filteredLabels = selectedLabels.filter((label) => label !== null);
-
-            return filteredLabels.length > 0
-                ? (filteredLabels.length <= 3 ? filteredLabels.join(', ') : `Selected (${filteredLabels.length})`)
-                : 'Choose an option';
-        } else {
-            return 'Choose an option';
-        }
-    };
-
-
-
-
+    if (!options) {
+        return null;
+    }
 
     return (
         <div className="dropdown">
             <Form.Group>
-                <button className="btn btn-outline-primary  dropdown-toggle" type="button" onClick={toggleDropdown} aria-expanded="false">
-                    {getPlaceholderText()}
+                <button
+                    className="btn btn-outline-primary dropdown-toggle"
+                    onClick={toggleDropdown}
+                    type="button"
+                    aria-expanded="false"
+                >
+                    {selectedOption ? selectedOption[valueName] : 'Choose Option'}
                 </button>
                 <ul className={`dropdown-menu${showDropdown ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">
                     {options.map((option) => (
-                        <li className="form-check" key={option.value}>
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value={option.id}
-                                id={`Checkme${option.id}`}
-                                checked={selectedValues.includes(option.id)}
-                                onChange={() => handleCheckboxChange(option.id)}
-                            />
-                            <label className="form-check-label" htmlFor={`Checkme${option.id}`}>
+                        <li className="form-check custom-form-check" onClick={() => handleOptionSelect(option)} key={option.id}>
+                            <label className="form-check-label custom-form-label" htmlFor={`Checkme${option.id}`}>
                                 {option[valueName]}
                             </label>
                         </li>

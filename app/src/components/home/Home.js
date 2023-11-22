@@ -6,6 +6,7 @@ import { Form, Row, Col, Button,Collapse,Dropdown } from 'react-bootstrap';
 import ColorDropdownSelect from '../ColorDropDownSelect'
 import useDropdownWithCheckboxes from "../../hooks/useDropdownWithCheckboxes";
 import useDropdown from "../../hooks/useDropdown";
+import DropDownSelectWithCheckboxes from "../DropDownSelectWithCheckboxes";
 import DropDownSelect from "../DropDownSelect";
 import commonDataService from '../../api-services/CommonDataService'
 import LoadingPage from "../LoadingPage";
@@ -221,7 +222,7 @@ const Home = () => {
 
     // Function to clear the form
     const clearForm = () => {
-        console.log(carBodyTypes);
+        console.log(selectedOptionMake);
 
         // Add logic to clear form fields (reset the state, if controlled components)
     };
@@ -248,7 +249,7 @@ const Home = () => {
         showDropdown:showDropdownMake,
         toggleDropdown:toggleDropdownMake,
         handleOptionSelect:handleOptionSelectMake
-    } = useDropdown(null);
+    } = useDropdown();
 
     const {
         selectedOption:selectedOptionUsedNew,
@@ -316,6 +317,13 @@ const Home = () => {
         toggleDropdown: toggleDropdownMarketVersion
     } = useDropdownWithCheckboxes();
 
+    const {
+        selectedValues: selectedValuesOwnerQuantity,
+        showDropdown: showDropdownOwnerQuantity,
+        handleCheckboxChange: handleCheckboxChangeOwnerQuantity,
+        toggleDropdown: toggleDropdownOwnerQuantity
+    } = useDropdownWithCheckboxes();
+
 
 
     useEffect(() => {
@@ -357,6 +365,13 @@ const Home = () => {
 
     ];
 
+    const optionsOwnerQuantity = [
+        { id: 1, name: '1' },
+        { id: 2, name: '2' },
+        { id: 3, name: '3' },
+        { id: 4, name: '4 or more' },
+    ];
+
 
 
     return (
@@ -372,30 +387,20 @@ const Home = () => {
                     <Form onSubmit={search}>
                         <Row>
 
-
-
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Label>Make:</Form.Label>
                                 <Form.Group>
-                                    <button className="btn btn-outline-primary dropdown-toggle" onClick={toggleDropdownMake} type="button"  aria-expanded="false">
-                                        {selectedOptionMake ? selectedOptionMake.name : 'Choose Make'}
-                                    </button>
-                                    <ul className={`rounded dropdown-menu${showDropdownMake ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">
-                                        {optionsMake.map((option) => (
-                                            <li className="form-check custom-form-check" onClick={() => handleOptionSelectMake(option)} key={option.value}>
-                                                <label className="form-check-label custom-form-label"  htmlFor={`Checkme${option.id}`}>
-                                                    {option.name}
-                                                </label>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                <DropDownSelect options={optionsMake} selectedOption={selectedOptionMake} handleOptionSelect={handleOptionSelectMake} toggleDropdown={toggleDropdownMake} showDropdown={showDropdownMake} valueName='name'/>
                                 </Form.Group>
                             </Col>
+
+
+
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formBodyType">
                                     <Form.Label>Vehicle Model:</Form.Label>
-                                    <DropDownSelect
+                                    <DropDownSelectWithCheckboxes
                                         options={filteredVehicleModels}
                                         selectedValues={selectedValuesModels}
                                         toggleDropdown={toggleDropdownModels}
@@ -408,8 +413,23 @@ const Home = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formBodyType">
+                                    <Form.Label>Gearbox Type: </Form.Label>
+                                    <DropDownSelectWithCheckboxes
+                                        options={carGearboxTypes}
+                                        selectedValues={selectedValuesGearboxTypes}
+                                        toggleDropdown={toggleDropdownGearboxTypes}
+                                        handleCheckboxChange={handleCheckboxChangeGearboxTypes}
+                                        showDropdown={showDropdownGearboxTypes}
+                                        valueName={'gearboxType'}
+                                    />
+                                </Form.Group>
+                            </Col>
+
+
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formBodyType">
                                     <Form.Label>Body Type:</Form.Label>
-                                    <DropDownSelect
+                                    <DropDownSelectWithCheckboxes
                                         options={carBodyTypes}
                                         selectedValues={selectedValuesBodyType}
                                         toggleDropdown={toggleDropdownBodyType}
@@ -422,39 +442,27 @@ const Home = () => {
 
 
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
 
-                                <Form.Group controlId="formSeats">
-                                    <Form.Label>Vehicle Color: </Form.Label>
-                                    <DropDownSelect
-                                        options={carColors}
-                                        selectedValues={selectedValuesColors}
-                                        toggleDropdown={toggleDropdownColors}
-                                        handleCheckboxChange={handleCheckboxChangeColors}
-                                        showDropdown={showDropdownColors}
-                                        valueName={'color'}
-                                    />
-                                </Form.Group>
-
-
-
-                            </Col>
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Label>Used/New:</Form.Label>
                                 <Form.Group>
-                                    <button className="btn btn-outline-primary dropdown-toggle" onClick={toggleDropdownUsedNew} type="button"  aria-expanded="false">
-                                        {selectedOptionUsedNew ? selectedOptionUsedNew.name : 'Choose Make'}
-                                    </button>
-                                    <ul className={`rounded dropdown-menu${showDropdownUsedNew ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">
-                                        {optionsUsedNew.map((option) => (
-                                            <li className="form-check custom-form-check" onClick={() => handleOptionSelectUsedNew(option)} key={option.value}>
-                                                <label className="form-check-label custom-form-label"  htmlFor={`Checkme${option.id}`}>
-                                                    {option.name}
-                                                </label>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    <DropDownSelect options={optionsUsedNew} selectedOption={selectedOptionUsedNew} handleOptionSelect={handleOptionSelectUsedNew} toggleDropdown={toggleDropdownUsedNew} showDropdown={showDropdownUsedNew} valueName='name'/>
+                                </Form.Group>
+                            </Col>
+
+
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formBodyType">
+                                    <Form.Label>Gearbox Type: </Form.Label>
+                                    <DropDownSelectWithCheckboxes
+                                        options={carFuelTypes}
+                                        selectedValues={selectedValuesFuelTypes}
+                                        toggleDropdown={toggleDropdownFuelTypes}
+                                        handleCheckboxChange={handleCheckboxChangeFuelTypes}
+                                        showDropdown={showDropdownFuelTypes}
+                                        valueName={'fuelType'}
+                                    />
                                 </Form.Group>
                             </Col>
 
@@ -472,19 +480,6 @@ const Home = () => {
                                     </div>
                                 </Form.Group>
                             </Col>
-                            <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formBodyType">
-                                    <Form.Label>Gearbox Type: </Form.Label>
-                                    <DropDownSelect
-                                        options={carGearboxTypes}
-                                        selectedValues={selectedValuesGearboxTypes}
-                                        toggleDropdown={toggleDropdownGearboxTypes}
-                                        handleCheckboxChange={handleCheckboxChangeGearboxTypes}
-                                        showDropdown={showDropdownGearboxTypes}
-                                        valueName={'gearboxType'}
-                                    />
-                                </Form.Group>
-                            </Col>
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formMileage">
@@ -500,36 +495,51 @@ const Home = () => {
                                 </Form.Group>
                             </Col>
 
+
+
+
+
                             <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formBodyType">
-                                    <Form.Label>Gearbox Type: </Form.Label>
-                                    <DropDownSelect
-                                        options={carFuelTypes}
-                                        selectedValues={selectedValuesFuelTypes}
-                                        toggleDropdown={toggleDropdownFuelTypes}
-                                        handleCheckboxChange={handleCheckboxChangeFuelTypes}
-                                        showDropdown={showDropdownFuelTypes}
-                                        valueName={'fuelType'}
+                                <Form.Group controlId="formOwnerQuantity">
+                                    <Form.Label>Owner Quantity: </Form.Label>
+                                    <DropDownSelectWithCheckboxes
+                                        options={optionsOwnerQuantity}
+                                        selectedValues={selectedValuesOwnerQuantity}
+                                        toggleDropdown={toggleDropdownOwnerQuantity}
+                                        handleCheckboxChange={handleCheckboxChangeOwnerQuantity}
+                                        showDropdown={showDropdownOwnerQuantity}
+                                        valueName={'name'}
                                     />
                                 </Form.Group>
                             </Col>
 
-
-
                             <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Group controlId="formMileage">
-                                    <Form.Label>Owner Quantity: </Form.Label>
-                                    <Form.Control as="select" className='form-control'>
-                                        <option value="">All</option>
-                                        <option value="">1</option>
-                                        <option value="">2</option>
-                                        <option value="">3</option>
-                                        <option value="">4</option>
-                                        <option value="">5</option>
-                                    </Form.Control>
+                                <Form.Group controlId="formSeats">
+                                    <Form.Label>Vehicle Color: </Form.Label>
+                                    <DropDownSelectWithCheckboxes
+                                        options={carColors}
+                                        selectedValues={selectedValuesColors}
+                                        toggleDropdown={toggleDropdownColors}
+                                        handleCheckboxChange={handleCheckboxChangeColors}
+                                        showDropdown={showDropdownColors}
+                                        valueName={'color'}
+                                    />
                                 </Form.Group>
                             </Col>
 
+                            <Col lg={3} md={4} sm={6} xs={12}>
+                                <Form.Group controlId="formBodyType">
+                                    <Form.Label>Market Version:</Form.Label>
+                                    <DropDownSelectWithCheckboxes
+                                        options={optionsMarketVersions}
+                                        selectedValues={selectedValuesMarketVersion}
+                                        toggleDropdown={toggleDropdownMarketVersion}
+                                        handleCheckboxChange={handleCheckboxChangeMarketVersion}
+                                        showDropdown={showDropdownMarketVersion}
+                                        valueName={'name'}
+                                    />
+                                </Form.Group>
+                            </Col>
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formPrice">
@@ -550,23 +560,10 @@ const Home = () => {
                                 </Form.Group>
                             </Col>
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
-                                <Form.Label>Country:</Form.Label>
-                                <Form.Group>
-                                    <button className="btn btn-outline-primary dropdown-toggle" onClick={toggleDropdownCountry} type="button"  aria-expanded="false">
-                                        {selectedOptionCountry ? selectedOptionCountry.name : 'Choose Make'}
-                                    </button>
-                                    <ul className={`rounded dropdown-menu${showDropdownCountry ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">
-                                        {optionsCountries.map((option) => (
-                                            <li className="form-check custom-form-check" onClick={() => handleOptionSelectCountry(option)} key={option.value}>
-                                                <label className="form-check-label custom-form-label"  htmlFor={`Checkme${option.id}`}>
-                                                    {option.name}
-                                                </label>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </Form.Group>
-                            </Col>
+
+
+
+
 
 
 
@@ -586,8 +583,8 @@ const Home = () => {
 
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
-                                        <Form.Group controlId="formColor">
-                                            <Form.Label>Color:</Form.Label>
+                                        <Form.Group controlId="formWheelDrive">
+                                            <Form.Label>Wheel Drive:</Form.Label>
                                             <Form.Control as="select">
                                                 <option>All</option>
                                                 <option>Blue</option>
@@ -598,9 +595,17 @@ const Home = () => {
                                     </Col>
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
+                                        <Form.Label>Country:</Form.Label>
+                                        <Form.Group>
+                                            <DropDownSelect options={optionsCountries} selectedOption={selectedOptionCountry} handleOptionSelect={handleOptionSelectCountry} toggleDropdown={toggleDropdownCountry} showDropdown={showDropdownCountry} valueName='name'/>
+                                        </Form.Group>
+                                    </Col>
+
+
+                                    <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formCity">
                                             <Form.Label>City: </Form.Label>
-                                            <DropDownSelect
+                                            <DropDownSelectWithCheckboxes
                                                 options={filteredCities}
                                                 selectedValues={selectedValuesCities}
                                                 toggleDropdown={toggleDropdownCities}
@@ -613,19 +618,7 @@ const Home = () => {
 
 
 
-                                    <Col lg={3} md={4} sm={6} xs={12}>
-                                        <Form.Group controlId="formBodyType">
-                                            <Form.Label>Market Version:</Form.Label>
-                                            <DropDownSelect
-                                                options={optionsMarketVersions}
-                                                selectedValues={selectedValuesMarketVersion}
-                                                toggleDropdown={toggleDropdownMarketVersion}
-                                                handleCheckboxChange={handleCheckboxChangeMarketVersion}
-                                                showDropdown={showDropdownMarketVersion}
-                                                valueName={'name'}
-                                            />
-                                        </Form.Group>
-                                    </Col>
+
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formSeats">
                                             <Form.Label>Number of seats:</Form.Label>
