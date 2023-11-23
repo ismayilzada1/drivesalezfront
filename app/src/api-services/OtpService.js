@@ -1,24 +1,10 @@
 export default class OtpService {
-    constructor() {
-        this.baseUrl = 'https://localhost:7261/api';
-    }
+    _base_url = 'https://localhost:7261/api';
 
-    async getResource(url) {
-        try {
-            const result = await fetch(`${this.baseUrl}${url}`);
-            if (!result.ok) {
-                throw new Error(`Error: Status code ${result.status}`);
-            }
-            return await result.json();
-        } catch (error) {
-            console.error('Error in getResource:', error);
-            throw error;
-        }
-    }
 
-    async postRequest(endpoint, requestBody) {
+    async  VerifyOTP(requestBody) {
         try {
-            const response = await fetch(`${this.baseUrl}/${endpoint}`, {
+            const response = await fetch('https://localhost:7261/api/Otp/verify-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -28,16 +14,25 @@ export default class OtpService {
 
             return response;
         } catch (error) {
-            console.error(`Error in ${endpoint}:`, error);
+            console.error('Error:', error);
             throw error;
         }
     }
 
-    async VerifyOTP(requestBody) {
-        return await this.postRequest('Otp/verify-email', requestBody);
-    }
+    async SendOTP(email){
+        try {
+            const response = await fetch('https://localhost:7261/api/Otp/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(email),
+            });
 
-    async SendOTP(email) {
-        return await this.postRequest('Otp/send', { email });
+            return response;
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
     }
 }

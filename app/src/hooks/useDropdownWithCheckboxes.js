@@ -1,29 +1,42 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 
-const useDropdownWithCheckboxes = () => {
-    const [selectedValues, setSelectedValues] = useState([]);
-    const [showDropdown, setShowDropdown] = useState(false);
+const initialState = {
+    selectedValues: [],
+    showDropdown: false,
+};
+
+const checkboxReducer = (state, action) => {
+    switch (action.type) {
+        case 'TOGGLE_DROPDOWN':
+            return { ...state, showDropdown: !state.showDropdown };
+        case 'CHECKBOX_CHANGE':
+            const { value } = action.payload;
+            console.log("event triggered");
+            return {
+                ...state,
+                selectedValues: state.selectedValues.includes(value)
+                    ? state.selectedValues.filter((item) => item !== value)
+                    : [...state.selectedValues, value],
+            };
+        default:
+            return state;
+    }
+};
+
+const useDropdownWithCheckboxes = (uniqueIdentifier) => {
+    const [state, dispatch] = useReducer(checkboxReducer, initialState);
 
     const handleCheckboxChange = (value) => {
-        console.log("event triggered");
-        setSelectedValues((prevSelectedValues) => {
-            if (prevSelectedValues.includes(value)) {
-                return prevSelectedValues.filter((item) => item !== value);
-            } else {
-                return [...prevSelectedValues, value];
-            }
-        });
+        dispatch({ type: 'CHECKBOX_CHANGE', payload: { value } });
     };
 
     const toggleDropdown = () => {
-        setShowDropdown((prevShowDropdown) => !prevShowDropdown);
+        dispatch({ type: 'TOGGLE_DROPDOWN' });
     };
 
-
-
     return {
-        selectedValues,
-        showDropdown,
+        selectedValues: state.selectedValues,
+        showDropdown: state.showDropdown,
         handleCheckboxChange,
         toggleDropdown,
     };

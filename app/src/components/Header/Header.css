@@ -3,6 +3,10 @@
     font-size: 14px;
 }
 
+.nav{
+    margin-bottom: 20px;
+}
+
 @media only screen and (max-width: 380px) {
     .navbar-brand img {
         max-width: 160px;

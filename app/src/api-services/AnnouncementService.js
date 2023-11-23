@@ -40,4 +40,27 @@ export default class AnnouncementService {
             throw error;
         }
     }
+
+
+    async GetAnnouncementByID(id){
+        try {
+
+
+            const response = await fetch(`${this._baseUrl}/Announcement/get-announcement-by-id/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            return response;
+        } catch (error) {
+            console.error('Error in SendNewAnnouncement:', error.message);
+            throw error;
+        }
+    }
 }

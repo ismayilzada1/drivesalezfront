@@ -132,66 +132,62 @@ const NewAnnouncement=()=>
     };
 
     useEffect(() => {
-        setIsLoading(true);
+        const fetchData = async () => {
+            try {
+                setIsLoading(true);
 
-        Promise.all([
-            CommonDataService.getAllCarModels(),
-            CommonDataService.getAllCarColors(),
-            CommonDataService.getAllCarFuelTypes(),
-            CommonDataService.getAllCarBodyTypes(),
-            CommonDataService.getAllCarDriveTrainTypes(),
-            CommonDataService.getAllCarGearboxTypes(),
-            CommonDataService.getAllCarMarketVersions(),
-            CommonDataService.getAllCarOptions(),
-            CommonDataService.getAllCarConditions(),
-            CommonDataService.getAllCarMakes(),
-            CommonDataService.getAllManufactureYears(),
-            CommonDataService.getAllCountries(),
-            CommonDataService.getAllCities(),
-        ])
-            .then(([
-                       carModelsData,
-                       carColorsData,
-                       carFuelTypesData,
-                       carBodyTypesData,
-                       carDriveTrainTypesData,
-                       carGearboxTypesData,
-                       carMarketVersionsData,
-                       carOptionsData,
-                       carConditionsData,
-                       carBrandsData,
-                       manufactureYearsData,
-                       countriesData,
-                       citiesData,
-                   ]) => {
+                const carModelsData = await CommonDataService.getAllCarModels();
                 setCarModels(carModelsData);
+
+                const carColorsData = await CommonDataService.getAllCarColors();
                 setCarColors(carColorsData);
+
+                const carFuelTypesData = await CommonDataService.getAllCarFuelTypes();
                 setCarFuelTypes(carFuelTypesData);
+
+                const carBodyTypesData = await CommonDataService.getAllCarBodyTypes();
                 setCarBodyTypes(carBodyTypesData);
+
+                const carDriveTrainTypesData = await CommonDataService.getAllCarDriveTrainTypes();
                 setCarDriveTrainTypes(carDriveTrainTypesData);
+
+                const carGearboxTypesData = await CommonDataService.getAllCarGearboxTypes();
                 setCarGearboxTypes(carGearboxTypesData);
+
+                const carMarketVersionsData = await CommonDataService.getAllCarMarketVersions();
                 setCarMarketVersions(carMarketVersionsData);
+
+                const carOptionsData = await CommonDataService.getAllCarOptions();
                 setCarOptions(carOptionsData);
+
+                const carConditionsData = await CommonDataService.getAllCarConditions();
                 setCarConditions(carConditionsData);
+
+                const carBrandsData = await CommonDataService.getAllCarMakes();
                 setCarBrands(carBrandsData);
+
+                const manufactureYearsData = await CommonDataService.getAllManufactureYears();
                 setManufactureYears(manufactureYearsData);
+
+                const countriesData = await CommonDataService.getAllCountries();
                 setCountries(countriesData);
+
+                const citiesData = await CommonDataService.getAllCities();
                 setCities(citiesData);
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.error('Error fetching data:', error);
-            })
-            .finally(() => {
+            } finally {
+                setIsLoading(false);
+
                 if (carModels.length === 0) {
                     console.warn('No car models data received.');
-                    setIsLoading(false);
                 }
-                else{
-                    setIsLoading(false);
-                }
-            });
+            }
+        };
 
+        fetchData();
     }, []);
+
 
 
     const handleBrandChange = (event) => setSelectedBrand(event.target.value);
@@ -260,13 +256,23 @@ const NewAnnouncement=()=>
             "description": formData.description,
             "price": parseInt(formData.price, 10),
             "currencyId": parseInt(formData.priceCurrency,10),
+            "isPremium": false,
+            "isFreePremiumToggleSwitched": true,
+            "paymentRequest": {
+                "cardNumber": "1234567891012345",
+                "cvv": "145",
+                "expireMonth": 12,
+                "expireYear": 25,
+                "firstName": "Ahmad",
+                "lastName": "Indian"
+            }
         };
 
         console.log(data);
 
         try {
 
-            const response= await AnnouncementService.SendNewAnnounement(data);
+            const response= await AnnouncementService.SendNewAnnouncement(data);
 
 
 

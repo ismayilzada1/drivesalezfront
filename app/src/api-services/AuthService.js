@@ -22,7 +22,7 @@ export default class AuthService {
 
     async Login(requestBody) {
         try {
-            const response = await fetch(`${this.baseUrl}/Account/Login`, {
+            const response = await fetch(`${this.baseUrl}/Account/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

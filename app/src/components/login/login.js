@@ -17,7 +17,7 @@ const Login = () => {
 
    const handleSignUp = async () => {
       const requestBody = {
-         email: Email,
+         userName: Email,
          password: Password,
       };
 

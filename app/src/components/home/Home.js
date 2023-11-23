@@ -11,6 +11,26 @@ import DropDownSelect from "../DropDownSelect";
 import commonDataService from '../../api-services/CommonDataService'
 import LoadingPage from "../LoadingPage";
 
+
+const dropdownReducer = (state, action) => {
+    switch (action.type) {
+        case 'TOGGLE_DROPDOWN':
+            return { ...state, showDropdown: !state.showDropdown };
+        case 'SELECT_OPTION':
+            return { ...state, selectedOption: action.payload, showDropdown: false };
+        case 'TOGGLE_CHECKBOX':
+            return {
+                ...state,
+                selectedValues: action.isChecked
+                    ? [...state.selectedValues, action.value]
+                    : state.selectedValues.filter((item) => item !== action.value),
+            };
+        default:
+            return state;
+    }
+};
+
+
 const Home = () => {
 
     const CommonDataService=new commonDataService();
@@ -227,52 +247,53 @@ const Home = () => {
     const handleIsOnCreditFilterToggle = () => setIsOnCreditFilter(!isOnCreditFilter);
 
 
+
     const {
         selectedOption:selectedOptionMake,
         showDropdown:showDropdownMake,
         toggleDropdown:toggleDropdownMake,
         handleOptionSelect:handleOptionSelectMake
-    } = useDropdown(null);
+    } = useDropdown('15',dropdownReducer);
 
     const {
         selectedOption:selectedOptionMaxYear,
         showDropdown:showDropdownMaxYear,
         toggleDropdown:toggleDropdownMaxYear,
         handleOptionSelect:handleOptionSelectMaxYear
-    } = useDropdown(null);
+    } = useDropdown('20',dropdownReducer);
 
     const {
         selectedOption:selectedOptionMinYear,
         showDropdown:showDropdownMinYear,
         toggleDropdown:toggleDropdownMinYear,
         handleOptionSelect:handleOptionSelectMinYear
-    } = useDropdown(null);
+    } = useDropdown('30',dropdownReducer);
 
     const {
         selectedOption:selectedOptionUsedNew,
         showDropdown:showDropdownUsedNew,
         toggleDropdown:toggleDropdownUsedNew,
         handleOptionSelect:handleOptionSelectUsedNew
-    } = useDropdown(null);
+    } = useDropdown('40',dropdownReducer);
 
     const {
         selectedOption:selectedOptionCountry,
         showDropdown:showDropdownCountry,
         toggleDropdown:toggleDropdownCountry,
         handleOptionSelect:handleOptionSelectCountry
-    } = useDropdown(null);
+    } = useDropdown('45',dropdownReducer);
 
     const {
         selectedValues: selectedValuesBodyTypes,
         showDropdown: showDropdownBodyTypes,
         handleCheckboxChange: handleCheckboxChangeBodyTypes,
-        toggleDropdown: toggleDropdownBodyTypes } = useDropdownWithCheckboxes(null);
+        toggleDropdown: toggleDropdownBodyTypes } = useDropdownWithCheckboxes('1');
 
     const {
         selectedValues:selectedValuesColors,
         showDropdown:showDropdownColors,
         handleCheckboxChange:handleCheckboxChangeColors,
-        toggleDropdown:toggleDropdownColors } = useDropdownWithCheckboxes(null);
+        toggleDropdown:toggleDropdownColors } = useDropdownWithCheckboxes('2');
 
 
 
@@ -281,7 +302,7 @@ const Home = () => {
         showDropdown: showDropdownDriveTrainType,
         handleCheckboxChange: handleCheckboxChangeDriveTrainType,
         toggleDropdown: toggleDropdownDriveTrainType
-    } = useDropdownWithCheckboxes(null);
+    } = useDropdownWithCheckboxes('3');
 
 
     const {
@@ -289,14 +310,14 @@ const Home = () => {
         showDropdown: showDropdownModels,
         handleCheckboxChange: handleCheckboxChangeModels,
         toggleDropdown: toggleDropdownModels
-    } = useDropdownWithCheckboxes(null);
+    } = useDropdownWithCheckboxes('4');
 
     const {
         selectedValues: selectedValuesGearboxTypes,
         showDropdown: showDropdownGearboxTypes,
         handleCheckboxChange: handleCheckboxChangeGearboxTypes,
         toggleDropdown: toggleDropdownGearboxTypes
-    } = useDropdownWithCheckboxes(null);
+    } = useDropdownWithCheckboxes('5');
 
 
     const {
@@ -304,21 +325,21 @@ const Home = () => {
         showDropdown: showDropdownCities,
         handleCheckboxChange: handleCheckboxChangeCities,
         toggleDropdown: toggleDropdownCities
-    } = useDropdownWithCheckboxes(null);
+    } = useDropdownWithCheckboxes('6');
 
     const {
         selectedValues: selectedValuesFuelTypes,
         showDropdown: showDropdownFuelTypes,
         handleCheckboxChange: handleCheckboxChangeFuelTypes,
         toggleDropdown: toggleDropdownFuelTypes
-    } = useDropdownWithCheckboxes(null);
+    } = useDropdownWithCheckboxes('7');
 
     const {
         selectedValues: selectedValuesSeatCount,
         showDropdown: showDropdownSeatCount,
         handleCheckboxChange: handleCheckboxChangeSeatCount,
         toggleDropdown: toggleDropdownSeatCount
-    } = useDropdownWithCheckboxes(null);
+    } = useDropdownWithCheckboxes('8');
 
 
     const {
@@ -326,14 +347,14 @@ const Home = () => {
         showDropdown: showDropdownMarketVersion,
         handleCheckboxChange: handleCheckboxChangeMarketVersion,
         toggleDropdown: toggleDropdownMarketVersion
-    } = useDropdownWithCheckboxes(null);
+    } = useDropdownWithCheckboxes('9');
 
     const {
         selectedValues: selectedValuesOwnerQuantity,
         showDropdown: showDropdownOwnerQuantity,
         handleCheckboxChange: handleCheckboxChangeOwnerQuantity,
         toggleDropdown: toggleDropdownOwnerQuantity
-    } = useDropdownWithCheckboxes(null);
+    } = useDropdownWithCheckboxes('10');
 
 
 
@@ -399,17 +420,9 @@ const Home = () => {
         // Add logic to handle search based on form values
     };
 
-    // Separate useEffect for "Make" dropdown
-    useEffect(() => {
-        // Fetch data or perform actions related to the "Make" dropdown
-        console.log('Make dropdown selected:', selectedOptionMake);
-    }, [selectedOptionMake]);
 
-    // Separate useEffect for "Gearbox Type" dropdown
-    useEffect(() => {
-        // Fetch data or perform actions related to the "Gearbox Type" dropdown
-        console.log('Gearbox Type dropdown selected:', selectedValuesGearboxTypes);
-    }, [selectedValuesGearboxTypes]);
+
+
 
 
 
@@ -457,6 +470,7 @@ const Home = () => {
                                     />
                                 </Form.Group>
                             </Col>
+
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formBodyType">
@@ -736,7 +750,7 @@ const Home = () => {
                 <div className="d-flex flex-row flex-wrap justify-content-between">
                     {carData.map((car, index) => (
                         <div className="col mb-2 ms-2 me-2" >
-                        <AnnouncementCard key={index} {...car} />
+                        <AnnouncementCard key={index} {...car}  />
                         </div>
                     ))}
                 </div>

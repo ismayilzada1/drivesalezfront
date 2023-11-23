@@ -3,14 +3,19 @@ import "./announcementDetails.css";
 import Logo from "../logo";
 import {useNavigate} from "react-router-dom";
 import {Modal, Button} from 'react-bootstrap';
+import announcementService from "../../api-services/AnnouncementService"
 
-const AnnouncementDetails = () => {
+const AnnouncementDetails = ({ announcementId }) => {
+
+    const AnnouncementService=new announcementService();
+
+    const [announcement, setAnnouncement] = useState('');
+
     const [selectedImageIndex, setSelectedImageIndex] = useState (0);
 
 
     const [isTransitioning, setIsTransitioning] = useState (false);
     const [showModal, setShowModal] = useState (false);
-    const [transitioningIndex, setTransitioningIndex] = useState(null);
 
 
     const Images = [
@@ -28,6 +33,7 @@ const AnnouncementDetails = () => {
         "https://turbo.azstatic.com/uploads/full/2023%2F10%2F23%2F22%2F39%2F12%2F42deea2b-4310-42b7-b3b8-5121058830f7%2F3661_Wd9rfxg2rlnxR76ysgY_9A.jpg",
         "https://turbo.azstatic.com/uploads/full/2023%2F09%2F28%2F01%2F07%2F06%2F9942c584-99d8-438e-a6ed-4bf44aea3b5d%2F91825_696pcr8dg1Su4YILfiRKPQ.jpg",
     ];
+
 
 
     const [activeTab, setActiveTab] = useState('tabs-1');
@@ -98,6 +104,21 @@ const AnnouncementDetails = () => {
             ></button>
         ));
     };
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await AnnouncementService.GetAnnouncementByID(announcementId);
+                const data = await response.json();
+                setAnnouncement(data);
+            } catch (error) {
+                console.error('Error fetching announcement:', error);
+            }
+        };
+
+        fetchData();
+    }, [announcementId]);
 
 
 

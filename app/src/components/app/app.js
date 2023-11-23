@@ -43,7 +43,7 @@ function App() {
                     <Route path="/register" element={<Register />} />
                     <Route path="/coming-soon" element={<ComingSoon  />} />
                     <Route path="/verifyEmail" element={<VerifyEmail />} />
-                    <Route path="/AnnouncementDetails" element={<AnnouncementDetails />} />
+                    <Route path="/AnnouncementDetails" element={<AnnouncementDetails announcementId={'203ea3a6-bc81-4666-0778-08dbec5b6816'} />} />
                     <Route path="/loading" element={<LoadingPage />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>

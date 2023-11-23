@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
@@ -75,15 +75,19 @@ const Header = () => {
                     <ul className="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
 
                         <li className="nav-item d-none d-lg-block me-3">
-                            <a className="nav-link active" aria-current="page" href="/">Home</a>
+                            <NavLink to="/" className="nav-link" activeClassName="active">
+                                Home
+                            </NavLink>
                         </li>
-
                         <li className="nav-item d-none d-lg-block me-3">
-                            <a className="nav-link" aria-current="page" href="/coming-soon">Motorcycles</a>
+                            <NavLink to="/coming-soon" className="nav-link" activeClassName="active">
+                                Motorcycles
+                            </NavLink>
                         </li>
-
                         <li className="nav-item d-none d-lg-block me-3">
-                            <a className="nav-link" aria-current="page" href="/coming-soon">Trucks</a>
+                            <NavLink to="/coming-soon" className="nav-link" activeClassName="active">
+                                Trucks
+                            </NavLink>
                         </li>
 
 

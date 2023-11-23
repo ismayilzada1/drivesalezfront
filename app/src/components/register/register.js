@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import Logo from '../logo';
-import Service from '../../api-services/AuthService';
+import authService from '../../api-services/AuthService';
+import otpService from '../../api-services/OtpService';
 import { useNavigate } from 'react-router-dom';
 
 function Register() {
-    const MyService = new Service();
+    const AuthService = new authService();
+    const OtpService = new otpService();
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -44,8 +46,7 @@ function Register() {
 
         try {
 
-
-            const response = await MyService.Register(requestBody);
+            const response = await AuthService.Register(requestBody);
 
             if (response.status === 200) {
                 localStorage.setItem('email', requestBody.email);
@@ -54,7 +55,7 @@ function Register() {
                     type: 'success',
                     message: 'Registration successful. Check your email for OTP verification.',
                 });
-                await MyService.SendOTP(requestBody.email);
+                await OtpService.SendOTP(requestBody.email);
                 navigate('/verifyEmail');
             } else {
                 const errorData = await response.json();

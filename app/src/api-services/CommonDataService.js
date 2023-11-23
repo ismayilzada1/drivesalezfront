@@ -19,7 +19,7 @@ export default class CommonDataService {
     }
 
     async getAllCarModels() {
-        return await this.getResource(`/Details/get-all-models`);
+        return this.getResource(`/Details/get-all-models`);
     }
 
     async getAllCarColors() {
@@ -55,7 +55,7 @@ export default class CommonDataService {
     }
 
     async getAllManufactureYears() {
-        return await this.getResource(`/Details/get-all-years`);
+        return await this.getResource(`/Details/get-all-manufacture-years`);
     }
 
     async getAllCountries() {
