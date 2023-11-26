@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import Logo from '../logo';
-import authService from '../../api-services/AuthService';
-import otpService from '../../api-services/OtpService';
 import { useNavigate } from 'react-router-dom';
+import {useSelector} from "react-redux";
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../Store/Auth/authActions';
 
 function Register() {
-    const AuthService = new authService();
-    const OtpService = new otpService();
+
+    const dispatch = useDispatch();
+    const { loading, error } = useSelector((state) => state.auth);
+
+
     const navigate = useNavigate();
+
+
+
 
     const [formData, setFormData] = useState({
         FirstName: '',
@@ -18,22 +25,12 @@ function Register() {
         ConfirmPassword: '',
     });
 
-    const [alert, setAlert] = useState({
-        show: false,
-        type: 'success', // 'success' or 'error'
-        message: '',
-    });
-
-    const [isLoading, setIsLoading] = useState(false);
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
     const handleSignUp = async () => {
-        setIsLoading(true);
-        setAlert({ show: false, type: 'success', message: '' });
 
         const requestBody = {
             firstName: formData.FirstName,
@@ -45,38 +42,15 @@ function Register() {
         };
 
         try {
-
-            const response = await AuthService.Register(requestBody);
-
-            if (response.status === 200) {
-                localStorage.setItem('email', requestBody.email);
-                setAlert({
-                    show: true,
-                    type: 'success',
-                    message: 'Registration successful. Check your email for OTP verification.',
-                });
-                await OtpService.SendOTP(requestBody.email);
+            const response = await dispatch(registerUser(requestBody));
+            if(response){
                 navigate('/verifyEmail');
-            } else {
-                const errorData = await response.json();
-                console.error('Registration failed. Status Code:', response.status, 'Error Data:', errorData);
-                setAlert({
-                    show: true,
-                    type: 'error',
-                    message: 'Registration failed. Please check the provided information.',
-                });
             }
-        } catch (error) {
-            console.error('Registration failed:', error);
-            setAlert({
-                show: true,
-                type: 'error',
-                message: 'Registration failed. Please check the provided information.',
-            });
         }
-
-        setIsLoading(false);
+        catch (error) {
+        }
     };
+
 
     return (
         <div className="wrapper">
@@ -206,9 +180,9 @@ function Register() {
                                                         type="button"
                                                         className="btn btn-primary"
                                                         onClick={handleSignUp}
-                                                        disabled={isLoading}
+                                                        disabled={loading}
                                                     >
-                                                        {isLoading ? 'Signing Up...' : 'Sign Up'}
+                                                        {loading ? 'Signing Up...' : 'Sign Up'}
                                                     </button>
                                                 </div>
 
@@ -350,9 +324,9 @@ function Register() {
                                         type="button"
                                         className="btn btn-primary"
                                         onClick={handleSignUp}
-                                        disabled={isLoading}
+                                        disabled={loading}
                                     >
-                                        {isLoading ? 'Signing Up...' : 'Sign Up'}
+                                        {loading ? 'Signing Up...' : 'Sign Up'}
                                     </button>
                                 </div>
                                 <div className="text-center mt-3">

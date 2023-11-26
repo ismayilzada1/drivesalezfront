@@ -1,48 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect  } from 'react';
 import Logo from '../logo';
 import './login.css';
-import Service from '../../api-services/AuthService';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../Store/Auth/authActions';
 
 const Login = () => {
-   const MyService = new Service();
+   const dispatch = useDispatch();
    const navigate = useNavigate();
+
+   const { loading, error } = useSelector((state) => state.auth);
 
    const [Email, setEmail] = useState('');
    const [Password, setPassword] = useState('');
-   const [showAlert, setShowAlert] = useState(false);
-   const [alertMessage, setAlertMessage] = useState('');
-   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-   const [isLoading, setIsLoading] = useState(false);
 
    const handleSignUp = async () => {
-      const requestBody = {
+      const credentials = {
          userName: Email,
          password: Password,
       };
 
-      setIsLoading(true);
+      const response=await dispatch(loginUser(credentials));
 
-      try {
-         const response = await MyService.Login(requestBody);
-
-         if (response.status === 200) {
-            setShowSuccessAlert(true);
-            localStorage.setItem('isLoggedIn', 'true');
-            setTimeout(() => {
-               navigate('/');
-            }, 1000);
-         } else {
-            setShowAlert(true);
-            setAlertMessage('Email or password is invalid');
-         }
-      } catch (error) {
-         setShowAlert(true);
-         setAlertMessage('An error occurred while processing your request');
+      if(response){
+         navigate('/');
       }
-
-      setIsLoading(false);
    };
+
 
 
    return (
@@ -54,7 +38,12 @@ const Login = () => {
                    <div className="row auth-details-card">
                       <div className="col-lg-12">
                          <div className="card iq-auth-card mb-0 row">
-                            <img src="../../assets/images/auth/01.webp" alt="background" className="img-fluid w-75 position-absolute" style={{ top: '8%' }} />
+                            <img
+                                src="../../assets/images/auth/01.webp"
+                                alt="background"
+                                className="img-fluid w-75 position-absolute"
+                                style={{ top: '8%' }}
+                            />
                             <div className="card-body col-5 offset-7">
                                <div className="auth-form">
                                   <h2 className="text-center mb-3">Sign In</h2>
@@ -63,13 +52,27 @@ const Login = () => {
                                      <div className="row text-start mb-3">
                                         <div className="col-12 mb-3">
                                            <div className="form-floating">
-                                              <input type="email" className="form-control" id="input1" placeholder="Email" value={Email} onChange={(e) => setEmail(e.target.value)} />
+                                              <input
+                                                  type="email"
+                                                  className="form-control"
+                                                  id="input1"
+                                                  placeholder="Email"
+                                                  value={Email}
+                                                  onChange={(e) => setEmail(e.target.value)}
+                                              />
                                               <label htmlFor="input1">Email</label>
                                            </div>
                                         </div>
                                         <div className="col-12 mb-3">
                                            <div className="form-floating">
-                                              <input type="password" className="form-control" id="input2" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                                              <input
+                                                  type="password"
+                                                  className="form-control"
+                                                  id="input2"
+                                                  value={Password}
+                                                  onChange={(e) => setPassword(e.target.value)}
+                                                  placeholder="Password"
+                                              />
                                               <label htmlFor="input2">Password</label>
                                            </div>
                                         </div>
@@ -77,8 +80,17 @@ const Login = () => {
                                      <div className="d-flex justify-content-between  align-items-center flex-wrap">
                                         <div className="form-group">
                                            <div className="form-check">
-                                              <input className="form-check-input" type="checkbox" id="Remember" />
-                                              <label className="form-check-label" htmlFor="Remember">Remember me?</label>
+                                              <input
+                                                  className="form-check-input"
+                                                  type="checkbox"
+                                                  id="Remember"
+                                              />
+                                              <label
+                                                  className="form-check-label"
+                                                  htmlFor="Remember"
+                                              >
+                                                 Remember me?
+                                              </label>
                                            </div>
                                         </div>
                                         <div className="form-group">
@@ -86,48 +98,49 @@ const Login = () => {
                                         </div>
                                      </div>
                                      <div className="text-center">
-                                        <button type="button" className="btn btn-primary" onClick={handleSignUp} disabled={isLoading}>
-                                           {isLoading ? 'Signing In...' : 'Sign In'}
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary"
+                                            onClick={handleSignUp}
+                                            disabled={loading}
+                                        >
+                                           {loading ? 'Signing In...' : 'Sign In'}
                                         </button>
                                      </div>
 
-                                     {showAlert && (
-                                         <div className="alert alert-primary rounded-0 alert-dismissible fade show mt-1" role="alert">
-                                            {alertMessage}
+                                     {error && (
+                                         <div
+                                             className="alert alert-primary rounded-0 alert-dismissible fade show mt-1"
+                                             role="alert"
+                                         >
+                                            {error}
                                             <button
                                                 type="button"
                                                 className="btn-close"
                                                 data-bs-dismiss="alert"
                                                 aria-label="Close"
-                                                onClick={() => setShowAlert(false)}
+                                                onClick={() => {}}
                                             ></button>
                                          </div>
                                      )}
 
-                                     {showSuccessAlert && (
-                                         <div className="alert alert-left alert-success alert-dismissible fade show mb-3" role="alert">
-                                            <span> Login successfully completed !</span>
-                                            <button type="button" className="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
-                                         </div>
-                                     )}
-
-
                                   </form>
                                   <div className="new-account mt-3 text-center">
-                                     <p>Don't have an account? <a className="" href="../register">Click here to sign up</a></p>
+                                     <p>
+                                        Don't have an account?{' '}
+                                        <a className="" href="../register">
+                                           Click here to sign up
+                                        </a>
+                                     </p>
                                   </div>
                                </div>
-
                             </div>
                          </div>
                       </div>
-
                    </div>
                 </div>
              </div>
           </div>
-
-
 
           <div className="responsive-card auth-small">
              <div className="card">
@@ -139,13 +152,27 @@ const Login = () => {
                          <div className="row text-start mb-3">
                             <div className="col-12 mb-3">
                                <div className="form-floating">
-                                  <input type="email" className="form-control" id="input1" placeholder="Email" value={Email} onChange={(e) => setEmail(e.target.value)} />
+                                  <input
+                                      type="email"
+                                      className="form-control"
+                                      id="input1"
+                                      placeholder="Email"
+                                      value={Email}
+                                      onChange={(e) => setEmail(e.target.value)}
+                                  />
                                   <label htmlFor="input1">Email</label>
                                </div>
                             </div>
                             <div className="col-12 mb-3">
                                <div className="form-floating">
-                                  <input type="password" className="form-control" id="input2" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+                                  <input
+                                      type="password"
+                                      className="form-control"
+                                      id="input2"
+                                      value={Password}
+                                      onChange={(e) => setPassword(e.target.value)}
+                                      placeholder="Password"
+                                  />
                                   <label htmlFor="input2">Password</label>
                                </div>
                             </div>
@@ -153,8 +180,17 @@ const Login = () => {
                          <div className="d-flex justify-content-between  align-items-center flex-wrap">
                             <div className="form-group">
                                <div className="form-check">
-                                  <input className="form-check-input" type="checkbox" id="checkMe" />
-                                  <label className="form-check-label" htmlFor="checkMe">Remember me?</label>
+                                  <input
+                                      className="form-check-input"
+                                      type="checkbox"
+                                      id="checkMe"
+                                  />
+                                  <label
+                                      className="form-check-label"
+                                      htmlFor="checkMe"
+                                  >
+                                     Remember me?
+                                  </label>
                                </div>
                             </div>
                             <div className="form-group">
@@ -162,8 +198,13 @@ const Login = () => {
                             </div>
                          </div>
                          <div className="text-center">
-                            <button type="button" className="btn btn-primary" onClick={handleSignUp} disabled={isLoading}>
-                               {isLoading ? 'Signing In...' : 'Sign In'}
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={handleSignUp}
+                                disabled={loading}
+                            >
+                               {loading ? 'Signing In...' : 'Sign In'}
                             </button>
                          </div>
                          <div className="text-center mt-3">
@@ -172,22 +213,51 @@ const Login = () => {
                          <div className="d-flex justify-content-center ">
                             <ul className="list-group list-group-horizontal list-group-flush">
                                <li className="list-group-item bg-transparent border-0">
-                                  <a href="#"><img src="../../assets/images/brands/15.png" className="img-fluid avatar avatar-30 avatar-rounded" alt="img60" /></a>
+                                  <a href="#">
+                                     <img
+                                         src="../../assets/images/brands/15.png"
+                                         className="img-fluid avatar avatar-30 avatar-rounded"
+                                         alt="img60"
+                                     />
+                                  </a>
                                </li>
                                <li className="list-group-item bg-transparent border-0">
-                                  <a href="#"><img src="../../assets/images/brands/08.png" className="img-fluid avatar avatar-30 avatar-rounded" alt="gm" /></a>
+                                  <a href="#">
+                                     <img
+                                         src="../../assets/images/brands/08.png"
+                                         className="img-fluid avatar avatar-30 avatar-rounded"
+                                         alt="gm"
+                                     />
+                                  </a>
                                </li>
                                <li className="list-group-item bg-transparent border-0">
-                                  <a href="#"><img src="../../assets/images/brands/10.png" className="img-fluid avatar avatar-30 avatar-rounded" alt="im" /></a>
+                                  <a href="#">
+                                     <img
+                                         src="../../assets/images/brands/10.png"
+                                         className="img-fluid avatar avatar-30 avatar-rounded"
+                                         alt="im"
+                                     />
+                                  </a>
                                </li>
                                <li className="list-group-item bg-transparent border-0">
-                                  <a href="#"><img src="../../assets/images/brands/13.png" className="img-fluid avatar avatar-30 avatar-rounded" alt="li" /></a>
+                                  <a href="#">
+                                     <img
+                                         src="../../assets/images/brands/13.png"
+                                         className="img-fluid avatar avatar-30 avatar-rounded"
+                                         alt="li"
+                                     />
+                                  </a>
                                </li>
                             </ul>
                          </div>
                       </form>
                       <div className="new-account mt-3 text-center">
-                         <p>Don't have an account? <a className="" href="../../dashboard/auth/sign-up.html">Click here to sign up</a></p>
+                         <p>
+                            Don't have an account?{' '}
+                            <a className="" href="../../dashboard/auth/sign-up.html">
+                               Click here to sign up
+                            </a>
+                         </p>
                       </div>
                    </div>
                 </div>

@@ -33,6 +33,11 @@ export default class AuthService {
             if (response.ok) {
                 const responseData = await response.json();
                 this.storeAccessToken(responseData.token);
+
+                return {
+                    status: response.status,
+                    data: responseData,
+                };
             }
 
             return response;

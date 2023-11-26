@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import {NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
+import {useSelector} from "react-redux";
+import { useDispatch } from 'react-redux';
+import { logout } from '../../Store/Auth/AuthSlice';
 
 const Header = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+    const { user } = useSelector((state) => state.auth);
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+    const dispatch = useDispatch();
 
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,21 +33,9 @@ const Header = () => {
     const handleSignUpButton=()=>navigate('/register');
 
 
-
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-
-    useEffect(() => {
-        const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
-        setIsLoggedIn(storedIsLoggedIn === 'true');
-    }, []);
-
-
     const handleLogout = () => {
-
-
-        setIsLoggedIn(false);
-        localStorage.setItem('isLoggedIn', 'false');
+        dispatch(logout());
+        window.location.reload();
     };
 
     return (
@@ -89,7 +84,33 @@ const Header = () => {
                                 Trucks
                             </NavLink>
                         </li>
+                        <li className="nav-item d-none d-lg-block me-3">
+                            <NavLink to="/coming-soon" className="nav-link" activeClassName="active">
+                                Boats
+                            </NavLink>
+                        </li>
+                        <li className="nav-item d-none d-lg-block me-3">
+                            <NavLink to="/coming-soon" className="nav-link" activeClassName="active">
+                                Aircrafts
+                            </NavLink>
+                        </li>
 
+                        <li className="nav-item dropdown">
+                            <a href="#" className="search-toggle nav-link" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../assets/images/flag/flag001.png" className="img-fluid rounded-circle" alt="user" style={{height:'30px',minWidth:'30px',width:'30px'}}/>
+                                    <span className="bg-primary"></span>
+                            </a>
+                            <div className="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="dropdownMenuButton2">
+                                <div className="card shadow-none m-0 border-0">
+                                    <div className=" p-0 ">
+                                        <ul className="list-group list-group-flush p-0">
+                                            <li className="iq-sub-card list-group-item"><a className="p-0" href="#"><img src="../assets/images/flag/flag-01.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>English</a></li>
+                                            <li className="iq-sub-card list-group-item"><a className="p-0" href="#"><img src="../assets/images/flag/flag-05.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>German</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
 
                         <li className="nav-item dropdown d-lg-none position-relative">
                             <a
@@ -116,6 +137,16 @@ const Header = () => {
                                 <li>
                                     <a className="dropdown-item" href="#">
                                         Motorcycles
+                                    </a>
+                                </li>
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        Boats
+                                    </a>
+                                </li>
+                                <li>
+                                    <a className="dropdown-item" href="#">
+                                        Aircrafts
                                     </a>
                                 </li>
                             </ul>
@@ -213,15 +244,15 @@ const Header = () => {
                                 <a className="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="../assets/images/avatars/01.png" alt="User-Profile" className="img-fluid avatar avatar-50 avatar-rounded"/>
                                 <div className="caption ms-3 d-none d-md-block ">
-                                    <h6 className="mb-0 caption-title">Austin Robertson</h6>
-                                    <p className="mb-0 caption-sub-title">Marketing Administrator</p>
+                                    <h6 className="mb-0 caption-title">{user.firstName} {user.lastName}</h6>
+                                    <p className="mb-0 caption-sub-title">{user.email}</p>
                                 </div>
                             </a>
                             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><a className="dropdown-item" href="../dashboard/app/user-profile.html">Profile</a></li>
                                 <li><a className="dropdown-item" href="../dashboard/app/user-privacy-setting.html">Privacy Setting</a></li>
                                 <li><hr className="dropdown-divider"/></li>
-                                <li><a className="dropdown-item" href="../dashboard/auth/sign-in.html">Logout</a></li>
+                                <li><a  className="dropdown-item" href="#" onClick={handleLogout}>Logout</a></li>
                             </ul>
                                 </li>
                             ) :

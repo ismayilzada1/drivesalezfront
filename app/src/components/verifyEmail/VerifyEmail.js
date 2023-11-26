@@ -1,57 +1,53 @@
 import React, {useEffect, useState} from "react";
 import './VerifyEmail.css';
 import Logo from "../logo";
-import Service from "../../api-services/OtpService";
 import { useNavigate  } from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { verifyEmail } from '../../Store/Auth/authActions';
+import OtpInput from 'react-otp-input';
 const VerifyEmail = () => {
 
-    const MyService= new Service();
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const email = useSelector((state) => state.auth.email);
+    const loading = useSelector((state) => state.auth.loading);
+    const error = useSelector((state) => state.auth.error);
 
-    const [otp,setOTP]=useState('');
+    const [otp,setOtp]=useState('');
 
-    const [showAlert, setShowAlert] = useState(false);
-    const [alertMessage, setAlertMessage] = useState('');
-    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+    const setOTP = (otpValue) => {
+        const numericValue = otpValue.replace(/\D/g, '');
+        if (numericValue !== "") {
+            setOtp(numericValue);
+        }
+    };
 
     const handleVerify = async () => {
-        const requestBody = {
-            email: localStorage.getItem("email"),
-            otp: otp,
-        };
-
-        try {
-            const response = await MyService.VerifyOTP(requestBody);
-
-            if (response.status === 200) {
-                console.log("Verified Successfully");
-                setShowSuccessAlert(true);
-                setAlertMessage('Email verification successful.');
-                setTimeout(() => {
-                    navigate('/login');
-                }, 2000);
-
-            } else {
-                setShowAlert(true);
-                setAlertMessage('Email verification failed. Please check the OTP.');
-            }
-            console.log(response);
-
-        } catch (error) {
-            console.error('Verify failed:', error);
-            setShowAlert(true);
-            setAlertMessage('An error occurred during verification.');
-        }
+        console.log(otp);
+        // const requestBody = {
+        //     email: localStorage.getItem("email"),
+        //     otp: otp,
+        // };
+        //
+        // try {
+        //     const response  =await dispatch(verifyEmail(requestBody));
+        //
+        //     if (response) {
+        //         navigate('/login');
+        //     } else {
+        //
+        //     }
+        //
+        // }
+        // catch (error) {
+        //     console.error('Verify failed:', error);
+        //
+        // }
 
     };
 
 
-    useEffect(() => {
-        console.log(otp);
-        console.log(localStorage.getItem('email'));
-    }, [otp]);
+
 
     return (
         <div className="wrapper">
@@ -70,25 +66,37 @@ const VerifyEmail = () => {
                                             </div>
                                             <div>
                                                 <p className="mt-3 text-center">Please enter the OTP code sent to your email to verify your account.</p>
-                                                <div className="form-floating mb-3">
-                                                    <input type="text" className="form-control" value={otp} onChange={(e) => setOTP(e.target.value)} id="floatingInput" placeholder="123456" />
-                                                    <label htmlFor="floatingInput">OTP code</label>
+                                                <div className="mb-3 text-center">
+                                                    {/*<input type="email" className="form-control"  value={otp} onChange={(e) => setOTP(e.target.value)} id="floatingInput" placeholder="123456" />*/}
+                                                    <label htmlFor="floatingInput" className='form-label' style={{ fontSize: '1.5em' }}>OTP code</label>
+
+                                                    <div className="d-flex justify-content-center"> {/* Ensure this container is a flex container */}
+                                                        <OtpInput
+                                                            id="otpInput"
+                                                            value={otp}
+                                                            onChange={setOTP}
+                                                            numInputs={6}
+                                                            renderInput={(props, index) => (
+                                                                <input
+                                                                    {...props}
+                                                                    key={index}
+                                                                    className="form-control"
+                                                                    style={{ color:"black",width:'3em',height:'3em'}}
+                                                                    inputMode="numeric"
+                                                                />
+                                                            )}
+                                                            renderSeparator={<span>-</span>}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div className="text-center">
-                                                <button onClick={handleVerify} className="btn btn-primary mt-3">Verify</button>
+                                                <button onClick={handleVerify} className="btn btn-primary mt-3" disabled={loading}>
+                                                    Verify
+                                                </button>
                                             </div>
-
-                                            {showAlert && (
-                                                <div className="alert alert-warning mt-3" role="alert">
-                                                    {alertMessage}
-                                                </div>
-                                            )}
-                                            {showSuccessAlert && (
-                                                <div className="alert alert-success mt-3" role="alert">
-                                                    {alertMessage}
-                                                </div>
-                                            )}
+                                            {loading && <p>Loading...</p>}
+                                            {error && <p className="error-message">{error}</p>}
                                         </div>
                                     </div>
                                 </div>
@@ -107,13 +115,38 @@ const VerifyEmail = () => {
                             </div>
                             <div>
                                 <p className="mt-3 text-center">Please enter the OTP code sent to your email to verify your account.</p>
-                                <div className="form-floating mb-3">
-                                    <input type="email" className="form-control"  value={otp} onChange={(e) => setOTP(e.target.value)} id="floatingInput" placeholder="123456" />
-                                    <label htmlFor="floatingInput">OTP code</label>
+                                <div className="mb-3 text-center">
+                                    {/*<input type="email" className="form-control"  value={otp} onChange={(e) => setOTP(e.target.value)} id="floatingInput" placeholder="123456" />*/}
+                                    <label htmlFor="floatingInput" className='form-label' style={{ fontSize: '1.5em' }}>OTP code</label>
+
+                                    <div className="d-flex justify-content-center"> {/* Ensure this container is a flex container */}
+                                        <OtpInput
+                                            id="otpInput"
+                                            value={otp}
+                                            onChange={setOTP}
+                                            numInputs={6}
+                                            renderInput={(props, index) => (
+                                                <input
+                                                    {...props}
+                                                    key={index}
+                                                    className="form-control"
+                                                    style={{ color:"black" }}
+                                                    inputMode="numeric"
+                                                />
+                                            )}
+                                            renderSeparator={<span>-</span>}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div className="text-center">
-                                <button onClick={handleVerify} className="btn btn-primary mt-3">Verify</button>
+                                <div className="text-center">
+                                    <button onClick={handleVerify} className="btn btn-primary mt-3" disabled={loading}>
+                                        Verify
+                                    </button>
+                                </div>
+                                {loading && <p>Loading...</p>}
+                                {error && <p className="error-message">{error}</p>}
                             </div>
                         </div>
                     </div>

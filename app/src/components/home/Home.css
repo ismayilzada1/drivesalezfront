@@ -28,7 +28,10 @@
     color:white;
 }
 
-
+.custom-dropdown{
+    background-color: #f6542c !important;
+    border:0;
+}
 
 
 @media screen and (max-width: 1440px) {

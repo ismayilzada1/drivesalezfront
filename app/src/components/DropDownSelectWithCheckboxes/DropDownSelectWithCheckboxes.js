@@ -13,7 +13,7 @@ const DropDownSelectWithCheckboxes = ({ options, selectedValues, toggleDropdown,
             const filteredLabels = selectedLabels.filter((label) => label !== null);
 
             return filteredLabels.length > 0
-                ? (filteredLabels.length <= 3 ? filteredLabels.join(', ') : `Selected (${filteredLabels.length})`)
+                ? (filteredLabels.length <= 2 ? filteredLabels.join(', ') : `Selected (${filteredLabels.length})`)
                 : 'Choose an option';
         } else {
             return 'Choose an option';
