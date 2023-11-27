@@ -1,4 +1,17 @@
-import { loginStart, loginSuccess, loginFailure,registerStart,registerSuccess,registerFailure,verifyEmailStart, verifyEmailSuccess, verifyEmailFailure, } from './AuthSlice';
+import {
+    loginStart,
+    loginSuccess,
+    loginFailure,
+    registerStart,
+    registerSuccess,
+    registerFailure,
+    verifyEmailStart,
+    verifyEmailSuccess,
+    verifyEmailFailure,
+    logoutUserStart,
+    logoutUserFailure,
+    logoutUserSuccess,
+} from './AuthSlice';
 import authService from '../../api-services/AuthService';
 import otpService from '../../api-services/OtpService';
 
@@ -50,6 +63,7 @@ export const verifyEmail = (userData) => async (dispatch) => {
         const response = await OtpService.VerifyOTP(userData);
 
         if (response.status === 200) {
+            dispatch(verifyEmailSuccess());
             console.log('SUCCESSFUL EMAIL VERIFICATION');
             return response;
         } else {
@@ -57,5 +71,22 @@ export const verifyEmail = (userData) => async (dispatch) => {
         }
     } catch (error) {
         dispatch(verifyEmailFailure('An error occurred while processing your request'));
+    }
+};
+
+export const logoutUser = () => async (dispatch) => {
+    dispatch(logoutUserStart());
+    try {
+        const response = await AuthService.Logout();
+
+        if (response.status === 200) {
+            dispatch(logoutUserSuccess())
+            console.log('SUCCESSFUL Logout');
+            return response;
+        } else {
+            dispatch(logoutUserFailure('Logout failed'));
+        }
+    } catch (error) {
+        dispatch(logoutUserFailure('An error occurred while processing your request'));
     }
 };

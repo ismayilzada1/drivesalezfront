@@ -80,4 +80,21 @@ export default class AuthService {
             throw error;
         }
     }
+
+    async Logout() {
+        try {
+            const response = await fetch(`${this.baseUrl}/Account/logout`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            return response;
+        } catch (error) {
+            console.error('Error in Logout:', error);
+            throw error;
+        }
+    }
+
 }

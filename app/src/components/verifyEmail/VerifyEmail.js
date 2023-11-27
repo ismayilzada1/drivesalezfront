@@ -23,26 +23,25 @@ const VerifyEmail = () => {
     };
 
     const handleVerify = async () => {
-        console.log(otp);
-        // const requestBody = {
-        //     email: localStorage.getItem("email"),
-        //     otp: otp,
-        // };
-        //
-        // try {
-        //     const response  =await dispatch(verifyEmail(requestBody));
-        //
-        //     if (response) {
-        //         navigate('/login');
-        //     } else {
-        //
-        //     }
-        //
-        // }
-        // catch (error) {
-        //     console.error('Verify failed:', error);
-        //
-        // }
+        const requestBody = {
+            email: email,
+            otp: otp,
+        };
+
+        try {
+            const response  =await dispatch(verifyEmail(requestBody));
+
+            if (response) {
+                navigate('/login');
+            } else {
+
+            }
+
+        }
+        catch (error) {
+            console.error('Verify failed:', error);
+
+        }
 
     };
 

@@ -3,7 +3,7 @@ import {NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
 import {useSelector} from "react-redux";
 import { useDispatch } from 'react-redux';
-import { logout } from '../../Store/Auth/AuthSlice';
+import { logoutUser } from '../../Store/Auth/authActions';
 
 const Header = () => {
     const { user } = useSelector((state) => state.auth);
@@ -33,9 +33,8 @@ const Header = () => {
     const handleSignUpButton=()=>navigate('/register');
 
 
-    const handleLogout = () => {
-        dispatch(logout());
-        window.location.reload();
+    const handleLogout = async() => {
+        await dispatch(logoutUser());
     };
 
     return (

@@ -8,6 +8,7 @@ const authSlice = createSlice({
         isLoggedIn: false,
         loading: false,
         error: null,
+        // email: null
     },
     reducers: {
         // Login reducers
@@ -24,9 +25,20 @@ const authSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
-        logout: (state) => {
+
+        //Logout  reducers
+        logoutUserStart: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+        logoutUserSuccess: (state) => {
+            state.loading = false;
             state.isLoggedIn = false;
             state.user = null;
+        },
+        logoutUserFailure: (state,action) => {
+            state.loading = false;
+            state.error = action.payload;
         },
 
         // Register reducers
@@ -50,10 +62,9 @@ const authSlice = createSlice({
             state.loading = true;
             state.error = null;
         },
-        verifyEmailSuccess: (state, action) => {
+        verifyEmailSuccess: (state) => {
             state.loading = false;
-            state.userData = action.payload.data;
-            state.email = action.payload.email;
+            state.error = null;
         },
         verifyEmailFailure: (state, action) => {
             state.loading = false;
@@ -69,7 +80,9 @@ export const {
     registerStart,
     registerSuccess,
     registerFailure,
-    logout,
+    logoutUserStart,
+    logoutUserSuccess,
+    logoutUserFailure,
     verifyEmailStart,
     verifyEmailSuccess,
     verifyEmailFailure,
