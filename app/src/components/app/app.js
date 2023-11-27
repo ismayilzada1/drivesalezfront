@@ -14,6 +14,8 @@ import Home from "../home";
 import AnnouncementDetails from "../announcementDetails";
 import LoadingPage from "../LoadingPage";
 import ComingSoon  from '../ComingSoon'
+import PrivacyPolicy from "../PrivacyPolicy";
+import TermsOfUse from "../TermsOfUse";
 
 function App() {
 
@@ -41,6 +43,8 @@ function App() {
                     <Route path="/reset-password" element={<ResetPassword />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                    <Route path="/terms-of-use" element={<TermsOfUse  />} />
                     <Route path="/coming-soon" element={<ComingSoon  />} />
                     <Route path="/verifyEmail" element={<VerifyEmail />} />
                     <Route path="/AnnouncementDetails" element={<AnnouncementDetails announcementId={'203ea3a6-bc81-4666-0778-08dbec5b6816'} />} />

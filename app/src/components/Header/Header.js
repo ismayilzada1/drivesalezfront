@@ -34,6 +34,7 @@ const Header = () => {
 
 
     const handleLogout = async() => {
+        console.log("logout");
         await dispatch(logoutUser());
     };
 
@@ -69,27 +70,27 @@ const Header = () => {
                     <ul className="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
 
                         <li className="nav-item d-none d-lg-block me-3">
-                            <NavLink to="/" className="nav-link" activeClassName="active">
+                            <NavLink to="/" className="nav-link" activeclassname="active">
                                 Home
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
-                            <NavLink to="/coming-soon" className="nav-link" activeClassName="active">
+                            <NavLink to="#" className="nav-link" activeclassname="active">
                                 Motorcycles
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
-                            <NavLink to="/coming-soon" className="nav-link" activeClassName="active">
+                            <NavLink to="#" className="nav-link" activeclassname="active">
                                 Trucks
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
-                            <NavLink to="/coming-soon" className="nav-link" activeClassName="active">
+                            <NavLink to="/coming-soon" className="nav-link" activeclassname="active">
                                 Boats
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
-                            <NavLink to="/coming-soon" className="nav-link" activeClassName="active">
+                            <NavLink to="/coming-soon" className="nav-link" activeclassname="active">
                                 Aircrafts
                             </NavLink>
                         </li>
@@ -239,9 +240,9 @@ const Header = () => {
 
                         {isLoggedIn ?
                             (
-                                <li className="nav-item dropdown">
+                                <li className="nav-item dropdown ms-1">
                                 <a className="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="../assets/images/avatars/01.png" alt="User-Profile" className="img-fluid avatar avatar-50 avatar-rounded"/>
+                                <img src="../assets/images/icons/user.png" alt="User-Profile" className="img-fluid avatar avatar-50 avatar-rounded"/>
                                 <div className="caption ms-3 d-none d-md-block ">
                                     <h6 className="mb-0 caption-title">{user.firstName} {user.lastName}</h6>
                                     <p className="mb-0 caption-sub-title">{user.email}</p>
@@ -251,7 +252,7 @@ const Header = () => {
                                 <li><a className="dropdown-item" href="../dashboard/app/user-profile.html">Profile</a></li>
                                 <li><a className="dropdown-item" href="../dashboard/app/user-privacy-setting.html">Privacy Setting</a></li>
                                 <li><hr className="dropdown-divider"/></li>
-                                <li><a  className="dropdown-item" href="#" onClick={handleLogout}>Logout</a></li>
+                                <li><a  className="dropdown-item"  href='/' onClick={handleLogout}>Logout</a></li>
                             </ul>
                                 </li>
                             ) :
