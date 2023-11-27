@@ -14,24 +14,28 @@ const ResetPassword=()=> {
     const error = useSelector((state) => state.auth.error);
 
 
-    const [password,setPassword]=useState('');
+    const [Password,setPassword]=useState('');
+    const [ConfirmPassword,setConfirmPassword]=useState('');
     const [otpCode,setOtpCode]=useState('');
 
 
 
 
     const handleResetPassword = async ()=>{
-            if(!otpCode || !password){return;}
+            if(!otpCode || !Password || !ConfirmPassword){return;}
 
         const requestBody = {
             "validateRequest": {
                 "email": email,
                 "otp": otpCode
             },
-            "newPassword": password
+            "newPassword": Password,
+            "confirmPassword": ConfirmPassword
         };
 
         try {
+
+            console.log(requestBody);
             const response  = await dispatch(resetPassword(requestBody));
 
             if (response) {
@@ -69,8 +73,12 @@ const ResetPassword=()=> {
                                                     <label htmlFor="floatingInput">OTP Code</label>
                                                 </div>
                                                 <div className="form-floating mb-3">
-                                                    <input type="text" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} id="floatingInput" placeholder="123456" />
-                                                    <label htmlFor="floatingInput">E-Mail</label>
+                                                    <input type="password" className="form-control" value={Password} onChange={(e) => setPassword(e.target.value)} id="floatingInput" placeholder="123456" />
+                                                    <label htmlFor="floatingInput">Password</label>
+                                                </div>
+                                                <div className="form-floating mb-3">
+                                                    <input type="password" className="form-control" value={ConfirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} id="floatingInput" placeholder="123456" />
+                                                    <label htmlFor="floatingInput">Confirm Password</label>
                                                 </div>
                                             </div>
                                             <div className="text-center">
@@ -101,8 +109,12 @@ const ResetPassword=()=> {
                                     <label htmlFor="floatingInput">OTP Code</label>
                                 </div>
                                 <div className="form-floating mb-3">
-                                    <input type="email" className="form-control"  value={password} onChange={(e) => setPassword(e.target.value)} id="floatingInput"   placeholder="123456" />
-                                    <label htmlFor="floatingInput">E-Mail</label>
+                                    <input type="password" className="form-control" value={Password} onChange={(e) => setPassword(e.target.value)} id="floatingInput" placeholder="123456" />
+                                    <label htmlFor="floatingInput">Password</label>
+                                </div>
+                                <div className="form-floating mb-3">
+                                    <input type="password" className="form-control" value={ConfirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} id="floatingInput" placeholder="123456" />
+                                    <label htmlFor="floatingInput">Confirm Password</label>
                                 </div>
                             </div>
                             <div className="text-center">

@@ -76,7 +76,9 @@ const authSlice = createSlice({
             state.loading = true;
             state.error = null;
         },
-        otpSendSuccess: (state) => {
+        otpSendSuccess: (state,action) => {
+            state.userData = action.payload.data;
+            state.email = action.payload.email;
             state.loading = false;
             state.error = null;
         },

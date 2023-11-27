@@ -238,19 +238,19 @@ const HomeFilter = () => {
 
 
     const filteredCities = Cities.filter((city) => {
-        return city.country.countryName === selectedCountry;
+        return city.country.id === selectedCountry.id;
     });
 
 
 
     const filteredVehicleModels = carModels.filter((model) => {
-        return  model.make.makeName === selectedBrand;
+        return  model.make.id === selectedBrand.id;
     });
 
 
     const clearForm = () => {
         console.log(user);
-        console.log(carOptions);
+        console.log(selectedBrand);
         setSelectedBrand('');
         setSelectedCountry('');
         setSelectedMaxYear('');
@@ -328,8 +328,7 @@ const HomeFilter = () => {
                 <Row className="container">
                     <Form onSubmit={search}>
                         <Row>
-
-                            <Col lg={3} md={4} sm={6} xs={12}>
+                            <Col lg={3}  md={4} sm={6} xs={12}>
                                 <CustomDropdown
                                     mainLabel="Make"
                                     dataProperty="makeName"

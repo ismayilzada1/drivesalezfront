@@ -20,12 +20,8 @@ const ForgotPassword = () => {
             return;
         }
 
-        const requestBody = {
-            email: email,
-        };
-
         try {
-            const response  =await dispatch(sendOtp(requestBody));
+            const response  =await dispatch(sendOtp(email));
 
             if (response) {
                 navigate('/reset-password');

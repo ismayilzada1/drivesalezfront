@@ -312,10 +312,12 @@ const NewAnnouncement=()=>
 
 
     return(
+
         <div className="card">
-            {isLoading && <LoadingPage />}
-
-
+            {isLoading ? (
+                <LoadingPage />
+            ) : (
+                <>
             <div className="card-header d-flex justify-content-between">
                 <div className="header-title">
                     <h4 className="card-title">Vehicle Information</h4>
@@ -626,8 +628,12 @@ const NewAnnouncement=()=>
                         )}
                     </form>
                 </div>
+
             </div>
+                </>
+            )}
         </div>
+
     );
 
 }

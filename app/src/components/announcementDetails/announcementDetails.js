@@ -365,9 +365,11 @@ const AnnouncementDetails = ({ announcementId }) => {
                 className="fade"
                 backdrop="static"
                 dialogClassName="modal-dialog-fullscreen">
-                <Modal.Header closeButton className="modal-header">
-                </Modal.Header>
+
                 <Modal.Body className="modal-image-container">
+                    <Button className="close-button" onClick={handleCloseModal}>
+                        <span aria-hidden="true">&times;</span>
+                     </Button>
                     <img
                         src={Images[selectedImageIndex]}
                         alt={`Slide ${selectedImageIndex}`}

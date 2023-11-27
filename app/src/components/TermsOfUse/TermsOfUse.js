@@ -69,6 +69,20 @@ const TermsOfUse=()=>{
                                         </div>
                                     </div>
                                 </div>
+
+                                <div className="accordion-item">
+                                    <h2 className="accordion-header" id="headingSix">
+                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                            Donec volutpat metus in erat
+                                        </button>
+                                    </h2>
+                                    <div id="collapseSix" className="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                                        <div className="accordion-body">
+                                            <strong>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</strong> 3 wolf moon officia aute,<code> non cupidatat skateboard dolor brunch.</code> Food truck quinoa nesciunt laborum eiusmod.
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>

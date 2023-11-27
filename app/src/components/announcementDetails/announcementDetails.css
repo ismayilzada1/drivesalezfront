@@ -82,6 +82,7 @@
 
 .modal-content{
     border:0;
+    min-height: 720px;
 }
 .modal-body{
     display:flex;
@@ -107,7 +108,6 @@
     position: relative;
     overflow: hidden;
     background-color:black !important;
-
 }
 
 .modal-image {
@@ -181,10 +181,22 @@ body {
 }
 
 
-.modal-header{
-    background-color: black;
+.close-button{
+    background-color: transparent !important;
     border:0;
+    position: absolute;
+    top:40px;
+    right: 30px;
+    z-index: 1;
+    transform:translateY(-50%);
 }
+
+.close-button span {
+    color:white;
+    font-size: 75px;
+    background-color: transparent;
+}
+
 
 .btn-close{
     color:white !important;
@@ -306,6 +318,11 @@ Our Classes
 
 
 @media (max-width: 768px) {
+
+    .close-button{
+        right: 0px;
+    }
+
     .thumbnails-container {
         display: none;
     }

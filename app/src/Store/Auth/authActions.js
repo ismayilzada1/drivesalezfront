@@ -101,7 +101,7 @@ export const sendOtp = (email) => async (dispatch) => {
         const response = await OtpService.SendOTP(email);
 
         if (response.status === 200) {
-            dispatch(otpSendSuccess());
+            dispatch(otpSendSuccess({ data: response.data, email }));
             console.log('SUCCESSFUL OTP SENT');
             return response;
         } else {

@@ -29,9 +29,9 @@ const DropDownSelectWithCheckboxes = ({ options, selectedValues, toggleDropdown,
 
 
     return (
-        <div className="dropdown">
+        <div className="dropdown custom-dropdown-with-checkboxes">
             <Form.Group>
-                <button className="btn btn-outline-primary  dropdown-toggle" type="button" onClick={toggleDropdown} aria-expanded="false">
+                <button className="btn btn-outline-primary dropdown-toggle custom-dropdown-with-checkboxes" type="button" onClick={toggleDropdown} aria-expanded="false">
                     {getPlaceholderText()}
                 </button>
                 <ul className={`dropdown-menu${showDropdown ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">

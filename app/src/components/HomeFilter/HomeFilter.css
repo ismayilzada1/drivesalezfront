@@ -1,0 +1,8 @@
+@media (max-width: 767px) {
+    .custom-dropdown {
+        width: 100% !important;
+    }
+    .custom-dropdown-with-checkboxes{
+        width: 100% !important;
+    }
+}
