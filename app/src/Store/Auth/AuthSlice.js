@@ -8,7 +8,6 @@ const authSlice = createSlice({
         isLoggedIn: false,
         loading: false,
         error: null,
-        // email: null
     },
     reducers: {
         // Login reducers
@@ -70,6 +69,37 @@ const authSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+
+        // Otp send
+
+        otpSendStart: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+        otpSendSuccess: (state) => {
+            state.loading = false;
+            state.error = null;
+        },
+        otpSendFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
+
+        // Reset Password
+        resetPasswordStart: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+        resetPasswordSuccess: (state) => {
+            state.loading = false;
+            state.error = null;
+        },
+        resetPasswordFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
     },
 });
 
@@ -86,6 +116,12 @@ export const {
     verifyEmailStart,
     verifyEmailSuccess,
     verifyEmailFailure,
+    otpSendStart,
+    otpSendSuccess,
+    otpSendFailure,
+    resetPasswordStart,
+    resetPasswordSuccess,
+    resetPasswordFailure
 } = authSlice.actions;
 
 export default authSlice.reducer;

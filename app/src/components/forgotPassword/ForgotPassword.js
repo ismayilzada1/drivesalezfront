@@ -3,50 +3,41 @@ import "./ForgotPassword.css";
 import Logo from "../logo";
 import Service from "../../api-services/OtpService";
 import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {sendOtp, verifyEmail} from "../../Store/Auth/authActions";
 
 const ForgotPassword = () => {
-    const MyService = new Service();
-    const [email, setEmail] = useState("");
-    const [showAlert, setShowAlert] = useState(false);
-    const [alertMessage, setAlertMessage] = useState("");
-    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const loading = useSelector((state) => state.auth.loading);
+    const error = useSelector((state) => state.auth.error);
+
+    const [email, setEmail] = useState("");
+
 
     const handleSendEmail = async () => {
-        setIsLoading(true);
-
-        setShowSuccessAlert(false);
-        setShowAlert(false);
+        if(!email){
+            return;
+        }
 
         const requestBody = {
             email: email,
         };
-        localStorage.setItem("emailForForgotPassword", email);
 
         try {
-            const response = await MyService.SendOTP(requestBody.email);
+            const response  =await dispatch(sendOtp(requestBody));
 
-            if (response.status === 200) {
-                setAlertMessage('OTP sent to your email.');
-                setShowSuccessAlert(true);
-                setTimeout(() => {
-                    setShowSuccessAlert(false);
-                    setAlertMessage('');
-
-                    navigate("/reset-password");
-                }, 2000);
+            if (response) {
+                navigate('/reset-password');
             } else {
-                setShowAlert(true);
-                setAlertMessage("Email or password is invalid");
+
             }
-        } catch (error) {
-            setShowAlert(true);
-            setAlertMessage("An error occurred while processing your request");
+
+        }
+        catch (error) {
+            console.error('OTP SEND failed:', error);
         }
 
-        setIsLoading(false);
     };
 
 
@@ -64,29 +55,20 @@ const ForgotPassword = () => {
                                         <div className="card-body col-5 offset-7">
                                             <div className="auth-form">
                                                 <div className="text-center">
-                                                    <h2>Find your email</h2>
+                                                    <h2>Forgot Password ?</h2>
                                                 </div>
                                                 <div>
-                                                    <p className="mt-3 text-center"> Enter your recovery email </p>
+                                                    <h4 className="mt-3 text-center">Enter your  email</h4>
                                                     <div className="form-floating mb-3">
                                                         <input type="text" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} id="floatingInput" placeholder="123456" />
                                                         <label htmlFor="floatingInput">E-Mail</label>
                                                     </div>
                                                 </div>
                                                 <div className="text-center">
-                                                    <button onClick={handleSendEmail} className="btn btn-primary mt-3" disabled={isLoading}>{isLoading ? 'Next ...' : 'Next'}</button>
+                                                    <button onClick={handleSendEmail} className="btn btn-primary mt-3" disabled={loading}>{loading ? 'Next ...' : 'Next'}</button>
                                                 </div>
 
-                                                {showAlert && (
-                                                    <div className="alert alert-warning mt-3" role="alert">
-                                                        {alertMessage}
-                                                    </div>
-                                                )}
-                                                {showSuccessAlert && (
-                                                    <div className="alert alert-success mt-3" role="alert">
-                                                        {alertMessage}
-                                                    </div>
-                                                )}
+
                                             </div>
                                         </div>
                                     </div>
@@ -101,17 +83,17 @@ const ForgotPassword = () => {
                         <div className="card-body">
                             <div className="auth-form">
                                 <div className="text-center">
-                                    <h2>Find your email</h2>
+                                    <h2>Forgot Password ?</h2>
                                 </div>
                                 <div>
-                                    <p className="mt-3 text-center">Enter your recovery email</p>
+                                    <h4 className="mt-3 text-center">Enter your  email</h4>
                                     <div className="form-floating mb-3">
                                         <input type="email" className="form-control"  value={email} onChange={(e) => setEmail(e.target.value)} id="floatingInput"  id="floatingInput" placeholder="123456" />
                                         <label htmlFor="floatingInput">E-Mail</label>
                                     </div>
                                 </div>
                                 <div className="text-center">
-                                    <button onClick={handleSendEmail} className="btn btn-primary mt-3" disabled={isLoading}>{isLoading ? 'Next ...' : 'Next'}</button>
+                                    <button onClick={handleSendEmail} className="btn btn-primary mt-3" disabled={loading}>{loading ? 'Next ...' : 'Next'}</button>
                                 </div>
                             </div>
                         </div>

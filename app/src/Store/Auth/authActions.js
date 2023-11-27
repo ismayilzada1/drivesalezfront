@@ -11,6 +11,9 @@ import {
     logoutUserStart,
     logoutUserFailure,
     logoutUserSuccess,
+    otpSendStart,
+    otpSendFailure,
+    otpSendSuccess, resetPasswordSuccess, resetPasswordFailure, resetPasswordStart,
 } from './AuthSlice';
 import authService from '../../api-services/AuthService';
 import otpService from '../../api-services/OtpService';
@@ -77,16 +80,51 @@ export const verifyEmail = (userData) => async (dispatch) => {
 export const logoutUser = () => async (dispatch) => {
     dispatch(logoutUserStart());
     try {
-        const response = await AuthService.Logout();
-
-        if (response.status === 200) {
-            dispatch(logoutUserSuccess())
-            console.log('SUCCESSFUL Logout');
-            return response;
-        } else {
-            dispatch(logoutUserFailure('Logout failed'));
-        }
+        // const response = await AuthService.Logout();
+        //
+        // if (response.status === 200) {
+        //     dispatch(logoutUserSuccess())
+        //     console.log('SUCCESSFUL Logout');
+        //     return response;
+        // } else {
+        //     dispatch(logoutUserFailure('Logout failed'));
+        // }
+        dispatch(logoutUserSuccess());
     } catch (error) {
         dispatch(logoutUserFailure('An error occurred while processing your request'));
+    }
+};
+
+export const sendOtp = (email) => async (dispatch) => {
+    dispatch(otpSendStart());
+    try {
+        const response = await OtpService.SendOTP(email);
+
+        if (response.status === 200) {
+            dispatch(otpSendSuccess());
+            console.log('SUCCESSFUL OTP SENT');
+            return response;
+        } else {
+            dispatch(otpSendFailure('Email verification failed'));
+        }
+    } catch (error) {
+        dispatch(otpSendFailure('An error occurred while processing your request'));
+    }
+};
+
+export const resetPassword = (requestBody) => async (dispatch) => {
+    dispatch(resetPasswordStart());
+    try {
+        const response = await AuthService.ResetPassword(requestBody);
+
+        if (response.status === 200) {
+            dispatch(resetPasswordSuccess());
+            console.log('SUCCESSFUL RESET PASSWORD');
+            return response;
+        } else {
+            dispatch(resetPasswordFailure('Email verification failed'));
+        }
+    } catch (error) {
+        dispatch(resetPasswordFailure('An error occurred while processing your request'));
     }
 };

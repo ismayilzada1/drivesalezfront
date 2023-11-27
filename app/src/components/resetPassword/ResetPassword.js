@@ -2,62 +2,48 @@ import React, { useState } from 'react';
 import Logo from '../logo';
 import Service from "../../api-services/AuthService";
 import { useNavigate } from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
+import {resetPassword} from "../../Store/Auth/authActions";
 
 const ResetPassword=()=> {
-    const MyService = new Service();
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const email = useSelector((state) => state.auth.email);
+    const loading = useSelector((state) => state.auth.loading);
+    const error = useSelector((state) => state.auth.error);
+
 
     const [password,setPassword]=useState('');
     const [otpCode,setOtpCode]=useState('');
 
-    const [showAlert, setShowAlert] = useState(false);
-    const [alertMessage, setAlertMessage] = useState("");
-    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
 
-    const navigate = useNavigate();
 
 
     const handleResetPassword = async ()=>{
-
-        setIsLoading(true);
-
-        setShowSuccessAlert(false);
-        setShowAlert(false);
+            if(!otpCode || !password){return;}
 
         const requestBody = {
             "validateRequest": {
-                "email": localStorage.getItem('emailForForgotPassword'),
+                "email": email,
                 "otp": otpCode
             },
             "newPassword": password
         };
 
         try {
-            const response = await MyService.ResetPassword(requestBody);
+            const response  = await dispatch(resetPassword(requestBody));
 
-            if (response.status === 200) {
-                setAlertMessage('Password reset successfully');
-                setShowSuccessAlert(true);
-                setTimeout(() => {
-                    setShowSuccessAlert(false);
-                    setAlertMessage('');
+            if (response) {
+                navigate('/login');
+            } else {
 
-                    navigate("/login");
-                }, 2000);
-            } else if(response.status===400) {
-                setShowAlert(true);
-                setAlertMessage("Can't validate OTP Code");
             }
-            else{
-                setShowAlert(true);
-                setAlertMessage("OTP Code or new Password is wrong");
-            }
-        } catch (error) {
-            setShowAlert(true);
-            setAlertMessage("An error occurred while processing your request");
+
         }
-
-        setIsLoading(false);
+        catch (error) {
+            console.error('Reser Password failed:', error);
+        }
 
     }
 
@@ -88,19 +74,10 @@ const ResetPassword=()=> {
                                                 </div>
                                             </div>
                                             <div className="text-center">
-                                                <button onClick={handleResetPassword} className="btn btn-primary mt-3" disabled={isLoading}>{isLoading ? 'Reset Password ...' : 'Reset Password'}</button>
+                                                <button onClick={handleResetPassword} className="btn btn-primary mt-3" disabled={loading}>{loading ? 'Reset Password ...' : 'Reset Password'}</button>
                                             </div>
 
-                                            {showAlert && (
-                                                <div className="alert alert-warning mt-3" role="alert">
-                                                    {alertMessage}
-                                                </div>
-                                            )}
-                                            {showSuccessAlert && (
-                                                <div className="alert alert-success mt-3" role="alert">
-                                                    {alertMessage}
-                                                </div>
-                                            )}
+
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +106,7 @@ const ResetPassword=()=> {
                                 </div>
                             </div>
                             <div className="text-center">
-                                <button onClick={handleResetPassword} className="btn btn-primary mt-3" disabled={isLoading}>{isLoading ? 'Reset Password ...' : 'Reset Password'}</button>
+                                <button onClick={handleResetPassword} className="btn btn-primary mt-3" disabled={loading}>{loading ? 'Reset Password ...' : 'Reset Password'}</button>
                             </div>
                         </div>
                     </div>

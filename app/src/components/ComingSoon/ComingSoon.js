@@ -48,30 +48,30 @@ const ComingSoon = () => {
         <>
             <header id="header" className="d-flex align-items-center coming-soon-header">
                 <div className="container d-flex flex-column align-items-center">
-                    <h1>Coming soon !</h1>
-                    <h2>We're working hard to improve our website and we'll be ready to launch soon</h2>
+                    <h1 className='coming-soon-text coming-soon-title'>Coming soon !</h1>
+                    <h2 className='coming-soon-text'>We're working hard to improve our website and we'll be ready to launch soon</h2>
                     <div className="countdown d-flex justify-content-center">
                         <div className='countdown-tab'>
-                            <h3>{timeLeft.days}</h3>
-                            <h4>Days</h4>
+                            <h3 >{timeLeft.days}</h3>
+                            <h4 >Days</h4>
                         </div>
                         <div className='countdown-tab'>
-                            <h3>{timeLeft.hours}</h3>
-                            <h4>Hours</h4>
+                            <h3 >{timeLeft.hours}</h3>
+                            <h4 >Hours</h4>
                         </div>
                         <div className='countdown-tab'>
-                            <h3>{timeLeft.minutes}</h3>
-                            <h4>Minutes</h4>
+                            <h3 >{timeLeft.minutes}</h3>
+                            <h4 >Minutes</h4>
                         </div>
                         <div className='countdown-tab'>
-                            <h3>{timeLeft.seconds}</h3>
-                            <h4>Seconds</h4>
+                            <h3 >{timeLeft.seconds}</h3>
+                            <h4 >Seconds</h4>
                         </div>
                     </div>
 
                     <div className="subscribe">
-                        <h4>Subscribe now to get the latest updates!</h4>
-                        <form action="forms/notify.php" method="post" role="form" className="php-email-form" onSubmit={handleSubmit}>
+                        <h4 className='coming-soon-text'>Subscribe now to get the latest updates!</h4>
+                        <form role="form" className="php-email-form" onSubmit={handleSubmit}>
                             <div className="subscribe-form">
                                 <input type="email" name="email" onChange={handleChange} value={formData.email} required />
                                 <input type="submit" value="Subscribe" />
@@ -90,10 +90,8 @@ const ComingSoon = () => {
                         <a href="https://instagram.com/example" className="instagram"><i className="bi bi-instagram"></i></a>
                         <a href="https://linkedin.com/in/example" className="linkedin"><i className="bi bi-linkedin"></i></a>
                     </div>
-
                 </div>
             </header>
-
 
 
         </>

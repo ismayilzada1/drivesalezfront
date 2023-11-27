@@ -13,8 +13,10 @@ function Register() {
 
     const navigate = useNavigate();
 
-
-
+    const [termsChecked, setTermsChecked] = useState(false);
+    const handleCheckboxChange = () => {
+        setTermsChecked(!termsChecked);
+    };
 
     const [formData, setFormData] = useState({
         FirstName: '',
@@ -31,7 +33,17 @@ function Register() {
     };
 
     const handleSignUp = async () => {
-
+        if (
+            !formData.FirstName ||
+            !formData.LastName ||
+            !formData.Email ||
+            !formData.PhoneNumber ||
+            !formData.Password ||
+            !formData.ConfirmPassword ||
+            !termsChecked
+        ) {
+            return;
+        }
         const requestBody = {
             firstName: formData.FirstName,
             lastName: formData.LastName,
@@ -167,6 +179,8 @@ function Register() {
                                                         type="checkbox"
                                                         className="form-check-input"
                                                         id="termsCondition"
+                                                        checked={termsChecked}
+                                                        onChange={handleCheckboxChange}
                                                     />
                                                     <label
                                                         className="ms-2 form-check-label"
@@ -180,7 +194,7 @@ function Register() {
                                                         type="button"
                                                         className="btn btn-primary"
                                                         onClick={handleSignUp}
-                                                        disabled={loading}
+                                                        disabled={loading || !termsChecked}
                                                     >
                                                         {loading ? 'Signing Up...' : 'Sign Up'}
                                                     </button>
@@ -309,8 +323,9 @@ function Register() {
                                     <input
                                         className="form-check-input"
                                         type="checkbox"
-                                        value=""
                                         id="termsCondition"
+                                        checked={termsChecked}
+                                        onChange={handleCheckboxChange}
                                     />
                                     <label
                                         className="ms-2 form-check-label"

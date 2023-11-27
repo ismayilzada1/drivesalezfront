@@ -1,17 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import Logo from '../logo';
+import React, { useState} from 'react';
 import './Home.css';
 import AnnouncementCard from "../announcementCard";
-import { Form, Row, Col, Button,Collapse,Dropdown } from 'react-bootstrap';
-import ColorDropdownSelect from '../ColorDropDownSelect'
-import useDropdownWithCheckboxes from "../../hooks/useDropdownWithCheckboxes";
-import DropDownSelectWithCheckboxes from "../DropDownSelectWithCheckboxes";
-import DropDownSelect from "../DropDownSelect";
-import commonDataService from '../../api-services/CommonDataService'
+import {  Row } from 'react-bootstrap';
 import LoadingPage from "../LoadingPage";
 import HomeFilter from "../HomeFilter";
-
-
 
 
 const Home = () => {
