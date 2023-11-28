@@ -104,8 +104,10 @@ const Header = () => {
                                 <div className="card shadow-none m-0 border-0">
                                     <div className=" p-0 ">
                                         <ul className="list-group list-group-flush p-0">
-                                            <li className="iq-sub-card list-group-item"><a className="p-0" href="#"><img src="../assets/images/flag/flag-01.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>English</a></li>
-                                            <li className="iq-sub-card list-group-item"><a className="p-0" href="#"><img src="../assets/images/flag/flag-05.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>German</a></li>
+                                            <li className="iq-sub-card list-group-item"><a className="p-0" href="#"><img src="../assets/images/flag/flag-usa.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>English</a></li>
+                                            <li className="iq-sub-card list-group-item"><a className="p-0" href="#"><img src="../assets/images/flag/flag-aze.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>Azerbaijani</a></li>
+                                            <li className="iq-sub-card list-group-item"><a className="p-0" href="#"><img src="../assets/images/flag/flag-ru.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>Russian</a></li>
+                                            <li className="iq-sub-card list-group-item"><a className="p-0" href="#"><img src="../assets/images/flag/flag-tr.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>Turkish</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -125,27 +127,27 @@ const Header = () => {
                             </a>
                             <ul className="dropdown-menu mx-auto" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <a className="dropdown-item" href="#">
+                                    <a className="dropdown-item" href="/">
                                         Cars
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="dropdown-item" href="#">
+                                    <a className="dropdown-item" href="/">
                                         Trucks
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="dropdown-item" href="#">
+                                    <a className="dropdown-item" href="/">
                                         Motorcycles
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="dropdown-item" href="#">
+                                    <a className="dropdown-item" href="/coming-soon">
                                         Boats
                                     </a>
                                 </li>
                                 <li>
-                                    <a className="dropdown-item" href="#">
+                                    <a className="dropdown-item" href="/coming-soon">
                                         Aircrafts
                                     </a>
                                 </li>
@@ -153,81 +155,84 @@ const Header = () => {
                         </li>
 
 
-                        <li className="nav-item dropdown">
-                            <a href="#" className="nav-link" id="mail-drop" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
-                                <svg width="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path opacity="0.4" d="M22 15.94C22 18.73 19.76 20.99 16.97 21H16.96H7.05C4.27 21 2 18.75 2 15.96V15.95C2 15.95 2.006 11.524 2.014 9.298C2.015 8.88 2.495 8.646 2.822 8.906C5.198 10.791 9.447 14.228 9.5 14.273C10.21 14.842 11.11 15.163 12.03 15.163C12.95 15.163 13.85 14.842 14.56 14.262C14.613 14.227 18.767 10.893 21.179 8.977C21.507 8.716 21.989 8.95 21.99 9.367C22 11.576 22 15.94 22 15.94Z" fill="currentColor"></path>
-                                    <path d="M21.4759 5.67351C20.6099 4.04151 18.9059 2.99951 17.0299 2.99951H7.04988C5.17388 2.99951 3.46988 4.04151 2.60388 5.67351C2.40988 6.03851 2.50188 6.49351 2.82488 6.75151L10.2499 12.6905C10.7699 13.1105 11.3999 13.3195 12.0299 13.3195C12.0339 13.3195 12.0369 13.3195 12.0399 13.3195C12.0429 13.3195 12.0469 13.3195 12.0499 13.3195C12.6799 13.3195 13.3099 13.1105 13.8299 12.6905L21.2549 6.75151C21.5779 6.49351 21.6699 6.03851 21.4759 5.67351Z" fill="currentColor"></path>
-                                </svg>
-                                <span className="bg-primary count-mail"></span>
-                            </a>
-                            <div className="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="mail-drop">
-                                <div className="card shadow-none m-0">
-                                    <div className="card-header d-flex justify-content-between bg-primary py-3">
-                                        <div className="header-title">
-                                            <h5 className="mb-0 text-white">All Message</h5>
-                                        </div>
-                                    </div>
-                                    <div className="card-body p-0 ">
-                                        <a href="#" className="iq-sub-card">
-                                            <div className="d-flex  align-items-center">
-                                                <div className="">
-                                                    <img className="avatar-40 rounded-pill bg-soft-primary p-1" src="../assets/images/avatars/10.png" alt=""/>
-                                                </div>
-                                                <div className="ms-3">
-                                                    <h6 className="mb-0 ">Bni Emma Watson</h6>
-                                                    <small className="float-start font-size-12">13 Jun</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" className="iq-sub-card">
-                                            <div className="d-flex align-items-center">
-                                                <div className="">
-                                                    <img className="avatar-40 rounded-pill bg-soft-primary p-1" src="../assets/images/avatars/01.png" alt=""/>
-                                                </div>
-                                                <div className="ms-3">
-                                                    <h6 className="mb-0 ">Lorem Ipsum Watson</h6>
-                                                    <small className="float-start font-size-12">20 Apr</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" className="iq-sub-card">
-                                            <div className="d-flex align-items-center">
-                                                <div className="">
-                                                    <img className="avatar-40 rounded-pill bg-soft-primary p-1" src="../assets/images/avatars/09.png" alt=""/>
-                                                </div>
-                                                <div className="ms-3">
-                                                    <h6 className="mb-0 ">Why do we use it?</h6>
-                                                    <small className="float-start font-size-12">30 Jun</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" className="iq-sub-card">
-                                            <div className="d-flex align-items-center">
-                                                <div className="">
-                                                    <img className="avatar-40 rounded-pill bg-soft-primary p-1" src="../assets/images/avatars/08.png" alt=""/>
-                                                </div>
-                                                <div className="ms-3">
-                                                    <h6 className="mb-0 ">Variations Passages</h6>
-                                                    <small className="float-start font-size-12">12 Sep</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#" className="iq-sub-card">
-                                            <div className="d-flex align-items-center">
-                                                <div className="">
-                                                    <img className="avatar-40 rounded-pill bg-soft-primary p-1" src="../assets/images/avatars/07.png" alt=""/>
-                                                </div>
-                                                <div className="ms-3">
-                                                    <h6 className="mb-0 ">Lorem Ipsum generators</h6>
-                                                    <small className="float-start font-size-12">5 Dec</small>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+
+                        {/*Messenger*/}
+
+                        {/*<li className="nav-item dropdown">*/}
+                        {/*    <a href="#" className="nav-link" id="mail-drop" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">*/}
+                        {/*        <svg width="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">*/}
+                        {/*            <path opacity="0.4" d="M22 15.94C22 18.73 19.76 20.99 16.97 21H16.96H7.05C4.27 21 2 18.75 2 15.96V15.95C2 15.95 2.006 11.524 2.014 9.298C2.015 8.88 2.495 8.646 2.822 8.906C5.198 10.791 9.447 14.228 9.5 14.273C10.21 14.842 11.11 15.163 12.03 15.163C12.95 15.163 13.85 14.842 14.56 14.262C14.613 14.227 18.767 10.893 21.179 8.977C21.507 8.716 21.989 8.95 21.99 9.367C22 11.576 22 15.94 22 15.94Z" fill="currentColor"></path>*/}
+                        {/*            <path d="M21.4759 5.67351C20.6099 4.04151 18.9059 2.99951 17.0299 2.99951H7.04988C5.17388 2.99951 3.46988 4.04151 2.60388 5.67351C2.40988 6.03851 2.50188 6.49351 2.82488 6.75151L10.2499 12.6905C10.7699 13.1105 11.3999 13.3195 12.0299 13.3195C12.0339 13.3195 12.0369 13.3195 12.0399 13.3195C12.0429 13.3195 12.0469 13.3195 12.0499 13.3195C12.6799 13.3195 13.3099 13.1105 13.8299 12.6905L21.2549 6.75151C21.5779 6.49351 21.6699 6.03851 21.4759 5.67351Z" fill="currentColor"></path>*/}
+                        {/*        </svg>*/}
+                        {/*        <span className="bg-primary count-mail"></span>*/}
+                        {/*    </a>*/}
+                        {/*    <div className="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="mail-drop">*/}
+                        {/*        <div className="card shadow-none m-0">*/}
+                        {/*            <div className="card-header d-flex justify-content-between bg-primary py-3">*/}
+                        {/*                <div className="header-title">*/}
+                        {/*                    <h5 className="mb-0 text-white">All Message</h5>*/}
+                        {/*                </div>*/}
+                        {/*            </div>*/}
+                        {/*            <div className="card-body p-0 ">*/}
+                        {/*                <a href="#" className="iq-sub-card">*/}
+                        {/*                    <div className="d-flex  align-items-center">*/}
+                        {/*                        <div className="">*/}
+                        {/*                            <img className="avatar-40 rounded-pill bg-soft-primary p-1" src="../assets/images/avatars/10.png" alt=""/>*/}
+                        {/*                        </div>*/}
+                        {/*                        <div className="ms-3">*/}
+                        {/*                            <h6 className="mb-0 ">Bni Emma Watson</h6>*/}
+                        {/*                            <small className="float-start font-size-12">13 Jun</small>*/}
+                        {/*                        </div>*/}
+                        {/*                    </div>*/}
+                        {/*                </a>*/}
+                        {/*                <a href="#" className="iq-sub-card">*/}
+                        {/*                    <div className="d-flex align-items-center">*/}
+                        {/*                        <div className="">*/}
+                        {/*                            <img className="avatar-40 rounded-pill bg-soft-primary p-1" src="../assets/images/avatars/01.png" alt=""/>*/}
+                        {/*                        </div>*/}
+                        {/*                        <div className="ms-3">*/}
+                        {/*                            <h6 className="mb-0 ">Lorem Ipsum Watson</h6>*/}
+                        {/*                            <small className="float-start font-size-12">20 Apr</small>*/}
+                        {/*                        </div>*/}
+                        {/*                    </div>*/}
+                        {/*                </a>*/}
+                        {/*                <a href="#" className="iq-sub-card">*/}
+                        {/*                    <div className="d-flex align-items-center">*/}
+                        {/*                        <div className="">*/}
+                        {/*                            <img className="avatar-40 rounded-pill bg-soft-primary p-1" src="../assets/images/avatars/09.png" alt=""/>*/}
+                        {/*                        </div>*/}
+                        {/*                        <div className="ms-3">*/}
+                        {/*                            <h6 className="mb-0 ">Why do we use it?</h6>*/}
+                        {/*                            <small className="float-start font-size-12">30 Jun</small>*/}
+                        {/*                        </div>*/}
+                        {/*                    </div>*/}
+                        {/*                </a>*/}
+                        {/*                <a href="#" className="iq-sub-card">*/}
+                        {/*                    <div className="d-flex align-items-center">*/}
+                        {/*                        <div className="">*/}
+                        {/*                            <img className="avatar-40 rounded-pill bg-soft-primary p-1" src="../assets/images/avatars/08.png" alt=""/>*/}
+                        {/*                        </div>*/}
+                        {/*                        <div className="ms-3">*/}
+                        {/*                            <h6 className="mb-0 ">Variations Passages</h6>*/}
+                        {/*                            <small className="float-start font-size-12">12 Sep</small>*/}
+                        {/*                        </div>*/}
+                        {/*                    </div>*/}
+                        {/*                </a>*/}
+                        {/*                <a href="#" className="iq-sub-card">*/}
+                        {/*                    <div className="d-flex align-items-center">*/}
+                        {/*                        <div className="">*/}
+                        {/*                            <img className="avatar-40 rounded-pill bg-soft-primary p-1" src="../assets/images/avatars/07.png" alt=""/>*/}
+                        {/*                        </div>*/}
+                        {/*                        <div className="ms-3">*/}
+                        {/*                            <h6 className="mb-0 ">Lorem Ipsum generators</h6>*/}
+                        {/*                            <small className="float-start font-size-12">5 Dec</small>*/}
+                        {/*                        </div>*/}
+                        {/*                    </div>*/}
+                        {/*                </a>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*</li>*/}
 
 
                         <li className='nav-item'>
@@ -249,7 +254,7 @@ const Header = () => {
                                 </div>
                             </a>
                             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a className="dropdown-item" href="../dashboard/app/user-profile.html">Profile</a></li>
+                                <li><a className="dropdown-item" href="/profile">Profile</a></li>
                                 <li><a className="dropdown-item" href="../dashboard/app/user-privacy-setting.html">Privacy Setting</a></li>
                                 <li><hr className="dropdown-divider"/></li>
                                 <li><a  className="dropdown-item"  href='/' onClick={handleLogout}>Logout</a></li>

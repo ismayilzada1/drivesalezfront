@@ -3,7 +3,7 @@ import './Home.css';
 import AnnouncementCard from "../announcementCard";
 import {  Row } from 'react-bootstrap';
 import LoadingPage from "../LoadingPage";
-import HomeFilter from "../HomeFilter";
+import HomeFilter from "./HomeFilter";
 
 
 const Home = () => {
@@ -108,7 +108,10 @@ const Home = () => {
 
         <Row className="wrapper">
 
-            {isLoading && <LoadingPage />}
+            {isLoading ? (
+                <LoadingPage />
+            ) : (
+                <>
 
             <HomeFilter/>
 
@@ -145,6 +148,10 @@ const Home = () => {
                     </ul>
                 </nav>
             </div>
+
+                </>
+
+                )}
         </Row>
     );
 };

@@ -64,7 +64,7 @@ const TermsOfUse=()=>{
                                         </button>
                                     </h2>
                                     <div id="collapseFive" className="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
+                                        <div className="accordion-body">
                                             <strong>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.</strong> 3 wolf moon officia aute,<code> non cupidatat skateboard dolor brunch.</code> Food truck quinoa nesciunt laborum eiusmod.
                                         </div>
                                     </div>

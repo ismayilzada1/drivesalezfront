@@ -4,8 +4,11 @@ import thunk from 'redux-thunk'
 import storage from 'redux-persist/lib/storage'
 import persistReducer from "redux-persist/es/persistReducer";
 import authReducer from "./Auth/AuthSlice"
+import announcementReducer from "./Announcement/AnnouncementSlice"
 
-const reducers=combineReducers({auth:authReducer});
+const reducers=combineReducers(
+    {auth:authReducer,announcement:announcementReducer}
+);
 
 const config={
     key:'root',

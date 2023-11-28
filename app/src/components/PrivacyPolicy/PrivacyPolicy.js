@@ -105,13 +105,13 @@ const PrivacyPolicy=()=>{
                                             purpose (injected humour and the like).</p>
                                     </div>
                                 </div>
-                                <div class="card">
-                                    <div class="card-header d-flex justify-content-between">
-                                        <div class="header-title">
-                                            <h4 class="card-title">Why do we use it?</h4>
+                                <div className="card">
+                                    <div className="card-header d-flex justify-content-between">
+                                        <div className="header-title">
+                                            <h4 className="card-title">Why do we use it?</h4>
                                         </div>
                                     </div>
-                                    <div class="card-body">
+                                    <div className="card-body">
                                         <p>It is a long established fact that a reader will be distracted by the readable content of a page
                                             when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
                                             distribution of letters, as opposed to using 'Content here, content here', making it look like
@@ -121,13 +121,13 @@ const PrivacyPolicy=()=>{
                                             purpose (injected humour and the like).</p>
                                     </div>
                                 </div>
-                                <div class="card">
-                                    <div class="card-header d-flex justify-content-between">
-                                        <div class="header-title">
-                                            <h4 class="card-title">Why do we use it?</h4>
+                                <div className="card">
+                                    <div className="card-header d-flex justify-content-between">
+                                        <div className="header-title">
+                                            <h4 className="card-title">Why do we use it?</h4>
                                         </div>
                                     </div>
-                                    <div class="card-body">
+                                    <div className="card-body">
                                         <p>It is a long established fact that a reader will be distracted by the readable content of a page
                                             when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
                                             distribution of letters, as opposed to using 'Content here, content here', making it look like
@@ -137,13 +137,13 @@ const PrivacyPolicy=()=>{
                                             purpose (injected humour and the like).</p>
                                     </div>
                                 </div>
-                                <div class="card">
-                                    <div class="card-header d-flex justify-content-between">
-                                        <div class="header-title">
-                                            <h4 class="card-title">Why do we use it?</h4>
+                                <div className="card">
+                                    <div className="card-header d-flex justify-content-between">
+                                        <div className="header-title">
+                                            <h4 className="card-title">Why do we use it?</h4>
                                         </div>
                                     </div>
-                                    <div class="card-body">
+                                    <div className="card-body">
                                         <p>It is a long established fact that a reader will be distracted by the readable content of a page
                                             when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
                                             distribution of letters, as opposed to using 'Content here, content here', making it look like
