@@ -21,7 +21,6 @@ const Header = () => {
 
         window.addEventListener('resize', handleResize);
 
-        // Cleanup the event listener on component unmount
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -34,8 +33,7 @@ const Header = () => {
 
 
     const handleLogout = async() => {
-        console.log("logout");
-        await dispatch(logoutUser());
+        await dispatch(logoutUser(user.token));
     };
 
     return (

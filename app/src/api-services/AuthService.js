@@ -1,7 +1,10 @@
+import {useSelector} from "react-redux";
+
 export default class AuthService {
     constructor() {
         this.baseUrl = 'https://localhost:7261/api';
     }
+
 
     async getResource(url) {
         try {
@@ -16,9 +19,6 @@ export default class AuthService {
         }
     }
 
-    storeAccessToken(token) {
-        localStorage.setItem("accessToken", token);
-    }
 
     async Login(requestBody) {
         try {
@@ -32,7 +32,6 @@ export default class AuthService {
 
             if (response.ok) {
                 const responseData = await response.json();
-                this.storeAccessToken(responseData.token);
 
                 return {
                     status: response.status,
@@ -81,12 +80,13 @@ export default class AuthService {
         }
     }
 
-    async Logout() {
+    async Logout(token) {
         try {
             const response = await fetch(`${this.baseUrl}/Account/logout`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization':`Bearer ${token}`
                 },
             });
 

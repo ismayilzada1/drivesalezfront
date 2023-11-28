@@ -77,18 +77,19 @@ export const verifyEmail = (userData) => async (dispatch) => {
     }
 };
 
-export const logoutUser = () => async (dispatch) => {
+export const logoutUser = (token) => async (dispatch) => {
     dispatch(logoutUserStart());
     try {
-        // const response = await AuthService.Logout();
-        //
-        // if (response.status === 200) {
-        //     dispatch(logoutUserSuccess())
-        //     console.log('SUCCESSFUL Logout');
-        //     return response;
-        // } else {
-        //     dispatch(logoutUserFailure('Logout failed'));
-        // }
+        const response = await AuthService.Logout(token);
+
+
+        if (response.status === 204) {
+            dispatch(logoutUserSuccess())
+            console.log('SUCCESSFUL Logout');
+            return response;
+        } else {
+            dispatch(logoutUserFailure('Logout failed'));
+        }
         dispatch(logoutUserSuccess());
     } catch (error) {
         dispatch(logoutUserFailure('An error occurred while processing your request'));
