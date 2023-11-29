@@ -1,0 +1,164 @@
+.custom-statisctics-count-card{
+    background-color: #f6542c;
+    padding:30px 30px;
+    overflow: hidden;
+
+}
+.custom-statisctics-count-card hr{
+    margin:7px 20px;
+}
+.custom-statisctics-count-card {
+    & h4,& h3,& h5, & hr,& vr{
+        color:#fff;
+        text-wrap: nowrap;
+    }
+}
+
+
+
+.custom-premium-announcement-balance-card{
+    background-color: #f6542c;
+    padding:20px 30px;
+    overflow: hidden;
+
+}
+
+.custom-premium-announcement-balance-card hr{
+    margin: 10px 0;
+}
+
+.custom-premium-announcement-balance-card {
+    & h1,& h2,& h4,& h3,& h5, & hr,& vr{
+        color:#fff;
+        text-wrap:nowrap;
+    }
+}
+
+.btn-add-announcement{
+    background-color: #7ed321;
+    font-weight: 600;
+    color:#fff !important;
+}
+.btn-add-announcement:hover{
+    background-color: #85eb17;
+}
+
+.custom-statisctics-count-card,.custom-premium-announcement-balance-card{
+    max-width: 370px;
+    min-width: 330px;
+    min-height: 210px;
+    margin:15px;
+}
+
+.account-container{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.bi-cash-stack.modified{
+    color:rgba(255,255,255,.5);
+    font-size:100px;
+    position: absolute;
+    top:65%;
+    left:75%;
+    transform: translateY(-50%);
+}
+
+
+.bi-gem.modified{
+    color:rgba(255,255,255,.5);
+    font-size:100px;
+    position: absolute;
+    top:65%;
+    left:82%;
+    transform: translateY(-50%);
+}
+
+.bi-megaphone.modified{
+    color:rgba(255,255,255,.5);
+    font-size:100px;
+    position: absolute;
+    top:60%;
+    left:75%;
+    transform: translateY(-50%) scaleX(-1);
+}
+
+
+
+@media (max-width: 1300px) {
+    .custom-statisctics-count-card,.custom-premium-announcement-balance-card{
+        width: 360px;
+    }
+
+    .account-container{
+        flex-wrap: wrap;
+    }
+
+    .bi-megaphone.modified{
+     top:50%
+    }
+
+    .bi-cash-stack.modified,.bi-gem.modified{
+        font-size:100px;
+        top:55%;
+        left:73%;
+    }
+
+
+}
+
+@media (max-width: 990px) {
+    .custom-statisctics-count-card,.custom-premium-announcement-balance-card{
+        width: 240px;
+        min-height: 170px;
+        margin:6px;
+    }
+
+    .custom-premium-announcement-balance-card h1,h2,h4,h3,h5, hr,vr{
+        font-size: 100%;
+        text-wrap: wrap;
+    }
+
+}
+
+
+@media (max-width: 600px){
+    .account-container{
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .custom-statisctics-count-card{
+        padding:20px 20px;
+    }
+
+    .custom-statisctics-count-card,.custom-premium-announcement-balance-card{
+        max-width: 330px;
+        min-width: 280px;
+        min-height: 190px;
+        margin:10px;
+    }
+
+}
+
+
+@media (max-width: 330px){
+
+    .custom-statisctics-count-card{
+        padding:10px 10px;
+    }
+
+    .custom-statisctics-count-card,.custom-premium-announcement-balance-card{
+        max-width: 240px;
+        min-width: 210px;
+        min-height: 130px;
+        margin:5px;
+    }
+
+
+
+}

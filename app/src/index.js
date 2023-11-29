@@ -5,7 +5,7 @@ import App from "./components/app";
 import Login from './components/login';
 import Register from "./components/register";
 import NewAnnouncement from "./components/NewAnnouncement";
-import NotFound from "./components/NotFound";
+import NotFound from "./components/errors/NotFound";
 import {Provider} from 'react-redux';
 import store from './Store';
 import { PersistGate } from 'redux-persist/integration/react';

@@ -38,8 +38,8 @@ const ProfileTab=()=>{
                 {createLabelValue("Name", user.firstName)}
                 {createLabelValue("Surname", user.lastName)}
                 {createLabelValue("Email", user.email)}
+                {createLabelValue("Account Type", user.userRole)}
                 {createLabelValue("Phone Number", user.phoneNumber)}
-                {createLabelValue("Password", user.password)}
             </ul>
             <div className="card-body">
                 <a href="#" className="card-link">Remove Account</a>

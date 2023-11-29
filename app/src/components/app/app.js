@@ -4,7 +4,7 @@ import './app.css'
 import NewAnnouncement from "../NewAnnouncement";
 import Register from "../register";
 import Login from "../login";
-import NotFound from "../NotFound";
+import NotFound from "../errors/NotFound";
 import Footer from "../Footer";
 import Header from "../Header";
 import VerifyEmail from "../verifyEmail";

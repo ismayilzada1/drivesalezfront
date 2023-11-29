@@ -13,3 +13,18 @@
     }
 }
 
+
+@media (max-width: 290px){
+    .navbar-brand{
+        padding:0 ;
+        margin:0 !important;
+    }
+    .navbar-brand img {
+        max-width: 130px;
+    }
+
+    .sidebar-toggle.sidebar-toggle-responsive{
+        display:none;
+    }
+
+}

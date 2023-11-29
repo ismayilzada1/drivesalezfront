@@ -1,3 +1,16 @@
 .card-profile-tab{
     width:45% !important;
 }
+
+@media (max-width: 770px){
+    .card-profile-tab{
+        width:80% !important;
+    }
+}
+
+@media (max-width: 450px){
+    .card-profile-tab{
+        width:100% !important;
+    }
+
+}
