@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from 'react-redux';
+import { logoutUser } from '../../Store/Auth/authActions';
 import { Routes, Route,useLocation } from 'react-router-dom';
 import './app.css'
 import NewAnnouncement from "../NewAnnouncement";
@@ -19,6 +21,18 @@ import TermsOfUse from "../TermsOfUse";
 import Profile from "../Profile";
 
 function App() {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const logoutAfterTimeout = () => {
+            dispatch(logoutUser());
+        };
+        const timeoutId = setTimeout(logoutAfterTimeout, 14 * 60 * 60 * 1000);
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [dispatch]);
 
     const location = useLocation();
 

@@ -1,4 +1,4 @@
-import { configureStore} from "@reduxjs/toolkit";
+import {configureStore} from "@reduxjs/toolkit";
 import { combineReducers } from 'redux';
 import thunk from 'redux-thunk'
 import storage from 'redux-persist/lib/storage'
@@ -13,6 +13,7 @@ const reducers=combineReducers(
 const config={
     key:'root',
     storage,
+    expire: 14 * 60 * 60 * 1000, // 14 hours in milliseconds
 };
 
 const reducer = persistReducer(config,reducers);

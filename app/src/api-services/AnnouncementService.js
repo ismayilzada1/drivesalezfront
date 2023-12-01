@@ -14,18 +14,13 @@ export default class AnnouncementService {
         }
     }
 
-    async SendNewAnnouncement(data) {
+    async SendNewAnnouncement(data,token) {
         try {
-            const accessToken = localStorage.getItem("accessToken");
-            if (!accessToken) {
-                throw new Error("Access token not available.");
-            }
-
             const response = await fetch(`${this._baseUrl}/Announcement/create-announcement`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(data),
             });
@@ -33,6 +28,7 @@ export default class AnnouncementService {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+
 
             return response;
         } catch (error) {

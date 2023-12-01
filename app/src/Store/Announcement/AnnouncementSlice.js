@@ -6,9 +6,6 @@ const announcementSlice = createSlice({
     initialState: {
         loading: false,
         error: null,
-        // showAlert: false,
-        // alertMessage: '',
-        // showSuccessAlert: false,
         formData:
             {
                 model: '',
@@ -34,20 +31,11 @@ const announcementSlice = createSlice({
                 credit:false,
                 barter:false,
                 brandNew:false,
-                description:''
+                description:'',
+                isPremium:false
             },
     },
     reducers: {
-        // setShowAlert: (state, action) => {
-        //     state.showAlert = action.payload;
-        // },
-        // setAlertMessage: (state, action) => {
-        //     state.alertMessage = action.payload;
-        // },
-        // setShowSuccessAlert: (state, action) => {
-        //     state.showSuccessAlert = action.payload;
-        // },
-
         sendAnnouncementStart: (state) => {
             state.loading = true;
             state.error = null;

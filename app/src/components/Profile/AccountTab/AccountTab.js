@@ -7,7 +7,6 @@ const AccountTab = () => {
     return (
         <>
             <div className='account-container'>
-
                 <div className='card custom-premium-announcement-balance-card text-center'>
                     <i className="bi bi-cash-stack modified"></i>
                     <h5>Account Balance</h5>
@@ -17,7 +16,6 @@ const AccountTab = () => {
                         <h1>0,00 AZN</h1>
                         <button className='btn btn-add-announcement' style={{marginTop: '30px'}}>Add</button>
                     </div>
-
                 </div>
 
 

@@ -8,10 +8,11 @@ import annonucementService from "../../api-services/AnnouncementService"
 
 const AnnouncementService=new annonucementService();
 
-export const sendAnnouncement = (requestBody) => async (dispatch) => {
+export const SendAnnouncement = (requestBody,token) => async (dispatch) => {
     dispatch(sendAnnouncementStart());
     try {
-        const response = await annonucementService.SendNewAnnouncement(requestBody);
+
+        const response = await AnnouncementService.SendNewAnnouncement(requestBody,token);
 
         if (response.status===200) {
             console.log("SUCCESFULL SEND ANNOUNCEMENT");
@@ -21,6 +22,7 @@ export const sendAnnouncement = (requestBody) => async (dispatch) => {
             dispatch(sendAnnouncementFailure('Email or password is invalid'));
         }
     } catch (error) {
+        console.log(error);
         dispatch(sendAnnouncementFailure('An error occurred while processing your request'));
     }
 };

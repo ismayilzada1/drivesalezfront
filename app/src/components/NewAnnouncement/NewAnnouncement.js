@@ -1,16 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import Logo from '../logo';
 import './NewAnnouncement.css'
-import announcementService from "../../api-services/AnnouncementService";
 import commonDataService from "../../api-services/CommonDataService";
 import LoadingPage from "../LoadingPage";
+import {useDispatch, useSelector} from "react-redux";
+import {SendAnnouncement} from '../../Store/Announcement/AnnouncementActions'
+import { Form } from 'react-bootstrap';
 
-const NewAnnouncement=()=>
-    
-{
-
-    const AnnouncementService= new announcementService();
+const NewAnnouncement=()=> {
     const CommonDataService= new commonDataService();
+
+
+    const { user } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+
 
     const [carBrands, setCarBrands] = useState([]);
     const [carModels, setCarModels] = useState([]);
@@ -64,6 +67,7 @@ const NewAnnouncement=()=>
         barter:false,
         brandNew:false,
         description:'',
+        IsPremium:false,
     });
 
     const isFormValid = () => {
@@ -97,6 +101,14 @@ const NewAnnouncement=()=>
             [name]: value,
         });
     };
+
+    const handleRadioChange = (event) => {
+        setFormData({
+            ...formData,
+            IsPremium: event.target.value === 'premium',
+        });
+    };
+
 
 
     const handleImageUpload = (event) => {
@@ -256,25 +268,13 @@ const NewAnnouncement=()=>
             "description": formData.description,
             "price": parseInt(formData.price, 10),
             "currencyId": parseInt(formData.priceCurrency,10),
-            "isPremium": false,
-            "isFreePremiumToggleSwitched": true,
-            "paymentRequest": {
-                "cardNumber": "1234567891012345",
-                "cvv": "145",
-                "expireMonth": 12,
-                "expireYear": 25,
-                "firstName": "Ahmad",
-                "lastName": "Indian"
-            }
+            "isPremium": formData.IsPremium,
         };
 
-        console.log(data);
 
         try {
 
-            const response= await AnnouncementService.SendNewAnnouncement(data);
-
-
+            const response= await dispatch(SendAnnouncement(data,user.token));
 
             if (response.status === 200) {
                 setShowSuccessAlert(true);
@@ -283,6 +283,7 @@ const NewAnnouncement=()=>
                 setAlertMessage('Something went wrong !');
             }
         } catch (error) {
+            console.log(error);
             setShowAlert(true);
             setAlertMessage('Something went wrong !');
         }
@@ -612,6 +613,29 @@ const NewAnnouncement=()=>
                                     <label className="form-label" htmlFor="pno">Description:</label>
                                     <textarea onChange={handleInputChange} name="description" className="form-control rounded"></textarea>
                                 </div>
+
+                                <div className='form-group col-md-12'>
+                                    <Form.Group controlId="premiumRadio">
+                                        <Form.Check
+                                            type="radio"
+                                            label="Regular"
+                                            name="IsPremium"
+                                            value="regular"
+                                            checked={!formData.IsPremium}
+                                            onChange={handleRadioChange}/>
+
+                                        <Form.Check
+                                            type="radio"
+                                            label="Premium"
+                                            name="IsPremium"
+                                            value="premium"
+                                            checked={formData.IsPremium}
+                                            onChange={handleRadioChange}/>
+
+                                    </Form.Group>
+                                </div>
+
+
                             </div>
 
                             <button type="submit" onClick={handleSubmit}  className="btn btn-primary" disabled={isLoading}>{isLoading ? 'Creating Announcement...' : 'Create Announcement'}</button>
