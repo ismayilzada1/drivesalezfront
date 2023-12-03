@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./ForgotPassword.css";
-import Logo from "../logo";
+import Logo from "../../components/ui/logo";
 import Service from "../../api-services/OtpService";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -51,10 +51,10 @@ const ForgotPassword = () => {
                                         <div className="card-body col-5 offset-7">
                                             <div className="auth-form">
                                                 <div className="text-center">
-                                                    <h2>Forgot Password ?</h2>
+                                                    <h2 >Forgot Password ?</h2>
                                                 </div>
                                                 <div>
-                                                    <h4 className="mt-3 text-center">Enter your  email</h4>
+                                                    <h4 className="mt-3 text-center" style={{fontWeight:400}}>Enter your  email</h4>
                                                     <div className="form-floating mb-3">
                                                         <input type="text" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} id="floatingInput" placeholder="123456" />
                                                         <label htmlFor="floatingInput">E-Mail</label>

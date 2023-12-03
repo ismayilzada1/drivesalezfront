@@ -1,7 +1,10 @@
 import {
     sendAnnouncementStart,
     sendAnnouncementSuccess,
-    sendAnnouncementFailure
+    sendAnnouncementFailure,
+    getAnnouncementsStart,
+    getAnnouncementsFailure,
+    getAnnouncementSuccess,
 } from "./AnnouncementSlice"
 
 import annonucementService from "../../api-services/AnnouncementService"
@@ -24,6 +27,26 @@ export const SendAnnouncement = (requestBody,token) => async (dispatch) => {
     } catch (error) {
         console.log(error);
         dispatch(sendAnnouncementFailure('An error occurred while processing your request'));
+    }
+};
+
+export const GetAnnouncements = () => async (dispatch) => {
+    try {
+        dispatch(getAnnouncementsStart());
+
+        const response = await AnnouncementService.GetAnnouncements();
+        console.log(response);
+        if (response.status===200) {
+            console.log("SUCCESFULL FETCH ANNOUNCEMENTS");
+            const data=await response.json();
+            dispatch(getAnnouncementSuccess(data));
+            return response;
+        } else {
+            dispatch(getAnnouncementsFailure('Email or password is invalid'));
+        }
+    } catch (error) {
+        console.log(error);
+        dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
     }
 };
 

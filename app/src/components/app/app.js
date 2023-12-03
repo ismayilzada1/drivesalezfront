@@ -3,22 +3,22 @@ import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../Store/Auth/authActions';
 import { Routes, Route,useLocation } from 'react-router-dom';
 import './app.css'
-import NewAnnouncement from "../NewAnnouncement";
-import Register from "../register";
-import Login from "../login";
-import NotFound from "../errors/NotFound";
-import Footer from "../Footer";
-import Header from "../Header";
-import VerifyEmail from "../verifyEmail";
-import ForgotPassword from "../forgotPassword";
-import ResetPassword from "../resetPassword";
-import Home from "../home";
-import AnnouncementDetails from "../announcementDetails";
-import LoadingPage from "../LoadingPage";
-import ComingSoon  from '../ComingSoon'
-import PrivacyPolicy from "../PrivacyPolicy";
-import TermsOfUse from "../TermsOfUse";
-import Profile from "../Profile";
+import NewAnnouncement from "../../pages/NewAnnouncement";
+import Register from "../../pages/register";
+import Login from "../../pages/login";
+import NotFound from "../../pages/errors/NotFound";
+import Footer from "../ui/Footer";
+import Header from "../ui/Header";
+import VerifyEmail from "../../pages/verifyEmail";
+import ForgotPassword from "../../pages/forgotPassword";
+import ResetPassword from "../../pages/resetPassword";
+import Home from "../../pages/home";
+import AnnouncementDetails from "../../pages/announcementDetails";
+import LoadingPage from "../ui/LoadingPage";
+import ComingSoon  from '../../pages/ComingSoon'
+import PrivacyPolicy from "../../pages/PrivacyPolicy";
+import TermsOfUse from "../../pages/TermsOfUse";
+import Profile from "../../pages/Profile";
 
 function App() {
 
@@ -31,6 +31,16 @@ function App() {
         const timeoutId = setTimeout(logoutAfterTimeout, 14 * 60 * 60 * 1000);
         return () => {
             clearTimeout(timeoutId);
+        };
+    }, [dispatch]);
+
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            dispatch(logoutUser());
+        };
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
         };
     }, [dispatch]);
 

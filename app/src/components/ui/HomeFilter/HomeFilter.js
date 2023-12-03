@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './HomeFilter.css';
 import {Button, Col, Collapse, Form, Row} from "react-bootstrap";
-import DropDownSelectWithCheckboxes from "../../DropDownSelectWithCheckboxes";
+import DropDownSelectWithCheckboxes from "../../form/DropDownSelectWithCheckboxes";
 import useDropdownWithCheckboxes from "../../../hooks/useDropdownWithCheckboxes";
 import commonDataService from "../../../api-services/CommonDataService";
 import {useSelector} from "react-redux";
@@ -10,6 +10,7 @@ import {useSelector} from "react-redux";
 const HomeFilter = () => {
 
     const {  user } = useSelector((state) => state.auth);
+    const { announcements, loading, error } = useSelector((state) => state.announcement);
 
     const CommonDataService= new commonDataService();
 
@@ -100,9 +101,6 @@ const HomeFilter = () => {
             });
 
     }, []);
-
-
-
 
 
 
@@ -199,6 +197,7 @@ const HomeFilter = () => {
 
     useEffect(() => {
         selectedValuesModels.length=0;
+        console.log (announcements);
     }, [selectedBrand]);
 
     useEffect(() => {

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import Logo from '../logo';
+import Logo from '../../components/ui/logo';
 import './NewAnnouncement.css'
 import commonDataService from "../../api-services/CommonDataService";
-import LoadingPage from "../LoadingPage";
+import LoadingPage from "../../components/ui/LoadingPage";
 import {useDispatch, useSelector} from "react-redux";
 import {SendAnnouncement} from '../../Store/Announcement/AnnouncementActions'
 import { Form } from 'react-bootstrap';
@@ -614,13 +614,22 @@ const NewAnnouncement=()=> {
                                     <textarea onChange={handleInputChange} name="description" className="form-control rounded"></textarea>
                                 </div>
 
+
+                                <div className="form-group col-md-12">
+                                    <div className='d-flex flex-column justify-content-center'>
+                                        <label className="form-label" htmlFor="pno">Premium Announcement Credit: {}</label>
+                                        <label className="form-label" htmlFor="pno">Regular Announcement Credit: {}</label>
+                                    </div>
+                                </div>
+
                                 <div className='form-group col-md-12'>
-                                    <Form.Group controlId="premiumRadio">
+                                    <Form.Group className='d-flex flex-row  align-items-center' controlId="premiumRadio">
                                         <Form.Check
                                             type="radio"
                                             label="Regular"
                                             name="IsPremium"
                                             value="regular"
+                                            className='me-2'
                                             checked={!formData.IsPremium}
                                             onChange={handleRadioChange}/>
 
@@ -631,7 +640,6 @@ const NewAnnouncement=()=> {
                                             value="premium"
                                             checked={formData.IsPremium}
                                             onChange={handleRadioChange}/>
-
                                     </Form.Group>
                                 </div>
 

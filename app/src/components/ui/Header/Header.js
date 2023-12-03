@@ -3,7 +3,7 @@ import {NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
 import {useSelector} from "react-redux";
 import { useDispatch } from 'react-redux';
-import { logoutUser } from '../../Store/Auth/authActions';
+import { logoutUser } from '../../../Store/Auth/authActions';
 
 const Header = () => {
     const { user } = useSelector((state) => state.auth);

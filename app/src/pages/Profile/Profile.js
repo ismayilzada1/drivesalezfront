@@ -1,8 +1,8 @@
 import React from "react";
 import './Profile.css'
-import ProfileTab from './ProfileTab'
-import MyAnnouncementsTab from "./MyAnnouncementsTab";
-import AccountTab from "./AccountTab";
+import ProfileTab from '../../components/ui/ProfileTab'
+import MyAnnouncementsTab from "../../components/ui/MyAnnouncementsTab";
+import AccountTab from "../../components/ui/AccountTab";
 
 const Profile=()=>{
     return (

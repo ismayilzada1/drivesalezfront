@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Logo from '../logo';
+import Logo from '../../components/ui/logo';
 import { useNavigate } from 'react-router-dom';
 import {useSelector} from "react-redux";
 import { useDispatch } from 'react-redux';

@@ -6,7 +6,9 @@ const announcementSlice = createSlice({
     initialState: {
         loading: false,
         error: null,
-        formData:
+        announcements: [],
+        filterParams:null,
+        formDataSendAnnouncement:
             {
                 model: '',
                 bodyType: '',
@@ -36,6 +38,7 @@ const announcementSlice = createSlice({
             },
     },
     reducers: {
+        //Send Announcement (Create Announcement)
         sendAnnouncementStart: (state) => {
             state.loading = true;
             state.error = null;
@@ -49,6 +52,20 @@ const announcementSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+
+        // Fetch Data (get announcements)
+        getAnnouncementsStart(state) {
+            state.loading = true;
+        },
+        getAnnouncementSuccess(state, action) {
+            state.announcements = action.payload;
+            state.loading = false;
+            state.error = null;
+        },
+        getAnnouncementsFailure(state, action) {
+            state.loading = false;
+            state.error = action.payload;
+        },
     },
 });
 
@@ -56,6 +73,9 @@ export const {
     sendAnnouncementStart,
     sendAnnouncementSuccess,
     sendAnnouncementFailure,
+    getAnnouncementsStart,
+    getAnnouncementSuccess,
+    getAnnouncementsFailure
 } = announcementSlice.actions;
 
 export default announcementSlice.reducer;

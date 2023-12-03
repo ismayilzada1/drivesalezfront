@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./announcementDetails.css";
-import Logo from "../logo";
+import Logo from "../../components/ui/logo";
 import {useNavigate} from "react-router-dom";
 import {Modal, Button} from 'react-bootstrap';
 import announcementService from "../../api-services/AnnouncementService"
