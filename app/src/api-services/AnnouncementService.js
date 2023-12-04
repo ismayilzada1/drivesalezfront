@@ -41,8 +41,6 @@ export default class AnnouncementService {
 
     async GetAnnouncements(pageNumber = 1, pageSize = 10){
         try {
-
-
             const response = await fetch(`${this._baseUrl}/Announcement/get-announcements?PageNumber=${pageNumber}&PageSize=${pageSize}&announcementState=2`, {
                 method: 'GET',
                 headers: {

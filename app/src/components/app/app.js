@@ -34,15 +34,6 @@ function App() {
         };
     }, [dispatch]);
 
-    useEffect(() => {
-        const handleBeforeUnload = () => {
-            dispatch(logoutUser());
-        };
-        window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, [dispatch]);
 
     const location = useLocation();
 

@@ -6,6 +6,8 @@ import LoadingPage from "../../components/ui/LoadingPage";
 import HomeFilter from "../../components/ui/HomeFilter";
 import { useDispatch,useSelector } from 'react-redux';
 import { GetAnnouncements } from '../../Store/Announcement/AnnouncementActions';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 
 const Home = () => {
 
@@ -117,13 +119,42 @@ const Home = () => {
         }
     ];
 
+    const [pageNumber, setPageNumber] = useState(1);
+    const [pageSize, setPageSize] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+
+    const [hasMounted, setHasMounted] = useState(false);
+
+
     useEffect(() => {
-        dispatch(GetAnnouncements());
-    }, [dispatch]);
+        if (hasMounted) {
+            dispatch(GetAnnouncements(pageNumber, pageSize))
+                .then(async (response) => {
+                    console.log(response);
+                    if (!response.hasMore) {
+                        setHasMore(false);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error fetching announcements:', error);
+                });
+        } else {
+            setHasMounted(true);
+        }
+    }, [dispatch, hasMounted, pageNumber, pageSize]);
+
+    const fetchData = () => {
+        if (hasMore) {
+            setPageNumber((prev) => prev + 1);
+        }
+        console.log(hasMore);
+    };
 
 
-    if (loading) {
-        return <p>Loading...</p>;
+
+
+    if (loading && pageNumber === 1) {
+        return <LoadingPage />;
     }
 
     if (error) {
@@ -134,52 +165,25 @@ const Home = () => {
     return (
 
         <Row className="wrapper">
-
-            {isLoading ? (
-                <LoadingPage />
-            ) : (
-                <>
-
-            <HomeFilter/>
-
-
-            <div className="bd-example">
-                <div className="d-flex flex-row flex-wrap justify-content-between">
-                    {announcements.map((car, index) => (
-                        <div className="col mb-2 ms-2 me-2" >
-                        <AnnouncementCard key={index} {...car}  />
-                        </div>
-                    ))}
+            <HomeFilter />
+            <InfiniteScroll
+                dataLength={announcements.length}
+                next={fetchData}
+                hasMore={hasMore}
+                loader={hasMore  && <LoadingPage />}
+            >
+                <div className="bd-example">
+                    <div className="d-flex flex-row flex-wrap justify-content-between">
+                        {announcements.map((car, index) => (
+                            <div className="col mb-2 ms-2 me-2" key={index}>
+                                <AnnouncementCard {...car} />
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
-
-            <div className="bd-example d-flex justify-content-center">
-                <nav aria-label="Standard pagination example">
-                    <ul className="pagination">
-                        <li className="page-item">
-                            <a className="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">«</span>
-                            </a>
-                        </li>
-                        <li className="page-item"><a className="page-link" href="#">1</a></li>
-                        <li className="page-item"><a className="page-link" href="#">2</a></li>
-                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                        <li className="page-item"><a className="page-link" href="#">4</a></li>
-                        <li className="page-item"><a className="page-link" href="#">5</a></li>
-                        <li className="page-item"><a className="page-link" href="#">6</a></li>
-                        <li className="page-item">
-                            <a className="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">»</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-
-                </>
-
-                )}
+            </InfiniteScroll>
         </Row>
+
     );
 };
 

@@ -4,7 +4,7 @@ import {
     sendAnnouncementFailure,
     getAnnouncementsStart,
     getAnnouncementsFailure,
-    getAnnouncementSuccess,
+    getAnnouncementsSuccess,
 } from "./AnnouncementSlice"
 
 import annonucementService from "../../api-services/AnnouncementService"
@@ -30,17 +30,26 @@ export const SendAnnouncement = (requestBody,token) => async (dispatch) => {
     }
 };
 
-export const GetAnnouncements = () => async (dispatch) => {
+export const GetAnnouncements = (pageNumber=1,PageSize=2) => async (dispatch) => {
     try {
         dispatch(getAnnouncementsStart());
 
-        const response = await AnnouncementService.GetAnnouncements();
+        const response = await AnnouncementService.GetAnnouncements(pageNumber,PageSize);
         console.log(response);
         if (response.status===200) {
             console.log("SUCCESFULL FETCH ANNOUNCEMENTS");
             const data=await response.json();
-            dispatch(getAnnouncementSuccess(data));
-            return response;
+            if(data.length===0){
+                return {
+                    response,
+                    hasMore:false
+                }
+            }
+            dispatch(getAnnouncementsSuccess(data));
+            return {
+                response,
+                hasMore:true
+            }
         } else {
             dispatch(getAnnouncementsFailure('Email or password is invalid'));
         }

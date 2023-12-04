@@ -57,8 +57,24 @@ const announcementSlice = createSlice({
         getAnnouncementsStart(state) {
             state.loading = true;
         },
-        getAnnouncementSuccess(state, action) {
-            state.announcements = action.payload;
+        getAnnouncementsSuccess(state, action) {
+            // state.announcements = [...state.announcements, ...action.payload];
+            // state.loading = false;
+            // state.error = null;
+
+            const newAnnouncements = action.payload;
+
+            state.announcements = [
+                ...state.announcements,
+                ...newAnnouncements.filter(
+                    (newAnnouncement) =>
+                        !state.announcements.some(
+                            (existingAnnouncement) =>
+                                existingAnnouncement.id === newAnnouncement.id
+                        )
+                ),
+            ];
+
             state.loading = false;
             state.error = null;
         },
@@ -74,7 +90,7 @@ export const {
     sendAnnouncementSuccess,
     sendAnnouncementFailure,
     getAnnouncementsStart,
-    getAnnouncementSuccess,
+    getAnnouncementsSuccess,
     getAnnouncementsFailure
 } = announcementSlice.actions;
 
