@@ -5,6 +5,8 @@ import {
     getAnnouncementsStart,
     getAnnouncementsFailure,
     getAnnouncementsSuccess,
+    setPageNumber,
+    setAnnouncements
 } from "./AnnouncementSlice"
 
 import annonucementService from "../../api-services/AnnouncementService"
@@ -30,7 +32,7 @@ export const SendAnnouncement = (requestBody,token) => async (dispatch) => {
     }
 };
 
-export const GetAnnouncements = (pageNumber=1,PageSize=2) => async (dispatch) => {
+export const GetAnnouncements = (pageNumber,PageSize) => async (dispatch) => {
     try {
         dispatch(getAnnouncementsStart());
 
@@ -39,6 +41,9 @@ export const GetAnnouncements = (pageNumber=1,PageSize=2) => async (dispatch) =>
         if (response.status===200) {
             console.log("SUCCESFULL FETCH ANNOUNCEMENTS");
             const data=await response.json();
+            console.log("data");
+            console.log(data);
+            console.log(data.length);
             if(data.length===0){
                 return {
                     response,
@@ -59,3 +64,31 @@ export const GetAnnouncements = (pageNumber=1,PageSize=2) => async (dispatch) =>
     }
 };
 
+export const SetPageNumber = (pageNumber) => async (dispatch) => {
+    try {
+        const response = await dispatch(setPageNumber(pageNumber));
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const SetAnnouncement = (id) => async (dispatch) => {
+    try {
+        // dispatch(getAnnouncementsStart());
+
+        const response = await AnnouncementService.GetAnnouncementByID(id);
+
+        if (response.status===200) {
+            console.log("SUCCESFULL SET ANNOUNCEMENT");
+            const data=await response.json();
+            // dispatch(getAnnouncementsSuccess(data));
+            return data;
+        } else {
+            // dispatch(getAnnouncementsFailure('Email or password is invalid'));
+        }
+    } catch (error) {
+        console.log(error);
+        // dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
+    }
+};

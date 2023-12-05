@@ -6,8 +6,12 @@ const announcementSlice = createSlice({
     initialState: {
         loading: false,
         error: null,
+        announcement:null,
         announcements: [],
         filterParams:null,
+        pageNumber: 1,
+        pageSize: 3,
+        hasMore: true,
         formDataSendAnnouncement:
             {
                 model: '',
@@ -53,15 +57,10 @@ const announcementSlice = createSlice({
             state.error = action.payload;
         },
 
-        // Fetch Data (get announcements)
         getAnnouncementsStart(state) {
             state.loading = true;
         },
         getAnnouncementsSuccess(state, action) {
-            // state.announcements = [...state.announcements, ...action.payload];
-            // state.loading = false;
-            // state.error = null;
-
             const newAnnouncements = action.payload;
 
             state.announcements = [
@@ -77,11 +76,29 @@ const announcementSlice = createSlice({
 
             state.loading = false;
             state.error = null;
+            state.hasMore = newAnnouncements.length > 0;
         },
         getAnnouncementsFailure(state, action) {
             state.loading = false;
             state.error = action.payload;
         },
+
+
+        setAnnouncements(state,action){
+            state.announcements=action.payload;
+        },
+
+        // Pagination
+        setPageNumber: (state, action) => {
+            state.pageNumber = action.payload;
+        },
+        setPageSize: (state, action) => {
+            state.pageSize = action.payload;
+        },
+
+        setAnnouncement:(state,action)=>{
+            state.announcement=action.payload;
+        }
     },
 });
 
@@ -91,7 +108,10 @@ export const {
     sendAnnouncementFailure,
     getAnnouncementsStart,
     getAnnouncementsSuccess,
-    getAnnouncementsFailure
+    getAnnouncementsFailure,
+    setPageNumber,
+    setAnnouncements,
+    setAnnouncement
 } = announcementSlice.actions;
 
 export default announcementSlice.reducer;
