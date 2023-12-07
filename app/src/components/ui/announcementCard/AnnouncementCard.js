@@ -10,7 +10,6 @@ const AnnouncementCard = (props) => {
     const {id, vehicle,price,currency,imageUrls } = props;
 
     useEffect(() => {
-        console.log(imageUrls);
     }, [imageUrls]);
 
     const createLabelValue = (label, value) => (
@@ -29,7 +28,15 @@ const AnnouncementCard = (props) => {
         <a>
         <div className="col">
             <div className="card announcement-card"  onClick={handleCardClick}>
-                <img src={imageUrls[0].url}  className="card-img-top img-fluid tall-image" alt='vehicle-image' />
+
+                {imageUrls && imageUrls[0] && (
+                    <img
+                        src={imageUrls[0].url}
+                        className="card-img-top img-fluid tall-image"
+                        alt="vehicle-image"
+                    />
+                )}
+
                 <div className="card-body announcement-card-body">
                     <h4 className="card-title">{vehicle.make.makeName} {vehicle.model.modelName}</h4>
                     <ul className="list-group list-group-flush">

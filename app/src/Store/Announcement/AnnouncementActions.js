@@ -6,7 +6,10 @@ import {
     getAnnouncementsFailure,
     getAnnouncementsSuccess,
     setPageNumber,
-    setAnnouncements
+    setAnnouncements,
+    setAnnouncementSuccess,
+    setAnnouncementFailure,
+    setAnnouncementStart
 } from "./AnnouncementSlice"
 
 import annonucementService from "../../api-services/AnnouncementService"
@@ -75,20 +78,19 @@ export const SetPageNumber = (pageNumber) => async (dispatch) => {
 
 export const SetAnnouncement = (id) => async (dispatch) => {
     try {
-        // dispatch(getAnnouncementsStart());
+        dispatch(setAnnouncementStart());
 
         const response = await AnnouncementService.GetAnnouncementByID(id);
 
         if (response.status===200) {
             console.log("SUCCESFULL SET ANNOUNCEMENT");
             const data=await response.json();
-            // dispatch(getAnnouncementsSuccess(data));
+            dispatch(setAnnouncementSuccess(data));
             return data;
         } else {
-            // dispatch(getAnnouncementsFailure('Email or password is invalid'));
+            dispatch(setAnnouncementFailure('Email or password is invalid'));
         }
     } catch (error) {
-        console.log(error);
-        // dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
+        dispatch(setAnnouncementFailure('An error occurred while processing your request'));
     }
 };

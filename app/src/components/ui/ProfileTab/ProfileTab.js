@@ -41,8 +41,10 @@ const ProfileTab=()=>{
                 {createLabelValue("Account Type", user.userRole)}
                 {createLabelValue("Phone Number", user.phoneNumber)}
             </ul>
-            <div className="card-body">
+            <div className="card-body d-flex flex-row justify-content-between">
                 <a href="#" className="card-link">Remove Account</a>
+                <a href="/changePassword" className="card-link">Change Password</a>
+                <a href="#" className="card-link">Update Account</a>
             </div>
         </div>
     );

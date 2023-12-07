@@ -60,7 +60,7 @@ const Home = () => {
                 hasMore={hasMore}
                 scrollThreshold={0.8}
             >
-                <div className="container-fluid">
+                <div className="container-fluid pt-3">
                     <div className="d-flex flex-row flex-wrap justify-content-between">
                         {announcements.map((car, index) => (
                             <div className="col mb-2 ms-2 me-2" key={index}>

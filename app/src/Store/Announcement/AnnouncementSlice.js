@@ -96,9 +96,22 @@ const announcementSlice = createSlice({
             state.pageSize = action.payload;
         },
 
-        setAnnouncement:(state,action)=>{
+        setAnnouncementStart(state){
+            state.loading=true;
+        },
+
+        setAnnouncementSuccess:(state,action)=>{
             state.announcement=action.payload;
+            state.loading=false;
+            state.error = null;
+            },
+
+        setAnnouncementFailure(state,action){
+            state.loading=false;
+            state.error=action.payload;
         }
+
+
     },
 });
 
@@ -111,7 +124,9 @@ export const {
     getAnnouncementsFailure,
     setPageNumber,
     setAnnouncements,
-    setAnnouncement
+    setAnnouncementStart,
+    setAnnouncementSuccess,
+    setAnnouncementFailure
 } = announcementSlice.actions;
 
 export default announcementSlice.reducer;

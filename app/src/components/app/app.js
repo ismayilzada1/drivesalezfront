@@ -19,7 +19,7 @@ import ComingSoon  from '../../pages/ComingSoon'
 import PrivacyPolicy from "../../pages/PrivacyPolicy";
 import TermsOfUse from "../../pages/TermsOfUse";
 import Profile from "../../pages/Profile";
-
+import ChangePassword from "../../pages/ChangePassword"
 function App() {
 
     const dispatch = useDispatch();
@@ -42,7 +42,8 @@ function App() {
         "/register",
         "/verifyEmail",
         "/reset-password",
-        "/forgot-password"
+        "/forgot-password",
+        "/changePassword"
 
     ];
 
@@ -66,6 +67,7 @@ function App() {
                     <Route path="/verifyEmail" element={<VerifyEmail />} />
                     <Route path="/AnnouncementDetails/:id" element={<AnnouncementDetails/>}/>
                     <Route path="/loading" element={<LoadingPage />} />
+                    <Route path="/changePassword" element={<ChangePassword />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
                 {shouldDisplayHeaderFooter && <Footer />}

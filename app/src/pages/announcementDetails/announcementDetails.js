@@ -1,38 +1,36 @@
 import React, {useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import "./announcementDetails.css";
-import Logo from "../../components/ui/logo";
-import {useNavigate} from "react-router-dom";
 import {Modal, Button} from 'react-bootstrap';
-import announcementService from "../../api-services/AnnouncementService"
+import {useDispatch, useSelector} from "react-redux";
+import {SetAnnouncement} from '../../Store/Announcement/AnnouncementActions'
+import LoadingPage from "../../components/ui/LoadingPage";
 
 const AnnouncementDetails = () => {
 
     const { id } = useParams();
 
-    const AnnouncementService=new announcementService();
+    const { announcement, loading, error } = useSelector((state) => state.announcement);
 
-    const [announcement, setAnnouncement] = useState('');
+
+    const dispatch = useDispatch();
 
     const [selectedImageIndex, setSelectedImageIndex] = useState (0);
-
-
     const [isTransitioning, setIsTransitioning] = useState (false);
     const [showModal, setShowModal] = useState (false);
-
-
-
-    const Images = announcement.imageUrls?.map(image => image.url) || [];
-
     const [activeTab, setActiveTab] = useState('tabs-1');
 
+    const Images = announcement?.imageUrls?.map(image => image.url) || [];
+
+
     const handleTabClick = (tabId) => {
+        console.log(loading);
         setActiveTab(tabId);
     };
 
 
     const handleCloseModal = () => {
-        console.log(announcement);
+        console.log (options);
         setShowModal (false);
     };
 
@@ -83,7 +81,7 @@ const AnnouncementDetails = () => {
 
 
     const renderIndicators = () => {
-        return Images.map((_, index) => (
+        return Images?.map((_, index) => (
             <button
                 key={index}
                 type="button"
@@ -98,23 +96,67 @@ const AnnouncementDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await AnnouncementService.GetAnnouncementByID(id);
-                const data = await response.json();
-                setAnnouncement(data);
+                dispatch(SetAnnouncement(id));
             } catch (error) {
                 console.error('Error fetching announcement:', error);
             }
         };
 
         fetchData();
-
-        console.log(id);
     }, [id]);
 
 
 
+    const {
+        make,
+        model,
+        year,
+        fuelType,
+        isBrandNew,
+        vehicleDetails: {
+            bodyType,
+            color,
+            horsePower,
+            gearboxType,
+            drivetrainType,
+            conditions,
+            marketVersion,
+            ownerQuantity,
+            seatCount,
+            vinCode,
+            options,
+            engineVolume,
+            mileAge,
+            mileageType
+        } = {},
+    } = announcement?.vehicle || {};
+
+    const {
+        barter,
+        onCredit,
+        description,
+        price,
+        currency,
+        announcementState,
+        imageUrls,
+        country,
+        city,
+        expirationDate,
+        userId,
+        userName,
+        email,
+        firstName,
+        lastName,
+        phoneNumbers
+    }=announcement || {};
+
+
     return (
         <>
+            {loading ? (
+                <LoadingPage />
+            ) : (
+                <>
             <section className="section mt-2" id="trainers">
                 <div className="container">
                     <div id="carouselExampleCaptions" className="carousel slide" >
@@ -125,7 +167,7 @@ const AnnouncementDetails = () => {
 
 
                         <div className="carousel-inner" >
-                            {Images.map ((image, index) => (
+                            {Images?.map ((image, index) => (
                                 <div
                                     key={index}
                                     className={`carousel-item ${index === 0 ? 'active' : ''}`}
@@ -161,7 +203,7 @@ const AnnouncementDetails = () => {
                         </button>
                     </div>
                     <div className="d-flex flex-wrap flex-row justify-content-center align-items-center mt-3">
-                        {Images.map ((image, index) => (
+                        {Images?.map ((image, index) => (
                             <div className="d-flex flex-row justify-content-center align-items-center" key={index}>
                                 <div className="thumbnail-container">
                                     <img
@@ -211,107 +253,115 @@ const AnnouncementDetails = () => {
                                                     <h4>Vehicle Specs</h4>
 
                                                     <div className="row">
-                                                        <div className="col-sm-6">
-                                                            <label>Body Type</label>
 
-                                                            {/*<p>{announcement.vehicle.vehicleDetails.bodyType.bodyType}</p>*/}
-                                                        </div>
+
 
                                                         <div className="col-sm-6">
                                                             <label>Make</label>
-
-                                                            <p>Lorem ipsum dolor sit</p>
+                                                            <p>{make && make.makeName}</p>
                                                         </div>
 
                                                         <div className="col-sm-6">
                                                             <label> Model</label>
+                                                            <p>{model?.modelName}</p>
+                                                        </div>
 
-                                                            <p>Lorem ipsum dolor sit</p>
+                                                        <div className="col-sm-6">
+                                                            <label>Body Type</label>
+                                                            <p>{bodyType?.bodyType}</p>
                                                         </div>
 
                                                         <div className="col-sm-6">
                                                             <label>First registration</label>
-
-                                                            <p>05/2010</p>
+                                                            <p>{year?.year}</p>
                                                         </div>
+
 
                                                         <div className="col-sm-6">
                                                             <label>Mileage</label>
-
-                                                            <p>5000 km</p>
+                                                            <p>{mileAge} {mileageType}</p>
                                                         </div>
 
                                                         <div className="col-sm-6">
-                                                            <label>Fuel</label>
-
-                                                            <p>Diesel</p>
+                                                            <label>Fuel Type</label>
+                                                            <p>{fuelType?.fuelType}</p>
                                                         </div>
 
                                                         <div className="col-sm-6">
-                                                            <label>Engine size</label>
-
-                                                            <p>1800 cc</p>
+                                                            <label>Engine Volume</label>
+                                                            <p>{engineVolume} cc</p>
                                                         </div>
 
-                                                        <div className="col-sm-6">
-                                                            <label>Power</label>
 
-                                                            <p>85 hp</p>
+                                                        <div className="col-sm-6">
+                                                            <label>Horse Power</label>
+                                                            <p>{horsePower}</p>
                                                         </div>
 
 
                                                         <div className="col-sm-6">
                                                             <label>Gearbox</label>
-
-                                                            <p>Manual</p>
+                                                            <p>{gearboxType?.gearboxType}</p>
                                                         </div>
 
                                                         <div className="col-sm-6">
                                                             <label>Number of seats</label>
-
-                                                            <p>4</p>
+                                                            <p>{seatCount}</p>
                                                         </div>
 
                                                         <div className="col-sm-6">
-                                                            <label>Doors</label>
+                                                            <label>Market Version</label>
+                                                            <p>{marketVersion?.marketVersion}</p>
+                                                        </div>
 
-                                                            <p>2/3</p>
+                                                        <div className="col-sm-6">
+                                                            <label>Drive Train Type</label>
+                                                            <p>{drivetrainType?.drivetrainType}</p>
+                                                        </div>
+
+                                                        <div className="col-sm-6">
+                                                            <label>Owner Quantity</label>
+                                                            <p>{ownerQuantity}</p>
+                                                        </div>
+
+                                                        <div className="col-sm-6">
+                                                            <label>Brand New</label>
+                                                            <p>{isBrandNew ? 'Yes' : 'No'}</p>
                                                         </div>
 
                                                         <div className="col-sm-6">
                                                             <label>Color</label>
-
-                                                            <p>Black</p>
+                                                            <p>{color?.color}</p>
                                                         </div>
+
+                                                        <div className="col-sm-6">
+                                                            <label>Barter</label>
+                                                            <p>{barter ? 'Yes' : 'No'}</p>
+                                                        </div>
+
+                                                        <div className="col-sm-12">
+                                                            <label style={{ fontSize: '1.4em' }}>Price</label>
+                                                            <p className="main-price text-success font-weight-bold" style={{ fontSize: '2.2em' }}>
+                                                                {price && `${price} ${currency.currencyName}`}
+                                                            </p>
+                                                        </div>
+
                                                     </div>
                                                 </article>
                                 <article id='tabs-2' className={`fade-in-element ${activeTab === 'tabs-2' ? 'active-tab' : ''}`}>
                                                     <h4>Vehicle Description</h4>
 
-                                                    <p>- Colour coded bumpers <br/> - Tinted glass <br/> - Immobiliser <br/> - Central locking - remote <br/> - Passenger airbag <br/> - Electric windows <br/> - Rear head rests <br/> - Radio <br/> - CD player <br/> - Ideal first car <br/> - Warranty <br/> - High level brake light <br/> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco                         laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat                     cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                                        <p>{description}</p>
                                                 </article>
                                 <article id='tabs-3' className={`fade-in-element ${activeTab === 'tabs-3' ? 'active-tab' : ''}`} >
                                                     <h4>Vehicle Extras</h4>
 
                                                     <div className="row">
-                                                        <div className="col-sm-6">
-                                                            <p>ABS</p>
-                                                        </div>
-                                                        <div className="col-sm-6">
-                                                            <p>Leather seats</p>
-                                                        </div>
-                                                        <div className="col-sm-6">
-                                                            <p>Power Assisted Steering</p>
-                                                        </div>
-                                                        <div className="col-sm-6">
-                                                            <p>Electric heated seats</p>
-                                                        </div>
-                                                        <div className="col-sm-6">
-                                                            <p>New HU and AU</p>
-                                                        </div>
-                                                        <div className="col-sm-6">
-                                                            <p>Xenon headlights</p>
-                                                        </div>
+                                                        {options?.map((option, index) => (
+                                                            <div className="col-sm-6">
+                                                                <p>{option.option}</p>
+                                                            </div>
+                                                        ))}
                                                     </div>
                                 </article>
                                 <article id='tabs-4'  className={`fade-in-element ${activeTab === 'tabs-4' ? 'active-tab' : ''}`}>
@@ -321,20 +371,21 @@ const AnnouncementDetails = () => {
                                                         <div className="col-sm-8">
                                                             <label>Name Surname</label>
 
-                                                            <p>John Smith</p>
+                                                            <p>{firstName} {lastName}</p>
                                                         </div>
 
                                                         <div className="col-sm-8">
                                                             <label>Email</label>
-                                                            <p><a href="#">john@carsales.com</a></p>
+                                                            <p><a href="#">{email}</a></p>
                                                         </div>
 
                                                         <div className="col-sm-8">
                                                             <label className="mb-2">Mobile phones</label>
-                                                            <p className='m-2'>050 456 12 52</p>
-                                                            <p className='m-2'>050 456 12 52</p>
-                                                            <p className='m-2'>050 456 12 52</p>
-                                                            <p className='m-2'>050 456 12 52</p>
+                                                            {phoneNumbers?.map((phone, index) => (
+                                                                <p key={index} className="m-2">
+                                                                    {phone.phoneNumber}
+                                                                </p>
+                                                            ))}
                                                         </div>
 
 
@@ -368,7 +419,7 @@ const AnnouncementDetails = () => {
                         onClick={(e) => e.stopPropagation()}
                     />
                     <div className="thumbnails-container">
-                        {Images.map((image, index) => (
+                        {Images?.map((image, index) => (
                             <img
                                 key={index}
                                 src={image}
@@ -380,10 +431,11 @@ const AnnouncementDetails = () => {
                     </div>
                 </Modal.Body>
             </Modal>
-
-
+                </>
+            )}
         </>
     );
-}
+};
+
 
 export default AnnouncementDetails;

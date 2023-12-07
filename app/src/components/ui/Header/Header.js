@@ -233,12 +233,14 @@ const Header = () => {
                         {/*</li>*/}
 
 
+                        {isLoggedIn ?
+                            (
                         <li className='nav-item'>
                             <button onClick={handleAddVehicleButton} className='btn btn-plus btn-square d-flex justify-content-center align-items-center' style={{ backgroundColor: '#f54114', color: '#ffffff',border:'none' }}>
                                 {isMobile ? <i className="fas fa-plus"></i> : <><i className="fas fa-plus me-2"></i>Add Vehicle</>}
                             </button>
                         </li>
-
+                            ):null}
 
 
                         {isLoggedIn ?
