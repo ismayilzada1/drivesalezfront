@@ -20,6 +20,7 @@ import PrivacyPolicy from "../../pages/PrivacyPolicy";
 import TermsOfUse from "../../pages/TermsOfUse";
 import Profile from "../../pages/Profile";
 import ChangePassword from "../../pages/ChangePassword"
+import UpdateAccount from "../../pages/UpdateAccount";
 function App() {
 
     const dispatch = useDispatch();
@@ -68,6 +69,7 @@ function App() {
                     <Route path="/AnnouncementDetails/:id" element={<AnnouncementDetails/>}/>
                     <Route path="/loading" element={<LoadingPage />} />
                     <Route path="/changePassword" element={<ChangePassword />} />
+                    <Route path="/updateAccount" element={<UpdateAccount />} />
                     <Route path="/*" element={<NotFound />} />
                 </Routes>
                 {shouldDisplayHeaderFooter && <Footer />}

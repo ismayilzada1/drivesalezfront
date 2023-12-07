@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {resetPassword} from "../../Store/Auth/authActions";
 import Logo from "../../components/ui/logo";
+import {changePassword} from "../../Store/Account/AccountActions";
 
 const ChangePassword = () => {
 
@@ -22,8 +23,22 @@ const ChangePassword = () => {
 
 
 
-    const handleResetPassword = async ()=>{
+    const handleChangePassword = async ()=>{
         if(!Password || !NewPassword || !ConfirmNewPassword){return;}
+
+        const requestBody={
+            email:{email},
+            password:Password,
+            newPassword:NewPassword,
+            confirmNewPassword:ConfirmNewPassword
+        }
+
+        try {
+            const response  = await dispatch(changePassword(requestBody));
+        }
+        catch (error){
+            console.log (error);
+        }
     }
 
     useEffect(() => {
@@ -68,7 +83,7 @@ const ChangePassword = () => {
                                                 </div>
                                             </div>
                                             <div className="text-center">
-                                                <button onClick={handleResetPassword} className="btn btn-primary mt-3" disabled={loading}>{loading ? 'Change Password ...' : 'Change Password'}</button>
+                                                <button onClick={handleChangePassword} className="btn btn-primary mt-3" disabled={loading}>{loading ? 'Change Password ...' : 'Change Password'}</button>
                                             </div>
 
 
@@ -104,7 +119,7 @@ const ChangePassword = () => {
                                 </div>
                             </div>
                             <div className="text-center">
-                                <button onClick={handleResetPassword} className="btn btn-primary mt-3" disabled={loading}>{loading ? 'Change Password ...' : 'Change Password'}</button>
+                                <button onClick={handleChangePassword} className="btn btn-primary mt-3" disabled={loading}>{loading ? 'Change Password ...' : 'Change Password'}</button>
                             </div>
                         </div>
                     </div>

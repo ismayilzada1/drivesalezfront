@@ -97,4 +97,21 @@ export default class AuthService {
         }
     }
 
+    async ChangePassword(requestBody){
+        try {
+            const response = await fetch(`${this.baseUrl}/Account/change-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            });
+
+            return response;
+        } catch (error) {
+            console.error('Error in Change Password:', error);
+            throw error;
+        }
+    }
+
 }

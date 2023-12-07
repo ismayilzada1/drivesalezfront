@@ -277,6 +277,7 @@ const NewAnnouncement=()=> {
             const response= await dispatch(SendAnnouncement(data,user.token));
 
             if (response.status === 200) {
+                setAlertMessage("Announcement request sent succesfully !");
                 setShowSuccessAlert(true);
             } else {
                 setShowAlert(true);

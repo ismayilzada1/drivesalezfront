@@ -44,7 +44,7 @@ const ProfileTab=()=>{
             <div className="card-body d-flex flex-row justify-content-between">
                 <a href="#" className="card-link">Remove Account</a>
                 <a href="/changePassword" className="card-link">Change Password</a>
-                <a href="#" className="card-link">Update Account</a>
+                <a href="/updateAccount" className="card-link">Update Account</a>
             </div>
         </div>
     );
