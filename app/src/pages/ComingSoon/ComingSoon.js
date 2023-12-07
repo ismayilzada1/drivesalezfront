@@ -85,10 +85,10 @@ const ComingSoon = () => {
                     </div>
 
                     <div className="social-links text-center">
-                        <a href="https://twitter.com/example" className="twitter"><i className="bi bi-twitter"></i></a>
-                        <a href="https://facebook.com/example" className="facebook"><i className="bi bi-facebook"></i></a>
-                        <a href="https://instagram.com/example" className="instagram"><i className="bi bi-instagram"></i></a>
-                        <a href="https://linkedin.com/in/example" className="linkedin"><i className="bi bi-linkedin"></i></a>
+                        <a href="https://twitter.com" target='_blank' className="twitter"><i className="bi bi-twitter"></i></a>
+                        <a href="https://facebook.com" target='_blank' className="facebook"><i className="bi bi-facebook"></i></a>
+                        <a href="https://instagram.com" target='_blank' className="instagram"><i className="bi bi-instagram"></i></a>
+                        <a href="https://linkedin.com" target='_blank' className="linkedin" ><i className="bi bi-linkedin"></i></a>
                     </div>
                 </div>
             </header>

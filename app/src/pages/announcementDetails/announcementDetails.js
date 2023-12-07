@@ -68,15 +68,18 @@ const AnnouncementDetails = () => {
 
     useEffect(() => {
         const carousel = document.getElementById("carouselExampleCaptions");
-        const carouselItems = carousel.querySelectorAll(".carousel-item");
 
-        carouselItems.forEach((item, index) => {
-            if (index === selectedImageIndex) {
-                item.classList.add("active");
-            } else {
-                item.classList.remove("active");
-            }
-        });
+        if (carousel) {
+            const carouselItems = carousel.querySelectorAll(".carousel-item");
+
+            carouselItems.forEach ((item, index) => {
+                if (index === selectedImageIndex) {
+                    item.classList.add ("active");
+                } else {
+                    item.classList.remove ("active");
+                }
+            });
+        }
     }, [selectedImageIndex]);
 
 
@@ -150,6 +153,12 @@ const AnnouncementDetails = () => {
         phoneNumbers
     }=announcement || {};
 
+    function formatTimestamp(timestamp) {
+        const dateObject = new Date(timestamp);
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        const formattedDate = dateObject.toLocaleString('en-GB', options);
+        return formattedDate;
+    }
 
     return (
         <>
@@ -250,11 +259,12 @@ const AnnouncementDetails = () => {
                         <div className="col-lg-8">
                             <section className='tabs-content' style={{ width: '100%' }}>
                                 <article id='tabs-1' className={`fade-in-element ${activeTab === 'tabs-1' ? 'active-tab' : ''}`}>
+
+
+
                                                     <h4>Vehicle Specs</h4>
 
                                                     <div className="row">
-
-
 
                                                         <div className="col-sm-6">
                                                             <label>Make</label>
@@ -339,6 +349,11 @@ const AnnouncementDetails = () => {
                                                             <p>{barter ? 'Yes' : 'No'}</p>
                                                         </div>
 
+                                                        <div className="col-sm-6">
+                                                            <label>On Credit</label>
+                                                            <p>{onCredit ? 'Yes' : 'No'}</p>
+                                                        </div>
+
                                                         <div className="col-sm-12">
                                                             <label style={{ fontSize: '1.4em' }}>Price</label>
                                                             <p className="main-price text-success font-weight-bold" style={{ fontSize: '2.2em' }}>
@@ -346,12 +361,32 @@ const AnnouncementDetails = () => {
                                                             </p>
                                                         </div>
 
+                                                        <div className="col-sm-6">
+                                                            <p>{formatTimestamp(expirationDate)}</p>
+                                                        </div>
+
                                                     </div>
                                                 </article>
                                 <article id='tabs-2' className={`fade-in-element ${activeTab === 'tabs-2' ? 'active-tab' : ''}`}>
                                                     <h4>Vehicle Description</h4>
 
-                                                        <p>{description}</p>
+                                                    <div className='row'>
+                                                        <p className='col-sm-12'>{description}</p>
+
+                                                        <p className='col-sm-12 font-weight-bold' style={{ fontSize: '1.2em'}}>
+                                                                VIN CODE:
+                                                            <a
+                                                                href={`https://www.google.com/search?q=${vinCode}&tbm=isch`}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="font-weight-bold ms-2"
+                                                                style={{ fontSize: '1em' ,opacity:.7}}
+                                                            >
+                                                                {vinCode}
+                                                            </a>
+                                                        </p>
+
+                                                    </div>
                                                 </article>
                                 <article id='tabs-3' className={`fade-in-element ${activeTab === 'tabs-3' ? 'active-tab' : ''}`} >
                                                     <h4>Vehicle Extras</h4>
@@ -363,23 +398,48 @@ const AnnouncementDetails = () => {
                                                             </div>
                                                         ))}
                                                     </div>
+
+                                                   <h4>Vehicle Conditions</h4>
+
+                                    <div className="row">
+                                        {conditions?.map((condition, index) => (
+                                            <div key={condition.id} className="col-sm-6">
+                                                <p className={'mb-1'} style={{fontWeight:"bold"}}>{condition.condition}</p>
+                                                <p>{condition.description}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+
+
                                 </article>
                                 <article id='tabs-4'  className={`fade-in-element ${activeTab === 'tabs-4' ? 'active-tab' : ''}`}>
                                                     <h4>Contact Details</h4>
 
                                                     <div className="row">
-                                                        <div className="col-sm-8">
+                                                        <div className="col-sm-6">
                                                             <label>Name Surname</label>
 
                                                             <p>{firstName} {lastName}</p>
                                                         </div>
 
-                                                        <div className="col-sm-8">
+                                                        <div className="col-sm-6">
                                                             <label>Email</label>
                                                             <p><a href="#">{email}</a></p>
                                                         </div>
 
-                                                        <div className="col-sm-8">
+                                                        <div className="col-sm-6">
+                                                            <label>Country</label>
+                                                            <p>{country.countryName}</p>
+                                                        </div>
+
+                                                        <div className="col-sm-6">
+                                                            <label>City</label>
+                                                            <p>{city.cityName}</p>
+                                                        </div>
+
+
+
+                                                        <div className="col-sm-6">
                                                             <label className="mb-2">Mobile phones</label>
                                                             {phoneNumbers?.map((phone, index) => (
                                                                 <p key={index} className="m-2">

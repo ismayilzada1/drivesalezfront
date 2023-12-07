@@ -7,8 +7,7 @@ import Logo from "../../components/ui/logo";
 
 const ChangePassword = () => {
 
-
-
+    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const email = useSelector((state) => state.auth.email);
@@ -25,8 +24,18 @@ const ChangePassword = () => {
 
     const handleResetPassword = async ()=>{
         if(!Password || !NewPassword || !ConfirmNewPassword){return;}
-
     }
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/');
+        }
+    }, [isLoggedIn, navigate]);
+
+    if (!isLoggedIn) {
+        return null;
+    }
+
 
     return(
         <div className="wrapper">
