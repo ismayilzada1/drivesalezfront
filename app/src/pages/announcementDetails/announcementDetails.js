@@ -399,16 +399,19 @@ const AnnouncementDetails = () => {
                                                         ))}
                                                     </div>
 
-                                                   <h4>Vehicle Conditions</h4>
-
-                                    <div className="row">
-                                        {conditions?.map((condition, index) => (
-                                            <div key={condition.id} className="col-sm-6">
-                                                <p className={'mb-1'} style={{fontWeight:"bold"}}>{condition.condition}</p>
-                                                <p>{condition.description}</p>
+                                    {conditions && conditions.length > 0 && (
+                                        <div>
+                                            <h4>Vehicle Conditions</h4>
+                                            <div className="row">
+                                                {conditions.map((condition, index) => (
+                                                    <div key={condition.id} className="col-sm-6">
+                                                        <p className={'mb-1'} style={{ fontWeight: "bold" }}>{condition.condition}</p>
+                                                        <p>{condition.description}</p>
+                                                    </div>
+                                                ))}
                                             </div>
-                                        ))}
-                                    </div>
+                                        </div>
+                                    )}
 
 
                                 </article>

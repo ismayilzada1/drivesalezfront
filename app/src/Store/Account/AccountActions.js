@@ -16,6 +16,7 @@ export const changePassword = (requestBody) => async (dispatch) => {
     try {
         const response = await AuthService.ChangePassword(requestBody);
 
+        console.log (response);
         if (response.status === 200) {
             console.log('SUCCESSFUL CHANGE PASSWORD');
             dispatch(changePasswordSuccess());

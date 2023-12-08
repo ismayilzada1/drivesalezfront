@@ -21,25 +21,49 @@ const ChangePassword = () => {
     const [NewPassword,setNewPassword]=useState('');
 
 
+    const handleCloseErrorMessage = () => {
+        setErrorMessage(null);
+    };
+
+    const handleCloseSuccessMessage = () => {
+        setSuccessMessage(null);
+    };
+
+    const [successMessage, setSuccessMessage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
 
 
-    const handleChangePassword = async ()=>{
-        if(!Password || !NewPassword || !ConfirmNewPassword){return;}
-
-        const requestBody={
-            email:{email},
-            password:Password,
-            newPassword:NewPassword,
-            confirmNewPassword:ConfirmNewPassword
+    const handleChangePassword = async () => {
+        if (!Password || !NewPassword || !ConfirmNewPassword) {
+            setSuccessMessage(null);
+            setErrorMessage('Please fill in all the fields.');
+            return;
         }
+
+        const requestBody = {
+            "email": email,
+            "oldPassword": Password,
+            "newPassword": NewPassword,
+            "confirmPassword": ConfirmNewPassword
+        };
 
         try {
-            const response  = await dispatch(changePassword(requestBody));
+            const response = await dispatch(changePassword(requestBody));
+
+            if (response.status === 200) {
+                setSuccessMessage('Password changed successfully.');
+                setErrorMessage(null);
+            } else {
+                setSuccessMessage(null);
+                setErrorMessage('Failed to change password. Please try again.');
+            }
+        } catch (error) {
+            console.log(error);
+            setSuccessMessage(null);
+            setErrorMessage('An error occurred while changing the password. Please try again.');
         }
-        catch (error){
-            console.log (error);
-        }
-    }
+    };
+
 
     useEffect(() => {
         if (!isLoggedIn) {
@@ -86,7 +110,29 @@ const ChangePassword = () => {
                                                 <button onClick={handleChangePassword} className="btn btn-primary mt-3" disabled={loading}>{loading ? 'Change Password ...' : 'Change Password'}</button>
                                             </div>
 
+                                            {errorMessage && (
+                                                <div className="alert alert-primary rounded-0 alert-dismissible fade show mt-1" role="alert">
+                                                    {errorMessage}
+                                                    <button
+                                                        type="button"
+                                                        className="btn-close"
+                                                        aria-label="Close"
+                                                        onClick={handleCloseErrorMessage}
+                                                    ></button>
+                                                </div>
+                                            )}
 
+                                            {successMessage && (
+                                                <div className="alert alert-success rounded-0 alert-dismissible fade show mt-1" role="alert">
+                                                    {successMessage}
+                                                    <button
+                                                        type="button"
+                                                        className="btn-close"
+                                                        aria-label="Close"
+                                                        onClick={handleCloseSuccessMessage}
+                                                    ></button>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -121,6 +167,31 @@ const ChangePassword = () => {
                             <div className="text-center">
                                 <button onClick={handleChangePassword} className="btn btn-primary mt-3" disabled={loading}>{loading ? 'Change Password ...' : 'Change Password'}</button>
                             </div>
+
+                            {errorMessage && (
+                                <div className="alert alert-primary rounded-0 alert-dismissible fade show mt-1" role="alert">
+                                    {errorMessage}
+                                    <button
+                                        type="button"
+                                        className="btn-close"
+                                        aria-label="Close"
+                                        onClick={handleCloseErrorMessage}
+                                    ></button>
+                                </div>
+                            )}
+
+                            {successMessage && (
+                                <div className="alert alert-success rounded-0 alert-dismissible fade show mt-1" role="alert">
+                                    {successMessage}
+                                    <button
+                                        type="button"
+                                        className="btn-close"
+                                        aria-label="Close"
+                                        onClick={handleCloseSuccessMessage}
+                                    ></button>
+                                </div>
+                            )}
+
                         </div>
                     </div>
                 </div>
