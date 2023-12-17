@@ -1,4 +1,5 @@
 export default class CommonDataService {
+    // _base_url = 'https://drivesalez.azurewebsites.net/api';
     _base_url = 'https://localhost:7261/api';
 
     async getResource(url) {
@@ -64,6 +65,9 @@ export default class CommonDataService {
 
     async getAllCities() {
         return await this.getResource(`/Details/get-all-cities`);
+    }
+    async getAllSubscriptions() {
+        return await this.getResource(`/Details/get-all-subscriptions`);
     }
 
 

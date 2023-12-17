@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import "./ForgotPassword.css";
-import Logo from "../../components/ui/logo";
-import Service from "../../api-services/OtpService";
+import Logo from "../../../components/ui/logo";
+import Service from "../../../api-services/OtpService";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {sendOtp, verifyEmail} from "../../Store/Auth/authActions";
+import {sendOtp, verifyEmail} from "../../../Store/Auth/authActions";
 
 const ForgotPassword = () => {
     const dispatch = useDispatch();

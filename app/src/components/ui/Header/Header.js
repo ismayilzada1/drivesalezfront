@@ -255,7 +255,6 @@ const Header = () => {
                             </a>
                             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li><a className="dropdown-item" href="/profile">Profile</a></li>
-                                <li><a className="dropdown-item" href="../dashboard/app/user-privacy-setting.html">Privacy Setting</a></li>
                                 <li><hr className="dropdown-divider"/></li>
                                 <li><a  className="dropdown-item"  href='/' onClick={handleLogout}>Logout</a></li>
                             </ul>

@@ -106,7 +106,11 @@ const AnnouncementDetails = () => {
         };
 
         fetchData();
-    }, [id]);
+    }, [dispatch,id]);
+
+    if (loading || !announcement) {
+        return <LoadingPage />;
+    }
 
 
 
@@ -116,23 +120,21 @@ const AnnouncementDetails = () => {
         year,
         fuelType,
         isBrandNew,
-        vehicleDetails: {
-            bodyType,
-            color,
-            horsePower,
-            gearboxType,
-            drivetrainType,
-            conditions,
-            marketVersion,
-            ownerQuantity,
-            seatCount,
-            vinCode,
-            options,
-            engineVolume,
-            mileAge,
-            mileageType
-        } = {},
-    } = announcement?.vehicle || {};
+        bodyType,
+        color,
+        horsePower,
+        gearboxType,
+        drivetrainType,
+        conditions,
+        marketVersion,
+        ownerQuantity,
+        seatCount,
+        vinCode,
+        options,
+        engineVolume,
+        mileAge,
+        mileageType
+    } = announcement;
 
     const {
         barter,
@@ -151,7 +153,7 @@ const AnnouncementDetails = () => {
         firstName,
         lastName,
         phoneNumbers
-    }=announcement || {};
+    } = announcement;
 
     function formatTimestamp(timestamp) {
         const dateObject = new Date(timestamp);
@@ -268,7 +270,7 @@ const AnnouncementDetails = () => {
 
                                                         <div className="col-sm-6">
                                                             <label>Make</label>
-                                                            <p>{make && make.makeName}</p>
+                                                            <p>{make?.makeName}</p>
                                                         </div>
 
                                                         <div className="col-sm-6">
@@ -432,12 +434,12 @@ const AnnouncementDetails = () => {
 
                                                         <div className="col-sm-6">
                                                             <label>Country</label>
-                                                            <p>{country.countryName}</p>
+                                                            <p>{country?.countryName}</p>
                                                         </div>
 
                                                         <div className="col-sm-6">
                                                             <label>City</label>
-                                                            <p>{city.cityName}</p>
+                                                            <p>{city?.cityName}</p>
                                                         </div>
 
 
@@ -471,7 +473,7 @@ const AnnouncementDetails = () => {
                 backdrop="static"
                 dialogClassName="modal-dialog-fullscreen">
 
-                <Modal.Body className="modal-image-container">
+                <Modal.Body className="modal-image-container modal-body-announcement-details">
                     <Button className="close-button" onClick={handleCloseModal}>
                         <span aria-hidden="true">&times;</span>
                      </Button>

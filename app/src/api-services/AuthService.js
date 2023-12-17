@@ -2,6 +2,7 @@ import {useSelector} from "react-redux";
 
 export default class AuthService {
     constructor() {
+        // this.baseUrl = 'https://drivesalez.azurewebsites.net/api';
         this.baseUrl = 'https://localhost:7261/api';
     }
 
@@ -55,7 +56,6 @@ export default class AuthService {
                 },
                 body: JSON.stringify(requestBody),
             });
-
             return response;
         } catch (error) {
             console.error('Error in Register:', error);

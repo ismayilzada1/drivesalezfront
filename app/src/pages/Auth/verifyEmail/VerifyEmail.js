@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import './VerifyEmail.css';
-import Logo from "../../components/ui/logo";
+import Logo from "../../../components/ui/logo";
 import { useNavigate  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { verifyEmail } from '../../Store/Auth/authActions';
+import { verifyEmail } from '../../../Store/Auth/authActions';
 import OtpInput from 'react-otp-input';
 const VerifyEmail = () => {
 

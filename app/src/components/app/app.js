@@ -4,23 +4,24 @@ import { logoutUser } from '../../Store/Auth/authActions';
 import { Routes, Route,useLocation } from 'react-router-dom';
 import './app.css'
 import NewAnnouncement from "../../pages/NewAnnouncement";
-import Register from "../../pages/register";
-import Login from "../../pages/login";
+import Register from "../../pages/Auth/register";
+import Login from "../../pages/Auth/login";
 import NotFound from "../../pages/errors/NotFound";
 import Footer from "../ui/Footer";
 import Header from "../ui/Header";
-import VerifyEmail from "../../pages/verifyEmail";
-import ForgotPassword from "../../pages/forgotPassword";
-import ResetPassword from "../../pages/resetPassword";
+import VerifyEmail from "../../pages/Auth/verifyEmail";
+import ForgotPassword from "../../pages/Auth/forgotPassword";
+import ResetPassword from "../../pages/Auth/resetPassword";
 import Home from "../../pages/home";
-import AnnouncementDetails from "../../pages/announcementDetails";
+import AnnouncementDetailsUserProfile from "../../pages/announcementDetails";
 import LoadingPage from "../ui/LoadingPage";
-import ComingSoon  from '../../pages/ComingSoon'
-import PrivacyPolicy from "../../pages/PrivacyPolicy";
-import TermsOfUse from "../../pages/TermsOfUse";
+import ComingSoon  from '../../pages/StaticPages/ComingSoon'
+import PrivacyPolicy from "../../pages/StaticPages/PrivacyPolicy";
+import TermsOfUse from "../../pages/StaticPages/TermsOfUse";
 import Profile from "../../pages/Profile";
-import ChangePassword from "../../pages/ChangePassword"
+import ChangePassword from "../../pages/Auth/ChangePassword"
 import UpdateAccount from "../../pages/UpdateAccount";
+import AnnouncementDetails from "../../pages/announcementDetails";
 function App() {
 
     const dispatch = useDispatch();

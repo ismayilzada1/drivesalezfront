@@ -53,7 +53,7 @@ export const GetAnnouncements = (pageNumber,PageSize) => async (dispatch) => {
                     hasMore:false
                 }
             }
-            dispatch(getAnnouncementsSuccess(data));
+            dispatch(getAnnouncementsSuccess(data.reverse()));
             return {
                 response,
                 hasMore:true
@@ -66,6 +66,28 @@ export const GetAnnouncements = (pageNumber,PageSize) => async (dispatch) => {
         dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
     }
 };
+
+export const GetUserLimits = (token) => async (dispatch) => {
+    try {
+        // dispatch(getAnnouncementsStart());
+
+        const response = await AnnouncementService.GetUserLimits(token);
+        console.log(response);
+        if (response.status===200) {
+            console.log("SUCCESFULL GET USER LIMITS");
+            const data=await response.json();
+            console.log (data);
+            // dispatch(getAnnouncementsSuccess(data.reverse()));
+            return data;
+        } else {
+            // dispatch(getAnnouncementsFailure('Email or password is invalid'));
+        }
+    } catch (error) {
+        console.log(error);
+        // dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
+    }
+};
+
 
 export const SetPageNumber = (pageNumber) => async (dispatch) => {
     try {
@@ -92,5 +114,82 @@ export const SetAnnouncement = (id) => async (dispatch) => {
         }
     } catch (error) {
         dispatch(setAnnouncementFailure('An error occurred while processing your request'));
+    }
+};
+
+
+export const GetAllAnnouncementsByUserId = (token) => async (dispatch) => {
+    try {
+        dispatch(getAnnouncementsStart());
+
+        const response = await AnnouncementService.GetAllAnnouncementsByUserId(token);
+
+        if (response.status===200) {
+            console.log("SUCCESFULL SET ANNOUNCEMENT");
+            const data=await response.json();
+            dispatch(getAnnouncementsSuccess(data));
+            return data;
+        } else {
+            dispatch(getAnnouncementsFailure('Email or password is invalid'));
+        }
+    } catch (error) {
+        dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
+    }
+};
+
+export const GetAllWaitingAnnouncementsByUserId = (token) => async (dispatch) => {
+    try {
+        dispatch(getAnnouncementsStart());
+
+        const response = await AnnouncementService.GetAllWaitingAnnouncementsByUserId(token);
+
+        if (response.status===200) {
+            console.log("SUCCESFULL SET ANNOUNCEMENT");
+            const data=await response.json();
+            dispatch(getAnnouncementsSuccess(data));
+            return data;
+        } else {
+            dispatch(getAnnouncementsFailure('Email or password is invalid'));
+        }
+    } catch (error) {
+        dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
+    }
+};
+
+export const GetAllActiveAnnouncementsByUserId = (token) => async (dispatch) => {
+    try {
+        dispatch(getAnnouncementsStart());
+
+        const response = await AnnouncementService.GetAllActiveAnnouncementsByUserId(token);
+
+        if (response.status===200) {
+            console.log("SUCCESFULL GET ALL ACTIVE ANNOUNCEMENT");
+            const data=await response.json();
+            dispatch(getAnnouncementsSuccess(data));
+            return data;
+        } else {
+            dispatch(getAnnouncementsFailure('Email or password is invalid'));
+        }
+    } catch (error) {
+        dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
+    }
+};
+
+export const GetAllInactiveAnnouncementsByUserId = (token) => async (dispatch) => {
+    try {
+        dispatch(getAnnouncementsStart());
+
+        const response = await AnnouncementService.GetAllInactiveAnnouncementsByUserId(token);
+
+        if (response.status===200) {
+            console.log("SUCCESFULL GET ALL Inactive ANNOUNCEMENT");
+            const data=await response.json();
+            dispatch(getAnnouncementsSuccess(data));
+            return data;
+        } else {
+            dispatch(getAnnouncementsFailure('Email or password is invalid'));
+        }
+    } catch (error) {
+        dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
     }
 };

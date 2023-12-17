@@ -2,9 +2,9 @@ import React, { useState,useEffect } from 'react';
 import './ChangePassword.css';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {resetPassword} from "../../Store/Auth/authActions";
-import Logo from "../../components/ui/logo";
-import {changePassword} from "../../Store/Account/AccountActions";
+import {resetPassword} from "../../../Store/Auth/authActions";
+import Logo from "../../../components/ui/logo";
+import {changePassword} from "../../../Store/Account/AccountActions";
 
 const ChangePassword = () => {
 

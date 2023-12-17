@@ -43,6 +43,7 @@ export const loginUser = (credentials) => async (dispatch) => {
 export const registerUser = (userData) => async (dispatch) => {
     dispatch(registerStart());
     try {
+        console.log (userData);
         const response = await AuthService.Register(userData);
 
         if (response.status === 200) {

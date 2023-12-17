@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Logo from '../../components/ui/logo';
+import Logo from '../../../components/ui/logo';
 import { useNavigate } from 'react-router-dom';
 import {useSelector} from "react-redux";
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../../Store/Auth/authActions';
+import { registerUser } from '../../../Store/Auth/authActions';
 
 function Register() {
 
@@ -55,6 +55,7 @@ function Register() {
 
         try {
             const response = await dispatch(registerUser(requestBody));
+            console.log (response);
             if(response){
                 navigate('/verifyEmail');
             }
@@ -391,7 +392,7 @@ function Register() {
                             <div className="new-account mt-3 text-center">
                                 <p className="mb-0">
                                     Already have an Account{' '}
-                                    <a className="text-primary" href="/login">
+                                    <a className="text-primary" href="/Auth/login">
                                         Sign in
                                     </a>
                                 </p>

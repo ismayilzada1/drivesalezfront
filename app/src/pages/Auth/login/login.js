@@ -1,9 +1,9 @@
 import React, { useState,useEffect  } from 'react';
-import Logo from '../../components/ui/logo';
+import Logo from '../../../components/ui/logo';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../Store/Auth/authActions';
+import { loginUser } from '../../../Store/Auth/authActions';
 
 const Login = () => {
    const dispatch = useDispatch();
