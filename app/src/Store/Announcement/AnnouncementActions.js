@@ -117,6 +117,26 @@ export const SetAnnouncement = (id) => async (dispatch) => {
     }
 };
 
+export const SetAnnouncementAuthorize = (id,token) => async (dispatch) => {
+    try {
+        dispatch(setAnnouncementStart());
+
+        const response = await AnnouncementService.GetAnnouncementByIDAuthorize(id,token);
+
+        if (response.status===200) {
+            console.log("SUCCESFULL SET ANNOUNCEMENT");
+            const data=await response.json();
+            dispatch(setAnnouncementSuccess(data));
+            return data;
+        } else {
+            dispatch(setAnnouncementFailure('Email or password is invalid'));
+        }
+    } catch (error) {
+        dispatch(setAnnouncementFailure('An error occurred while processing your request'));
+    }
+};
+
+
 
 export const GetAllAnnouncementsByUserId = (token) => async (dispatch) => {
     try {

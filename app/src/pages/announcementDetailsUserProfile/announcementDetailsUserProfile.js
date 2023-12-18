@@ -1,16 +1,18 @@
 import React, {useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
-import "./announcementDetails.css";
+import "./announcementDetailsUserProfile.css";
 import {Modal, Button} from 'react-bootstrap';
 import {useDispatch, useSelector} from "react-redux";
-import {SetAnnouncement} from '../../Store/Announcement/AnnouncementActions'
+import {SetAnnouncementAuthorize} from '../../Store/Announcement/AnnouncementActions'
 import LoadingPage from "../../components/ui/LoadingPage";
 
-const AnnouncementDetails = () => {
+const AnnouncementDetailsUserProfile = () => {
 
-    const { id } = useParams();
+    const { id} = useParams();
 
     const { announcement, loading, error } = useSelector((state) => state.announcement);
+
+    const { user } = useSelector((state) => state.auth);
 
 
     const dispatch = useDispatch();
@@ -99,7 +101,7 @@ const AnnouncementDetails = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                dispatch(SetAnnouncement(id));
+                dispatch(SetAnnouncementAuthorize(id,user.token));
             } catch (error) {
                 console.error('Error fetching announcement:', error);
             }
@@ -505,4 +507,4 @@ const AnnouncementDetails = () => {
 };
 
 
-export default AnnouncementDetails;
+export default AnnouncementDetailsUserProfile;

@@ -7,7 +7,7 @@ const AnnouncementCard = (props) => {
 
     const navigate=useNavigate();
 
-    const {id, make,model,price,mileAge,mileageType,engineVolume,fuelType,year,currency,imageUrls } = props;
+    const {id, make,model,price,mileage,mileageType,engineVolume,fuelType,year,currency,imageUrl } = props;
 
 
     const createLabelValue = (label, value) => (
@@ -16,6 +16,8 @@ const AnnouncementCard = (props) => {
             <span className="value">{value}</span>
         </li>
     );
+
+
 
     const handleCardClick=()=>{
         navigate(`/AnnouncementDetails/${id}`);
@@ -28,9 +30,9 @@ const AnnouncementCard = (props) => {
             <div className="col-sm-3">
                 <div className="card iq-mb-3 announcement-card" onClick={handleCardClick}>
 
-                    {imageUrls && imageUrls[0] && (
+                    {imageUrl  &&(
                         <img
-                            src={imageUrls[0].url}
+                            src={imageUrl.url}
                             className="card-img-top img-fluid tall-image"
                             alt="vehicle-image"
                         />
@@ -42,7 +44,7 @@ const AnnouncementCard = (props) => {
                         <ul className="list-group list-group-flush m-0 p-0 b-0">
                             {createLabelValue("Fuel Type", fuelType.fuelType)}
                             {createLabelValue("Year", year.year)}
-                            {createLabelValue("Mileage", `${mileAge} ${mileageType}`)}
+                            {createLabelValue("Mileage", `${mileage} ${mileageType}`)}
                             {createLabelValue("Engine Volume", engineVolume)}
 
                         </ul>

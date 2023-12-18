@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './announcementCardUserProfile.css'
 import {useNavigate} from "react-router-dom";
 
 const AnnouncementCardUserProfile = (announcement) => {
-    const {id, make,model,price,mileAge,mileageType,engineVolume,fuelType,year,currency,imageUrls } = announcement;
+    const {id, make,model,price,mileage,mileageType,engineVolume,fuelType,year,currency,imageUrl } = announcement;
 
     const navigate=useNavigate();
     const createLabelValue = (label, value) => (
@@ -14,7 +14,7 @@ const AnnouncementCardUserProfile = (announcement) => {
     );
 
     const handleCardClick=()=>{
-        navigate(`/AnnouncementDetails/${id}`);
+        navigate(`/AnnouncementDetailsUserProfile/${id}`);
     }
 
 
@@ -24,9 +24,9 @@ const AnnouncementCardUserProfile = (announcement) => {
                 <div className="col-sm-3">
                     <div className="card iq-mb-3 announcement-card" onClick={handleCardClick}>
 
-                        {imageUrls && imageUrls[0] && (
+                        {imageUrl && (
                             <img
-                                src={imageUrls[0].url}
+                                src={imageUrl.url}
                                 className="card-img-top img-fluid tall-image"
                                 alt="vehicle-image"
                             />
@@ -38,7 +38,7 @@ const AnnouncementCardUserProfile = (announcement) => {
                             <ul className="list-group list-group-flush m-0 p-0 b-0">
                                 {createLabelValue ("Fuel Type", fuelType.fuelType)}
                                 {createLabelValue ("Year", year.year)}
-                                {createLabelValue ("Mileage", `${mileAge} ${mileageType}`)}
+                                {createLabelValue ("Mileage", `${mileage} ${mileageType}`)}
                                 {createLabelValue ("Engine Volume", engineVolume)}
                             </ul>
                             <p className="card-title  float-end h5 m-2 opacity-50">{announcement.announcementState}</p>

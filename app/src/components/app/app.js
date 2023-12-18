@@ -13,7 +13,6 @@ import VerifyEmail from "../../pages/Auth/verifyEmail";
 import ForgotPassword from "../../pages/Auth/forgotPassword";
 import ResetPassword from "../../pages/Auth/resetPassword";
 import Home from "../../pages/home";
-import AnnouncementDetailsUserProfile from "../../pages/announcementDetails";
 import LoadingPage from "../ui/LoadingPage";
 import ComingSoon  from '../../pages/StaticPages/ComingSoon'
 import PrivacyPolicy from "../../pages/StaticPages/PrivacyPolicy";
@@ -21,6 +20,7 @@ import TermsOfUse from "../../pages/StaticPages/TermsOfUse";
 import Profile from "../../pages/Profile";
 import ChangePassword from "../../pages/Auth/ChangePassword"
 import UpdateAccount from "../../pages/UpdateAccount";
+import AnnouncementDetailsUserProfile from "../../pages/announcementDetailsUserProfile";
 import AnnouncementDetails from "../../pages/announcementDetails";
 function App() {
 
@@ -68,6 +68,7 @@ function App() {
                     <Route path="/coming-soon" element={<ComingSoon  />} />
                     <Route path="/verifyEmail" element={<VerifyEmail />} />
                     <Route path="/AnnouncementDetails/:id" element={<AnnouncementDetails/>}/>
+                    <Route path="/AnnouncementDetailsUserProfile/:id" element={<AnnouncementDetailsUserProfile/>}/>
                     <Route path="/loading" element={<LoadingPage />} />
                     <Route path="/changePassword" element={<ChangePassword />} />
                     <Route path="/updateAccount" element={<UpdateAccount />} />

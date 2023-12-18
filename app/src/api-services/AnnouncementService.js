@@ -1,6 +1,6 @@
 export default class AnnouncementService {
-    // _baseUrl = 'https://drivesalez.azurewebsites.net/api';
-    _baseUrl = 'https://localhost:7261/api';
+    _baseUrl = 'https://drivesalez.azurewebsites.net/api';
+    // _baseUrl = 'https://localhost:7261/api';
 
     async getResource(url) {
         try {
@@ -42,7 +42,7 @@ export default class AnnouncementService {
 
     async GetAnnouncements(pageNumber = 1, pageSize = 10){
         try {
-            const response = await fetch(`${this._baseUrl}/Announcement/get-all-waiting-announcements?PageNumber=${pageNumber}&PageSize=${pageSize}&announcementState=2`, {
+            const response = await fetch(`${this._baseUrl}/Announcement/get-all-active-announcements?PageNumber=${pageNumber}&PageSize=${pageSize}&announcementState=2`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -84,11 +84,32 @@ export default class AnnouncementService {
 
     async GetAnnouncementByID(id){
         try {
+            console.log (`${this._baseUrl}/Announcement/get-active-announcement-by-id/${id}`);
+            const response = await fetch(`${this._baseUrl}/Announcement/get-active-announcement-by-id/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            return response;
+        } catch (error) {
+            console.error('Error in SendNewAnnouncement:', error.message);
+            throw error;
+        }
+    }
+
+    async GetAnnouncementByIDAuthorize(id,token){
+        try {
 
             const response = await fetch(`${this._baseUrl}/Announcement/get-announcement-by-id/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
             });
             if (!response.ok) {
