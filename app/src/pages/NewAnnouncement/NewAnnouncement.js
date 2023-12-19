@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import Logo from '../../components/ui/logo';
 import './NewAnnouncement.css'
 import commonDataService from "../../api-services/CommonDataService";
 import LoadingPage from "../../components/ui/LoadingPage";

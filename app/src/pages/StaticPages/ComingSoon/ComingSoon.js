@@ -27,7 +27,7 @@ const ComingSoon = () => {
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
     function calculateTimeLeft() {
-        const difference = new Date("2023-12-03T00:00:00") - new Date();
+        const difference = new Date("2024-03-03T00:00:00") - new Date();
         let days = Math.floor(difference / (1000 * 60 * 60 * 24));
         let hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));

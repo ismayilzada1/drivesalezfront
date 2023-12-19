@@ -66,8 +66,8 @@ export default class CommonDataService {
     async getAllCities() {
         return await this.getResource(`/Details/get-all-cities`);
     }
-    async getAllSubscriptions() {
-        return await this.getResource(`/Details/get-all-subscriptions`);
+    async getAllAnnouncementPricings() {
+        return await this.getResource(`/Details/get-all-announcement-pricings`);
     }
 
 

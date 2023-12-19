@@ -24,7 +24,7 @@ export default class PaymentService {
 
     async AddAnnouncementLimit(subId,count,token){
         try {
-            const response = await fetch(`${this._base_url}/Payment/add-premium-announcement-limit?subscriptionId=${subId}`, {
+            const response = await fetch(`${this._base_url}/Payment/add-announcement-limit?subscriptionId=${subId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

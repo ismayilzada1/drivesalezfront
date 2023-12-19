@@ -12,7 +12,7 @@ const AccountTab = () => {
 
     const [userLimit,setUserLimit]=useState('');
 
-    const [subscriptions,setSubscriptions]=useState([]);
+    const [announcementPricings,setAnnouncementPricings]=useState([]);
     const [SelectedSubscription,setSelectedSubscription]=useState(null);
     const [SubscriptionCount,setSubscriptionCount]=useState(1);
 
@@ -27,8 +27,9 @@ const AccountTab = () => {
                 const response = await dispatch(GetUserLimits(user.token));
                 setUserLimit(response);
 
-                const responseSubscriptions=commonDataService.getAllSubscriptions().then((resp)=>{
-                    setSubscriptions(resp);
+                const responseSubscriptions=commonDataService.getAllAnnouncementPricings().then((resp)=>{
+                    console.log (resp);
+                    setAnnouncementPricings(resp);
                 });
             } catch (ex) {
                 console.log(ex);
@@ -219,7 +220,7 @@ const AccountTab = () => {
                                 </div>
 
                                 <label htmlFor="exampleInputEmail1">Sum</label>
-                                <input value={sum} min={0} onChange={(e) => setSum (e.target.value)}
+                                <input value={sum} maxLength={4} min={0} onChange={(e) => setSum (e.target.value)}
                                        type="number" className="form-control mb-0" id="exampleInputEmail1"
                                 />
 
@@ -244,24 +245,24 @@ const AccountTab = () => {
                         </div>
                         <div className="modal-body">
                             <div className="form-group">
-                                {subscriptions.map((subscription, index) => (
+                                {announcementPricings.map((Pricing, index) => (
                                     <div key={index} className="mb-3">
                                         <div className="form-check">
                                             <input
                                                 type="radio"
-                                                id={subscription.id}
+                                                id={Pricing.id}
                                                 name="subscription"
-                                                value={subscription.id}
-                                                checked={SelectedSubscription===subscription}
-                                                onChange={() => {handleRadioChange (subscription)}}
+                                                value={Pricing.id}
+                                                checked={SelectedSubscription===Pricing}
+                                                onChange={() => {handleRadioChange (Pricing)}}
                                                 className="form-check-input"
                                             />
                                             <label
-                                                htmlFor={subscription.id}
+                                                htmlFor={Pricing.id}
                                                 className="form-check-label"
                                             >
-                                                {subscription.subscriptionName} {subscription.price.price}{' '}
-                                                {subscription.price.currency.currencyName}
+                                                {Pricing.pricingName} {Pricing.price.price}{' '}
+                                                {Pricing.price.currency.currencyName}
                                             </label>
                                         </div>
                                     </div>

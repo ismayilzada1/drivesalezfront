@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Logo from '../../../components/ui/logo';
+import Logo from '../../../components/ui/Logo';
 import { useNavigate } from 'react-router-dom';
 import {useSelector} from "react-redux";
 import { useDispatch } from 'react-redux';
@@ -68,7 +68,7 @@ function Register() {
     return (
         <div className="wrapper">
             <div className="main-auth-page">
-                <Logo />
+                <Logo size="80px" />
                 <div className="clip-board">
                     <div className="container">
                         <div className="row auth-details-card">

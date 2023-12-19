@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import './VerifyEmail.css';
-import Logo from "../../../components/ui/logo";
+import Logo from "../../../components/ui/Logo";
 import { useNavigate  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { verifyEmail } from '../../../Store/Auth/authActions';
@@ -51,7 +51,7 @@ const VerifyEmail = () => {
     return (
         <div className="wrapper">
             <div className="main-auth-page">
-                <Logo/>
+                <Logo size="80px" />
                 <div className="clip-board">
                     <div className="container">
                         <div className="row auth-details-card">

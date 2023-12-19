@@ -3,7 +3,7 @@ import './ChangePassword.css';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {resetPassword} from "../../../Store/Auth/authActions";
-import Logo from "../../../components/ui/logo";
+import Logo from "../../../components/ui/Logo";
 import {changePassword} from "../../../Store/Account/AccountActions";
 
 const ChangePassword = () => {

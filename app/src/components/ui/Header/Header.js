@@ -4,6 +4,7 @@ import './Header.css';
 import {useSelector} from "react-redux";
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../../Store/Auth/authActions';
+import Logo from "../Logo";
 
 const Header = () => {
     const { user } = useSelector((state) => state.auth);
@@ -42,8 +43,9 @@ const Header = () => {
 
             <div className="container w-100 navbar-inner">
 
-                <a href="/" className="navbar-brand">
-                    <img src="../assets/images/logo.png" className="img-fluid" alt="logo-big"/>
+                <a href="/" className="navbar-brand p-0">
+                    <Logo size="50px" />
+                    <span style={{fontSize:"1.4em",color:"#f52123",fontWeight:"550",marginLeft:".4em"}}>DriveSalez</span>
                 </a>
 
                 <div className="sidebar-toggle sidebar-toggle-responsive" data-toggle="sidebar" data-active="true">

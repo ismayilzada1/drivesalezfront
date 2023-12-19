@@ -60,6 +60,26 @@ export default class AnnouncementService {
         }
     }
 
+    async GetFilterAnnouncements(filter,pageNumber = 1, pageSize = 10){
+        try {
+            const response = await fetch(`${this._baseUrl}/Announcement/filter-announcements?PageNumber=${pageNumber}&PageSize=${pageSize}&announcementState=2`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            return response;
+        } catch (error) {
+            console.error('Error in SendNewAnnouncement:', error.message);
+            throw error;
+        }
+    }
+
     async GetUserLimits(token){
         try {
             const response = await fetch(`${this._baseUrl}/Announcement/get-user-limit`, {
