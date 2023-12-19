@@ -3,7 +3,7 @@ import './NewAnnouncement.css'
 import commonDataService from "../../api-services/CommonDataService";
 import LoadingPage from "../../components/ui/LoadingPage";
 import {useDispatch, useSelector} from "react-redux";
-import {SendAnnouncement} from '../../Store/Announcement/AnnouncementActions'
+import {GetUserLimits, SendAnnouncement} from '../../Store/Announcement/AnnouncementActions'
 import { Form } from 'react-bootstrap';
 
 const NewAnnouncement=()=> {
@@ -11,6 +11,7 @@ const NewAnnouncement=()=> {
 
 
     const { user } = useSelector((state) => state.auth);
+    const [userLimit,setUserLimit]=useState('');
     const dispatch = useDispatch();
 
 
@@ -54,14 +55,14 @@ const NewAnnouncement=()=> {
         manufactureYear:'',
         city:'',
         mileage:'',
-        distanceUnit:'',
+        distanceUnit:'1',
         ownerQuantity:'',
         engineVolume:'',
         horsePower:'',
         seatCount:'',
         vinCode:'',
         price:'',
-        priceCurrency:'',
+        priceCurrency:'1',
         credit:false,
         barter:false,
         brandNew:false,
@@ -185,6 +186,12 @@ const NewAnnouncement=()=> {
 
                 const citiesData = await CommonDataService.getAllCities();
                 setCities(citiesData);
+
+
+                const response = await dispatch(GetUserLimits(user.token));
+                setUserLimit(response);
+
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             } finally {
@@ -228,13 +235,14 @@ const NewAnnouncement=()=> {
     const handleSubmit = async(e) => {
         e.preventDefault();
 
-        setIsLoading(true);
 
         if (!isFormValid()) {
             setShowAlert(true);
             setAlertMessage('Please fill out all required fields.');
             return;
         }
+
+        setIsLoading(true);
 
         const imagesBase64 = await Promise.all(images.map(convertImageToBase64));
 
@@ -282,7 +290,6 @@ const NewAnnouncement=()=> {
                 setAlertMessage('Something went wrong !');
             }
         } catch (error) {
-            console.log(error);
             setShowAlert(true);
             setAlertMessage('Something went wrong !');
         }
@@ -308,6 +315,11 @@ const NewAnnouncement=()=> {
             </select>
         </div>
     );
+
+    const {
+        premiumLimit,
+        regularLimit
+    }=userLimit;
 
 
 
@@ -616,8 +628,8 @@ const NewAnnouncement=()=> {
 
                                 <div className="form-group col-md-12">
                                     <div className='d-flex flex-column justify-content-center'>
-                                        <label className="form-label" htmlFor="pno">Premium Announcement Credit: {}</label>
-                                        <label className="form-label" htmlFor="pno">Regular Announcement Credit: {}</label>
+                                        <label className="form-label" htmlFor="pno">Premium Announcement Credit: {premiumLimit}</label>
+                                        <label className="form-label" htmlFor="pno">Regular Announcement Credit: {regularLimit}</label>
                                     </div>
                                 </div>
 
@@ -629,6 +641,7 @@ const NewAnnouncement=()=> {
                                             name="IsPremium"
                                             value="regular"
                                             className='me-2'
+                                            disabled={regularLimit<=0}
                                             checked={!formData.IsPremium}
                                             onChange={handleRadioChange}/>
 
@@ -637,6 +650,7 @@ const NewAnnouncement=()=> {
                                             label="Premium"
                                             name="IsPremium"
                                             value="premium"
+                                            disabled={premiumLimit<=0}
                                             checked={formData.IsPremium}
                                             onChange={handleRadioChange}/>
                                     </Form.Group>
@@ -645,7 +659,7 @@ const NewAnnouncement=()=> {
 
                             </div>
 
-                            <button type="submit" onClick={handleSubmit}  className="btn btn-primary" disabled={isLoading}>{isLoading ? 'Creating Announcement...' : 'Create Announcement'}</button>
+                            <button type="submit" onClick={handleSubmit}  className="btn btn-primary" disabled={isLoading || !isFormValid()}>{isLoading ? 'Creating Announcement...' : 'Create Announcement'}</button>
 
                         {showAlert && (
                             <div className="alert alert-warning mt-3" role="alert">
