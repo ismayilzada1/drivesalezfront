@@ -2,8 +2,10 @@ import {useSelector} from "react-redux";
 
 export default class AuthService {
     constructor() {
-        this.baseUrl = 'https://drivesalez.azurewebsites.net/api';
-        // this.baseUrl = 'https://localhost:7261/api';
+        // this.baseUrl = 'https://drivesalez.azurewebsites.net/api';
+        this.baseUrl = 'https://localhost:7261/api';
+        // this.baseUrl = 'http://drivesalez.site:5073/api';
+
     }
 
 

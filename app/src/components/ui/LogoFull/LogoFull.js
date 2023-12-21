@@ -2,7 +2,7 @@ import React from 'react';
 
 const LogoFull = ({ width }) => {
     return (
-        <div>
+        <a href={'/'}>
             <img
                 src="/assets/images/logo-full.svg"
                 style={{
@@ -30,7 +30,7 @@ const LogoFull = ({ width }) => {
                     </filter>
                 </defs>
             </svg>
-        </div>
+        </a>
     );
 };
 

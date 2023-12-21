@@ -1,6 +1,6 @@
 export default class AnnouncementService {
-    _baseUrl = 'https://drivesalez.azurewebsites.net/api';
-    // _baseUrl = 'https://localhost:7261/api';
+    // _baseUrl = 'https://drivesalez.azurewebsites.net/api';
+    _baseUrl = 'https://localhost:7261/api';
 
     async getResource(url) {
         try {
@@ -62,7 +62,7 @@ export default class AnnouncementService {
 
     async GetFilterAnnouncements(filter,pageNumber = 1, pageSize = 10){
         try {
-            const response = await fetch(`${this._baseUrl}/Announcement/filter-announcements?PageNumber=${pageNumber}&PageSize=${pageSize}&announcementState=2`, {
+            const response = await fetch(`${this._baseUrl}/Announcement/filter-announcements?&PageNumber=${pageNumber}&PageSize=${pageSize}&${filter}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

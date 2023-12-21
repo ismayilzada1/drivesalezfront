@@ -9,7 +9,7 @@ const Logo = ({ size }) => {
     };
 
     return (
-        <div>
+        <a href={'/'}>
             <img
                 src="/assets/images/logo.svg"
                 style={logoStyle}
@@ -27,7 +27,7 @@ const Logo = ({ size }) => {
                     </filter>
                 </defs>
             </svg>
-        </div>
+        </a>
     );
 };
 

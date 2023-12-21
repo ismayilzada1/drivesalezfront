@@ -213,3 +213,23 @@ export const GetAllInactiveAnnouncementsByUserId = (token) => async (dispatch) =
         dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
     }
 };
+
+export const GetAllFilterAnnouncements = (filter) => async (dispatch) => {
+    try {
+        dispatch(getAnnouncementsStart());
+
+        const response = await AnnouncementService.GetFilterAnnouncements(filter);
+
+        if (response.status===200) {
+            console.log("SUCCESFULL GET ALL Inactive ANNOUNCEMENT");
+            const data=await response.json();
+            console.log (data);
+            dispatch(setAnnouncements(data));
+            return data;
+        } else {
+            dispatch(getAnnouncementsFailure('Email or password is invalid'));
+        }
+    } catch (error) {
+        dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
+    }
+};

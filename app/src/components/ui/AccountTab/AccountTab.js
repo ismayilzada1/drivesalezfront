@@ -10,7 +10,7 @@ const AccountTab = () => {
 
     const commonDataService=new CommonDataService();
 
-    const [userLimit,setUserLimit]=useState('');
+    const [userLimit,setUserLimit]=useState();
 
     const [announcementPricings,setAnnouncementPricings]=useState([]);
     const [SelectedSubscription,setSelectedSubscription]=useState(null);
@@ -44,7 +44,7 @@ const AccountTab = () => {
         accountBalance,
         premiumLimit,
         regularLimit
-    }=userLimit;
+    } = userLimit || { accountBalance: 0, premiumLimit: 0, regularLimit: 0 };
 
 
     //Add Balance Start

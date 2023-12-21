@@ -232,6 +232,7 @@ const NewAnnouncement=()=> {
         return base64data;
     };
 
+
     const handleSubmit = async(e) => {
         e.preventDefault();
 
@@ -245,7 +246,6 @@ const NewAnnouncement=()=> {
         setIsLoading(true);
 
         const imagesBase64 = await Promise.all(images.map(convertImageToBase64));
-
 
         const data = {
             "yearId": parseInt(formData.manufactureYear, 10),

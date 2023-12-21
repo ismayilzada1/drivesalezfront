@@ -5,22 +5,31 @@ import { Row } from 'react-bootstrap';
 import LoadingPage from '../../components/ui/LoadingPage';
 import HomeFilter from '../../components/ui/HomeFilter';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetAnnouncements, SetPageNumber } from '../../Store/Announcement/AnnouncementActions';
+import {GetAllFilterAnnouncements, GetAnnouncements, SetPageNumber} from '../../Store/Announcement/AnnouncementActions';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {setAnnouncements, setPageNumber} from '../../Store/Announcement/AnnouncementSlice';
 
 const Home = () => {
     const dispatch = useDispatch();
-    const { announcements, loading, error, pageNumber,hasMore } = useSelector((state) => state.announcement);
+    const { announcements,filterParams, loading, error, pageNumber,hasMore } = useSelector((state) => state.announcement);
 
-    const pageSize = 3;
+    const pageSize = 4;
 
     useEffect (() => {
-        dispatch(setAnnouncements([]));
-        dispatch(setPageNumber(1));
+         dispatch(setAnnouncements([]));
+         dispatch(setPageNumber(1));
     }, []);
 
     useEffect(() => {
+
+        if(filterParams){
+            dispatch(GetAllFilterAnnouncements(filterParams))
+                .then((response) => {})
+                .catch((error) => {
+                    console.error('Error fetching announcements:', error);
+                });
+            return;
+        }
 
         dispatch(GetAnnouncements(pageNumber, pageSize))
             .then((response) => {})
@@ -43,9 +52,9 @@ const Home = () => {
 
 
 
-    if (loading && pageNumber === 1) {
-        return <LoadingPage />;
-    }
+    // if (loading && pageNumber === 1) {
+    //     return <LoadingPage />;
+    // }
 
     if (error) {
         return <p>Error: {error}</p>;
@@ -61,14 +70,15 @@ const Home = () => {
                 scrollThreshold={0.8}
             >
                 <div className="container-fluid pt-3">
-                    <div className="d-flex flex-row flex-wrap justify-content-between">
+                    <div className="d-flex flex-row flex-wrap justify-content-start">
                         {announcements?.map((car, index) => (
-                            <div className="col mb-2 ms-2 me-2" key={index}>
+                            <div key={index} className="col-lg-3 mb-3">
                                 <AnnouncementCard {...car} />
                             </div>
                         ))}
                     </div>
                 </div>
+
             </InfiniteScroll>
         </Row>
     );

@@ -5,12 +5,46 @@ import {useSelector} from "react-redux";
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../../Store/Auth/authActions';
 import Logo from "../Logo";
+import {
+    GetAllActiveAnnouncementsByUserId,
+    GetAllFilterAnnouncements, GetAnnouncements
+} from "../../../Store/Announcement/AnnouncementActions";
+import commonDataService from "../../../api-services/CommonDataService";
+import {setAnnouncements, setPageNumber,setFilterParams} from '../../../Store/Announcement/AnnouncementSlice';
+
 
 const Header = () => {
     const { user } = useSelector((state) => state.auth);
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const dispatch = useDispatch();
+    const CommonDataService= new commonDataService();
+    const [carBodyTypes, setCarBodyTypes] = useState([]);
 
+    const { pageNumber } = useSelector((state) => state.announcement);
+
+    const pageSize = 4;
+
+    useEffect(() => {
+        Promise.all([
+            CommonDataService.getAllCarBodyTypes(),
+        ])
+            .then(([
+                       carBodyTypesData,
+                   ]) => {
+                setCarBodyTypes(carBodyTypesData);
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            })
+            .finally(() => {
+                if (carBodyTypes.length === 0) {
+                    console.warn('No car models data received.');
+                }
+                else{
+                }
+            });
+
+    }, []);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
     const navigate = useNavigate();
@@ -36,6 +70,57 @@ const Header = () => {
     const handleLogout = async() => {
         await dispatch(logoutUser(user.token));
     };
+
+    const handleMotorcycleButton=async()=>{
+        const motorcycleId = carBodyTypes.find(type => type.bodyType === 'Motorcycle')?.id;
+        const filterUrl=`&bodyTypesIds=${motorcycleId}`
+
+        try {
+            dispatch(setFilterParams(filterUrl));
+            dispatch(setAnnouncements([]));
+            dispatch(setPageNumber(1));
+
+            const response= await dispatch(GetAllFilterAnnouncements(filterUrl));
+            console.log (response);
+
+        } catch (error) {
+            console.log (error);
+        }
+    }
+
+    const handleTruckButton=async()=>{
+        const TruckId = carBodyTypes.find(type => type.bodyType === 'Truck')?.id;
+        const filterUrl=`&bodyTypesIds=${TruckId}`
+
+        try {
+            dispatch(setFilterParams(filterUrl));
+            dispatch(setAnnouncements([]));
+            dispatch(setPageNumber(1));
+
+            await dispatch(GetAllFilterAnnouncements(filterUrl));
+
+        } catch (error) {
+            console.log (error);
+        }
+    }
+
+    const handleHomeButton=async()=>{
+
+        try {
+            dispatch(setFilterParams(null));
+            dispatch(setAnnouncements([]));
+            dispatch(setPageNumber(1));
+        dispatch(GetAnnouncements(pageNumber, pageSize))
+            .then((response) => {
+                console.log (response);})
+            .catch((error) => {
+                console.error('Error fetching announcements:', error);
+            });
+        } catch (error) {
+            console.log (error);
+        }
+
+    }
 
     return (
 
@@ -70,17 +155,17 @@ const Header = () => {
                     <ul className="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
 
                         <li className="nav-item d-none d-lg-block me-3">
-                            <NavLink to="/" className="nav-link" activeclassname="active">
+                            <NavLink to="/" onClick={handleHomeButton} className="nav-link" activeclassname="active">
                                 Home
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
-                            <NavLink to="#" className="nav-link" activeclassname="active">
+                            <NavLink to="/" className="nav-link" onClick={handleMotorcycleButton} activeclassname="active">
                                 Motorcycles
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
-                            <NavLink to="#" className="nav-link" activeclassname="active">
+                            <NavLink to="/" onClick={handleTruckButton} className="nav-link" activeclassname="active">
                                 Trucks
                             </NavLink>
                         </li>

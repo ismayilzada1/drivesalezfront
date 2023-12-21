@@ -4,13 +4,17 @@ import {Button, Col, Collapse, Form, Row} from "react-bootstrap";
 import DropDownSelectWithCheckboxes from "../../form/DropDownSelectWithCheckboxes";
 import useDropdownWithCheckboxes from "../../../hooks/useDropdownWithCheckboxes";
 import commonDataService from "../../../api-services/CommonDataService";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {forEach} from "react-bootstrap/ElementChildren";
+import {GetAllFilterAnnouncements, SendAnnouncement} from "../../../Store/Announcement/AnnouncementActions";
 
 
 const HomeFilter = () => {
 
     const {  user } = useSelector((state) => state.auth);
     const { announcements, loading, error } = useSelector((state) => state.announcement);
+
+    const dispatch = useDispatch();
 
     const CommonDataService= new commonDataService();
 
@@ -37,6 +41,16 @@ const HomeFilter = () => {
     const [selectedMinYear, setSelectedMinYear] = useState('');
     const [selectedMaxYear, setSelectedMaxYear] = useState('');
 
+    const [selectedMinPrice,setSelectedMinPrice]=useState('');
+    const [selectedMaxPrice,setSelectedMaxPrice]=useState('');
+    const [selectedMinMileage,setSelectedMinMileage]=useState('');
+    const [selectedMaxMileage,setSelectedMaxMileage]=useState('');
+    const [selectedCurrency,setSelectedCurrency]=useState(1);
+    const [selectedDistanceUnit,setSelectedDistanceUnit]=useState(1);
+    const [selectedMinHorsePower,setSelectedMinHorsePower]=useState('');
+    const [selectedMaxHorsePower,setSelectedMaxHorsePower]=useState('');
+    const [selectedMinEngineVolume,setSelectedMinEngineVolume]=useState('');
+    const [selectedMaxEngineVolume,setSelectedMaxEngineVolume]=useState('');
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -103,7 +117,6 @@ const HomeFilter = () => {
     }, []);
 
 
-
     const [showDetails, setShowDetails] = useState(false);
     const toggleDetails = () => setShowDetails(!showDetails);
 
@@ -115,8 +128,6 @@ const HomeFilter = () => {
 
     const [isOnCreditFilter, setIsOnCreditFilter] = useState(false);
     const handleIsOnCreditFilterToggle = () => setIsOnCreditFilter(!isOnCreditFilter);
-
-
 
 
 
@@ -171,12 +182,12 @@ const HomeFilter = () => {
         toggleDropdown: toggleDropdownFuelTypes
     } = useDropdownWithCheckboxes('7');
 
-    const {
-        selectedValues: selectedValuesSeatCount,
-        showDropdown: showDropdownSeatCount,
-        handleCheckboxChange: handleCheckboxChangeSeatCount,
-        toggleDropdown: toggleDropdownSeatCount
-    } = useDropdownWithCheckboxes('8');
+    // const {
+    //     selectedValues: selectedValuesSeatCount,
+    //     showDropdown: showDropdownSeatCount,
+    //     handleCheckboxChange: handleCheckboxChangeSeatCount,
+    //     toggleDropdown: toggleDropdownSeatCount
+    // } = useDropdownWithCheckboxes('8');
 
 
     const {
@@ -186,18 +197,17 @@ const HomeFilter = () => {
         toggleDropdown: toggleDropdownMarketVersion
     } = useDropdownWithCheckboxes('9');
 
-    const {
-        selectedValues: selectedValuesOwnerQuantity,
-        showDropdown: showDropdownOwnerQuantity,
-        handleCheckboxChange: handleCheckboxChangeOwnerQuantity,
-        toggleDropdown: toggleDropdownOwnerQuantity
-    } = useDropdownWithCheckboxes('10');
+    // const {
+    //     selectedValues: selectedValuesOwnerQuantity,
+    //     showDropdown: showDropdownOwnerQuantity,
+    //     handleCheckboxChange: handleCheckboxChangeOwnerQuantity,
+    //     toggleDropdown: toggleDropdownOwnerQuantity
+    // } = useDropdownWithCheckboxes('10');
 
 
 
     useEffect(() => {
         selectedValuesModels.length=0;
-        console.log (announcements);
     }, [selectedBrand]);
 
     useEffect(() => {
@@ -208,31 +218,47 @@ const HomeFilter = () => {
 
 
 
+
+
+
     const optionsUsedNew = [
         { id: 1, name: 'All' },
         { id: 2, name: 'Used' },
         { id: 3, name: 'New' },
-
     ];
 
 
-    const optionsOwnerQuantity = [
-        { id: 1, name: '1' },
-        { id: 2, name: '2' },
-        { id: 3, name: '3' },
-        { id: 4, name: '4 or more' },
+
+
+    // const optionsOwnerQuantity = [
+    //     { id: 1, name: '1' },
+    //     { id: 2, name: '2' },
+    //     { id: 3, name: '3' },
+    //     { id: 4, name: '4 or more' },
+    // ];
+
+    const optionsCurrency = [
+        { id: 1, name: 'AZN' },
+        { id: 2, name: 'USD' },
+        { id: 3, name: 'EUR' },
     ];
 
-    const optionsSeatCount = [
-        { id: 1, name: '1' },
-        { id: 2, name: '2' },
-        { id: 3, name: '3' },
-        { id: 4, name: '4' },
-        { id: 5, name: '5' },
-        { id: 6, name: '6' },
-        { id: 7, name: '7' },
-        { id: 8, name: '8+' },
+    const optionsDistanceUnit = [
+        { id: 1, name: 'KM' },
+        { id: 2, name: 'MI' },
     ];
+
+
+    // const optionsSeatCount = [
+    //     { id: 1, name: '1' },
+    //     { id: 2, name: '2' },
+    //     { id: 3, name: '3' },
+    //     { id: 4, name: '4' },
+    //     { id: 5, name: '5' },
+    //     { id: 6, name: '6' },
+    //     { id: 7, name: '7' },
+    //     { id: 8, name: '8+' },
+    // ];
 
 
 
@@ -248,8 +274,6 @@ const HomeFilter = () => {
 
 
     const clearForm = () => {
-        console.log(user);
-        console.log(selectedBrand);
         setSelectedBrand('');
         setSelectedCountry('');
         setSelectedMaxYear('');
@@ -263,31 +287,139 @@ const HomeFilter = () => {
         selectedValuesFuelTypes.length=0;
         selectedValuesModels.length=0;
         selectedValuesCities.length=0;
-        selectedValuesOwnerQuantity.length=0;
-        selectedValuesSeatCount.length=0;
+        // selectedValuesOwnerQuantity.length=0;
+        // selectedValuesSeatCount.length=0;
         selectedValuesGearboxTypes.length=0;
-
-
 
         setShowDetails(false);
     };
 
+    const buildApiUrl = (data) => {
+        const queryParams = Object.entries(data)
+            .map(([key, value]) => {
+                if(value===''){return null;}
 
-    const search = (e) => {
+                if (Array.isArray(value)) {
+                    return value.map(item => `${key}=${item}`).join('&');
+                } else if (typeof value === 'object') {
+                    return `${key}=${value.id}`;
+                } else {
+                    return `${key}=${value}`;
+                }
+            })
+            .filter(Boolean)
+            .join('&');
+        return queryParams;
+    };
+
+
+    const handleMinPriceChange = (e) => {
+        setSelectedMinPrice(e.target.value);
+    };
+
+    const handleCurrencyChange = (e) => {
+        setSelectedCurrency(e.target.value);
+    };
+
+    const handleDistanceUnit = (e) => {
+        setSelectedDistanceUnit(e.target.value);
+    };
+
+
+    const handleMaxPriceChange = (e) => {
+        setSelectedMaxPrice(e.target.value);
+    };
+
+    const handleMinMileage = (e) => {
+        setSelectedMinMileage(e.target.value);
+    };
+
+    const handleMaxMileage = (e) => {
+        setSelectedMaxMileage(e.target.value);
+    };
+
+
+    const handleMinHorsePower = (e) => {
+        setSelectedMinHorsePower(e.target.value);
+    };
+
+    const handleMaxHorsePower = (e) => {
+        setSelectedMaxHorsePower(e.target.value);
+    };
+
+
+    const handleMinEngineVolume = (e) => {
+        setSelectedMinEngineVolume(e.target.value);
+    };
+
+    const handleMaxEngineVolume = (e) => {
+        setSelectedMaxEngineVolume(e.target.value);
+    };
+
+
+    const search = async (e) => {
         e.preventDefault();
-        const data={
-            selectedBrand,
-            selectedValuesModels,
-            selectedValuesColors
+
+        try {
+            const apiUrl = buildApiUrl({
+                MakeId:selectedBrand,
+                ModelsIds:selectedValuesModels,
+                GearboxTypesIds:selectedValuesGearboxTypes,
+                BodyTypesIds:selectedValuesBodyTypes,
+                FuelTypesIds:selectedValuesFuelTypes,
+                ColorsIds:selectedValuesColors,
+                FromYearId:selectedMinYear,
+                ToYearId:selectedMaxYear,
+                MarketVersionsIds:selectedValuesMarketVersion,
+                DriveTrainTypesIds:selectedValuesDriveTrainType,
+                CountryId:selectedCountry,
+                CitiesIds:selectedValuesCities,
+                FromPrice:selectedMinPrice,
+                ToPrice:selectedMaxPrice,
+                FromMileage:selectedMinMileage,
+                ToMileage:selectedMaxMileage,
+                CurrencyId:selectedCurrency,
+                MileageType:selectedDistanceUnit,
+                FromHorsePower:selectedMinHorsePower,
+                ToHorsePower:selectedMaxHorsePower,
+                FromEngineVolume:selectedMinEngineVolume,
+                ToEngineVolume:selectedMaxEngineVolume,
+            });
+
+            console.log (apiUrl);
+
+            try {
+                const response= await dispatch(GetAllFilterAnnouncements(apiUrl));
+                console.log (response);
+
+            } catch (error) {
+                console.log (error);
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
         }
-        console.log(data);
+
     };
 
     const handleBrandChange = (event, selectedValue) => setSelectedBrand(selectedValue);
-    const handleUsedNewChange = (event, selectedValue) => setSelectedUsedNew(selectedValue);
-    const handleCountryChange = (event, selectedValue) => setSelectedCountry(selectedValue);
-    const handleMinYearChange = (event, selectedValue) => setSelectedMinYear(selectedValue);
-    const handleMaxYearChange = (event, selectedValue) => setSelectedMaxYear(selectedValue);
+    const handleUsedNewChange = (event, selectedValue) => {
+        setSelectedUsedNew(selectedValue)
+    };
+    const handleCountryChange = (event, selectedValue) => {
+        setSelectedCountry(selectedValue);
+
+    }
+
+    const handleMinYearChange = (event, selectedValue) => {
+        setSelectedMinYear(selectedValue);
+
+    }
+
+    const handleMaxYearChange = (event, selectedValue) => {
+        setSelectedMaxYear(selectedValue);
+
+    }
 
 
     const CustomDropdown = ({ options, onChange, value, mainLabel, dataProperty, id }) => (
@@ -398,7 +530,7 @@ const HomeFilter = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formBodyType">
-                                    <Form.Label>Gearbox Type: </Form.Label>
+                                    <Form.Label>Fuel Type: </Form.Label>
                                     <DropDownSelectWithCheckboxes
                                         options={carFuelTypes}
                                         selectedValues={selectedValuesFuelTypes}
@@ -414,12 +546,14 @@ const HomeFilter = () => {
                                 <Form.Group controlId="formPrice">
                                     <Form.Label>Price:</Form.Label>
                                     <div className="input-group input-group-rounded">
-                                        <input type="number" className="form-control " placeholder="Min" min='0' aria-label="Minimum Price" />
-                                        <input type="number" className="form-control " placeholder="Max" min='0' aria-label="Maximum Price" />
-                                        <Form.Control as="select" className='form-control short-input'>
-                                            <option>AZN</option>
-                                            <option>USD</option>
-                                            <option>EUR</option>
+                                        <input type="number" value={selectedMinPrice} onChange={handleMinPriceChange} className="form-control " placeholder="Min" min='0' aria-label="Minimum Price" />
+                                        <input type="number"  value={selectedMaxPrice} onChange={handleMaxPriceChange} className="form-control " placeholder="Max" min='0' aria-label="Maximum Price" />
+                                        <Form.Control as="select" value={selectedCurrency} onChange={handleCurrencyChange} className='form-control short-input'>
+                                            {optionsCurrency.map((currency) => (
+                                                <option key={currency.id} value={currency.id}>
+                                                    {currency.name}
+                                                </option>
+                                            ))}
                                         </Form.Control>
                                     </div>
                                 </Form.Group>
@@ -429,11 +563,14 @@ const HomeFilter = () => {
                                 <Form.Group controlId="formMileage">
                                     <Form.Label>Mileage:</Form.Label>
                                     <div className="input-group input-group-rounded">
-                                        <input type="number" className="form-control " placeholder="Min" min='0' aria-label="Minimum Mileage" />
-                                        <input type="number" className="form-control " placeholder="Max" min='0' aria-label="Maximum Mileage" />
-                                        <Form.Control as="select" className='form-control short-input'>
-                                            <option>KM</option>
-                                            <option>MI</option>
+                                        <input type="number" value={selectedMinMileage} onChange={handleMinMileage} className="form-control " placeholder="Min" min='0' aria-label="Minimum Mileage" />
+                                        <input type="number" value={selectedMaxMileage} onChange={handleMaxMileage} className="form-control " placeholder="Max" min='0' aria-label="Maximum Mileage" />
+                                        <Form.Control as="select" value={selectedDistanceUnit} onChange={handleDistanceUnit} className='form-control short-input'>
+                                            {optionsDistanceUnit.map((distanceUnit) => (
+                                                <option key={distanceUnit.id} value={distanceUnit.id}>
+                                                    {distanceUnit.name}
+                                                </option>
+                                            ))}
                                         </Form.Control>
                                     </div>
                                 </Form.Group>
@@ -505,19 +642,19 @@ const HomeFilter = () => {
                             <Collapse in={showDetails} className='mt-2 pe-0'>
                                 <Row>
 
-                                    <Col lg={3} md={4} sm={6} xs={12}>
-                                        <Form.Group controlId="formOwnerQuantity">
-                                            <Form.Label>Owner Quantity: </Form.Label>
-                                            <DropDownSelectWithCheckboxes
-                                                options={optionsOwnerQuantity}
-                                                selectedValues={selectedValuesOwnerQuantity}
-                                                toggleDropdown={toggleDropdownOwnerQuantity}
-                                                handleCheckboxChange={handleCheckboxChangeOwnerQuantity}
-                                                showDropdown={showDropdownOwnerQuantity}
-                                                valueName={'name'}
-                                            />
-                                        </Form.Group>
-                                    </Col>
+                                    {/*<Col lg={3} md={4} sm={6} xs={12}>*/}
+                                    {/*    <Form.Group controlId="formOwnerQuantity">*/}
+                                    {/*        <Form.Label>Owner Quantity: </Form.Label>*/}
+                                    {/*        <DropDownSelectWithCheckboxes*/}
+                                    {/*            options={optionsOwnerQuantity}*/}
+                                    {/*            selectedValues={selectedValuesOwnerQuantity}*/}
+                                    {/*            toggleDropdown={toggleDropdownOwnerQuantity}*/}
+                                    {/*            handleCheckboxChange={handleCheckboxChangeOwnerQuantity}*/}
+                                    {/*            showDropdown={showDropdownOwnerQuantity}*/}
+                                    {/*            valueName={'name'}*/}
+                                    {/*        />*/}
+                                    {/*    </Form.Group>*/}
+                                    {/*</Col>*/}
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formWheelDrive">
@@ -559,19 +696,19 @@ const HomeFilter = () => {
                                         </Form.Group>
                                     </Col>
 
-                                    <Col lg={3} md={4} sm={6} xs={12}>
-                                        <Form.Group controlId="formSeatCount">
-                                            <Form.Label>Seat Count:</Form.Label>
-                                            <DropDownSelectWithCheckboxes
-                                                options={optionsSeatCount}
-                                                selectedValues={selectedValuesSeatCount}
-                                                toggleDropdown={toggleDropdownSeatCount}
-                                                handleCheckboxChange={handleCheckboxChangeSeatCount}
-                                                showDropdown={showDropdownSeatCount}
-                                                valueName="name"
-                                            />
-                                        </Form.Group>
-                                    </Col>
+                                    {/*<Col lg={3} md={4} sm={6} xs={12}>*/}
+                                    {/*    <Form.Group controlId="formSeatCount">*/}
+                                    {/*        <Form.Label>Seat Count:</Form.Label>*/}
+                                    {/*        <DropDownSelectWithCheckboxes*/}
+                                    {/*            options={optionsSeatCount}*/}
+                                    {/*            selectedValues={selectedValuesSeatCount}*/}
+                                    {/*            toggleDropdown={toggleDropdownSeatCount}*/}
+                                    {/*            handleCheckboxChange={handleCheckboxChangeSeatCount}*/}
+                                    {/*            showDropdown={showDropdownSeatCount}*/}
+                                    {/*            valueName="name"*/}
+                                    {/*        />*/}
+                                    {/*    </Form.Group>*/}
+                                    {/*</Col>*/}
 
 
 
@@ -580,8 +717,8 @@ const HomeFilter = () => {
                                         <Form.Group controlId="formPrice">
                                             <Form.Label>Horse Power:</Form.Label>
                                             <div className="input-group input-group-rounded">
-                                                <input type="number" className="form-control " placeholder="Min" min='0' aria-label="Minimum" />
-                                                <input type="number" className="form-control " placeholder="Max" min='0' aria-label="Maximum" />
+                                                <input type="number"  value={selectedMinHorsePower} onChange={handleMinHorsePower} className="form-control " placeholder="Min" min='0' aria-label="Minimum" />
+                                                <input type="number"  value={selectedMaxHorsePower} onChange={handleMaxHorsePower} className="form-control " placeholder="Max" min='0' aria-label="Maximum" />
                                             </div>
                                         </Form.Group>
                                     </Col>
@@ -591,8 +728,8 @@ const HomeFilter = () => {
                                         <Form.Group controlId="formEngineVolume">
                                             <Form.Label>Engine Volume:</Form.Label>
                                             <div className="input-group input-group-rounded">
-                                                <input type="number" className="form-control " placeholder="Min" min='0' aria-label="Minimum" />
-                                                <input type="number" className="form-control " placeholder="Max" min='0' aria-label="Maximum" />
+                                                <input type="number"   value={selectedMinEngineVolume} onChange={handleMinEngineVolume} className="form-control " placeholder="Min" min='0' aria-label="Minimum" />
+                                                <input type="number" value={selectedMaxEngineVolume} onChange={handleMaxEngineVolume} className="form-control " placeholder="Max" min='0' aria-label="Maximum" />
                                             </div>
                                         </Form.Group>
                                     </Col>

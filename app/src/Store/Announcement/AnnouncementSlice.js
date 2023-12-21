@@ -63,6 +63,7 @@ const announcementSlice = createSlice({
         getAnnouncementsSuccess(state, action) {
             const newAnnouncements = action.payload;
 
+
             state.announcements = [
                 ...state.announcements,
                 ...newAnnouncements.filter(
@@ -109,8 +110,11 @@ const announcementSlice = createSlice({
         setAnnouncementFailure(state,action){
             state.loading=false;
             state.error=action.payload;
-        }
+        },
 
+        setFilterParams(state,action){
+            state.filterParams = action.payload;
+        },
 
     },
 });
@@ -126,7 +130,8 @@ export const {
     setAnnouncements,
     setAnnouncementStart,
     setAnnouncementSuccess,
-    setAnnouncementFailure
+    setAnnouncementFailure,
+    setFilterParams
 } = announcementSlice.actions;
 
 export default announcementSlice.reducer;
