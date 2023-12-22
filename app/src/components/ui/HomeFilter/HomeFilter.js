@@ -7,9 +7,11 @@ import commonDataService from "../../../api-services/CommonDataService";
 import {useDispatch, useSelector} from "react-redux";
 import {forEach} from "react-bootstrap/ElementChildren";
 import {GetAllFilterAnnouncements, SendAnnouncement} from "../../../Store/Announcement/AnnouncementActions";
-
+import {useTranslation} from "react-i18next";
 
 const HomeFilter = () => {
+
+    const{t}=useTranslation();
 
     const {  user } = useSelector((state) => state.auth);
     const { announcements, loading, error } = useSelector((state) => state.announcement);
@@ -433,7 +435,7 @@ const HomeFilter = () => {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                 >
-                    {value && value.name ? value.name : `Choose ${mainLabel}`}
+                    {value && value.name ? value.name : `${t('choose')} ${mainLabel}`}
                 </button>
                 <ul className="dropdown-menu" aria-labelledby={`dropdownMenuButton${id}`}>
                     {options.map((option, index) => (
@@ -461,7 +463,7 @@ const HomeFilter = () => {
                         <Row>
                             <Col lg={3}  md={4} sm={6} xs={12}>
                                 <CustomDropdown
-                                    mainLabel="Make"
+                                    mainLabel={t('mainLabelMake')}
                                     dataProperty="makeName"
                                     id="makeId"
                                     options={carBrands}
@@ -472,7 +474,7 @@ const HomeFilter = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formModel">
-                                    <Form.Label>Vehicle Model:</Form.Label>
+                                    <Form.Label>{t('labelVehicleModel')}</Form.Label>
                                     <DropDownSelectWithCheckboxes
                                         options={filteredVehicleModels}
                                         selectedValues={selectedValuesModels}
@@ -486,7 +488,7 @@ const HomeFilter = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formGearboxType">
-                                    <Form.Label>Gearbox Type: </Form.Label>
+                                    <Form.Label>{t('labelGearboxType')}</Form.Label>
                                     <DropDownSelectWithCheckboxes
                                         options={carGearboxTypes}
                                         selectedValues={selectedValuesGearboxTypes}
@@ -502,7 +504,7 @@ const HomeFilter = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formBodyType">
-                                    <Form.Label>Vehicle Body Type: </Form.Label>
+                                    <Form.Label>{t('labelBodyType')}</Form.Label>
                                     <DropDownSelectWithCheckboxes
                                         options={carBodyTypes}
                                         selectedValues={selectedValuesBodyTypes}
@@ -518,7 +520,7 @@ const HomeFilter = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <CustomDropdown
-                                    mainLabel="Used/New: "
+                                    mainLabel={t('mainLabelUsedNew')}
                                     dataProperty="name"
                                     id="usedNewId"
                                     options={optionsUsedNew}
@@ -530,7 +532,7 @@ const HomeFilter = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formBodyType">
-                                    <Form.Label>Fuel Type: </Form.Label>
+                                    <Form.Label>{t('labelFuelType')}</Form.Label>
                                     <DropDownSelectWithCheckboxes
                                         options={carFuelTypes}
                                         selectedValues={selectedValuesFuelTypes}
@@ -544,7 +546,7 @@ const HomeFilter = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formPrice">
-                                    <Form.Label>Price:</Form.Label>
+                                    <Form.Label>{t('labelPrice')}</Form.Label>
                                     <div className="input-group input-group-rounded">
                                         <input type="number" value={selectedMinPrice} onChange={handleMinPriceChange} className="form-control " placeholder="Min" min='0' aria-label="Minimum Price" />
                                         <input type="number"  value={selectedMaxPrice} onChange={handleMaxPriceChange} className="form-control " placeholder="Max" min='0' aria-label="Maximum Price" />
@@ -561,7 +563,7 @@ const HomeFilter = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formMileage">
-                                    <Form.Label>Mileage:</Form.Label>
+                                    <Form.Label>{t('labelMileage')}</Form.Label>
                                     <div className="input-group input-group-rounded">
                                         <input type="number" value={selectedMinMileage} onChange={handleMinMileage} className="form-control " placeholder="Min" min='0' aria-label="Minimum Mileage" />
                                         <input type="number" value={selectedMaxMileage} onChange={handleMaxMileage} className="form-control " placeholder="Max" min='0' aria-label="Maximum Mileage" />
@@ -584,7 +586,7 @@ const HomeFilter = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formSeats">
-                                    <Form.Label>Vehicle Color: </Form.Label>
+                                    <Form.Label>{t('labelVehicleColor')}</Form.Label>
                                     <DropDownSelectWithCheckboxes
                                         options={carColors}
                                         selectedValues={selectedValuesColors}
@@ -599,7 +601,7 @@ const HomeFilter = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <CustomDropdown
-                                    mainLabel="Min Year: "
+                                    mainLabel={t('mainLabelMinYear')}
                                     dataProperty="year"
                                     id="manufactureYearId"
                                     options={ManufactureYears}
@@ -610,7 +612,7 @@ const HomeFilter = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <CustomDropdown
-                                    mainLabel="Max Year: "
+                                    mainLabel={t('mainLabelMaxYear')}
                                     dataProperty="year"
                                     id="manufactureYearId"
                                     options={ManufactureYears}
@@ -624,7 +626,7 @@ const HomeFilter = () => {
 
                             <Col lg={3} md={4} sm={6} xs={12}>
                                 <Form.Group controlId="formBodyType">
-                                    <Form.Label>Market Version:</Form.Label>
+                                    <Form.Label>{t('labelMarketVersion')}</Form.Label>
                                     <DropDownSelectWithCheckboxes
                                         options={carMarketVersions}
                                         selectedValues={selectedValuesMarketVersion}
@@ -658,7 +660,7 @@ const HomeFilter = () => {
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formWheelDrive">
-                                            <Form.Label>Wheel Drive:</Form.Label>
+                                            <Form.Label>{t('labelWheelDrive')}</Form.Label>
                                             <DropDownSelectWithCheckboxes
                                                 options={carDriveTrainTypes}
                                                 selectedValues={selectedValuesDriveTrainType}
@@ -673,7 +675,7 @@ const HomeFilter = () => {
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <CustomDropdown
-                                            mainLabel="Country: "
+                                            mainLabel={t('mainLabelCountry')}
                                             dataProperty="countryName"
                                             id="countryId"
                                             options={Countries}
@@ -684,7 +686,7 @@ const HomeFilter = () => {
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formCity">
-                                            <Form.Label>City: </Form.Label>
+                                            <Form.Label>{t('labelCity')}</Form.Label>
                                             <DropDownSelectWithCheckboxes
                                                 options={filteredCities}
                                                 selectedValues={selectedValuesCities}
@@ -715,7 +717,7 @@ const HomeFilter = () => {
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formPrice">
-                                            <Form.Label>Horse Power:</Form.Label>
+                                            <Form.Label>{t('labelHorsePower')}</Form.Label>
                                             <div className="input-group input-group-rounded">
                                                 <input type="number"  value={selectedMinHorsePower} onChange={handleMinHorsePower} className="form-control " placeholder="Min" min='0' aria-label="Minimum" />
                                                 <input type="number"  value={selectedMaxHorsePower} onChange={handleMaxHorsePower} className="form-control " placeholder="Max" min='0' aria-label="Maximum" />
@@ -726,7 +728,7 @@ const HomeFilter = () => {
 
                                     <Col lg={3} md={4} sm={6} xs={12}>
                                         <Form.Group controlId="formEngineVolume">
-                                            <Form.Label>Engine Volume:</Form.Label>
+                                            <Form.Label>{t('labelEngineVolume')}</Form.Label>
                                             <div className="input-group input-group-rounded">
                                                 <input type="number"   value={selectedMinEngineVolume} onChange={handleMinEngineVolume} className="form-control " placeholder="Min" min='0' aria-label="Minimum" />
                                                 <input type="number" value={selectedMaxEngineVolume} onChange={handleMaxEngineVolume} className="form-control " placeholder="Max" min='0' aria-label="Maximum" />
@@ -744,7 +746,7 @@ const HomeFilter = () => {
                                             }}
                                             onClick={handleIsBarterFilterToggle}
                                         >
-                                            Barter
+                                            {t('labelBarter')}
                                         </Button>
 
                                         <Button
@@ -755,7 +757,7 @@ const HomeFilter = () => {
                                             }}
                                             onClick={handleIsOnCreditFilterToggle}
                                         >
-                                            OnCredit
+                                            {t('labelOnCredit')}
                                         </Button>
                                     </Col>
 

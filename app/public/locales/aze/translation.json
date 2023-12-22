@@ -1,0 +1,33 @@
+{
+  "home": "Ana səhifə",
+  "motorcycles": "Motosikletler",
+  "trucks": "Yük Maşınları",
+  "boats": "Qayıqlar",
+  "sign_up": "Qeydiyyat",
+  "aircrafts": "Təyyarələr",
+
+  "privacy_policy": "Gizlilik Siyasəti",
+  "terms_of_use": "İstifadə Şərtləri",
+  "made_by": "DriveSalezTM tərəfindən hazırlanmışdır",
+
+  "choose": "Seçin",
+  "mainLabelMake": "Marka: ",
+  "labelVehicleModel": "Nəqliyyat vasitəsinin modeli:",
+  "labelGearboxType": "Sürət qutusunun növü: ",
+  "labelBodyType": "Nəqliyyat vasitəsinin gövdə növü: ",
+  "mainLabelUsedNew": "İstifadə olunmuş/Yeni: ",
+  "labelFuelType": "Yanacaq növü: ",
+  "labelPrice": "Qiymət:",
+  "labelMileage": "Yol uzunluğu:",
+  "labelVehicleColor": "Nəqliyyat vasitəsinin rəngi: ",
+  "mainLabelMinYear": "Min il: ",
+  "mainLabelMaxYear": "Max il: ",
+  "labelMarketVersion": "Bazar versiyası:",
+  "labelWheelDrive": "Tərəqqi sürüş: ",
+  "mainLabelCountry": "Ölkə: ",
+  "labelCity": "Şəhər: ",
+  "labelHorsePower": "At gücü:",
+  "labelEngineVolume": "Mühərrik Hacmi",
+  "labelBarter": "Barter",
+  "labelOnCredit": "Kreditdə"
+}

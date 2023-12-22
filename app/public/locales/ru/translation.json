@@ -1,0 +1,34 @@
+{
+  "home": "Главная страница",
+  "motorcycles": "Мотоциклы",
+  "trucks": "Грузовики",
+  "boats": "Лодки",
+  "sign_up": "Регистрация",
+  "aircrafts": "Самолеты",
+
+  "privacy_policy": "Политика конфиденциальности",
+  "terms_of_use": "Условия использования",
+  "made_by": "Сделано DriveSalezTM",
+
+  "choose": "Выбрать",
+  "mainLabelMake": "Марка: ",
+  "labelVehicleModel": "Модель транспортного средства:",
+  "labelGearboxType": "Тип коробки передач: ",
+  "labelBodyType": "Тип кузова транспортного средства: ",
+  "mainLabelUsedNew": "Б/У/Новый: ",
+  "labelFuelType": "Тип топлива: ",
+  "labelPrice": "Цена:",
+  "labelMileage": "Пробег:",
+  "labelVehicleColor": "Цвет транспортного средства: ",
+  "mainLabelMinYear": "Мин. год выпуска: ",
+  "mainLabelMaxYear": "Макс. год выпуска: ",
+  "labelMarketVersion": "Рыночная версия:",
+  "labelWheelDrive": "Тип привода: ",
+  "mainLabelCountry": "Страна: ",
+  "labelCity": "Город: ",
+  "labelHorsePower": "Лошадиные силы:",
+  "labelEngineVolume": "Объем двигателя",
+  "labelBarter": "Бартер",
+  "labelOnCredit": "В кредит"
+
+}

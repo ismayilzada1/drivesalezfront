@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, startTransition} from 'react';
 import {NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
 import {useSelector} from "react-redux";
@@ -11,9 +11,16 @@ import {
 } from "../../../Store/Announcement/AnnouncementActions";
 import commonDataService from "../../../api-services/CommonDataService";
 import {setAnnouncements, setPageNumber,setFilterParams} from '../../../Store/Announcement/AnnouncementSlice';
-
+import '../../../i18n'
+import {useTransition} from "react";
+import {useTranslation} from "react-i18next";
 
 const Header = () => {
+
+
+
+
+
     const { user } = useSelector((state) => state.auth);
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
     const dispatch = useDispatch();
@@ -44,10 +51,14 @@ const Header = () => {
                 }
             });
 
+
     }, []);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
     const navigate = useNavigate();
+
+    const{t,i18n}=useTranslation();
+
 
     useEffect(() => {
         const handleResize = () => {
@@ -63,9 +74,12 @@ const Header = () => {
 
     const handleAddVehicleButton=()=>navigate('/new-announcement');
 
-
     const handleSignUpButton=()=>navigate('/register');
 
+
+    const handleLanguageChange=async(lang)=>{
+            await i18n.changeLanguage(lang);
+    }
 
     const handleLogout = async() => {
         await dispatch(logoutUser(user.token));
@@ -156,27 +170,27 @@ const Header = () => {
 
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/" onClick={handleHomeButton} className="nav-link" activeclassname="active">
-                                Home
+                                {t('home')}
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/" className="nav-link" onClick={handleMotorcycleButton} activeclassname="active">
-                                Motorcycles
+                                {t('motorcycles')}
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/" onClick={handleTruckButton} className="nav-link" activeclassname="active">
-                                Trucks
+                                {t('trucks')}
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/coming-soon" className="nav-link" activeclassname="active">
-                                Boats
+                                {t('boats')}
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/coming-soon" className="nav-link" activeclassname="active">
-                                Aircrafts
+                                {t('aircrafts')}
                             </NavLink>
                         </li>
 
@@ -189,10 +203,10 @@ const Header = () => {
                                 <div className="card shadow-none m-0 border-0">
                                     <div className=" p-0 ">
                                         <ul className="list-group list-group-flush p-0">
-                                            <li className="iq-sub-card list-group-item"><a className="p-0" href="#"><img src="../assets/images/flag/flag-usa.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>English</a></li>
-                                            <li className="iq-sub-card list-group-item"><a className="p-0" href="#"><img src="../assets/images/flag/flag-aze.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>Azerbaijani</a></li>
-                                            <li className="iq-sub-card list-group-item"><a className="p-0" href="#"><img src="../assets/images/flag/flag-ru.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>Russian</a></li>
-                                            <li className="iq-sub-card list-group-item"><a className="p-0" href="#"><img src="../assets/images/flag/flag-tr.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>Turkish</a></li>
+                                            <li className="iq-sub-card list-group-item" onClick={() => handleLanguageChange('en')}><a className="p-0"   href="#"><img src="../assets/images/flag/flag-usa.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>English</a></li>
+                                            <li className="iq-sub-card list-group-item" onClick={() => handleLanguageChange('aze')}><a className="p-0"   href="#"><img src="../assets/images/flag/flag-aze.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>Azerbaijani</a></li>
+                                            <li className="iq-sub-card list-group-item" onClick={() => handleLanguageChange('ru')}><a className="p-0"   href="#"><img src="../assets/images/flag/flag-ru.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>Russian</a></li>
+                                            <li className="iq-sub-card list-group-item" onClick={() => handleLanguageChange('tr')}><a className="p-0"   href="#"><img src="../assets/images/flag/flag-tr.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>Turkish</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -350,7 +364,7 @@ const Header = () => {
                             (
                                 <li className='nav-item ms-2'>
                                     <button onClick={handleSignUpButton}  className='btn btn-plus btn-square d-flex justify-content-center align-items-center' style={{ backgroundColor: '#f54114', color: '#ffffff',border:'none' }}>
-                                        {isMobile ? <i className="fas fa-user"></i> : <><i className="fas fa-user me-2"></i>Sign up</>}
+                                        {isMobile ? <i className="fas fa-user"></i> : <><i className="fas fa-user me-2"></i>{t('sign_up')}</>}
                                     </button>
                                 </li>
                             )}

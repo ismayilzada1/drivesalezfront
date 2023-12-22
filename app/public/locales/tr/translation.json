@@ -1,0 +1,35 @@
+{
+  "home": "Ana Sayfa",
+  "motorcycles": "Motosikletler",
+  "trucks": "Kamyonlar",
+  "boats": "Tekneler",
+  "sign_up": "Üye Ol",
+  "aircrafts": "Hava Araçları",
+
+
+  "privacy_policy": "Gizlilik Politikası",
+  "terms_of_use": "Kullanım Koşulları",
+  "made_by": "DriveSalezTM tarafından yapılmıştır",
+
+  "choose": "Seç",
+  "mainLabelMake": "Marka: ",
+  "labelVehicleModel": "Araç Modeli:",
+  "labelGearboxType": "Şanzıman Tipi: ",
+  "labelBodyType": "Araç Gövde Tipi: ",
+  "mainLabelUsedNew": "Kullanılmış/Yeni: ",
+  "labelFuelType": "Yakıt Tipi: ",
+  "labelPrice": "Fiyat:",
+  "labelMileage": "Kilometre:",
+  "labelVehicleColor": "Araç Rengi: ",
+  "mainLabelMinYear": "Min Yıl: ",
+  "mainLabelMaxYear": "Max Yıl: ",
+  "labelMarketVersion": "Piyasa Versiyonu:",
+  "labelWheelDrive": "Çekiş Tipi: ",
+  "mainLabelCountry": "Ülke: ",
+  "labelCity": "Şehir: ",
+  "labelHorsePower": "Beygir Gücü:",
+  "labelEngineVolume": "Motor Hacmi",
+  "labelBarter": "Takas",
+  "labelOnCredit": "Krediyle"
+
+}

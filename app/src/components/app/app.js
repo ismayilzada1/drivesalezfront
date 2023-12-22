@@ -22,10 +22,11 @@ import ChangePassword from "../../pages/Auth/ChangePassword"
 import UpdateAccount from "../../pages/UpdateAccount";
 import AnnouncementDetailsUserProfile from "../../pages/announcementDetailsUserProfile";
 import AnnouncementDetails from "../../pages/announcementDetails";
+
+
 function App() {
 
     const dispatch = useDispatch();
-
     useEffect(() => {
         const logoutAfterTimeout = () => {
             dispatch(logoutUser());
