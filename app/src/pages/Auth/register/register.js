@@ -210,7 +210,7 @@ function Register() {
                                             <div className="new-account mt-3 text-center">
                                                 <p className="mb-0">
                                                     Already have an Account{' '}
-                                                    <a className="text-primary" href="/login">
+                                                    <a className="text-primary" href="/auth/login">
                                                         Sign in
                                                     </a>
                                                 </p>
@@ -392,7 +392,7 @@ function Register() {
                             <div className="new-account mt-3 text-center">
                                 <p className="mb-0">
                                     Already have an Account{' '}
-                                    <a className="text-primary" href="/login">
+                                    <a className="text-primary" href="/auth/login">
                                         Sign in
                                     </a>
                                 </p>

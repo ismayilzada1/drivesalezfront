@@ -74,7 +74,7 @@ const Header = () => {
 
     const handleAddVehicleButton=()=>navigate('/new-announcement');
 
-    const handleSignUpButton=()=>navigate('/register');
+    const handleSignUpButton=()=>navigate('/auth/register');
 
 
     const handleLanguageChange=async(lang)=>{

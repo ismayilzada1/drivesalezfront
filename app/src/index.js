@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import store from './Store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+import LoadingPage from "./components/ui/LoadingPage";
 let persistor = persistStore(store);
 
 const queryClient = new QueryClient();
@@ -24,7 +25,7 @@ root.render(
             <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
                     <BrowserRouter>
-                        <Suspense fallback="...loading">
+                        <Suspense fallback={<LoadingPage/>}>
                         <App />
                         </Suspense>
                     </BrowserRouter>

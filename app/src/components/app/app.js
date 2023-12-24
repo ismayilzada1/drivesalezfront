@@ -22,62 +22,50 @@ import ChangePassword from "../../pages/Auth/ChangePassword"
 import UpdateAccount from "../../pages/UpdateAccount";
 import AnnouncementDetailsUserProfile from "../../pages/announcementDetailsUserProfile";
 import AnnouncementDetails from "../../pages/announcementDetails";
+import PrivateRoute from "../PrivateRoute";
+import AuthLayout from "../../pages/Auth/AuthLayout";
+import HomeLayout from "../../pages/HomeLayout"
 
+
+import {useRoutes} from 'react-router-dom'
+import routes from '../../routes'
 
 function App() {
 
-    const dispatch = useDispatch();
-    useEffect(() => {
-        const logoutAfterTimeout = () => {
-            dispatch(logoutUser());
-        };
-        const timeoutId = setTimeout(logoutAfterTimeout, 14 * 60 * 60 * 1000);
-        return () => {
-            clearTimeout(timeoutId);
-        };
-    }, [dispatch]);
+    // return useRoutes(routes);
 
+    return (
+        <div className="app-container">
+            <Routes>
+                <Route path={'/'} element={<HomeLayout/>}>
+                    <Route index={true} element={<Home />} />
+                    <Route path="privacy-policy" element={<PrivacyPolicy />} />
+                    <Route path="terms-of-use" element={<TermsOfUse  />} />
+                    <Route path="coming-soon" element={<ComingSoon  />} />
+                    <Route path="AnnouncementDetails/:id" element={<AnnouncementDetails/>}/>
+                    <Route path={'profile'} element={<PrivateRoute><Profile/></PrivateRoute>}></Route>
+                    <Route path={'updateAccount'} element={<PrivateRoute> <UpdateAccount/> </PrivateRoute>}/>
+                    <Route path={'AnnouncementDetailsUserProfile/:id'} element={<PrivateRoute><AnnouncementDetailsUserProfile/></PrivateRoute>}></Route>
+                    <Route path="new-announcement" element={<PrivateRoute><NewAnnouncement/></PrivateRoute>} />
+                </Route>
 
-    const location = useLocation();
+                <Route path="/loading" element={<LoadingPage />} />
 
-    const excludeHeaderFooterPaths = [
-        "/login",
-        "/register",
-        "/verifyEmail",
-        "/reset-password",
-        "/forgot-password",
-        "/changePassword"
+                <Route path={'/auth'} element={<AuthLayout/>}>
+                    <Route path="login" element={<Login />} />
+                    <Route path="register" element={<Register />} />
+                    <Route path="reset-password" element={<ResetPassword />} />
+                    <Route path="forgot-password" element={<ForgotPassword />} />
+                    <Route path="verifyEmail" element={<VerifyEmail />} />
+                </Route>
 
-    ];
+                <Route path={'/changePassword'} element={<PrivateRoute><ChangePassword/></PrivateRoute>}></Route>
 
-    const shouldDisplayHeaderFooter = !excludeHeaderFooterPaths.includes(location.pathname);
+                <Route path="/*" element={<NotFound />} />
+            </Routes>
+        </div>
+    );
 
-
-        return (
-            <div className="app-container">
-                {shouldDisplayHeaderFooter && <Header />}
-                <Routes>
-                    <Route path="/new-announcement" element={<NewAnnouncement />} />
-                    <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/reset-password" element={<ResetPassword />} />
-                    <Route path="/forgot-password" element={<ForgotPassword />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                    <Route path="/terms-of-use" element={<TermsOfUse  />} />
-                    <Route path="/profile" element={<Profile  />} />
-                    <Route path="/coming-soon" element={<ComingSoon  />} />
-                    <Route path="/verifyEmail" element={<VerifyEmail />} />
-                    <Route path="/AnnouncementDetails/:id" element={<AnnouncementDetails/>}/>
-                    <Route path="/AnnouncementDetailsUserProfile/:id" element={<AnnouncementDetailsUserProfile/>}/>
-                    <Route path="/loading" element={<LoadingPage />} />
-                    <Route path="/changePassword" element={<ChangePassword />} />
-                    <Route path="/updateAccount" element={<UpdateAccount />} />
-                    <Route path="/*" element={<NotFound />} />
-                </Routes>
-                {shouldDisplayHeaderFooter && <Footer />}
-            </div>
-        );
 
 }
 

@@ -93,7 +93,7 @@ const Login = () => {
                                            </div>
                                         </div>
                                         <div className="form-group">
-                                           <a href="/forgot-password">Forgot Password?</a>
+                                           <a href="/auth/forgot-password">Forgot Password?</a>
                                         </div>
                                      </div>
                                      <div className="text-center">
@@ -127,7 +127,7 @@ const Login = () => {
                                   <div className="new-account mt-3 text-center">
                                      <p>
                                         Don't have an account?{' '}
-                                        <a className="" href="../register">
+                                        <a className="" href="/auth/register">
                                            Click here to sign up
                                         </a>
                                      </p>
