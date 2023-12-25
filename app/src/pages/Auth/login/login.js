@@ -13,19 +13,30 @@ const Login = () => {
 
    const [Email, setEmail] = useState('');
    const [Password, setPassword] = useState('');
+   const [rememberMe, setRememberMe] = useState(false);
 
-   const handleSignUp = async () => {
+   const handleRememberMeChange = () => {
+      setRememberMe(!rememberMe);
+   };
+
+
+   const handleSignIn = async () => {
       const credentials = {
          userName: Email,
          password: Password,
       };
-      const response=await dispatch(loginUser(credentials));
 
-      if(response){
-         navigate('/');
-      }
-      else{
-         navigate('/500');
+      try {
+         const response = await dispatch(loginUser(credentials, rememberMe));
+         console.log (response);
+         if(response && !response?.status){
+            navigate('/');
+         }
+         else if (!response?.status){
+            navigate('/500');
+         }
+      } catch (error) {
+         console.error('An error occurred while signing in:', error);
       }
    };
 
@@ -86,6 +97,8 @@ const Login = () => {
                                                   className="form-check-input"
                                                   type="checkbox"
                                                   id="Remember"
+                                                  checked={rememberMe}
+                                                  onChange={handleRememberMeChange}
                                               />
                                               <label
                                                   className="form-check-label"
@@ -103,7 +116,7 @@ const Login = () => {
                                         <button
                                             type="button"
                                             className="btn btn-primary"
-                                            onClick={handleSignUp}
+                                            onClick={handleSignIn}
                                             disabled={loading}
                                         >
                                            {loading ? 'Signing In...' : 'Sign In'}
@@ -186,6 +199,8 @@ const Login = () => {
                                       className="form-check-input"
                                       type="checkbox"
                                       id="checkMe"
+                                      checked={rememberMe}
+                                      onChange={handleRememberMeChange}
                                   />
                                   <label
                                       className="form-check-label"
@@ -203,7 +218,7 @@ const Login = () => {
                             <button
                                 type="button"
                                 className="btn btn-primary"
-                                onClick={handleSignUp}
+                                onClick={handleSignIn}
                                 disabled={loading}
                             >
                                {loading ? 'Signing In...' : 'Sign In'}
@@ -256,7 +271,7 @@ const Login = () => {
                       <div className="new-account mt-3 text-center">
                          <p>
                             Don't have an account?{' '}
-                            <a className="" href="../../dashboard/auth/sign-up.html">
+                            <a className="" href="/auth/register">
                                Click here to sign up
                             </a>
                          </p>

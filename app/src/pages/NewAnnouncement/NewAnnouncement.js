@@ -188,7 +188,7 @@ const NewAnnouncement=()=> {
                 setCities(citiesData);
 
 
-                const response = await dispatch(GetUserLimits(user.token));
+                const response = await dispatch(GetUserLimits());
                 setUserLimit(response);
 
 
@@ -280,7 +280,7 @@ const NewAnnouncement=()=> {
 
         try {
 
-            const response= await dispatch(SendAnnouncement(data,user.token));
+            const response= await dispatch(SendAnnouncement(data));
 
             if (response.status === 200) {
                 setAlertMessage("Announcement request sent succesfully !");

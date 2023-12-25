@@ -32,7 +32,7 @@ const VerifyEmail = () => {
             const response  =await dispatch(verifyEmail(requestBody));
 
             if (response) {
-                navigate('/login');
+                navigate('/auth/login');
             } else {
 
             }

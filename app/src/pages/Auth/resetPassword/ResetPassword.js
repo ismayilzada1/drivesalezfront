@@ -39,7 +39,7 @@ const ResetPassword=()=> {
             const response  = await dispatch(resetPassword(requestBody));
 
             if (response) {
-                navigate('/login');
+                navigate('/auth/login');
             } else {
 
             }

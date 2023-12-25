@@ -16,7 +16,6 @@ const AccountTab = () => {
     const [SelectedSubscription,setSelectedSubscription]=useState(null);
     const [SubscriptionCount,setSubscriptionCount]=useState(1);
 
-    const { user } = useSelector((state) => state.auth);
 
     const dispatch = useDispatch();
 
@@ -24,7 +23,7 @@ const AccountTab = () => {
     {
         const fetchData = async () => {
             try {
-                const response = await dispatch(GetUserLimits(user.token));
+                const response = await dispatch(GetUserLimits());
                 setUserLimit(response);
 
                 const responseSubscriptions=commonDataService.getAllAnnouncementPricings().then((resp)=>{
@@ -37,7 +36,7 @@ const AccountTab = () => {
         };
 
         fetchData();
-    },[dispatch,user.token]);
+    },[dispatch]);
 
 
     const {
@@ -73,7 +72,7 @@ const AccountTab = () => {
 
         };
 
-        const response=await dispatch(TopUpBalance(requestBody,user.token));
+        const response=await dispatch(TopUpBalance(requestBody));
         if(response && response.status===200)
         {
             window.location.reload();
@@ -84,7 +83,7 @@ const AccountTab = () => {
 
     const handleAddAnnouncementBalance=async()=>{
 
-        const response=await dispatch(AddAnnouncementLimit(SelectedSubscription.id,SubscriptionCount,user.token));
+        const response=await dispatch(AddAnnouncementLimit(SelectedSubscription.id,SubscriptionCount));
         if(response && response.status===200)
         {
             window.location.reload();

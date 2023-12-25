@@ -4,7 +4,15 @@ import { createSlice } from '@reduxjs/toolkit';
 const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        user: null,
+        user: {
+            firstName:null,
+            lastName:null,
+            email:null,
+            phoneNumbers:null,
+            userRole:null,
+        },
+        accessToken:null,
+        refreshToken:null,
         isLoggedIn: false,
         loading: false,
         error: null,
@@ -18,7 +26,20 @@ const authSlice = createSlice({
         loginSuccess: (state, action) => {
             state.loading = false;
             state.isLoggedIn = true;
-            state.user = action.payload;
+            state.user.firstName = action.payload.result.user.firstName;
+            state.user.lastName = action.payload.result.user.lastName;
+            state.user.email = action.payload.result.user.email;
+            state.user.phoneNumbers = action.payload.result.user.phoneNumbers;
+            state.user.userRole = action.payload.result.user.userRole;
+
+            console.log (action.payload.result);
+            if (action.payload.rememberMe) {
+                state.accessToken=action.payload.result.token;
+                state.refreshToken=action.payload.result.refreshToken;
+            } else {
+                sessionStorage.setItem("authToken", action.payload.result.token);
+                sessionStorage.setItem("refreshToken", action.payload.result.refreshToken);
+            }
         },
         loginFailure: (state, action) => {
             state.loading = false;
@@ -33,7 +54,17 @@ const authSlice = createSlice({
         logoutUserSuccess: (state) => {
             state.loading = false;
             state.isLoggedIn = false;
-            state.user = null;
+            state.user.firstName = null;
+            state.user.lastName = null;
+            state.user.email = null;
+            state.user.phoneNumbers = null;
+            state.user.userRole = null;
+
+            state.accessToken=null;
+            state.refreshToken=null;
+            localStorage.removeItem("authToken");
+            sessionStorage.removeItem("authToken");
+            sessionStorage.removeItem("refreshToken");
         },
         logoutUserFailure: (state,action) => {
             state.loading = false;

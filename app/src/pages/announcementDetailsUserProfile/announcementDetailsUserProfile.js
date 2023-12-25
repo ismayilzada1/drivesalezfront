@@ -12,8 +12,6 @@ const AnnouncementDetailsUserProfile = () => {
 
     const { announcement, loading, error } = useSelector((state) => state.announcement);
 
-    const { user } = useSelector((state) => state.auth);
-
 
     const dispatch = useDispatch();
 
@@ -101,7 +99,7 @@ const AnnouncementDetailsUserProfile = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                dispatch(SetAnnouncementAuthorize(id,user.token));
+                dispatch(SetAnnouncementAuthorize(id));
             } catch (error) {
                 console.error('Error fetching announcement:', error);
             }

@@ -1,16 +1,15 @@
 import React, {useState, useEffect, startTransition} from 'react';
-import {NavLink, useNavigate } from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import './Header.css';
 import {useSelector} from "react-redux";
-import { useDispatch } from 'react-redux';
-import { logoutUser } from '../../../Store/Auth/authActions';
+import {useDispatch} from 'react-redux';
+import {logoutUser} from '../../../Store/Auth/authActions';
 import Logo from "../Logo";
 import {
-    GetAllActiveAnnouncementsByUserId,
     GetAllFilterAnnouncements, GetAnnouncements
 } from "../../../Store/Announcement/AnnouncementActions";
 import commonDataService from "../../../api-services/CommonDataService";
-import {setAnnouncements, setPageNumber,setFilterParams} from '../../../Store/Announcement/AnnouncementSlice';
+import {setAnnouncements, setPageNumber, setFilterParams} from '../../../Store/Announcement/AnnouncementSlice';
 import '../../../i18n'
 import {useTransition} from "react";
 import {useTranslation} from "react-i18next";
@@ -18,83 +17,93 @@ import {useTranslation} from "react-i18next";
 const Header = () => {
 
 
+    const {user, accessToken} = useSelector ((state) => state.auth);
+    const isLoggedIn = useSelector ((state) => state.auth.isLoggedIn);
+    const dispatch = useDispatch ();
+    const CommonDataService = new commonDataService ();
+    const [carBodyTypes, setCarBodyTypes] = useState ([]);
 
-
-
-    const { user } = useSelector((state) => state.auth);
-    const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-    const dispatch = useDispatch();
-    const CommonDataService= new commonDataService();
-    const [carBodyTypes, setCarBodyTypes] = useState([]);
-
-    const { pageNumber } = useSelector((state) => state.announcement);
+    const {pageNumber} = useSelector ((state) => state.announcement);
 
     const pageSize = 4;
 
-    useEffect(() => {
-        Promise.all([
-            CommonDataService.getAllCarBodyTypes(),
+    useEffect (() => {
+        Promise.all ([
+            CommonDataService.getAllCarBodyTypes (),
         ])
-            .then(([
-                       carBodyTypesData,
-                   ]) => {
-                setCarBodyTypes(carBodyTypesData);
+            .then (([
+                        carBodyTypesData,
+                    ]) => {
+                setCarBodyTypes (carBodyTypesData);
             })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
+            .catch ((error) => {
+                console.error ('Error fetching data:', error);
             })
-            .finally(() => {
+            .finally (() => {
                 if (carBodyTypes.length === 0) {
-                    console.warn('No car models data received.');
-                }
-                else{
+                    console.warn ('No car models data received.');
+                } else {
                 }
             });
 
 
     }, []);
 
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
-    const navigate = useNavigate();
+    const [isMobile, setIsMobile] = useState (window.innerWidth <= 767);
+    const navigate = useNavigate ();
 
-    const{t,i18n}=useTranslation();
+    const {t, i18n} = useTranslation ();
 
 
-    useEffect(() => {
+    useEffect (() => {
         const handleResize = () => {
-            setIsMobile(window.innerWidth <= 767);
+            setIsMobile (window.innerWidth <= 767);
         };
 
-        window.addEventListener('resize', handleResize);
+        window.addEventListener ('resize', handleResize);
 
         return () => {
-            window.removeEventListener('resize', handleResize);
+            window.removeEventListener ('resize', handleResize);
         };
     }, []);
 
-    const handleAddVehicleButton=()=>navigate('/new-announcement');
+    const handleAddVehicleButton = () => navigate ('/new-announcement');
 
-    const handleSignUpButton=()=>navigate('/auth/register');
+    const handleSignUpButton = () => navigate ('/auth/register');
 
 
-    const handleLanguageChange=async(lang)=>{
-            await i18n.changeLanguage(lang);
+    const handleLanguageChange = async (lang) => {
+        await i18n.changeLanguage (lang);
     }
 
-    const handleLogout = async() => {
-        await dispatch(logoutUser(user.token));
+    const handleLogout = async (e) => {
+        e.preventDefault ();
+
+        if (accessToken) {
+            await dispatch (logoutUser (accessToken));
+        }
+        else{
+
+            const token=sessionStorage.getItem('authToken');
+            if(token){
+                await dispatch (logoutUser (token));
+            }
+            else{
+                console.log ("Something went wrong with tokens");
+            }
+        }
     };
 
-    const handleMotorcycleButton=async()=>{
-        const motorcycleId = carBodyTypes.find(type => type.bodyType === 'Motorcycle')?.id;
-        const filterUrl=`&bodyTypesIds=${motorcycleId}`
+    const handleMotorcycleButton = async () => {
+        const motorcycleId = carBodyTypes.find (type => type.bodyType === 'Motorcycle')?.id;
+        const filterUrl = `&bodyTypesIds=${motorcycleId}`
 
         try {
-            dispatch(setFilterParams(filterUrl));
-            dispatch(setAnnouncements([]));
-            dispatch(setPageNumber(1));
+            dispatch (setFilterParams (filterUrl));
+            dispatch (setAnnouncements ([]));
+            dispatch (setPageNumber (1));
 
-            const response= await dispatch(GetAllFilterAnnouncements(filterUrl));
+            const response = await dispatch (GetAllFilterAnnouncements (filterUrl));
             console.log (response);
 
         } catch (error) {
@@ -102,34 +111,35 @@ const Header = () => {
         }
     }
 
-    const handleTruckButton=async()=>{
-        const TruckId = carBodyTypes.find(type => type.bodyType === 'Truck')?.id;
-        const filterUrl=`&bodyTypesIds=${TruckId}`
+    const handleTruckButton = async () => {
+        const TruckId = carBodyTypes.find (type => type.bodyType === 'Truck')?.id;
+        const filterUrl = `&bodyTypesIds=${TruckId}`
 
         try {
-            dispatch(setFilterParams(filterUrl));
-            dispatch(setAnnouncements([]));
-            dispatch(setPageNumber(1));
+            dispatch (setFilterParams (filterUrl));
+            dispatch (setAnnouncements ([]));
+            dispatch (setPageNumber (1));
 
-            await dispatch(GetAllFilterAnnouncements(filterUrl));
+            await dispatch (GetAllFilterAnnouncements (filterUrl));
 
         } catch (error) {
             console.log (error);
         }
     }
 
-    const handleHomeButton=async()=>{
+    const handleHomeButton = async () => {
 
         try {
-            dispatch(setFilterParams(null));
-            dispatch(setAnnouncements([]));
-            dispatch(setPageNumber(1));
-        dispatch(GetAnnouncements(pageNumber, pageSize))
-            .then((response) => {
-                console.log (response);})
-            .catch((error) => {
-                console.error('Error fetching announcements:', error);
-            });
+            dispatch (setFilterParams (null));
+            dispatch (setAnnouncements ([]));
+            dispatch (setPageNumber (1));
+            dispatch (GetAnnouncements (pageNumber, pageSize))
+                .then ((response) => {
+                    console.log (response);
+                })
+                .catch ((error) => {
+                    console.error ('Error fetching announcements:', error);
+                });
         } catch (error) {
             console.log (error);
         }
@@ -138,25 +148,33 @@ const Header = () => {
 
     return (
 
-        <nav className="nav navbar navbar-expand-lg navbar-light iq-navbar rounded" >
+        <nav className="nav navbar navbar-expand-lg navbar-light iq-navbar rounded">
 
             <div className="container w-100 navbar-inner">
 
                 <a href="/" className="navbar-brand p-0">
-                    <Logo size="50px" />
-                    <span style={{fontSize:"1.4em",color:"#f52123",fontWeight:"550",marginLeft:".4em"}}>DriveSalez</span>
+                    <Logo size="50px"/>
+                    <span style={{
+                        fontSize: "1.4em",
+                        color: "#f52123",
+                        fontWeight: "550",
+                        marginLeft: ".4em"
+                    }}>DriveSalez</span>
                 </a>
 
                 <div className="sidebar-toggle sidebar-toggle-responsive" data-toggle="sidebar" data-active="true">
                     <i className="icon">
                         <svg width="20px" height="20px" viewBox="0 0 24 24">
-                            <path fill="currentColor" d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
+                            <path fill="currentColor"
+                                  d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"/>
                         </svg>
                     </i>
                 </div>
 
 
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon">
                   <span className="navbar-toggler-bar bar1 mt-2"></span>
                   <span className="navbar-toggler-bar bar2"></span>
@@ -170,43 +188,70 @@ const Header = () => {
 
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/" onClick={handleHomeButton} className="nav-link" activeclassname="active">
-                                {t('home')}
+                                {t ('home')}
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
-                            <NavLink to="/" className="nav-link" onClick={handleMotorcycleButton} activeclassname="active">
-                                {t('motorcycles')}
+                            <NavLink to="/" className="nav-link" onClick={handleMotorcycleButton}
+                                     activeclassname="active">
+                                {t ('motorcycles')}
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/" onClick={handleTruckButton} className="nav-link" activeclassname="active">
-                                {t('trucks')}
+                                {t ('trucks')}
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/coming-soon" className="nav-link" activeclassname="active">
-                                {t('boats')}
+                                {t ('boats')}
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/coming-soon" className="nav-link" activeclassname="active">
-                                {t('aircrafts')}
+                                {t ('aircrafts')}
                             </NavLink>
                         </li>
 
                         <li className="nav-item dropdown">
-                            <a href="#" className="search-toggle nav-link" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../assets/images/flag/flag001.png" className="img-fluid rounded-circle" alt="user" style={{height:'30px',minWidth:'30px',width:'30px'}}/>
-                                    <span className="bg-primary"></span>
+                            <a href="#" className="search-toggle nav-link" id="dropdownMenuButton2"
+                               data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../assets/images/flag/flag001.png" className="img-fluid rounded-circle"
+                                     alt="user" style={{height: '30px', minWidth: '30px', width: '30px'}}/>
+                                <span className="bg-primary"></span>
                             </a>
-                            <div className="sub-drop dropdown-menu dropdown-menu-end p-0" aria-labelledby="dropdownMenuButton2">
+                            <div className="sub-drop dropdown-menu dropdown-menu-end p-0"
+                                 aria-labelledby="dropdownMenuButton2">
                                 <div className="card shadow-none m-0 border-0">
                                     <div className=" p-0 ">
                                         <ul className="list-group list-group-flush p-0">
-                                            <li className="iq-sub-card list-group-item" onClick={() => handleLanguageChange('en')}><a className="p-0"   href="#"><img src="../assets/images/flag/flag-usa.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>English</a></li>
-                                            <li className="iq-sub-card list-group-item" onClick={() => handleLanguageChange('aze')}><a className="p-0"   href="#"><img src="../assets/images/flag/flag-aze.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>Azerbaijani</a></li>
-                                            <li className="iq-sub-card list-group-item" onClick={() => handleLanguageChange('ru')}><a className="p-0"   href="#"><img src="../assets/images/flag/flag-ru.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>Russian</a></li>
-                                            <li className="iq-sub-card list-group-item" onClick={() => handleLanguageChange('tr')}><a className="p-0"   href="#"><img src="../assets/images/flag/flag-tr.png" alt="img-flaf" className="img-fluid me-2" style={{height:'30px',minWidth:'30px',width:'30px'}}/>Turkish</a></li>
+                                            <li className="iq-sub-card list-group-item"
+                                                onClick={() => handleLanguageChange ('en')}><a className="p-0" href="#"><img
+                                                src="../assets/images/flag/flag-usa.png" alt="img-flaf"
+                                                className="img-fluid me-2"
+                                                style={{height: '30px', minWidth: '30px', width: '30px'}}/>English</a>
+                                            </li>
+                                            <li className="iq-sub-card list-group-item"
+                                                onClick={() => handleLanguageChange ('aze')}><a className="p-0"
+                                                                                                href="#"><img
+                                                src="../assets/images/flag/flag-aze.png" alt="img-flaf"
+                                                className="img-fluid me-2" style={{
+                                                height: '30px',
+                                                minWidth: '30px',
+                                                width: '30px'
+                                            }}/>Azerbaijani</a></li>
+                                            <li className="iq-sub-card list-group-item"
+                                                onClick={() => handleLanguageChange ('ru')}><a className="p-0" href="#"><img
+                                                src="../assets/images/flag/flag-ru.png" alt="img-flaf"
+                                                className="img-fluid me-2"
+                                                style={{height: '30px', minWidth: '30px', width: '30px'}}/>Russian</a>
+                                            </li>
+                                            <li className="iq-sub-card list-group-item"
+                                                onClick={() => handleLanguageChange ('tr')}><a className="p-0" href="#"><img
+                                                src="../assets/images/flag/flag-tr.png" alt="img-flaf"
+                                                className="img-fluid me-2"
+                                                style={{height: '30px', minWidth: '30px', width: '30px'}}/>Turkish</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -252,7 +297,6 @@ const Header = () => {
                                 </li>
                             </ul>
                         </li>
-
 
 
                         {/*Messenger*/}
@@ -336,39 +380,48 @@ const Header = () => {
 
                         {isLoggedIn ?
                             (
-                        <li className='nav-item'>
-                            <button onClick={handleAddVehicleButton} className='btn btn-plus btn-square d-flex justify-content-center align-items-center' style={{ backgroundColor: '#f54114', color: '#ffffff',border:'none' }}>
-                                {isMobile ? <i className="fas fa-plus"></i> : <><i className="fas fa-plus me-2"></i>Add Vehicle</>}
-                            </button>
-                        </li>
-                            ):null}
+                                <li className='nav-item'>
+                                    <button onClick={handleAddVehicleButton}
+                                            className='btn btn-plus btn-square d-flex justify-content-center align-items-center'
+                                            style={{backgroundColor: '#f54114', color: '#ffffff', border: 'none'}}>
+                                        {isMobile ? <i className="fas fa-plus"></i> : <><i
+                                            className="fas fa-plus me-2"></i>Add Vehicle</>}
+                                    </button>
+                                </li>
+                            ) : null}
 
 
                         {isLoggedIn ?
                             (
                                 <li className="nav-item dropdown ms-1">
-                                <a className="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="../assets/images/icons/user.png" alt="User-Profile" className="img-fluid avatar avatar-50 avatar-rounded"/>
-                                <div className="caption ms-3 d-none d-md-block ">
-                                    <h6 className="mb-0 caption-title">{user.firstName} {user.lastName}</h6>
-                                    <p className="mb-0 caption-sub-title">{user.email}</p>
-                                </div>
-                            </a>
-                            <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a className="dropdown-item" href="/profile">Profile</a></li>
-                                <li><hr className="dropdown-divider"/></li>
-                                <li><a  className="dropdown-item"  href='/' onClick={handleLogout}>Logout</a></li>
-                            </ul>
+                                    <a className="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown"
+                                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="../assets/images/icons/user.png" alt="User-Profile"
+                                             className="img-fluid avatar avatar-50 avatar-rounded"/>
+                                        <div className="caption ms-3 d-none d-md-block ">
+                                            <h6 className="mb-0 caption-title">{user.firstName} {user.lastName}</h6>
+                                            <p className="mb-0 caption-sub-title">{user.email}</p>
+                                        </div>
+                                    </a>
+                                    <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li><a className="dropdown-item" href="/profile">Profile</a></li>
+                                        <li>
+                                            <hr className="dropdown-divider"/>
+                                        </li>
+                                        <li><a className="dropdown-item" href='/' onClick={handleLogout}>Logout</a></li>
+                                    </ul>
                                 </li>
                             ) :
                             (
                                 <li className='nav-item ms-2'>
-                                    <button onClick={handleSignUpButton}  className='btn btn-plus btn-square d-flex justify-content-center align-items-center' style={{ backgroundColor: '#f54114', color: '#ffffff',border:'none' }}>
-                                        {isMobile ? <i className="fas fa-user"></i> : <><i className="fas fa-user me-2"></i>{t('sign_up')}</>}
+                                    <button onClick={handleSignUpButton}
+                                            className='btn btn-plus btn-square d-flex justify-content-center align-items-center'
+                                            style={{backgroundColor: '#f54114', color: '#ffffff', border: 'none'}}>
+                                        {isMobile ? <i className="fas fa-user"></i> : <><i
+                                            className="fas fa-user me-2"></i>{t ('sign_up')}</>}
                                     </button>
                                 </li>
                             )}
-
 
 
                     </ul>

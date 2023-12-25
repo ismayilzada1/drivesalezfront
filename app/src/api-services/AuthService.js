@@ -2,8 +2,8 @@ import {useSelector} from "react-redux";
 
 export default class AuthService {
     constructor() {
-        // this.baseUrl = 'https://drivesalez.azurewebsites.net/api';
-        this.baseUrl = 'https://localhost:7261/api';
+        this.baseUrl = 'https://drivesalez.azurewebsites.net/api';
+        // this.baseUrl = 'https://localhost:7261/api';
         // this.baseUrl = 'http://drivesalez.site:5073/api';
 
     }
@@ -22,7 +22,6 @@ export default class AuthService {
         }
     }
 
-
     async Login(requestBody) {
         try {
             const response = await fetch(`${this.baseUrl}/Account/login`, {
@@ -33,14 +32,17 @@ export default class AuthService {
                 body: JSON.stringify(requestBody),
             });
 
-            if (response.ok) {
-                const responseData = await response.json();
-
-                return {
-                    status: response.status,
-                    data: responseData,
-                };
-            }
+            console.log ("LOGIN");
+            console.log (response);
+            // if (response.ok) {
+            //     const responseData = await response.json();
+            //
+            //     console.log (responseData);
+            //     return {
+            //         status: response.status,
+            //         data: responseData,
+            //     };
+            // }
 
             return response;
         } catch (error) {
@@ -48,6 +50,7 @@ export default class AuthService {
             throw error;
         }
     }
+
 
     async Register(requestBody) {
         try {
@@ -112,6 +115,23 @@ export default class AuthService {
             return response;
         } catch (error) {
             console.error('Error in Change Password:', error);
+            throw error;
+        }
+    }
+
+    async RefreshToken(credentials) {
+        try {
+            const response = await fetch(`${this.baseUrl}/Account/refresh`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(credentials),
+            });
+
+            return response;
+        } catch (error) {
+            console.error('Error in refresh:', error);
             throw error;
         }
     }

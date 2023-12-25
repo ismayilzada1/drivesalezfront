@@ -4,16 +4,14 @@ import AccountTab from "../AccountTab";
 import ProfileTab from "../ProfileTab";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    GetAllActiveAnnouncementsByUserId, GetAllAnnouncementsByUserId,
+    GetAllActiveAnnouncementsByUserId,
     GetAllInactiveAnnouncementsByUserId,
     GetAllWaitingAnnouncementsByUserId,
 } from "../../../Store/Announcement/AnnouncementActions";
-import AnnouncementCardUserProfile from "../announcementCardUserProfile";
 import AnnouncementContainer from "../AnnouncementContainer";
 
 const MyAnnouncementsTab = () => {
 
-    const {user} = useSelector ((state) => state.auth);
 
     const dispatch = useDispatch ();
 
@@ -26,9 +24,9 @@ const MyAnnouncementsTab = () => {
     useEffect (() => {
         const fetchData = async () => {
             try {
-                const waitingAnnouncementsData = await dispatch(GetAllWaitingAnnouncementsByUserId(user.token));
-                const activeAnnouncementsData = await dispatch(GetAllActiveAnnouncementsByUserId(user.token));
-                const inactiveAnnouncementsData = await dispatch(GetAllInactiveAnnouncementsByUserId(user.token));
+                const waitingAnnouncementsData = await dispatch(GetAllWaitingAnnouncementsByUserId());
+                const activeAnnouncementsData = await dispatch(GetAllActiveAnnouncementsByUserId());
+                const inactiveAnnouncementsData = await dispatch(GetAllInactiveAnnouncementsByUserId());
 
                 setWaitingAnnouncements(waitingAnnouncementsData);
                 setActiveAnnouncements(activeAnnouncementsData);
@@ -42,7 +40,7 @@ const MyAnnouncementsTab = () => {
             }
         };
         fetchData ();
-    }, [dispatch, user.token]);
+    }, [dispatch]);
 
 
     return (

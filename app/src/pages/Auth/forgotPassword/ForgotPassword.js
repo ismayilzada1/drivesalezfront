@@ -24,7 +24,7 @@ const ForgotPassword = () => {
             const response  =await dispatch(sendOtp(email));
 
             if (response) {
-                navigate('/reset-password');
+                navigate('/auth/reset-password');
             } else {
 
             }

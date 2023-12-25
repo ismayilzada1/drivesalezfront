@@ -13,12 +13,17 @@ import {
 } from "./AnnouncementSlice"
 
 import annonucementService from "../../api-services/AnnouncementService"
+import authService from "../../api-services/AuthService";
 
 const AnnouncementService=new annonucementService();
-
-export const SendAnnouncement = (requestBody,token) => async (dispatch) => {
+const AuthService = new authService();
+export const SendAnnouncement = (requestBody) => async (dispatch) => {
     dispatch(sendAnnouncementStart());
     try {
+        const token =
+            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+
+        if(!token){return null}
 
         const response = await AnnouncementService.SendNewAnnouncement(requestBody,token);
 
@@ -26,7 +31,13 @@ export const SendAnnouncement = (requestBody,token) => async (dispatch) => {
             console.log("SUCCESFULL SEND ANNOUNCEMENT");
             dispatch(sendAnnouncementSuccess(response.data));
             return response;
-        } else {
+        }
+        else if(response.status===401){
+            refreshToken().then(()=>{
+                return SendAnnouncement(requestBody);
+            });
+        }
+        else {
             dispatch(sendAnnouncementFailure('Email or password is invalid'));
         }
     } catch (error) {
@@ -67,9 +78,14 @@ export const GetAnnouncements = (pageNumber,PageSize) => async (dispatch) => {
     }
 };
 
-export const GetUserLimits = (token) => async (dispatch) => {
+export const GetUserLimits = () => async (dispatch) => {
     try {
         // dispatch(getAnnouncementsStart());
+
+        const token =
+            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+
+        if(!token){return null}
 
         const response = await AnnouncementService.GetUserLimits(token);
         console.log(response);
@@ -117,9 +133,15 @@ export const SetAnnouncement = (id) => async (dispatch) => {
     }
 };
 
-export const SetAnnouncementAuthorize = (id,token) => async (dispatch) => {
+export const SetAnnouncementAuthorize = (id) => async (dispatch) => {
     try {
         dispatch(setAnnouncementStart());
+
+        const token =
+            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+
+        if(!token){return null}
+
 
         const response = await AnnouncementService.GetAnnouncementByIDAuthorize(id,token);
 
@@ -138,9 +160,14 @@ export const SetAnnouncementAuthorize = (id,token) => async (dispatch) => {
 
 
 
-export const GetAllAnnouncementsByUserId = (token) => async (dispatch) => {
+export const GetAllAnnouncementsByUserId = () => async (dispatch) => {
     try {
         dispatch(getAnnouncementsStart());
+
+        const token =
+            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+
+        if(!token){return null}
 
         const response = await AnnouncementService.GetAllAnnouncementsByUserId(token);
 
@@ -157,9 +184,14 @@ export const GetAllAnnouncementsByUserId = (token) => async (dispatch) => {
     }
 };
 
-export const GetAllWaitingAnnouncementsByUserId = (token) => async (dispatch) => {
+export const GetAllWaitingAnnouncementsByUserId = () => async (dispatch) => {
     try {
         dispatch(getAnnouncementsStart());
+
+        const token =
+            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+
+        if(!token){return null}
 
         const response = await AnnouncementService.GetAllWaitingAnnouncementsByUserId(token);
 
@@ -176,9 +208,14 @@ export const GetAllWaitingAnnouncementsByUserId = (token) => async (dispatch) =>
     }
 };
 
-export const GetAllActiveAnnouncementsByUserId = (token) => async (dispatch) => {
+export const GetAllActiveAnnouncementsByUserId = () => async (dispatch) => {
     try {
         dispatch(getAnnouncementsStart());
+
+        const token =
+            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+
+        if(!token){return null}
 
         const response = await AnnouncementService.GetAllActiveAnnouncementsByUserId(token);
 
@@ -195,9 +232,14 @@ export const GetAllActiveAnnouncementsByUserId = (token) => async (dispatch) => 
     }
 };
 
-export const GetAllInactiveAnnouncementsByUserId = (token) => async (dispatch) => {
+export const GetAllInactiveAnnouncementsByUserId = () => async (dispatch) => {
     try {
         dispatch(getAnnouncementsStart());
+
+        const token =
+            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+
+        if(!token){return null}
 
         const response = await AnnouncementService.GetAllInactiveAnnouncementsByUserId(token);
 
@@ -226,10 +268,35 @@ export const GetAllFilterAnnouncements = (filter) => async (dispatch) => {
             console.log (data);
             dispatch(setAnnouncements(data));
             return data;
-        } else {
+        }
+        else {
             dispatch(getAnnouncementsFailure('Email or password is invalid'));
         }
     } catch (error) {
         dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
     }
 };
+
+async function refreshToken() {
+    const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+    const refreshToken = localStorage.getItem("refreshToken") || sessionStorage.getItem("refreshToken");
+
+    const refreshResponse = await AuthService.RefreshToken(
+        {
+            "token": token,
+            "refreshToken": refreshToken
+        }
+    )
+
+
+    if (refreshResponse.ok) {
+        const newToken = await refreshResponse.json().token;
+        if (localStorage.getItem("authToken")) {
+            localStorage.setItem("authToken", newToken);
+        } else {
+            sessionStorage.setItem("authToken", newToken);
+        }
+    } else {
+        throw "Refresh token request failed";
+    }
+}
