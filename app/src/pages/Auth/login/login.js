@@ -24,6 +24,9 @@ const Login = () => {
       if(response){
          navigate('/');
       }
+      else{
+         navigate('/500');
+      }
    };
 
 

@@ -20,6 +20,8 @@ import VerifyEmail from "./pages/Auth/verifyEmail";
 import ChangePassword from "./pages/Auth/ChangePassword";
 import NotFound from "./pages/errors/NotFound";
 import React from "react";
+import InternalServerError from "./pages/errors/InternalServerError";
+import Admin from "./pages/Admin";
 
 
 const routes=[
@@ -45,7 +47,8 @@ const routes=[
             },
             {
                 path:'new-announcement',
-                element:<PrivateRoute><NewAnnouncement/></PrivateRoute>
+                element:<NewAnnouncement/>,
+                auth:true
             },
             {
                 path:'AnnouncementDetails/:id',
@@ -53,19 +56,23 @@ const routes=[
             },
             {
                 path:'profile',
-                element:<PrivateRoute><Profile/></PrivateRoute>
+                element:<Profile/>,
+                auth:true
             },
             {
                 path:'updateAccount',
-                element:<PrivateRoute><UpdateAccount/></PrivateRoute>
+                element:<UpdateAccount/>,
+                auth:true
             },
             {
                 path:'AnnouncementDetailsUserProfile/:id',
-                element:<PrivateRoute><AnnouncementDetailsUserProfile/></PrivateRoute>
+                element:<AnnouncementDetailsUserProfile/>,
+                auth:true
             },
             {
                 path:'changePassword',
-                element:<PrivateRoute><ChangePassword/></PrivateRoute>
+                element:<ChangePassword/>,
+                auth:true
             },
         ]
 
@@ -76,7 +83,7 @@ const routes=[
     },
     {
         path: '/auth',
-        element: AuthLayout,
+        element: <AuthLayout/>,
         children: [
             {
                 path: 'login',
@@ -101,10 +108,30 @@ const routes=[
         ]
     },
     {
+        path: '/500',
+        element: <InternalServerError/>
+    },
+    {
+        path: '/admin',
+        element: <Admin/>
+    },
+    {
         path: '/*',
         element: <NotFound/>
     }
 
 ]
 
-export default routes;
+
+const authMap = routes=>routes.map(route=>{
+    if (route?.auth){
+        route.element =<PrivateRoute>{route.element}</PrivateRoute>
+    }
+    if(route?.children){
+        route.children=authMap(route.children);
+    }
+    return route;
+})
+
+
+export default authMap(routes);
