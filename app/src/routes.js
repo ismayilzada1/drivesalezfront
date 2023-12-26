@@ -1,4 +1,3 @@
-import {Route, Routes} from "react-router-dom";
 import HomeLayout from "./pages/HomeLayout";
 import Home from "./pages/home";
 import PrivacyPolicy from "./pages/StaticPages/PrivacyPolicy";

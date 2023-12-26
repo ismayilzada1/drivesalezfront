@@ -14,16 +14,18 @@ import {
 
 import annonucementService from "../../api-services/AnnouncementService"
 import authService from "../../api-services/AuthService";
+import {useSelector} from "react-redux";
 
 const AnnouncementService=new annonucementService();
 const AuthService = new authService();
-export const SendAnnouncement = (requestBody) => async (dispatch) => {
+export const SendAnnouncement = (requestBody,accessToken) => async (dispatch) => {
     dispatch(sendAnnouncementStart());
     try {
-        const token =
-            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        let token = accessToken || sessionStorage.getItem("authToken");
 
-        if(!token){return null}
+        if (!token) {
+            return null;
+        }
 
         const response = await AnnouncementService.SendNewAnnouncement(requestBody,token);
 
@@ -78,14 +80,15 @@ export const GetAnnouncements = (pageNumber,PageSize) => async (dispatch) => {
     }
 };
 
-export const GetUserLimits = () => async (dispatch) => {
+export const GetUserLimits = (accessToken) => async (dispatch) => {
     try {
         // dispatch(getAnnouncementsStart());
 
-        const token =
-            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        let token = accessToken || sessionStorage.getItem("authToken");
 
-        if(!token){return null}
+        if (!token) {
+            return null;
+        }
 
         const response = await AnnouncementService.GetUserLimits(token);
         console.log(response);
@@ -133,14 +136,15 @@ export const SetAnnouncement = (id) => async (dispatch) => {
     }
 };
 
-export const SetAnnouncementAuthorize = (id) => async (dispatch) => {
+export const SetAnnouncementAuthorize = (id,accessToken) => async (dispatch) => {
     try {
         dispatch(setAnnouncementStart());
 
-        const token =
-            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        let token = accessToken || sessionStorage.getItem("authToken");
 
-        if(!token){return null}
+        if (!token) {
+            return null;
+        }
 
 
         const response = await AnnouncementService.GetAnnouncementByIDAuthorize(id,token);
@@ -184,14 +188,15 @@ export const GetAllAnnouncementsByUserId = () => async (dispatch) => {
     }
 };
 
-export const GetAllWaitingAnnouncementsByUserId = () => async (dispatch) => {
+export const GetAllWaitingAnnouncementsByUserId = (accessToken) => async (dispatch) => {
     try {
         dispatch(getAnnouncementsStart());
 
-        const token =
-            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        let token = accessToken || sessionStorage.getItem("authToken");
 
-        if(!token){return null}
+        if (!token) {
+            return null;
+        }
 
         const response = await AnnouncementService.GetAllWaitingAnnouncementsByUserId(token);
 
@@ -208,14 +213,15 @@ export const GetAllWaitingAnnouncementsByUserId = () => async (dispatch) => {
     }
 };
 
-export const GetAllActiveAnnouncementsByUserId = () => async (dispatch) => {
+export const GetAllActiveAnnouncementsByUserId = (accessToken) => async (dispatch) => {
     try {
         dispatch(getAnnouncementsStart());
 
-        const token =
-            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        let token = accessToken || sessionStorage.getItem("authToken");
 
-        if(!token){return null}
+        if (!token) {
+            return null;
+        }
 
         const response = await AnnouncementService.GetAllActiveAnnouncementsByUserId(token);
 
@@ -232,14 +238,15 @@ export const GetAllActiveAnnouncementsByUserId = () => async (dispatch) => {
     }
 };
 
-export const GetAllInactiveAnnouncementsByUserId = () => async (dispatch) => {
+export const GetAllInactiveAnnouncementsByUserId = (accessToken) => async (dispatch) => {
     try {
         dispatch(getAnnouncementsStart());
 
-        const token =
-            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        let token = accessToken || sessionStorage.getItem("authToken");
 
-        if(!token){return null}
+        if (!token) {
+            return null;
+        }
 
         const response = await AnnouncementService.GetAllInactiveAnnouncementsByUserId(token);
 

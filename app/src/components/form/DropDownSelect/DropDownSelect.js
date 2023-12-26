@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
-import './DropDownSelect.css'; // Adjust the path based on your project structure
+import './DropDownSelect.css';
+import {useTranslation} from "react-i18next";
 
 const DropDownSelect = ({ options, selectedOption, handleOptionSelect, toggleDropdown, showDropdown, valueName }) => {
+
+    const{t}=useTranslation();
 
     if (!options) {
         return null;
@@ -17,7 +20,7 @@ const DropDownSelect = ({ options, selectedOption, handleOptionSelect, toggleDro
                     type="button"
                     aria-expanded="false"
                 >
-                    {selectedOption ? selectedOption[valueName] : 'Choose Option'}
+                    {selectedOption ? selectedOption[valueName] : t('chooseOption')}
                 </button>
                 <ul className={`dropdown-menu${showDropdown ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">
                     {options.map((option) => (

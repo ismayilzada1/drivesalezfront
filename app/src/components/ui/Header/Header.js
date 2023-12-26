@@ -25,6 +25,8 @@ const Header = () => {
 
     const {pageNumber} = useSelector ((state) => state.announcement);
 
+
+
     const pageSize = 4;
 
     useEffect (() => {
@@ -74,6 +76,7 @@ const Header = () => {
 
     const handleLanguageChange = async (lang) => {
         await i18n.changeLanguage (lang);
+        localStorage.setItem('lng',lang);
     }
 
     const handleLogout = async (e) => {
@@ -214,9 +217,9 @@ const Header = () => {
                         </li>
 
                         <li className="nav-item dropdown">
-                            <a href="#" className="search-toggle nav-link" id="dropdownMenuButton2"
+                            <a href="#" className="search-toggle nav-link" id="flagDropdown"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="../assets/images/flag/flag001.png" className="img-fluid rounded-circle"
+                                <img src={`../assets/images/flag/flag-${i18n.language}.png`} className="img-fluid"
                                      alt="user" style={{height: '30px', minWidth: '30px', width: '30px'}}/>
                                 <span className="bg-primary"></span>
                             </a>
@@ -227,7 +230,7 @@ const Header = () => {
                                         <ul className="list-group list-group-flush p-0">
                                             <li className="iq-sub-card list-group-item"
                                                 onClick={() => handleLanguageChange ('en')}><a className="p-0" href="#"><img
-                                                src="../assets/images/flag/flag-usa.png" alt="img-flaf"
+                                                src="../assets/images/flag/flag-en.png" alt="img-flaf"
                                                 className="img-fluid me-2"
                                                 style={{height: '30px', minWidth: '30px', width: '30px'}}/>English</a>
                                             </li>

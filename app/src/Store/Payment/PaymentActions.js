@@ -9,13 +9,14 @@ import paymentService from '../../api-services/PaymentService';
 const PaymentService = new paymentService();
 
 
-export const TopUpBalance = (requestBody) => async (dispatch) => {
+export const TopUpBalance = (requestBody,accessToken) => async (dispatch) => {
     dispatch(topUpBalanceStart());
     try {
-        const token =
-            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        let token = accessToken || sessionStorage.getItem("authToken");
 
-        if(!token){return null}
+        if (!token) {
+            return null;
+        }
 
         const response = await PaymentService.TopUpBalance(requestBody,token);
 
@@ -33,14 +34,17 @@ export const TopUpBalance = (requestBody) => async (dispatch) => {
 };
 
 
-export const AddAnnouncementLimit = (subId,count) => async (dispatch) => {
+export const AddAnnouncementLimit = (subId,count,accessToken) => async (dispatch) => {
     dispatch(topUpBalanceStart());
     try {
 
-        const token =
-            localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
+        let token = accessToken || sessionStorage.getItem("authToken");
 
-        if(!token){return null}
+        if (!token) {
+            return null;
+        }
+
+
 
         const response = await PaymentService.AddAnnouncementLimit(subId,count,token);
 

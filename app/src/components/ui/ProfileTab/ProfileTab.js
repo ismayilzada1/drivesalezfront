@@ -3,16 +3,16 @@ import './ProfileTab.css'
 import {useDispatch, useSelector} from "react-redux";
 import {GetUserLimits} from '../../../Store/Announcement/AnnouncementActions'
 
+const createLabelValue = (label, value) => (
+    <li className="list-group-item">
+        <span className="label info-key">{label} :</span>
+        <span className="value"><strong>{value}</strong></span>
+    </li>
+);
+
 const ProfileTab=()=>{
 
     const { user } = useSelector((state) => state.auth);
-
-    const createLabelValue = (label, value) => (
-        <li className="list-group-item">
-            <span className="label info-key">{label} :</span>
-            <span className="value"><strong>{value}</strong></span>
-        </li>
-    );
 
     if (!user) {
         return (
@@ -28,6 +28,8 @@ const ProfileTab=()=>{
         );
     }
 
+
+
     return (
         <div className="card card-profile-tab">
             <div className="card-body pe-2">
@@ -35,11 +37,11 @@ const ProfileTab=()=>{
                 <hr/>
             </div>
             <ul className="list-group list-group-flush">
-                {createLabelValue("Name", user.firstName)}
-                {createLabelValue("Surname", user.lastName)}
-                {createLabelValue("Email", user.email)}
-                {createLabelValue("Account Type", user.userRole)}
-                {createLabelValue("Phone Number", user.phoneNumbers[0].phoneNumber)}
+                {createLabelValue("Name", user?.firstName)}
+                {createLabelValue("Surname", user?.lastName)}
+                {createLabelValue("Email", user?.email)}
+                {createLabelValue("Account Type", user?.userRole)}
+                {createLabelValue("Phone Number", user?.phoneNumbers?.[0]?.phoneNumber)}
             </ul>
             <div className="card-body d-flex flex-row justify-content-between">
                 <a href="#" className="card-link">Remove Account</a>

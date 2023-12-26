@@ -28,5 +28,9 @@
   "labelHorsePower": "Horse Power:",
   "labelEngineVolume": "Engine Volume",
   "labelBarter": "Barter",
-  "labelOnCredit": "On Credit"
+  "labelOnCredit": "On Credit",
+
+  "selected": "Selected",
+  "chooseOption": "Choose Option",
+  "chooseAnOption": "Choose An Option"
 }

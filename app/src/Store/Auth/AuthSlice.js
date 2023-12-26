@@ -52,6 +52,8 @@ const authSlice = createSlice({
             state.error = null;
         },
         logoutUserSuccess: (state) => {
+            console.log ("auth slice logout olunur");
+
             state.loading = false;
             state.isLoggedIn = false;
             state.user.firstName = null;
@@ -65,6 +67,7 @@ const authSlice = createSlice({
             localStorage.removeItem("authToken");
             sessionStorage.removeItem("authToken");
             sessionStorage.removeItem("refreshToken");
+            console.log ("auth slice logout olundu");
         },
         logoutUserFailure: (state,action) => {
             state.loading = false;

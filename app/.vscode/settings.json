@@ -1,8 +1,0 @@
-{
-    "appService.zipIgnorePattern": [
-        "node_modules{,/**}",
-        ".vscode{,/**}"
-    ],
-    "appService.defaultWebAppToDeploy": "/subscriptions/22403f41-8c57-450a-8878-48b05b1e09c6/resourceGroups/drivesalezgroup/providers/Microsoft.Web/sites/drivesalezfront",
-    "appService.deploySubpath": "."
-}

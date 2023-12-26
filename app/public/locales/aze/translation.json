@@ -29,5 +29,10 @@
   "labelHorsePower": "At gücü:",
   "labelEngineVolume": "Mühərrik Hacmi",
   "labelBarter": "Barter",
-  "labelOnCredit": "Kreditdə"
+  "labelOnCredit": "Kreditdə",
+
+  "selected": "Seçilmiş",
+  "chooseOption": "Seçin",
+  "chooseAnOption": "Bir Seçim Edin"
+
 }

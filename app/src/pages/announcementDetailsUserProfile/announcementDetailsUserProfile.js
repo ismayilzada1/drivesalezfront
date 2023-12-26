@@ -12,6 +12,8 @@ const AnnouncementDetailsUserProfile = () => {
 
     const { announcement, loading, error } = useSelector((state) => state.announcement);
 
+    const {accessToken}=useSelector(state => state.auth);
+
 
     const dispatch = useDispatch();
 
@@ -99,7 +101,7 @@ const AnnouncementDetailsUserProfile = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                dispatch(SetAnnouncementAuthorize(id));
+                dispatch(SetAnnouncementAuthorize(id,accessToken));
             } catch (error) {
                 console.error('Error fetching announcement:', error);
             }
@@ -129,6 +131,7 @@ const AnnouncementDetailsUserProfile = () => {
         marketVersion,
         ownerQuantity,
         seatCount,
+        viewCount,
         vinCode,
         options,
         engineVolume,
@@ -365,6 +368,11 @@ const AnnouncementDetailsUserProfile = () => {
 
                                                         <div className="col-sm-6">
                                                             <p>{formatTimestamp(expirationDate)}</p>
+                                                        </div>
+                                                        <div className="col-sm-6 d-flex align-items-center" >
+                                                            <p><i className="far fa-eye me-2" ></i>
+                                                                <span>{viewCount} views</span>
+                                                            </p>
                                                         </div>
 
                                                     </div>

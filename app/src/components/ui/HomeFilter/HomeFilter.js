@@ -54,6 +54,13 @@ const HomeFilter = () => {
     const [selectedMinEngineVolume,setSelectedMinEngineVolume]=useState('');
     const [selectedMaxEngineVolume,setSelectedMaxEngineVolume]=useState('');
 
+
+    const [openDropdown, setOpenDropdown] = useState(null);
+
+    const handleDropdownToggle = (dropdownId) => {
+        setOpenDropdown(openDropdown === dropdownId ? null : dropdownId);
+    };
+
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -424,7 +431,39 @@ const HomeFilter = () => {
     }
 
 
-    const CustomDropdown = ({ options, onChange, value, mainLabel, dataProperty, id }) => (
+    // const CustomDropdown = ({ options, onChange, value, mainLabel, dataProperty, id }) => (
+    //     <Form.Group controlId={`form${id}`}>
+    //         <Form.Label>{mainLabel}</Form.Label>
+    //         <div className="dropdown">
+    //             <button
+    //                 className="btn btn-secondary btn-md dropdown-toggle custom-dropdown"
+    //                 type="button"
+    //                 id={`dropdownMenuButton${id}`}
+    //                 data-bs-toggle="dropdown"
+    //                 aria-expanded="false"
+    //             >
+    //                 {value && value.name ? value.name : `${t('choose')} ${mainLabel}`}
+    //             </button>
+    //             <ul className="dropdown-menu" aria-labelledby={`dropdownMenuButton${id}`}>
+    //                 {options.map((option, index) => (
+    //                     <li key={index}>
+    //                         <a
+    //                             className="dropdown-item"
+    //                             href="#"
+    //                             onClick={(event) => onChange(event, { id: option.id, name: option[dataProperty] })}
+    //                         >
+    //                             {option[dataProperty]}
+    //                         </a>
+    //                     </li>
+    //                 ))}
+    //             </ul>
+    //         </div>
+    //     </Form.Group>
+    // );
+
+
+    //version for closing all other dropdowns when one opens
+    const CustomDropdown = ({ options, onChange, value, mainLabel, dataProperty, id, isOpen, onToggle }) => (
         <Form.Group controlId={`form${id}`}>
             <Form.Label>{mainLabel}</Form.Label>
             <div className="dropdown">
@@ -433,11 +472,12 @@ const HomeFilter = () => {
                     type="button"
                     id={`dropdownMenuButton${id}`}
                     data-bs-toggle="dropdown"
-                    aria-expanded="false"
+                    aria-expanded={isOpen}
+                    onClick={onToggle}
                 >
-                    {value && value.name ? value.name : `${t('choose')} ${mainLabel}`}
+                    {value && value.name ? value.name : `Choose ${mainLabel}`}
                 </button>
-                <ul className="dropdown-menu" aria-labelledby={`dropdownMenuButton${id}`}>
+                <ul className={`dropdown-menu${isOpen ? ' show' : ''}`} aria-labelledby={`dropdownMenuButton${id}`}>
                     {options.map((option, index) => (
                         <li key={index}>
                             <a
@@ -469,6 +509,8 @@ const HomeFilter = () => {
                                     options={carBrands}
                                     onChange={handleBrandChange}
                                     value={selectedBrand}
+                                    isOpen={openDropdown === 'makes'}
+                                    onToggle={() => handleDropdownToggle('makes')}
                                 />
                             </Col>
 
@@ -482,6 +524,8 @@ const HomeFilter = () => {
                                         handleCheckboxChange={handleCheckboxChangeModels}
                                         showDropdown={showDropdownModels}
                                         valueName={'modelName'}
+                                        isOpen={openDropdown === 'models'}
+                                        onToggle={() => handleDropdownToggle('models')}
                                     />
                                 </Form.Group>
                             </Col>
@@ -496,6 +540,8 @@ const HomeFilter = () => {
                                         handleCheckboxChange={handleCheckboxChangeGearboxTypes}
                                         showDropdown={showDropdownGearboxTypes}
                                         valueName={'gearboxType'}
+                                        isOpen={openDropdown === 'gearboxTypes'}
+                                        onToggle={() => handleDropdownToggle('gearboxTypes')}
                                     />
                                 </Form.Group>
                             </Col>
@@ -512,6 +558,8 @@ const HomeFilter = () => {
                                         handleCheckboxChange={handleCheckboxChangeBodyTypes}
                                         showDropdown={showDropdownBodyTypes}
                                         valueName={'bodyType'}
+                                        isOpen={openDropdown === 'bodyTypes'}
+                                        onToggle={() => handleDropdownToggle('bodyTypes')}
                                     />
                                 </Form.Group>
                             </Col>
@@ -526,6 +574,8 @@ const HomeFilter = () => {
                                     options={optionsUsedNew}
                                     onChange={handleUsedNewChange}
                                     value={selectedUsedNew}
+                                    isOpen={openDropdown === 'usedNews'}
+                                    onToggle={() => handleDropdownToggle('usedNews')}
                                 />
                             </Col>
 
@@ -540,6 +590,8 @@ const HomeFilter = () => {
                                         handleCheckboxChange={handleCheckboxChangeFuelTypes}
                                         showDropdown={showDropdownFuelTypes}
                                         valueName={'fuelType'}
+                                        isOpen={openDropdown === 'fuelTypes'}
+                                        onToggle={() => handleDropdownToggle('fuelTypes')}
                                     />
                                 </Form.Group>
                             </Col>
@@ -594,6 +646,9 @@ const HomeFilter = () => {
                                         handleCheckboxChange={handleCheckboxChangeColors}
                                         showDropdown={showDropdownColors}
                                         valueName={'color'}
+                                        isOpen={openDropdown === 'colors'}
+                                        onToggle={() => handleDropdownToggle('colors')}
+
                                     />
                                 </Form.Group>
                             </Col>
@@ -607,6 +662,8 @@ const HomeFilter = () => {
                                     options={ManufactureYears}
                                     onChange={handleMinYearChange}
                                     value={selectedMinYear}
+                                    isOpen={openDropdown === 'minYear'}
+                                    onToggle={() => handleDropdownToggle('minYear')}
                                 />
                             </Col>
 
@@ -618,6 +675,8 @@ const HomeFilter = () => {
                                     options={ManufactureYears}
                                     onChange={handleMaxYearChange}
                                     value={selectedMaxYear}
+                                    isOpen={openDropdown === 'maxYear'}
+                                    onToggle={() => handleDropdownToggle('maxYear')}
                                 />
                             </Col>
 
@@ -634,6 +693,8 @@ const HomeFilter = () => {
                                         handleCheckboxChange={handleCheckboxChangeMarketVersion}
                                         showDropdown={showDropdownMarketVersion}
                                         valueName={'marketVersion'}
+                                        isOpen={openDropdown === 'marketVersions'}
+                                        onToggle={() => handleDropdownToggle('marketVersions')}
                                     />
                                 </Form.Group>
                             </Col>
@@ -668,6 +729,9 @@ const HomeFilter = () => {
                                                 handleCheckboxChange={handleCheckboxChangeDriveTrainType}
                                                 showDropdown={showDropdownDriveTrainType}
                                                 valueName="drivetrainType"
+                                                isOpen={openDropdown === 'driveTrainTypes'}
+                                                onToggle={() => handleDropdownToggle('driveTrainTypes')}
+
                                             />
                                         </Form.Group>
                                     </Col>
@@ -681,6 +745,8 @@ const HomeFilter = () => {
                                             options={Countries}
                                             onChange={handleCountryChange}
                                             value={selectedCountry}
+                                            isOpen={openDropdown === 'countries'}
+                                            onToggle={() => handleDropdownToggle('countries')}
                                         />
                                     </Col>
 
@@ -694,6 +760,8 @@ const HomeFilter = () => {
                                                 handleCheckboxChange={handleCheckboxChangeCities}
                                                 showDropdown={showDropdownCities}
                                                 valueName={'cityName'}
+                                                isOpen={openDropdown === 'cityNames'}
+                                                onToggle={() => handleDropdownToggle('cityNames')}
                                             />
                                         </Form.Group>
                                     </Col>

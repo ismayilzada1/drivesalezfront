@@ -5,6 +5,7 @@ i18n
     .use(Backend)
     .use(initReactI18next)
     .init({
+        lng:localStorage.getItem('lng'),
         debug: true,
         fallbackLng: 'en',
     });

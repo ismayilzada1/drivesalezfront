@@ -30,6 +30,10 @@
   "labelHorsePower": "Beygir Gücü:",
   "labelEngineVolume": "Motor Hacmi",
   "labelBarter": "Takas",
-  "labelOnCredit": "Krediyle"
+  "labelOnCredit": "Krediyle",
+
+  "selected": "Seçilmiş",
+  "chooseOption": "Seçin",
+  "chooseAnOption": "Bir Seçenek Seçin"
 
 }

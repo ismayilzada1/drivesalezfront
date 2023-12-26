@@ -2,7 +2,7 @@ import React from 'react';
 import { Suspense } from 'react';
 import './i18n';
 import { createRoot } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter, HashRouter} from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import App from "./components/app";
 import Login from './pages/Auth/login';
@@ -20,17 +20,17 @@ const queryClient = new QueryClient();
 
 const root = createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <QueryClientProvider client={queryClient}>
             <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
                     <BrowserRouter>
                         <Suspense fallback={<LoadingPage/>}>
-                        <App />
+                            <App />
                         </Suspense>
                     </BrowserRouter>
                 </PersistGate>
             </Provider>
         </QueryClientProvider>
-    </React.StrictMode>
+    // </React.StrictMode>
 );

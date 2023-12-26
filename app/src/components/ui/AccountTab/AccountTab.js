@@ -8,6 +8,8 @@ import CommonDataService from "../../../api-services/CommonDataService";
 
 const AccountTab = () => {
 
+    const {accessToken}=useSelector(state => state.auth)
+
     const commonDataService=new CommonDataService();
 
     const [userLimit,setUserLimit]=useState();
@@ -23,7 +25,7 @@ const AccountTab = () => {
     {
         const fetchData = async () => {
             try {
-                const response = await dispatch(GetUserLimits());
+                const response = await dispatch(GetUserLimits(accessToken));
                 setUserLimit(response);
 
                 const responseSubscriptions=commonDataService.getAllAnnouncementPricings().then((resp)=>{
@@ -72,7 +74,7 @@ const AccountTab = () => {
 
         };
 
-        const response=await dispatch(TopUpBalance(requestBody));
+        const response=await dispatch(TopUpBalance(requestBody,accessToken));
         if(response && response.status===200)
         {
             window.location.reload();
@@ -83,7 +85,7 @@ const AccountTab = () => {
 
     const handleAddAnnouncementBalance=async()=>{
 
-        const response=await dispatch(AddAnnouncementLimit(SelectedSubscription.id,SubscriptionCount));
+        const response=await dispatch(AddAnnouncementLimit(SelectedSubscription.id,SubscriptionCount,accessToken));
         if(response && response.status===200)
         {
             window.location.reload();

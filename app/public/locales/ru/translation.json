@@ -22,13 +22,17 @@
   "labelVehicleColor": "Цвет транспортного средства: ",
   "mainLabelMinYear": "Мин. год выпуска: ",
   "mainLabelMaxYear": "Макс. год выпуска: ",
-  "labelMarketVersion": "Рыночная версия:",
+  "labelMarketVersion": "Рыночная версия: ",
   "labelWheelDrive": "Тип привода: ",
   "mainLabelCountry": "Страна: ",
   "labelCity": "Город: ",
   "labelHorsePower": "Лошадиные силы:",
   "labelEngineVolume": "Объем двигателя",
   "labelBarter": "Бартер",
-  "labelOnCredit": "В кредит"
+  "labelOnCredit": "В кредит",
+
+  "selected": "Выбрано",
+  "chooseOption": "Выберите опцию",
+  "chooseAnOption": "Выберите вариант"
 
 }

@@ -15,6 +15,8 @@ const MyAnnouncementsTab = () => {
 
     const dispatch = useDispatch ();
 
+    const {accessToken}=useSelector(state => state.auth);
+
     const [waitingAnnouncements, setWaitingAnnouncements] = useState ([]);
     const [activeAnnouncements, setActiveAnnouncements] = useState ([]);
     const [inActiveAnnouncements, setInActiveAnnouncements] = useState ([]);
@@ -24,17 +26,21 @@ const MyAnnouncementsTab = () => {
     useEffect (() => {
         const fetchData = async () => {
             try {
-                const waitingAnnouncementsData = await dispatch(GetAllWaitingAnnouncementsByUserId());
-                const activeAnnouncementsData = await dispatch(GetAllActiveAnnouncementsByUserId());
-                const inactiveAnnouncementsData = await dispatch(GetAllInactiveAnnouncementsByUserId());
-
-                setWaitingAnnouncements(waitingAnnouncementsData);
-                setActiveAnnouncements(activeAnnouncementsData);
-                setInActiveAnnouncements(inactiveAnnouncementsData);
 
 
-                setAllAnnouncements([...waitingAnnouncementsData,...activeAnnouncementsData,...inactiveAnnouncementsData]);
+                const waitingAnnouncementsData = await dispatch(GetAllWaitingAnnouncementsByUserId(accessToken));
+                const activeAnnouncementsData = await dispatch(GetAllActiveAnnouncementsByUserId(accessToken));
+                const inactiveAnnouncementsData = await dispatch(GetAllInactiveAnnouncementsByUserId(accessToken));
 
+                setWaitingAnnouncements(waitingAnnouncementsData || []);
+                setActiveAnnouncements(activeAnnouncementsData || []);
+                setInActiveAnnouncements(inactiveAnnouncementsData || []);
+
+                setAllAnnouncements([
+                    ...(waitingAnnouncementsData),
+                    ...(activeAnnouncementsData),
+                    ...(inactiveAnnouncementsData),
+                ]);
             } catch (ex) {
                 console.log (ex);
             }

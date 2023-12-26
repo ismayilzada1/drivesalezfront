@@ -17,7 +17,7 @@ const PrivacyPolicy = () => {
                                 </div>
                                 <div className="card-body custom-card-body">
                                     <p>
-                                        This Privacy Policy explains how [Your Company] collects,
+                                        This Privacy Policy explains how DriveSalez collects,
                                         uses, and protects your personal information when you use our
                                         website. By using our website, you consent to the practices
                                         described in this policy.
@@ -61,6 +61,37 @@ const PrivacyPolicy = () => {
                                         of our website.
                                     </p>
                                 </div>
+                            </div>
+
+                            <div className="card">
+                                <div className="card-header d-flex justify-content-between">
+                                    <div className="header-title">
+                                        <h4 className="card-title custom-card-title">Who can't visit our website</h4>
+                                    </div>
+                                </div>
+                                <div className="card-body custom-card-body">
+                                    <ul className="list-group">
+                                        <li className="list-group-item">
+                                            Users below a certain age limit who are not allowed to visit our website.
+                                        </li>
+                                        <li className="list-group-item">
+                                            Countries or regions that are restricted from accessing your website.
+                                        </li>
+                                        <li className="list-group-item">
+                                            Specific user accounts that are banned or restricted from accessing the website.
+                                        </li>
+                                        <li className="list-group-item">
+                                            Elvin Suleymanov
+                                        </li>
+                                        <li className="list-group-item">
+                                            Identifying and blocking users who pose a security risk or have engaged in malicious activities.
+                                        </li>
+                                        <li className="list-group-item">
+                                            Users engaged in illegal activities or violating the law.
+                                        </li>
+                                    </ul>
+                                </div>
+
                             </div>
 
                             {/* Card 4 */}

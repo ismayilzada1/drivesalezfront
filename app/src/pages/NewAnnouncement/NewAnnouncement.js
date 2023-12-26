@@ -10,7 +10,7 @@ const NewAnnouncement=()=> {
     const CommonDataService= new commonDataService();
 
 
-    const { user } = useSelector((state) => state.auth);
+    const { accessToken } = useSelector((state) => state.auth);
     const [userLimit,setUserLimit]=useState('');
     const dispatch = useDispatch();
 
@@ -141,6 +141,8 @@ const NewAnnouncement=()=> {
             ...prevData,
             [field]: value,
         }));
+
+        console.log (formData.distanceUnit);
     };
 
     useEffect(() => {
@@ -188,7 +190,7 @@ const NewAnnouncement=()=> {
                 setCities(citiesData);
 
 
-                const response = await dispatch(GetUserLimits());
+                const response = await dispatch(GetUserLimits(accessToken));
                 setUserLimit(response);
 
 
@@ -280,7 +282,7 @@ const NewAnnouncement=()=> {
 
         try {
 
-            const response= await dispatch(SendAnnouncement(data));
+            const response= await dispatch(SendAnnouncement(data,accessToken));
 
             if (response.status === 200) {
                 setAlertMessage("Announcement request sent succesfully !");
