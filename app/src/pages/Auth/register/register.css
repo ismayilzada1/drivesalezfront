@@ -1,0 +1,13 @@
+.top-right-dropdown {
+    position: absolute;
+    top: 80px;
+    right: 150px;
+    z-index: 99;
+}
+
+@media screen and (max-width: 768px) {
+    .top-right-dropdown {
+        top: 50px;
+        right: 50px;
+    }
+}

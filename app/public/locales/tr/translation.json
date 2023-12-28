@@ -1,5 +1,5 @@
 {
-  "home": "Ana Sayfa",
+  "home": "Tüm İlanlar",
   "motorcycles": "Motosikletler",
   "trucks": "Kamyonlar",
   "boats": "Tekneler",
@@ -34,6 +34,83 @@
 
   "selected": "Seçilmiş",
   "chooseOption": "Seçin",
-  "chooseAnOption": "Bir Seçenek Seçin"
+  "chooseAnOption": "Bir Seçenek Seçin",
+  "addVehicle": "Araç Ekle",
+  "team": "Takım",
+  "search": "Ara",
+
+
+  "privacyPolicy.title": "Gizlilik Politikası",
+  "privacyPolicy.intro": "Bu Gizlilik Politikası, DriveSalez'in web sitemizi kullanırken kişisel bilgilerinizi nasıl topladığını, kullanığını ve koruduğunu açıklar. Web sitemizi kullanarak, bu politikada açıklanan uygulamalara onay vermiş olursunuz.",
+  "privacyPolicy.informationWeCollect": "Topladığımız Bilgiler",
+  "privacyPolicy.informationWeCollectContent": "Adınız, iletişim bilgileriniz, ödeme detaylarınız ve işlem yaparken siteye kaydolduğunuzda, formlar gönderdiğinizde veya işlemlere katıldığınızda gibi çeşitli kişisel bilgileri toplayabiliriz. Bu bilgiler, hizmetlerimizi sağlamamıza, geliştirmemize, deneyiminizi kişiselleştirmemize ve yasal yükümlülüklerimizi yerine getirmemize olanak tanır.",
+  "privacyPolicy.howWeUseYourInformation": "Bilgilerinizi Nasıl Kullanıyoruz",
+  "privacyPolicy.howWeUseYourInformationContent": "Topladığımız bilgileri çeşitli amaçlarla kullanıyoruz, bunlar arasında işlemleri kolaylaştırma, müşteri desteği sağlama, deneyiminizi kişiselleştirme ve yasal yükümlülüklere uyma bulunmaktadır. Ayrıca, veri, kullanıcı tercihlerini analiz etmemize ve web sitemizin işlevselliğini ve içeriğini iyileştirmemize yardımcı olur.",
+  "privacyPolicy.sharingYourInformation": "Bilgilerinizi Paylaşma",
+  "privacyPolicy.sharingYourInformationContent": "Bilgilerinizi üçüncü taraflarla, hizmet sağlayıcılar, yasal uyumluluk ve onayınızla paylaşabiliriz. Bu üçüncü taraflar, bilgilerinizin gizliliğini ve güvenliğini koruma konusunda yükümlüdür. Kişisel bilgilerinizi pazarlama amaçlarıyla üçüncü taraflara satmıyor, kiralamıyor veya takas etmiyoruz.",
+  "privacyPolicy.cookiesAndTechnologies": "Çerezler ve Benzeri Teknolojiler",
+  "privacyPolicy.cookiesAndTechnologiesContent": "Deneyiminizi geliştirmek için çerezler ve benzeri teknolojiler kullanıyoruz. Çerezler, cihazınızda depolanan küçük dosyalardır ve web trafiğini analiz etmemize, içeriği özelleştirmemize ve kişiselleştirilmiş bir deneyim sunmamıza yardımcı olur. Çerez tercihlerinizi tarayıcı ayarlarınız aracılığıyla yönetebilirsiniz.",
+  "privacyPolicy.security": "Güvenlik",
+  "privacyPolicy.securityContent": "Bilgilerinizi korumak için makul güvenlik önlemleri uyguluyoruz, ancak internet üzerinden iletim veya elektronik depolamanın hiçbiri tamamen güvenli değildir. Verilerinizi yetkisiz erişime, açıklamaya, değişikliğe ve yok etmeye karşı korumak için güvenlik protokollerimizi sürekli güncelliyoruz.",
+  "privacyPolicy.changesToPrivacyPolicy": "Bu Gizlilik Politikasındaki Değişiklikler",
+  "privacyPolicy.changesToPrivacyPolicyContent": "Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Güncellenmiş politika, web sitemizde yayımlandığında etkili olacaktır. Bu değişiklikleri kontrol etmenizi öneririz. Değişikliklerin yayımlanmasından sonra web sitemizi kullanmaya devam etmeniz, revize edilmiş politikayı kabul ettiğiniz anlamına gelir.",
+  "privacyPolicy.contactUs": "Bize Ulaşın",
+  "privacyPolicy.contactUsContent": "Bu Gizlilik Politikası ile ilgili herhangi bir sorunuz veya endişeniz varsa, lütfen bizimle şu adreste iletişime geçin: [iletişim e-posta adresiniz]. Gizliliğinizi değerli buluyor ve kişisel bilgilerinizle ilgili talepler veya sorularınıza hızlı bir şekilde cevap vereceğiz.",
+
+  "termsOfUse.acceptanceOfTerms": "Şartların Kabul Edilmesi",
+  "termsOfUse.acceptanceOfTermsContent": "Websitesine erişerek veya kullanarak, bu Kullanım Koşullarını okuduğunuzu, anladığınızı ve bunlara bağlı olduğunuzu kabul edersiniz. Bu şartlar zaman zaman bildirim yapılmaksızın güncellenebilir ve bunları periyodik olarak gözden geçirmek size aittir.",
+  "termsOfUse.useOfTheWebsite": "Websitesinin Kullanımı",
+  "termsOfUse.useOfTheWebsiteContent": [
+    "Bu Websitesini kullanmak için en az 18 yaşında olmalısınız.",
+    "Websitesini kullanırken doğru ve güncel bilgileri sağlamayı kabul edersiniz.",
+    "Hesabınızın ve şifrenizin gizliliğini koruma ve bilgisayarınıza erişimi sınırlama konusundan yalnızca siz sorumlusunuz."
+  ],
+  "termsOfUse.vehicleListingsAndSales": "Araç İlanları ve Satışları",
+  "termsOfUse.vehicleListingsAndSalesContent": [
+    "DriveSalezTM, Websitesinde satıcılar tarafından sağlanan bilgilerin doğruluğundan sorumlu değildir.",
+    "Websitesi üzerinden gerçekleştirilen tüm satışlar ve işlemler yalnızca alıcı ve satıcı arasında yapılır. DriveSalezTM, bu tür işlemlerin bir tarafı değildir ve bunlardan kaynaklanan herhangi bir anlaşmazlık için sorumlu tutulamaz."
+  ],
+  "termsOfUse.intellectualProperty": "Fikri Mülkiyet",
+  "termsOfUse.intellectualPropertyContent": [
+    "Websitesindeki tüm içerik, metin, grafik, logo ve resimler dahil olmak üzere DrizeSalezTM'nin mülkiyetindedir ve fikri mülkiyet yasalarıyla korunmaktadır.",
+    "DrizeSalezTM'nin açık yazılı izni olmadan içeriğin herhangi bir kısmını çoğaltamaz, dağıtamaz veya görüntüleyemezsiniz."
+  ],
+  "termsOfUse.userConduct": "Kullanıcı Davranışı",
+  "termsOfUse.userConductContent": [
+    "Websitesini yasa dışı bir amaçla veya bu Kullanım Koşullarına aykırı olarak kullanmamayı kabul edersiniz.",
+    "Websitesini hasar verebilecek, devre dışı bırakabilecek veya aşırı yükleyebilecek herhangi bir davranışta bulunamazsınız."
+  ],
+  "termsOfUse.limitationOfLiability": "Sorumluluk Sınırlaması",
+  "termsOfUse.limitationOfLiabilityContent": "DriveSalezTM, Websitesine erişiminiz veya kullanımınız nedeniyle ortaya çıkan doğrudan, dolaylı, tesadüfi, sonuçsal veya cezai zararlardan sorumlu değildir.",
+  "termsOfUse.termination": "Sonlandırma",
+  "termsOfUse.terminationContent": "DriveSalezTM, herhangi bir nedenle önceden bildirim yapmaksızın Websitesine erişiminizi sonlandırma veya askıya alma hakkını saklı tutar.",
+
+
+  "TeamSectionTitle": "Sıra Dışı Uzmanlık ve Profesyonellik",
+  "TeamSectionSubtitle": "Mükemmeliyet dünyamıza hoş geldiniz, burada sizi aşacak deneyimli ve özverili bir ekip sizi bekliyor. Olağanüstü özelliklerimiz ve eşsiz müşteri hizmetimizle kendinizi mükemmel bir deneyime bırakın, memnuniyetiniz zaman kaybetmeden sağlansın.",
+  "TeamMember1Role": "Fullstack Yazılım Mühendisi",
+  "TeamMember1Description": "Ismayilzada Mahammad tanıyın, yüksek kaliteli çözümler sunmaya adanmış yetenekli bir Yazılım Mühendisi. Hassasiyet ve profesyonellik taahhüdü ile Mahammad, en yüksek mükemmellik standartlarına uygun yenilikçi yazılım çözümleri oluşturmada üstün bir performans sergiliyor.",
+  "TeamMember2Role": "Fullstack Yazılım Mühendisi",
+  "TeamMember2Description": "Dedike bir Fullstack Yazılım Mühendisi olarak, Ahmad Ahmadzada masaüstüne zengin bir deneyim ve uzmanlık getiriyor. Hem ön yüz hem de arka yüz geliştirmede güçlü bir geçmişe sahip olan Ahmad, yüksek kaliteli yazılım çözümleri sunmaya kararlıdır.",
+
+  "nav.signUp": "Kayıt Ol",
+  "nav.createAccount": "Vrooom Hesabınızı Oluşturun.",
+  "nav.firstName": "Ad",
+  "nav.lastName": "Soyad",
+  "nav.phoneNo": "Telefon Numarası",
+  "nav.password": "Şifre",
+  "nav.confirmPassword": "Şifreyi Onayla",
+  "nav.termsCondition": "Kullanım Koşulları ile kabul ediyorum",
+  "nav.signingUp": "Kayıt Olunuyor...",
+  "nav.alreadyHaveAccount": "Zaten bir hesabınız mı var",
+  "nav.signIn": "Giriş Yap",
+  "nav.orSignInWith": "ya da başka bir hesapla giriş yapın?",
+  "nav.signingIn": "Giriş yapılıyor...",
+  "nav.signInToStayConnected": "Bağlı kalın için giriş yapın.",
+  "nav.rememberMe": "Beni hatırla",
+  "nav.forgotPassword": "Şifremi unuttum",
+  "nav.dontHaveAnAccount": "Hesabınız yok mu",
+  "nav.clickHereToSignUp": "Kayıt olmak için buraya tıklayın"
+
 
 }

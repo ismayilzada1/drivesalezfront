@@ -21,6 +21,7 @@ import NotFound from "./pages/errors/NotFound";
 import React from "react";
 import InternalServerError from "./pages/errors/InternalServerError";
 import Admin from "./pages/Admin";
+import Team from "./pages/Team";
 
 
 const routes=[
@@ -35,6 +36,10 @@ const routes=[
             {
                 path:'privacy-policy',
                 element: <PrivacyPolicy/>
+            },
+            {
+                path:'team',
+                element: <Team/>
             },
             {
                 path:'terms-of-use',

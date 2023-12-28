@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import {useSelector} from "react-redux";
 import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../Store/Auth/authActions';
-
+import {useTranslation} from "react-i18next";
+import './register.css'
 function Register() {
 
     const dispatch = useDispatch();
@@ -65,10 +66,67 @@ function Register() {
     };
 
 
+    const {t, i18n} = useTranslation ();
+
+    const handleLanguageChange = async (lang,e) => {
+        e.preventDefault();
+        await i18n.changeLanguage (lang);
+        localStorage.setItem('lng',lang);
+    }
+
     return (
         <div className="wrapper">
+            <div className="top-right-dropdown">
+                <ul className="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
+                 <li className="nav-item dropdown">
+                    <a href="#" className="search-toggle nav-link" id="flagDropdown"
+                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src={`../assets/images/flag/flag-${i18n.language}.png`} className="img-fluid"
+                             alt="user" style={{height: '30px', minWidth: '30px', width: '30px'}}/>
+                        <span className="bg-primary"></span>
+                    </a>
+                    <div className="sub-drop dropdown-menu dropdown-menu-end p-0"
+                         aria-labelledby="dropdownMenuButton2">
+                        <div className="card shadow-none m-0 border-0">
+                            <div className=" p-0 ">
+                                <ul className="list-group list-group-flush p-0">
+                                    <li className="iq-sub-card list-group-item"
+                                        onClick={(e) => handleLanguageChange ('en',e)}><a className="p-0" href="#"><img
+                                        src="../assets/images/flag/flag-en.png" alt="img-flaf"
+                                        className="img-fluid me-2"
+                                        style={{height: '30px', minWidth: '30px', width: '30px'}}/>English</a>
+                                    </li>
+                                    <li className="iq-sub-card list-group-item"
+                                        onClick={(e) => handleLanguageChange ('aze',e)}><a className="p-0"
+                                                                                           href="#"><img
+                                        src="../assets/images/flag/flag-aze.png" alt="img-flaf"
+                                        className="img-fluid me-2" style={{
+                                        height: '30px',
+                                        minWidth: '30px',
+                                        width: '30px'
+                                    }}/>Azerbaijani</a></li>
+                                    <li className="iq-sub-card list-group-item"
+                                        onClick={(e) => handleLanguageChange ('ru',e)}><a className="p-0" href="#"><img
+                                        src="../assets/images/flag/flag-ru.png" alt="img-flaf"
+                                        className="img-fluid me-2"
+                                        style={{height: '30px', minWidth: '30px', width: '30px'}}/>Russian</a>
+                                    </li>
+                                    <li className="iq-sub-card list-group-item"
+                                        onClick={(e) => handleLanguageChange ('tr',e)}><a className="p-0" href="#"><img
+                                        src="../assets/images/flag/flag-tr.png" alt="img-flaf"
+                                        className="img-fluid me-2"
+                                        style={{height: '30px', minWidth: '30px', width: '30px'}}/>Turkish</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                </ul>
+            </div>
             <div className="main-auth-page">
                 <Logo size="80px" />
+
                 <div className="clip-board">
                     <div className="container">
                         <div className="row auth-details-card">
@@ -82,9 +140,9 @@ function Register() {
                                     />
                                     <div className="card-body col-5 offset-7">
                                         <div className="auth-form">
-                                            <h2 className="text-center mb-3">Sign Up</h2>
+                                            <h2 className="text-center mb-3">{t("nav.signUp")}</h2>
                                             <form>
-                                                <p className="text-center">Create Your Vrooom Account.</p>
+                                                <p className="text-center"> {t("nav.createAccount")}</p>
                                                 <div className="row text-start mb-3">
                                                     <div className="col-md-6">
                                                         <div className="form-floating">
@@ -92,12 +150,12 @@ function Register() {
                                                                 type="text"
                                                                 className="form-control"
                                                                 id="input1"
-                                                                placeholder="First Name"
+                                                                placeholder={t("nav.firstName")}
                                                                 value={formData.FirstName}
                                                                 onChange={handleChange}
                                                                 name="FirstName"
                                                             />
-                                                            <label htmlFor="input1">First Name</label>
+                                                            <label htmlFor="input1">{t("nav.firstName")}</label>
                                                         </div>
                                                     </div>
                                                     <div className="col-md-6">
@@ -106,12 +164,12 @@ function Register() {
                                                                 type="text"
                                                                 className="form-control"
                                                                 id="input2"
-                                                                placeholder="Last Name"
+                                                                placeholder={t("nav.lastName")}
                                                                 value={formData.LastName}
                                                                 onChange={handleChange}
                                                                 name="LastName"
                                                             />
-                                                            <label htmlFor="input2">Last Name</label>
+                                                            <label htmlFor="input2">{t("nav.lastName")}</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -136,12 +194,12 @@ function Register() {
                                                                 type="text"
                                                                 className="form-control"
                                                                 id="input4"
-                                                                placeholder="Phone No"
+                                                                placeholder={t("nav.phoneNo")}
                                                                 value={formData.PhoneNumber}
                                                                 onChange={handleChange}
                                                                 name="PhoneNumber"
                                                             />
-                                                            <label htmlFor="input4">Phone No</label>
+                                                            <label htmlFor="input4">{t("nav.phoneNo")}</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -152,12 +210,12 @@ function Register() {
                                                                 type="password"
                                                                 className="form-control"
                                                                 id="input5"
-                                                                placeholder="Password"
+                                                                placeholder={t("nav.password")}
                                                                 value={formData.Password}
                                                                 onChange={handleChange}
                                                                 name="Password"
                                                             />
-                                                            <label htmlFor="input5">Password</label>
+                                                            <label htmlFor="input5">{t("nav.password")}</label>
                                                         </div>
                                                     </div>
                                                     <div className="col-md-6">
@@ -166,12 +224,12 @@ function Register() {
                                                                 type="password"
                                                                 className="form-control"
                                                                 id="input6"
-                                                                placeholder="Confirm Password"
+                                                                placeholder={t("nav.confirmPassword")}
                                                                 value={formData.ConfirmPassword}
                                                                 onChange={handleChange}
                                                                 name="ConfirmPassword"
                                                             />
-                                                            <label htmlFor="input6">Confirm Password</label>
+                                                            <label htmlFor="input6">{t("nav.confirmPassword")}</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -187,7 +245,7 @@ function Register() {
                                                         className="ms-2 form-check-label"
                                                         htmlFor="termsCondition"
                                                     >
-                                                        I agree with the terms of use
+                                                        {t("nav.termsCondition")}
                                                     </label>
                                                 </div>
                                                 <div className="text-center">
@@ -197,7 +255,7 @@ function Register() {
                                                         onClick={handleSignUp}
                                                         disabled={loading || !termsChecked}
                                                     >
-                                                        {loading ? 'Signing Up...' : 'Sign Up'}
+                                                        {loading ? t("nav.signingUp") : t("nav.signUp")}
                                                     </button>
                                                 </div>
 
@@ -209,9 +267,9 @@ function Register() {
                                             </form>
                                             <div className="new-account mt-3 text-center">
                                                 <p className="mb-0">
-                                                    Already have an Account{' '}
+                                                    {t("nav.alreadyHaveAccount")}{' '}
                                                     <a className="text-primary" href="/auth/login">
-                                                        Sign in
+                                                        {t("nav.signIn")}
                                                     </a>
                                                 </p>
                                             </div>
@@ -223,13 +281,13 @@ function Register() {
                     </div>
                 </div>
             </div>
-            <div className="responsive-card">
+            <div className="responsive-card mb-4">
                 <div className="card">
                     <div className="card-body">
                         <div className="auth-form">
-                            <h2 className="text-center mb-3">Sign Up</h2>
+                            <h2 className="text-center mb-3">{t('nav.signUp')}</h2>
                             <form className="ath-text-input">
-                                <p className="text-center">Create Your Vrooom Account.</p>
+                                <p className="text-center">{t("nav.createAccount")}</p>
                                 <div className="row text-start mb-3">
                                     <div className="col-md-6">
                                         <div className="form-floating">
@@ -239,10 +297,10 @@ function Register() {
                                                 id="input1"
                                                 value={formData.FirstName}
                                                 onChange={handleChange}
-                                                placeholder="First Name"
+                                                placeholder={t("nav.firstName")}
                                                 name="FirstName"
                                             />
-                                            <label htmlFor="input1">First Name</label>
+                                            <label htmlFor="input1">{t("nav.firstName")}</label>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -253,10 +311,10 @@ function Register() {
                                                 id="input2"
                                                 value={formData.LastName}
                                                 onChange={handleChange}
-                                                placeholder="Last Name"
+                                                placeholder={t("nav.lastName")}
                                                 name="LastName"
                                             />
-                                            <label htmlFor="input2">Last Name</label>
+                                            <label htmlFor="input2">{t("nav.lastName")}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -283,10 +341,10 @@ function Register() {
                                                 id="input4"
                                                 value={formData.PhoneNumber}
                                                 onChange={handleChange}
-                                                placeholder="Phone No"
+                                                placeholder={t("nav.phoneNo")}
                                                 name="PhoneNumber"
                                             />
-                                            <label htmlFor="input4">Phone No</label>
+                                            <label htmlFor="input4">{t("nav.phoneNo")}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -299,10 +357,10 @@ function Register() {
                                                 id="input5"
                                                 value={formData.Password}
                                                 onChange={handleChange}
-                                                placeholder="Password"
+                                                placeholder={t("nav.password")}
                                                 name="Password"
                                             />
-                                            <label htmlFor="input5">Password</label>
+                                            <label htmlFor="input5">{t("nav.password")}</label>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -313,10 +371,10 @@ function Register() {
                                                 id="input6"
                                                 value={formData.ConfirmPassword}
                                                 onChange={handleChange}
-                                                placeholder="Confirm Password"
+                                                placeholder={t("nav.confirmPassword")}
                                                 name="ConfirmPassword"
                                             />
-                                            <label htmlFor="input6">Confirm Password</label>
+                                            <label htmlFor="input6">{t("nav.confirmPassword")}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -332,7 +390,7 @@ function Register() {
                                         className="ms-2 form-check-label"
                                         htmlFor="termsCondition"
                                     >
-                                        I agree with the terms of use
+                                        {t("nav.termsCondition")}
                                     </label>
                                 </div>
                                 <div className="text-center">
@@ -342,11 +400,11 @@ function Register() {
                                         onClick={handleSignUp}
                                         disabled={loading}
                                     >
-                                        {loading ? 'Signing Up...' : 'Sign Up'}
+                                        {loading ? t("nav.signingUp") : t("nav.signUp")}
                                     </button>
                                 </div>
                                 <div className="text-center mt-3">
-                                    <p>or sign in with others account?</p>
+                                    <p>{t("nav.orSignInWith")}</p>
                                 </div>
                                 <div className="d-flex justify-content-center ">
                                     <ul className="list-group list-group-horizontal list-group-flush">
@@ -391,9 +449,9 @@ function Register() {
                             </form>
                             <div className="new-account mt-3 text-center">
                                 <p className="mb-0">
-                                    Already have an Account{' '}
+                                    {t("nav.alreadyHaveAccount")}{' '}
                                     <a className="text-primary" href="/auth/login">
-                                        Sign in
+                                        {t("nav.signIn")}
                                     </a>
                                 </p>
                             </div>

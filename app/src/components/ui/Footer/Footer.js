@@ -12,6 +12,7 @@ const Footer=()=> {
                     <ul className="left-panel list-inline mb-0 p-0">
                         <li className="list-inline-item"><a href="/privacy-policy">{t('privacy_policy')}</a></li>
                         <li className="list-inline-item"><a href="/terms-of-use">{t('terms_of_use')}</a></li>
+                        <li className="list-inline-item"><a href="/team">{t('team')}</a></li>
                     </ul>
 
 

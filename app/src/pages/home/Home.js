@@ -52,9 +52,7 @@ const Home = () => {
 
 
 
-    // if (loading && pageNumber === 1) {
-    //     return <LoadingPage />;
-    // }
+
 
     if (error) {
         return <p>Error: {error}</p>;
@@ -69,6 +67,10 @@ const Home = () => {
                 hasMore={hasMore}
                 scrollThreshold={0.8}
             >
+                {loading && pageNumber === 1 ? (
+                    <LoadingPage/>
+                ) : (
+
                 <div className="container-fluid pt-3">
                     <div className="d-flex flex-row flex-wrap justify-content-start">
                         {announcements?.map((car, index) => (
@@ -78,6 +80,7 @@ const Home = () => {
                         ))}
                     </div>
                 </div>
+                )}
 
             </InfiniteScroll>
         </Row>

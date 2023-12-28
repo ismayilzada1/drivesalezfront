@@ -1,4 +1,4 @@
-import React, {useState, useEffect, startTransition} from 'react';
+import React, {useState, useEffect} from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
 import './Header.css';
 import {useSelector} from "react-redux";
@@ -11,7 +11,6 @@ import {
 import commonDataService from "../../../api-services/CommonDataService";
 import {setAnnouncements, setPageNumber, setFilterParams} from '../../../Store/Announcement/AnnouncementSlice';
 import '../../../i18n'
-import {useTransition} from "react";
 import {useTranslation} from "react-i18next";
 
 const Header = () => {
@@ -74,7 +73,8 @@ const Header = () => {
     const handleSignUpButton = () => navigate ('/auth/register');
 
 
-    const handleLanguageChange = async (lang) => {
+    const handleLanguageChange = async (lang,e) => {
+        e.preventDefault();
         await i18n.changeLanguage (lang);
         localStorage.setItem('lng',lang);
     }
@@ -189,6 +189,9 @@ const Header = () => {
 
                     <ul className="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
 
+
+
+
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/" onClick={handleHomeButton} className="nav-link" activeclassname="active">
                                 {t ('home')}
@@ -229,13 +232,13 @@ const Header = () => {
                                     <div className=" p-0 ">
                                         <ul className="list-group list-group-flush p-0">
                                             <li className="iq-sub-card list-group-item"
-                                                onClick={() => handleLanguageChange ('en')}><a className="p-0" href="#"><img
+                                                onClick={(e) => handleLanguageChange ('en',e)}><a className="p-0" href="#"><img
                                                 src="../assets/images/flag/flag-en.png" alt="img-flaf"
                                                 className="img-fluid me-2"
                                                 style={{height: '30px', minWidth: '30px', width: '30px'}}/>English</a>
                                             </li>
                                             <li className="iq-sub-card list-group-item"
-                                                onClick={() => handleLanguageChange ('aze')}><a className="p-0"
+                                                onClick={(e) => handleLanguageChange ('aze',e)}><a className="p-0"
                                                                                                 href="#"><img
                                                 src="../assets/images/flag/flag-aze.png" alt="img-flaf"
                                                 className="img-fluid me-2" style={{
@@ -244,13 +247,13 @@ const Header = () => {
                                                 width: '30px'
                                             }}/>Azerbaijani</a></li>
                                             <li className="iq-sub-card list-group-item"
-                                                onClick={() => handleLanguageChange ('ru')}><a className="p-0" href="#"><img
+                                                onClick={(e) => handleLanguageChange ('ru',e)}><a className="p-0" href="#"><img
                                                 src="../assets/images/flag/flag-ru.png" alt="img-flaf"
                                                 className="img-fluid me-2"
                                                 style={{height: '30px', minWidth: '30px', width: '30px'}}/>Russian</a>
                                             </li>
                                             <li className="iq-sub-card list-group-item"
-                                                onClick={() => handleLanguageChange ('tr')}><a className="p-0" href="#"><img
+                                                onClick={(e) => handleLanguageChange ('tr',e)}><a className="p-0" href="#"><img
                                                 src="../assets/images/flag/flag-tr.png" alt="img-flaf"
                                                 className="img-fluid me-2"
                                                 style={{height: '30px', minWidth: '30px', width: '30px'}}/>Turkish</a>
@@ -275,27 +278,27 @@ const Header = () => {
                             <ul className="dropdown-menu mx-auto" aria-labelledby="navbarDropdown">
                                 <li>
                                     <a className="dropdown-item" href="/">
-                                        Cars
+                                        {t ('home')}
                                     </a>
                                 </li>
                                 <li>
                                     <a className="dropdown-item" href="/">
-                                        Trucks
+                                        {t ('trucks')}
                                     </a>
                                 </li>
                                 <li>
                                     <a className="dropdown-item" href="/">
-                                        Motorcycles
+                                        {t ('motorcycles')}
                                     </a>
                                 </li>
                                 <li>
                                     <a className="dropdown-item" href="/coming-soon">
-                                        Boats
+                                        {t ('boats')}
                                     </a>
                                 </li>
                                 <li>
                                     <a className="dropdown-item" href="/coming-soon">
-                                        Aircrafts
+                                        {t ('aircrafts')}
                                     </a>
                                 </li>
                             </ul>
@@ -388,7 +391,7 @@ const Header = () => {
                                             className='btn btn-plus btn-square d-flex justify-content-center align-items-center'
                                             style={{backgroundColor: '#f54114', color: '#ffffff', border: 'none'}}>
                                         {isMobile ? <i className="fas fa-plus"></i> : <><i
-                                            className="fas fa-plus me-2"></i>Add Vehicle</>}
+                                            className="fas fa-plus me-2"></i>{t('addVehicle')}</>}
                                     </button>
                                 </li>
                             ) : null}

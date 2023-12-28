@@ -1,5 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;600&display=swap");
+
 .app-container {
     display: flex;
     flex-direction: column;
     height:100vh;
+}
+
+.font{
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.azerbaijani-font {
+    font-family: 'Nunito', sans-serif !important;
+}
+
+.russian-font {
+    font-family: 'PT Sans', sans-serif !important;
+    font-size: 88% !important;
+}
+
+.turkish-font {
+    font-family: 'Lato', sans-serif !important;
 }

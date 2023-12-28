@@ -235,6 +235,8 @@ const NewAnnouncement=()=> {
     };
 
 
+    const clearForm=()=>{setFormData(null)}
+
     const handleSubmit = async(e) => {
         e.preventDefault();
 
@@ -287,6 +289,7 @@ const NewAnnouncement=()=> {
             if (response.status === 200) {
                 setAlertMessage("Announcement request sent succesfully !");
                 setShowSuccessAlert(true);
+                clearForm();
             } else {
                 setShowAlert(true);
                 setAlertMessage('Something went wrong !');
