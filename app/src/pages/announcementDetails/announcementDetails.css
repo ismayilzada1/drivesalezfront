@@ -57,6 +57,9 @@
     background-color: transparent;
 }
 
+
+
+
 .thumbnail-container {
     background-color: #f0f0f0;
     display: flex;
@@ -364,12 +367,16 @@ Our Classes
         cursor: pointer;
     }
 
-
     #vin-code{
         margin:0 !important;
         font-size: 12px !important;
     }
 
+    #tabs ul li a {
+        padding:20px 15px !important
+    }
 
 
 }
+
+

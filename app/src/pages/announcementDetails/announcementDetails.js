@@ -270,6 +270,10 @@ const AnnouncementDetails = () => {
                                         </li>
                                     </ul>
                                 </div>
+
+
+
+
                                 <div className="col-lg-8">
                                     <section className='tabs-content' style={{width: '100%'}}>
                                         <article id='tabs-1'
@@ -376,9 +380,12 @@ const AnnouncementDetails = () => {
                                                     </p>
                                                 </div>
 
+                                                <p>Announcement No:  {id}</p>
+
                                                 <div className="col-sm-6">
-                                                    <p>{formatTimestamp (expirationDate)}</p>
+                                                    <p>Expiration: {formatTimestamp (expirationDate)}</p>
                                                 </div>
+
                                                 <div className="col-sm-6 d-flex align-items-center" >
                                                     <p><i className="far fa-eye me-2" ></i>
                                                     <span>{viewCount} views</span>

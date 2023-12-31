@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://drivesalez.site</loc>
+    </url>
+    <url>
+        <loc>https://drivesalez.site/auth/register</loc>
+    </url>
+    <url>
+        <loc>https://drivesalez.site/auth/login</loc>
+    </url>
+    <url>
+        <loc>https://drivesalez.site/AnnouncementDetails/?</loc>
+    </url>
+    <url>
+        <loc>https://drivesalez.site/AnnouncementDetails/</loc>
+    </url>
+    <url>
+        <loc>https://drivesalez.site/privacy-policy</loc>
+    </url>
+    <url>
+        <loc>https://drivesalez.site/profile</loc>
+    </url>
+    <url>
+        <loc>https://drivesalez.site/team</loc>
+    </url>
+    <url>
+        <loc>https://drivesalez.site/terms-of-use</loc>
+    </url>
+</urlset>

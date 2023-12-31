@@ -17,16 +17,20 @@ const AnnouncementCard = (props) => {
         </li>
     );
 
+    const handleCardClick = () => {
+        const isMobile = window.innerWidth <= 768;
+        const url = `/AnnouncementDetails/${id}`;
 
-
-    const handleCardClick=()=>{
-        navigate(`/AnnouncementDetails/${id}`);
-    }
+        if (isMobile) {
+            navigate(url);
+        } else {
+            window.open(url, "_blank");
+        }
+    };
 
 
     return (
         <a>
-
             <div className="col-sm-3">
                 <div className="card iq-mb-3 announcement-card" onClick={handleCardClick}>
 

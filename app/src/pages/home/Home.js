@@ -72,7 +72,7 @@ const Home = () => {
                 dataLength={announcements.length}
                 next={fetchData}
                 hasMore={hasMore}
-                scrollThreshold={0.8}
+                scrollThreshold={0.6}
             >
                 <div className="container-fluid pt-3">
                         <div className="d-flex flex-row flex-wrap justify-content-start align-items-center announcement-cards-container">
