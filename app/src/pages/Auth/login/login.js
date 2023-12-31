@@ -29,7 +29,6 @@ const Login = () => {
 
       try {
          const response = await dispatch(loginUser(credentials, rememberMe));
-         console.log (response);
          if(response && !response?.status){
             navigate('/');
          }

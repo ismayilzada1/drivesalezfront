@@ -92,11 +92,9 @@ export const verifyEmail = (userData) => async (dispatch) => {
 export const logoutUser = (token) => async (dispatch) => {
     dispatch (logoutUserStart ());
     try {
-
         if (!token) {
             return null
         }
-
 
         const response = await AuthService.Logout (token);
 

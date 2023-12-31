@@ -73,11 +73,7 @@ const routes=[
                 element:<AnnouncementDetailsUserProfile/>,
                 auth:true
             },
-            {
-                path:'changePassword',
-                element:<ChangePassword/>,
-                auth:true
-            },
+
         ]
 
     },
@@ -108,7 +104,12 @@ const routes=[
             {
                 path: 'verifyEmail',
                 element: <VerifyEmail/>
-            }
+            },
+            {
+                path:'changePassword',
+                element:<ChangePassword/>,
+                auth:true
+            },
         ]
     },
     {

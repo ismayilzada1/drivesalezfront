@@ -503,8 +503,8 @@ const HomeFilter = () => {
             <section className="featured-places mb-2">
                 <Row className="container">
                     <Form onSubmit={search}>
-                        <Row>
-                            <Col lg={3}  md={4} sm={6} xs={12}>
+                        <Row id={'home-filter'}>
+                            <Col lg={3}  md={4} sm={6} xs={6}>
                                 <CustomDropdown
                                     mainLabel={t('mainLabelMake')}
                                     dataProperty="makeName"
@@ -517,7 +517,7 @@ const HomeFilter = () => {
                                 />
                             </Col>
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
+                            <Col lg={3} md={4} sm={6} xs={6}>
                                 <Form.Group controlId="formModel">
                                     <Form.Label>{t('labelVehicleModel')}</Form.Label>
                                     <DropDownSelectWithCheckboxes
@@ -533,7 +533,7 @@ const HomeFilter = () => {
                                 </Form.Group>
                             </Col>
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
+                            <Col lg={3} md={4} sm={6} xs={6}>
                                 <Form.Group controlId="formGearboxType">
                                     <Form.Label>{t('labelGearboxType')}</Form.Label>
                                     <DropDownSelectWithCheckboxes
@@ -549,9 +549,7 @@ const HomeFilter = () => {
                                 </Form.Group>
                             </Col>
 
-
-
-                            <Col lg={3} md={4} sm={6} xs={12}>
+                            <Col lg={3} md={4} sm={6} xs={6}>
                                 <Form.Group controlId="formBodyType">
                                     <Form.Label>{t('labelBodyType')}</Form.Label>
                                     <DropDownSelectWithCheckboxes
@@ -569,7 +567,7 @@ const HomeFilter = () => {
 
 
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
+                            <Col lg={3} md={4} sm={6} xs={6}>
                                 <CustomDropdown
                                     mainLabel={t('mainLabelUsedNew')}
                                     dataProperty="name"
@@ -583,7 +581,7 @@ const HomeFilter = () => {
                             </Col>
 
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
+                            <Col lg={3} md={4} sm={6} xs={6}>
                                 <Form.Group controlId="formBodyType">
                                     <Form.Label>{t('labelFuelType')}</Form.Label>
                                     <DropDownSelectWithCheckboxes
@@ -603,9 +601,9 @@ const HomeFilter = () => {
                                 <Form.Group controlId="formPrice">
                                     <Form.Label>{t('labelPrice')}</Form.Label>
                                     <div className="input-group input-group-rounded">
-                                        <input type="number" value={selectedMinPrice} onChange={handleMinPriceChange} className="form-control " placeholder="Min" min='0' aria-label="Minimum Price" />
-                                        <input type="number"  value={selectedMaxPrice} onChange={handleMaxPriceChange} className="form-control " placeholder="Max" min='0' aria-label="Maximum Price" />
-                                        <Form.Control as="select" value={selectedCurrency} onChange={handleCurrencyChange} className='form-control short-input'>
+                                        <input type="number" value={selectedMinPrice} onChange={handleMinPriceChange} className="form-control triple-input" placeholder="Min" min='0' aria-label="Minimum Price" />
+                                        <input type="number"  value={selectedMaxPrice} onChange={handleMaxPriceChange} className="form-control triple-input" placeholder="Max" min='0' aria-label="Maximum Price" />
+                                        <Form.Control as="select" value={selectedCurrency} onChange={handleCurrencyChange} className='form-control short-input triple-input'>
                                             {optionsCurrency.map((currency) => (
                                                 <option key={currency.id} value={currency.id}>
                                                     {currency.name}
@@ -620,9 +618,9 @@ const HomeFilter = () => {
                                 <Form.Group controlId="formMileage">
                                     <Form.Label>{t('labelMileage')}</Form.Label>
                                     <div className="input-group input-group-rounded">
-                                        <input type="number" value={selectedMinMileage} onChange={handleMinMileage} className="form-control " placeholder="Min" min='0' aria-label="Minimum Mileage" />
-                                        <input type="number" value={selectedMaxMileage} onChange={handleMaxMileage} className="form-control " placeholder="Max" min='0' aria-label="Maximum Mileage" />
-                                        <Form.Control as="select" value={selectedDistanceUnit} onChange={handleDistanceUnit} className='form-control short-input'>
+                                        <input type="number" value={selectedMinMileage} onChange={handleMinMileage} className="form-control triple-input" placeholder="Min" min='0' aria-label="Minimum Mileage" />
+                                        <input type="number" value={selectedMaxMileage} onChange={handleMaxMileage} className="form-control triple-input" placeholder="Max" min='0' aria-label="Maximum Mileage" />
+                                        <Form.Control as="select" value={selectedDistanceUnit} onChange={handleDistanceUnit} className='form-control short-input triple-input'>
                                             {optionsDistanceUnit.map((distanceUnit) => (
                                                 <option key={distanceUnit.id} value={distanceUnit.id}>
                                                     {distanceUnit.name}
@@ -639,7 +637,7 @@ const HomeFilter = () => {
 
 
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
+                            <Col lg={3} md={4} sm={6} xs={6}>
                                 <Form.Group controlId="formSeats">
                                     <Form.Label>{t('labelVehicleColor')}</Form.Label>
                                     <DropDownSelectWithCheckboxes
@@ -657,7 +655,7 @@ const HomeFilter = () => {
                             </Col>
 
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
+                            <Col lg={3} md={4} sm={6} xs={6}>
                                 <CustomDropdown
                                     mainLabel={t('mainLabelMinYear')}
                                     dataProperty="year"
@@ -670,7 +668,7 @@ const HomeFilter = () => {
                                 />
                             </Col>
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
+                            <Col lg={3} md={4} sm={6} xs={6}>
                                 <CustomDropdown
                                     mainLabel={t('mainLabelMaxYear')}
                                     dataProperty="year"
@@ -686,7 +684,7 @@ const HomeFilter = () => {
 
 
 
-                            <Col lg={3} md={4} sm={6} xs={12}>
+                            <Col lg={3} md={4} sm={6} xs={6}>
                                 <Form.Group controlId="formBodyType">
                                     <Form.Label>{t('labelMarketVersion')}</Form.Label>
                                     <DropDownSelectWithCheckboxes
@@ -722,7 +720,7 @@ const HomeFilter = () => {
                                     {/*    </Form.Group>*/}
                                     {/*</Col>*/}
 
-                                    <Col lg={3} md={4} sm={6} xs={12}>
+                                    <Col lg={3} md={4} sm={6} xs={6}>
                                         <Form.Group controlId="formWheelDrive">
                                             <Form.Label>{t('labelWheelDrive')}</Form.Label>
                                             <DropDownSelectWithCheckboxes
@@ -740,7 +738,7 @@ const HomeFilter = () => {
                                     </Col>
 
 
-                                    <Col lg={3} md={4} sm={6} xs={12}>
+                                    <Col lg={3} md={4} sm={6} xs={6}>
                                         <CustomDropdown
                                             mainLabel={t('mainLabelCountry')}
                                             dataProperty="countryName"
@@ -753,7 +751,7 @@ const HomeFilter = () => {
                                         />
                                     </Col>
 
-                                    <Col lg={3} md={4} sm={6} xs={12}>
+                                    <Col lg={3} md={4} sm={6}  xs={6}>
                                         <Form.Group controlId="formCity">
                                             <Form.Label>{t('labelCity')}</Form.Label>
                                             <DropDownSelectWithCheckboxes
@@ -790,8 +788,8 @@ const HomeFilter = () => {
                                         <Form.Group controlId="formPrice">
                                             <Form.Label>{t('labelHorsePower')}</Form.Label>
                                             <div className="input-group input-group-rounded">
-                                                <input type="number"  value={selectedMinHorsePower} onChange={handleMinHorsePower} className="form-control " placeholder="Min" min='0' aria-label="Minimum" />
-                                                <input type="number"  value={selectedMaxHorsePower} onChange={handleMaxHorsePower} className="form-control " placeholder="Max" min='0' aria-label="Maximum" />
+                                                <input type="number"  value={selectedMinHorsePower} onChange={handleMinHorsePower} className="form-control triple-input" placeholder="Min" min='0' aria-label="Minimum" />
+                                                <input type="number"  value={selectedMaxHorsePower} onChange={handleMaxHorsePower} className="form-control triple-input" placeholder="Max" min='0' aria-label="Maximum" />
                                             </div>
                                         </Form.Group>
                                     </Col>
@@ -801,14 +799,14 @@ const HomeFilter = () => {
                                         <Form.Group controlId="formEngineVolume">
                                             <Form.Label>{t('labelEngineVolume')}</Form.Label>
                                             <div className="input-group input-group-rounded">
-                                                <input type="number"   value={selectedMinEngineVolume} onChange={handleMinEngineVolume} className="form-control " placeholder="Min" min='0' aria-label="Minimum" />
-                                                <input type="number" value={selectedMaxEngineVolume} onChange={handleMaxEngineVolume} className="form-control " placeholder="Max" min='0' aria-label="Maximum" />
+                                                <input type="number"   value={selectedMinEngineVolume} onChange={handleMinEngineVolume} className="form-control triple-input" placeholder="Min" min='0' aria-label="Minimum" />
+                                                <input type="number" value={selectedMaxEngineVolume} onChange={handleMaxEngineVolume} className="form-control triple-input" placeholder="Max" min='0' aria-label="Maximum" />
                                             </div>
                                         </Form.Group>
                                     </Col>
 
 
-                                    <Col lg={3} md={4} sm={6} xs={12} className='d-flex justify-content-around flex-row align-items-center p-0 mt-3'>
+                                    <Col lg={3} md={4} sm={6} xs={12} className='filter-toggle-buttons d-flex justify-content-around flex-row align-items-center p-0 mt-3'>
                                         <Button
                                             className='border-0 pe-4 ps-4 mt-auto '
                                             style={{
@@ -853,12 +851,12 @@ const HomeFilter = () => {
 
                             <Button variant="primary" className="me-2 p-2" onClick={toggleDetails}>
                                     {showDetails ?
-                                        <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="32" className={"icon-filter-search-btn"} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path opacity="0.4" d="M2 12C2 6.485 6.486 2 12 2C17.514 2 22 6.485 22 12C22 17.514 17.514 22 12 22C6.486 22 2 17.514 2 12Z" fill="currentColor"></path>
                                             <path d="M7.77942 13.4425C7.77942 13.2515 7.85242 13.0595 7.99842 12.9135L11.4684 9.42652C11.6094 9.28552 11.8004 9.20652 12.0004 9.20652C12.1994 9.20652 12.3904 9.28552 12.5314 9.42652L16.0034 12.9135C16.2954 13.2065 16.2954 13.6805 16.0014 13.9735C15.7074 14.2655 15.2324 14.2645 14.9404 13.9715L12.0004 11.0185L9.06042 13.9715C8.76842 14.2645 8.29442 14.2655 8.00042 13.9735C7.85242 13.8275 7.77942 13.6345 7.77942 13.4425Z" fill="currentColor"></path>
                                         </svg>
                                         :
-                                        <svg width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <svg width="32" className={"icon-filter-search-btn"} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path opacity="0.4" d="M22 12C22 17.515 17.514 22 12 22C6.486 22 2 17.515 2 12C2 6.486 6.486 2 12 2C17.514 2 22 6.486 22 12Z" fill="currentColor"></path>
                                             <path d="M16.2211 10.5575C16.2211 10.7485 16.1481 10.9405 16.0021 11.0865L12.5321 14.5735C12.3911 14.7145 12.2001 14.7935 12.0001 14.7935C11.8011 14.7935 11.6101 14.7145 11.4691 14.5735L7.99707 11.0865C7.70507 10.7935 7.70507 10.3195 7.99907 10.0265C8.29307 9.73448 8.76807 9.73548 9.06007 10.0285L12.0001 12.9815L14.9401 10.0285C15.2321 9.73548 15.7061 9.73448 16.0001 10.0265C16.1481 10.1725 16.2211 10.3655 16.2211 10.5575Z" fill="currentColor"></path>
                                         </svg>
@@ -867,7 +865,7 @@ const HomeFilter = () => {
 
                             <Button variant='primary' type="submit"  className="border-2">
                                 {t('search')}
-                                <svg className='ms-2' style={{color:'whitesmoke'}} width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <svg className='ms-2 icon-filter-search-btn' style={{color:'whitesmoke'}} width="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <ellipse cx="10.5992" cy="10.6532" rx="8.59922" ry="8.65324" fill="currentColor"></ellipse>
                                     <path opacity="0.4" d="M20.6745 21.9553C20.3405 21.9445 20.0228 21.807 19.7853 21.5705L17.7488 19.1902C17.3122 18.7909 17.2765 18.1123 17.6688 17.6689C17.8524 17.4831 18.102 17.3787 18.3624 17.3787C18.6228 17.3787 18.8725 17.4831 19.0561 17.6689L21.6172 19.7181C21.9861 20.0957 22.0999 20.6563 21.9078 21.1492C21.7157 21.6422 21.2535 21.9754 20.7279 22L20.6745 21.9553Z" fill="currentColor"></path>
                                 </svg>

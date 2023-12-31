@@ -10,11 +10,13 @@
 }
 
 .font{
-    font-family: 'Roboto', sans-serif !important;
+    font-family: 'PT Sans', sans-serif !important;
+    font-size: 88% !important;
 }
 
 .azerbaijani-font {
     font-family: 'Nunito', sans-serif !important;
+
 }
 
 .russian-font {
@@ -24,4 +26,21 @@
 
 .turkish-font {
     font-family: 'Lato', sans-serif !important;
+}
+
+
+@media screen and (max-width: 500px) {
+    body {
+        font-size: 80% !important;
+    }
+    .custom-dropdown {
+        font-size: 86% !important;
+        padding:6px 5px  !important;
+        white-space: normal;
+    }
+    .custom-dropdown-with-checkboxes {
+        font-size: 82% !important;
+        padding: 6px 5px !important;
+        white-space: normal;
+    }
 }

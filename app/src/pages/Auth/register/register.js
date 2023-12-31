@@ -58,7 +58,7 @@ function Register() {
             const response = await dispatch(registerUser(requestBody));
             console.log (response);
             if(response){
-                navigate('/verifyEmail');
+                navigate('/auth/verifyEmail');
             }
         }
         catch (error) {

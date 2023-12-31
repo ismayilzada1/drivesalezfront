@@ -104,7 +104,7 @@ const DropDownSelectWithCheckboxes = ({
     }, [selectedValues]);
 
     return (
-        <div className="dropdown custom-dropdown-with-checkboxes">
+        <div className="dropdown mb-2">
             <Form.Group>
                 <button
                     className="btn btn-outline-primary dropdown-toggle custom-dropdown-with-checkboxes"
@@ -125,7 +125,7 @@ const DropDownSelectWithCheckboxes = ({
                                 checked={selectedValues.includes(option.id)}
                                 onChange={() => handleCheckboxChange(option.id)}
                             />
-                            <label className="form-check-label" htmlFor={`Checkme${option.id}`}>
+                            <label className="form-check-label">
                                 {option[valueName]}
                             </label>
                         </li>

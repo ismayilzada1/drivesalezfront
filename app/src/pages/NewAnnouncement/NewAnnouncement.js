@@ -216,10 +216,10 @@ const NewAnnouncement=()=> {
     const handleCountryChange = (event) => setSelectedCountry(event.target.value);
 
 
-    const filteredCities = Cities.filter( (city) => city.country.id == selectedCountry );
+    const filteredCities = Cities.filter( (city) => city?.country?.id == selectedCountry );
 
 
-    const filteredVehicleModels = carModels.filter( (model) => model.make.id == selectedBrand );
+    const filteredVehicleModels = carModels.filter( (model) => model?.make?.id == selectedBrand );
 
 
     const convertImageToBase64 = async (image) => {
@@ -254,7 +254,7 @@ const NewAnnouncement=()=> {
         const data = {
             "yearId": parseInt(formData.manufactureYear, 10),
             "makeId": parseInt(selectedBrand,10),
-            "modelId": parseInt(formData.model,10),
+            "modelId": parseInt(formData?.model,10),
             "fuelTypeId": parseInt(formData.fuelType,10),
             "gearboxId": parseInt(formData.gearboxType,10),
             "drivetrainTypeId": parseInt(formData.driveTrainType,10),
@@ -283,6 +283,9 @@ const NewAnnouncement=()=> {
         };
 
         try {
+
+            console.log ("access token before token");
+            console.log (accessToken);
 
             const response= await dispatch(SendAnnouncement(data,accessToken));
 
@@ -361,7 +364,7 @@ const NewAnnouncement=()=> {
                                 id="modelId"
                                 options={filteredVehicleModels}
                                 OnChange={(e) => handleSelectChange(e, 'model')}
-                                value={formData.model}
+                                value={formData?.model}
                             />
 
                             <CustomDropdown
@@ -370,7 +373,7 @@ const NewAnnouncement=()=> {
                                 id="bodyTypeId"
                                 options={carBodyTypes}
                                 OnChange={(e) => handleSelectChange(e, 'bodyType')}
-                                value={formData.bodyType}
+                                value={formData?.bodyType}
                             />
 
                             <CustomDropdown

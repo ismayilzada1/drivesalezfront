@@ -86,7 +86,6 @@ const Header = () => {
             await dispatch (logoutUser (accessToken));
         }
         else{
-
             const token=sessionStorage.getItem('authToken');
             if(token){
                 await dispatch (logoutUser (token));
