@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../../Store/Auth/authActions';
 import {useTranslation} from "react-i18next";
+import {Helmet} from "react-helmet";
 
 const Login = () => {
    const dispatch = useDispatch();
@@ -49,7 +50,14 @@ const Login = () => {
    }
 
    return (
+
+
        <div className="wrapper">
+
+          <Helmet>
+             <title>Login</title>
+          </Helmet>
+
           <div className="top-right-dropdown">
              <ul className="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
                 <li className="nav-item dropdown">

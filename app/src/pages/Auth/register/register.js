@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { registerUser } from '../../../Store/Auth/authActions';
 import {useTranslation} from "react-i18next";
 import './register.css'
+import {Helmet} from "react-helmet";
 function Register() {
 
     const dispatch = useDispatch();
@@ -76,6 +77,10 @@ function Register() {
 
     return (
         <div className="wrapper">
+
+            <Helmet>
+                <title>Register</title>
+            </Helmet>
             <div className="top-right-dropdown">
                 <ul className="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
                  <li className="nav-item dropdown">

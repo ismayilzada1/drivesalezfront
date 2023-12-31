@@ -1,6 +1,7 @@
 import React from 'react';
 import './Team.css'
 import {useTranslation} from "react-i18next";
+import {Helmet} from "react-helmet";
 
 const Team = () => {
 
@@ -8,6 +9,10 @@ const Team = () => {
 
     return (
         <>
+
+            <Helmet>
+                <title>Team</title>
+            </Helmet>
 
             <div className="py-5 team4">
                 <div className="container text-center my-auto">

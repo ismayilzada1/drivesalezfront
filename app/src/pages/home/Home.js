@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Helmet } from "react-helmet";
 import './Home.css';
 import AnnouncementCard from '../../components/ui/announcementCard';
 import { Row } from 'react-bootstrap';
@@ -60,6 +61,12 @@ const Home = () => {
 
     return (
         <Row className="wrapper">
+
+            <Helmet>
+                <title>Home Page</title>
+                <meta name='description' content={"Welcome to DriveSalez - the largest pan-Azerbaijan online car market."}/>
+            </Helmet>
+
             <HomeFilter />
             <InfiniteScroll
                 dataLength={announcements.length}
@@ -67,20 +74,15 @@ const Home = () => {
                 hasMore={hasMore}
                 scrollThreshold={0.8}
             >
-                {loading && pageNumber === 1 ? (
-                    <LoadingPage/>
-                ) : (
-
                 <div className="container-fluid pt-3">
-                    <div className="d-flex flex-row flex-wrap justify-content-start align-items-center announcement-cards-container">
-                        {announcements?.map((car, index) => (
-                            <div key={index} className="col-lg-3 mb-2">
-                                <AnnouncementCard {...car} />
-                            </div>
-                        ))}
+                        <div className="d-flex flex-row flex-wrap justify-content-start align-items-center announcement-cards-container">
+                            {announcements?.map((car, index) => (
+                                <div key={index} className="col-lg-3 mb-2">
+                                    <AnnouncementCard {...car} />
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
-                )}
 
             </InfiniteScroll>
         </Row>

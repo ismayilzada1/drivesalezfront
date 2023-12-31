@@ -72,25 +72,25 @@ const NewAnnouncement=()=> {
 
     const isFormValid = () => {
         return (
-            formData.model !== '' &&
-            formData.bodyType !== '' &&
-            formData.fuelType !== '' &&
-            formData.driveTrainType !== '' &&
-            formData.gearboxType !== '' &&
-            formData.color !== '' &&
-            formData.marketVersion !== '' &&
-            formData.manufactureYear !== '' &&
-            formData.city !== '' &&
-            formData.mileage !== '' &&
-            formData.distanceUnit !== '' &&
-            formData.ownerQuantity !== '' &&
-            formData.engineVolume !== '' &&
-            formData.horsePower !== '' &&
-            formData.seatCount !== '' &&
-            formData.vinCode !== '' &&
-            formData.price !== '' &&
-            formData.priceCurrency !== '' &&
-            formData.description !== ''
+            formData?.model !== '' &&
+            formData?.bodyType !== '' &&
+            formData?.fuelType !== '' &&
+            formData?.driveTrainType !== '' &&
+            formData?.gearboxType !== '' &&
+            formData?.color !== '' &&
+            formData?.marketVersion !== '' &&
+            formData?.manufactureYear !== '' &&
+            formData?.city !== '' &&
+            formData?.mileage !== '' &&
+            formData?.distanceUnit !== '' &&
+            formData?.ownerQuantity !== '' &&
+            formData?.engineVolume !== '' &&
+            formData?.horsePower !== '' &&
+            formData?.seatCount !== '' &&
+            formData?.vinCode !== '' &&
+            formData?.price !== '' &&
+            formData?.priceCurrency !== '' &&
+            formData?.description !== ''
         );
     };
 
@@ -142,7 +142,7 @@ const NewAnnouncement=()=> {
             [field]: value,
         }));
 
-        console.log (formData.distanceUnit);
+        console.log (formData?.distanceUnit);
     };
 
     useEffect(() => {
@@ -235,7 +235,9 @@ const NewAnnouncement=()=> {
     };
 
 
-    const clearForm=()=>{setFormData(null)}
+    const clearForm=()=>{
+        setFormData(null);
+    }
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -252,34 +254,34 @@ const NewAnnouncement=()=> {
         const imagesBase64 = await Promise.all(images.map(convertImageToBase64));
 
         const data = {
-            "yearId": parseInt(formData.manufactureYear, 10),
+            "yearId": parseInt(formData?.manufactureYear, 10),
             "makeId": parseInt(selectedBrand,10),
             "modelId": parseInt(formData?.model,10),
-            "fuelTypeId": parseInt(formData.fuelType,10),
-            "gearboxId": parseInt(formData.gearboxType,10),
-            "drivetrainTypeId": parseInt(formData.driveTrainType,10),
-            "bodyTypeId": parseInt(formData.bodyType,10),
-            "conditionsIds": formData.conditions,
-            "optionsIds": formData.options,
-            "colorId": parseInt(formData.color,10),
-            "marketVersionId": parseInt(formData.marketVersion,10),
-            "horsePower": parseInt(formData.horsePower, 10),
-            "isBrandNew": formData.brandNew,
-            "ownerQuantity": parseInt(formData.ownerQuantity, 10),
-            "seatCount": parseInt(formData.seatCount, 10),
-            "vinCode": formData.vinCode,
-            "mileage": parseInt(formData.mileage, 10),
-            "mileageType": parseInt(formData.distanceUnit,10),
-            "engineVolume": parseInt(formData.engineVolume, 10),
+            "fuelTypeId": parseInt(formData?.fuelType,10),
+            "gearboxId": parseInt(formData?.gearboxType,10),
+            "drivetrainTypeId": parseInt(formData?.driveTrainType,10),
+            "bodyTypeId": parseInt(formData?.bodyType,10),
+            "conditionsIds": formData?.conditions,
+            "optionsIds": formData?.options,
+            "colorId": parseInt(formData?.color,10),
+            "marketVersionId": parseInt(formData?.marketVersion,10),
+            "horsePower": parseInt(formData?.horsePower, 10),
+            "isBrandNew": formData?.brandNew,
+            "ownerQuantity": parseInt(formData?.ownerQuantity, 10),
+            "seatCount": parseInt(formData?.seatCount, 10),
+            "vinCode": formData?.vinCode,
+            "mileage": parseInt(formData?.mileage, 10),
+            "mileageType": parseInt(formData?.distanceUnit,10),
+            "engineVolume": parseInt(formData?.engineVolume, 10),
             "imageData": imagesBase64,
             "countryId": parseInt(selectedCountry,10),
-            "cityId": parseInt(formData.city,10),
-            "barter": formData.barter,
-            "onCredit": formData.credit,
-            "description": formData.description,
-            "price": parseInt(formData.price, 10),
-            "currencyId": parseInt(formData.priceCurrency,10),
-            "isPremium": formData.IsPremium,
+            "cityId": parseInt(formData?.city,10),
+            "barter": formData?.barter,
+            "onCredit": formData?.credit,
+            "description": formData?.description,
+            "price": parseInt(formData?.price, 10),
+            "currencyId": parseInt(formData?.priceCurrency,10),
+            "isPremium": formData?.IsPremium,
         };
 
         try {
@@ -382,7 +384,7 @@ const NewAnnouncement=()=> {
                                 id="fuelTypeId"
                                 options={carFuelTypes}
                                 OnChange={(e) => handleSelectChange(e, 'fuelType')}
-                                value={formData.fuelType}
+                                value={formData?.fuelType}
                             />
 
                             <CustomDropdown
@@ -391,7 +393,7 @@ const NewAnnouncement=()=> {
                                 id="drivetrainTypeId"
                                 options={carDriveTrainTypes}
                                 OnChange={(e) => handleSelectChange(e, 'driveTrainType')}
-                                value={formData.driveTrainType}
+                                value={formData?.driveTrainType}
                             />
 
 
@@ -401,7 +403,7 @@ const NewAnnouncement=()=> {
                                 id="gearboxTypeId"
                                 options={carGearboxTypes}
                                 OnChange={(e) => handleSelectChange(e, 'gearboxType')}
-                                value={formData.gearboxType}
+                                value={formData?.gearboxType}
                             />
 
 
@@ -411,11 +413,11 @@ const NewAnnouncement=()=> {
                                     <input onChange={handleInputChange} type="number" className="form-control rounded me-2" min="0" id="mileage" name="mileage" />
                                     <div className="input-group-append d-flex align-items-center">
                                         <div className="form-check form-check-inline">
-                                            <input onChange={(e) => handleSelectChange(e, 'distanceUnit')} checked={formData.distanceUnit == '1'} type="radio" className="form-check-input"  id="radio_KM" name="distanceUnit" value={1} />
+                                            <input onChange={(e) => handleSelectChange(e, 'distanceUnit')} checked={formData?.distanceUnit == '1'} type="radio" className="form-check-input"  id="radio_KM" name="distanceUnit" value={1} />
                                             <label className="form-check-label" htmlFor="radio_KM">KM</label>
                                         </div>
                                         <div className="form-check form-check-inline">
-                                            <input onChange={(e) => handleSelectChange(e, 'distanceUnit')} checked={formData.distanceUnit == '2'} type="radio" className="form-check-input" id="radio_MI" name="distanceUnit" value={2} />
+                                            <input onChange={(e) => handleSelectChange(e, 'distanceUnit')} checked={formData?.distanceUnit == '2'} type="radio" className="form-check-input" id="radio_MI" name="distanceUnit" value={2} />
                                             <label className="form-check-label" htmlFor="radio_MI">MI</label>
                                         </div>
                                     </div>
@@ -428,7 +430,7 @@ const NewAnnouncement=()=> {
                                 id="manufactureYearId"
                                 options={ManufactureYears}
                                 OnChange={(e) => handleSelectChange(e, 'manufactureYear')}
-                                value={formData.manufactureYear}
+                                value={formData?.manufactureYear}
                             />
                             <CustomDropdown
                                 mainLabel="Color"
@@ -436,7 +438,7 @@ const NewAnnouncement=()=> {
                                 id="colorId"
                                 options={carColors}
                                 OnChange={(e) => handleSelectChange(e, 'color')}
-                                value={formData.color}
+                                value={formData?.color}
                             />
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="pno">Owner Quantity:</label>
@@ -452,7 +454,7 @@ const NewAnnouncement=()=> {
                                 id="marketVersionId"
                                 options={carMarketVersions}
                                 OnChange={(e) => handleSelectChange(e, 'marketVersion')}
-                                value={formData.marketVersion}
+                                value={formData?.marketVersion}
                             />
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="pno">Horse Power:</label>
@@ -472,7 +474,7 @@ const NewAnnouncement=()=> {
                             <div className="form-group col-md-12">
                                 <label className="form-label" htmlFor="photos">Upload Images:</label>
                                 <div className="input-group">
-                                    {images.map((image, index) => (
+                                    {images?.map((image, index) => (
                                         <div key={index} className="image-preview me-3 ms-3 mb-2 mt-2">
                                             <div className="image-container d-flex justify-content-center align-items-center">
                                                 <img
@@ -510,7 +512,7 @@ const NewAnnouncement=()=> {
                                             <div className="col-md-3">
                                                 <div className="form-check">
                                                     <input type="checkbox" className="form-check-input" value={option.id} id={option.id} onChange={(e) => {
-                                                        const selectedOptions = [...formData.options];
+                                                        const selectedOptions = [...formData?.options];
                                                         if (e.target.checked) {
                                                             selectedOptions.push(option.id);
                                                         } else {
@@ -542,7 +544,7 @@ const NewAnnouncement=()=> {
                                             <div className="col-md-4">
                                                 <div className="form-check">
                                                     <input type="checkbox" className="form-check-input" value={condition.id} id={condition.id} onChange={(e) => {
-                                                        const selectedConditions = [...formData.conditions];
+                                                        const selectedConditions = [...formData?.conditions];
                                                         if (e.target.checked) {
                                                             selectedConditions.push(condition.id);
                                                         } else {
@@ -588,7 +590,7 @@ const NewAnnouncement=()=> {
                                     id="cityNameId"
                                     options={filteredCities}
                                     OnChange={(e) => handleSelectChange(e, 'city')}
-                                    value={formData.city}
+                                    value={formData?.city}
                                 />
 
                                 <div className="form-group col-md-4">
@@ -613,15 +615,15 @@ const NewAnnouncement=()=> {
                                         <input onChange={handleInputChange} name="price" type="number" className="form-control rounded me-2" min="0" id="price"  />
                                         <div className="input-group-append d-flex align-items-center">
                                             <div className="form-check form-check-inline">
-                                                <input onChange={(e) => handleSelectChange(e, 'priceCurrency')} checked={formData.priceCurrency == '1'}  type="radio" className="form-check-input"  id="radio_AZN" name="priceCurrency" value="1" />
+                                                <input onChange={(e) => handleSelectChange(e, 'priceCurrency')} checked={formData?.priceCurrency == '1'}  type="radio" className="form-check-input"  id="radio_AZN" name="priceCurrency" value="1" />
                                                 <label className="form-check-label" htmlFor="radio_AZN">AZN</label>
                                             </div>
                                             <div className="form-check form-check-inline">
-                                                <input onChange={(e) => handleSelectChange(e, 'priceCurrency')} checked={formData.priceCurrency == '2'}  type="radio" className="form-check-input"  id="radio_USD" name="priceCurrency" value="2" />
+                                                <input onChange={(e) => handleSelectChange(e, 'priceCurrency')} checked={formData?.priceCurrency == '2'}  type="radio" className="form-check-input"  id="radio_USD" name="priceCurrency" value="2" />
                                                 <label className="form-check-label" htmlFor="radio_USD">USD</label>
                                             </div>
                                             <div className="form-check form-check-inline">
-                                                <input onChange={(e) => handleSelectChange(e, 'priceCurrency')} checked={formData.priceCurrency == '3'} type="radio" className="form-check-input" id="radio_EUR" name="priceCurrency" value="3" />
+                                                <input onChange={(e) => handleSelectChange(e, 'priceCurrency')} checked={formData?.priceCurrency == '3'} type="radio" className="form-check-input" id="radio_EUR" name="priceCurrency" value="3" />
                                                 <label className="form-check-label" htmlFor="radio_EUR">EUR</label>
                                             </div>
                                         </div>
@@ -650,7 +652,7 @@ const NewAnnouncement=()=> {
                                             value="regular"
                                             className='me-2'
                                             disabled={regularLimit<=0}
-                                            checked={!formData.IsPremium}
+                                            checked={!formData?.IsPremium}
                                             onChange={handleRadioChange}/>
 
                                         <Form.Check
@@ -659,7 +661,7 @@ const NewAnnouncement=()=> {
                                             name="IsPremium"
                                             value="premium"
                                             disabled={premiumLimit<=0}
-                                            checked={formData.IsPremium}
+                                            checked={formData?.IsPremium}
                                             onChange={handleRadioChange}/>
                                     </Form.Group>
                                 </div>

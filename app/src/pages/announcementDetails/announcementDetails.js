@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import {Helmet} from "react-helmet"
 import {useParams} from "react-router-dom";
 import "./announcementDetails.css";
 import {Modal, Button} from 'react-bootstrap';
@@ -171,6 +172,9 @@ const AnnouncementDetails = () => {
 
     return (
         <>
+            <Helmet>
+                <title>{id}</title>
+            </Helmet>
             {loading ? (
                 <LoadingPage/>
             ) : (
@@ -390,9 +394,16 @@ const AnnouncementDetails = () => {
                                             <h4>Vehicle Description</h4>
 
                                             <div className='row'>
-                                                <p className='col-sm-12'>{description}</p>
+                                                <p className='col-sm-12' style={{maxWidth: '800px', margin: '0 auto',maxHeight: '400px', overflowY: 'auto' }}>
+                                                    {description.split('\n').map((line, index) => (
+                                                    <React.Fragment key={index}>
+                                                        {line}
+                                                        <br />
+                                                    </React.Fragment>
+                                                    ))}
+                                                </p>
 
-                                                <p className='col-sm-12 font-weight-bold' style={{fontSize: '1.2em'}}>
+                                                <p className='col-sm-12 font-weight-bold mt-3' style={{fontSize: '1.2em'}}>
                                                     VIN CODE:
                                                     <a
                                                         href={`https://www.google.com/search?q=${vinCode}&tbm=isch`}

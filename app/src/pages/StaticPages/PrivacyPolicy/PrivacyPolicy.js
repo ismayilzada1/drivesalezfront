@@ -1,6 +1,7 @@
 import React from "react";
 import './PrivacyPolicy.css';
 import {useTranslation} from "react-i18next";
+import {Helmet} from "react-helmet";
 
 const PrivacyPolicy = () => {
 
@@ -8,6 +9,11 @@ const PrivacyPolicy = () => {
 
     return (
         <>
+
+            <Helmet>
+                <title>Privacy Policy</title>
+            </Helmet>
+
             <div className="container-fluid content-inner mt-5 py-0">
                 <div className="container-fluid">
                     <div className="row">

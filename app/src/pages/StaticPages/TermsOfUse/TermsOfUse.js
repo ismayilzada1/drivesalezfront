@@ -1,6 +1,7 @@
 import React from "react";
 import './TermsOfUse.css'
 import {useTranslation} from "react-i18next";
+import {Helmet} from "react-helmet";
 
 const TermsOfUse=()=>{
 
@@ -8,6 +9,11 @@ const TermsOfUse=()=>{
 
     return (
         <>
+
+            <Helmet>
+                <title>Terms Of Use</title>
+            </Helmet>
+
             <div className="conatiner-fluid content-inner mt-5 py-0">
                 <div id="faqAccordion" className="container-fluid">
                     <div className="row">

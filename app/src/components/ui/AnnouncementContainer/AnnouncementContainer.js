@@ -7,7 +7,7 @@ const AnnouncementsContainer = ({ announcements}) => {
             <div className="container-fluid pt-3">
                 <div className="row">
                     {announcements?.map((announcement, index) => (
-                        <div className="col-lg-4 col-md-6 col-sm-12 mb-2" key={index}>
+                        <div className="col-lg-3 col-md-6 col-sm-12 mb-2" key={index}>
                             <AnnouncementCardUserProfile key={announcement.id} {...announcement} />
                         </div>
                     ))}
