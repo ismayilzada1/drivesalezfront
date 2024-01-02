@@ -55,7 +55,7 @@ const NewAnnouncement=()=> {
         manufactureYear:'',
         city:'',
         mileage:'',
-        distanceUnit:'1',
+        distanceUnit:'KM',
         ownerQuantity:'',
         engineVolume:'',
         horsePower:'',
@@ -271,7 +271,7 @@ const NewAnnouncement=()=> {
             "seatCount": parseInt(formData?.seatCount, 10),
             "vinCode": formData?.vinCode,
             "mileage": parseInt(formData?.mileage, 10),
-            "mileageType": parseInt(formData?.distanceUnit,10),
+            "mileageType": formData?.distanceUnit,
             "engineVolume": parseInt(formData?.engineVolume, 10),
             "imageData": imagesBase64,
             "countryId": parseInt(selectedCountry,10),
@@ -283,6 +283,8 @@ const NewAnnouncement=()=> {
             "currencyId": parseInt(formData?.priceCurrency,10),
             "isPremium": formData?.IsPremium,
         };
+
+        console.log (data);
 
         try {
 
@@ -413,11 +415,11 @@ const NewAnnouncement=()=> {
                                     <input onChange={handleInputChange} type="number" className="form-control rounded me-2" min="0" id="mileage" name="mileage" />
                                     <div className="input-group-append d-flex align-items-center">
                                         <div className="form-check form-check-inline">
-                                            <input onChange={(e) => handleSelectChange(e, 'distanceUnit')} checked={formData?.distanceUnit == '1'} type="radio" className="form-check-input"  id="radio_KM" name="distanceUnit" value={1} />
+                                            <input onChange={(e) => handleSelectChange(e, 'distanceUnit')} checked={formData?.distanceUnit == 'KM'} type="radio" className="form-check-input"  id="radio_KM" name="distanceUnit" value={"KM"} />
                                             <label className="form-check-label" htmlFor="radio_KM">KM</label>
                                         </div>
                                         <div className="form-check form-check-inline">
-                                            <input onChange={(e) => handleSelectChange(e, 'distanceUnit')} checked={formData?.distanceUnit == '2'} type="radio" className="form-check-input" id="radio_MI" name="distanceUnit" value={2} />
+                                            <input onChange={(e) => handleSelectChange(e, 'distanceUnit')} checked={formData?.distanceUnit == 'MI'} type="radio" className="form-check-input" id="radio_MI" name="distanceUnit" value={"MI"} />
                                             <label className="form-check-label" htmlFor="radio_MI">MI</label>
                                         </div>
                                     </div>

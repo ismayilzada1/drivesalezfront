@@ -227,4 +227,26 @@ export default class AnnouncementService {
         }
     }
 
+    async DeleteAnnouncementAuthorize(id,token){
+        try {
+
+            const response = await fetch(`${this._baseUrl}/Announcement/make-announcement-inactive/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            return response;
+        } catch (error) {
+            console.error('Error in SendNewAnnouncement:', error.message);
+            throw error;
+        }
+    }
+
+
 }

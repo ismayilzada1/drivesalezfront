@@ -109,9 +109,45 @@
   "nav.rememberMe": "Məni xatırla",
   "nav.forgotPassword": "Şifrəmi unuttum",
   "nav.dontHaveAnAccount": "Hesabınız yoxdur?",
-  "nav.clickHereToSignUp": "Qeydiyyat üçün buraya basın"
+  "nav.clickHereToSignUp": "Qeydiyyat üçün buraya basın",
 
+  "fuelType": "Yanacaq növü",
+  "year": "İl",
+  "mileage": "Yol gedən km",
+  "engineVolume": "Mühərrik həcmi",
+  "Gasoline": "Benzin",
 
+  "profile": "Profil",
+  "signout": "Çıxış et",
 
+  "account": "Hesab",
+  "allAnnouncements": "Bütün Elanlar",
+  "activeAnnouncements": "Aktiv Elanlar",
+  "inactiveAnnouncements": "Passiv Elanlar",
+  "waitingAnnouncements": "Gözləyən Elanlar",
+  "myAnnouncements": "Mənim Elanlarım",
+  "accountBalance": "Hesab Balansı",
+  "regularAnnouncementBalance": "Adi Elan Balansı",
+  "premiumAnnouncementBalance": "Premium Elan Balansı",
+  "addBalance": "Balans Əlavə Et",
+  "buyAnnouncementBalance": "Elan Balansı Al",
 
+  "personalData": "Şəxsi Məlumatlar",
+  "name": "Ad",
+  "surname": "Soyad",
+  "email": "E-poçt",
+  "accountType": "Hesabın Növü",
+  "phoneNumber": "Telefon Nömrəsi",
+
+  "removeAccount": "Hesabı Sil",
+  "changePassword": "Şifrəni Dəyiş",
+  "updateAccount": "Hesabı Yenilə",
+  "cardNumber": "Kart Nömrəsi",
+  "expirationYear": "Bitmə Tarixi İl",
+  "expirationMonth": "Bitmə Tarixi Ay",
+  "sum": "Məbləğ",
+
+  "quantity": "Miqdar",
+  "Regular Announcement": "Adi Elan",
+  "Premium Announcement": "Premium Elan"
 }

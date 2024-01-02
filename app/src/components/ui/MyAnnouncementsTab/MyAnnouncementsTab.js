@@ -9,6 +9,7 @@ import {
     GetAllWaitingAnnouncementsByUserId,
 } from "../../../Store/Announcement/AnnouncementActions";
 import AnnouncementContainer from "../AnnouncementContainer";
+import {useTranslation} from "react-i18next";
 
 const MyAnnouncementsTab = () => {
 
@@ -16,6 +17,7 @@ const MyAnnouncementsTab = () => {
     const dispatch = useDispatch ();
 
     const {accessToken}=useSelector(state => state.auth);
+    const {t}=useTranslation();
 
     const [waitingAnnouncements, setWaitingAnnouncements] = useState ([]);
     const [activeAnnouncements, setActiveAnnouncements] = useState ([]);
@@ -57,26 +59,26 @@ const MyAnnouncementsTab = () => {
                     <button className="nav-link me-4 active" id="nav-all-announcements-tab" data-bs-toggle="tab"
                             data-bs-target="#nav-all-announcements" type="button" role="tab"
                             aria-controls="nav-all-announcements" aria-selected="false">
-                        All Announcements ( {waitingAnnouncements.length + activeAnnouncements.length + inActiveAnnouncements.length} )
+                        {t("allAnnouncements")} ( {waitingAnnouncements.length + activeAnnouncements.length + inActiveAnnouncements.length} )
                     </button>
 
                     <button className="nav-link me-4" id="nav-active-announcements-tab" data-bs-toggle="tab"
                             data-bs-target="#nav-active-announcements" type="button" role="tab"
                             aria-controls="nav-active-announcements" aria-selected="false">
-                        Active Announcements ( {activeAnnouncements.length} )
+                        {t("activeAnnouncements")} ( {activeAnnouncements.length} )
                     </button>
 
 
                     <button className="nav-link me-4" id="nav-waiting-announcements-tab" data-bs-toggle="tab"
                             data-bs-target="#nav-waiting-announcements" type="button" role="tab"
                             aria-controls="nav-waiting-announcements" aria-selected="false">
-                        Waiting Announcements ( {waitingAnnouncements.length} )
+                        {t("waitingAnnouncements")} ( {waitingAnnouncements.length} )
                     </button>
 
                     <button className="nav-link me-4" id="nav-inactive-announcements-tab" data-bs-toggle="tab"
                             data-bs-target="#nav-inactive-announcements" type="button" role="tab"
                             aria-controls="nav-inactive-announcements" aria-selected="false">
-                        Inactive Announcements ( {inActiveAnnouncements.length} )
+                        {t("inactiveAnnouncements")} ( {inActiveAnnouncements.length} )
                     </button>
                 </div>
             </nav>

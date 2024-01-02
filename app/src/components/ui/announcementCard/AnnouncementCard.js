@@ -2,17 +2,18 @@ import React, {useEffect} from "react";
 import "./AnnouncementCard.css";
 import {GetAnnouncements} from "../../../Store/Announcement/AnnouncementActions";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const AnnouncementCard = (props) => {
 
     const navigate=useNavigate();
 
     const {id, make,model,price,mileage,mileageType,engineVolume,fuelType,year,currency,imageUrl } = props;
-
+    const { t } = useTranslation();
 
     const createLabelValue = (label, value) => (
         <li className="list-group-item m-0 p-2">
-            <span className="label info-key">{label}:</span>
+            <span className="label info-key">{t(label)}:</span>
             <span className="value">{value}</span>
         </li>
     );
@@ -46,14 +47,14 @@ const AnnouncementCard = (props) => {
                         <h4 className="card-title">{make.makeName} {model.modelName}</h4>
 
                         <ul className="list-group list-group-flush m-0 p-0 b-0">
-                            {createLabelValue("Fuel Type", fuelType.fuelType)}
-                            {createLabelValue("Year", year.year)}
-                            {createLabelValue("Mileage", `${mileage} ${mileageType}`)}
-                            {createLabelValue("Engine Volume", engineVolume)}
+                            {createLabelValue("fuelType", t(fuelType?.fuelType))}
+                            {createLabelValue("year", year?.year)}
+                            {createLabelValue("mileage", `${mileage} ${mileageType}`)}
+                            {createLabelValue("engineVolume", engineVolume)}
 
                         </ul>
 
-                        <h5 className="card-title text-success float-start h3 mt-2">{price} {currency.currencyName}</h5>
+                        <h5 className="card-title text-success float-start h3 mt-2">{price} {currency?.currencyName}</h5>
                     </div>
                 </div>
             </div>

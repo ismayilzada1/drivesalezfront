@@ -110,7 +110,46 @@
   "nav.rememberMe": "Beni hatırla",
   "nav.forgotPassword": "Şifremi unuttum",
   "nav.dontHaveAnAccount": "Hesabınız yok mu",
-  "nav.clickHereToSignUp": "Kayıt olmak için buraya tıklayın"
+  "nav.clickHereToSignUp": "Kayıt olmak için buraya tıklayın",
 
+  "fuelType": "Yakıt Tipi",
+  "year": "Yıl",
+  "mileage": "Kilometre",
+  "engineVolume": "Motor Hacmi",
+  "Gasoline": "Benzin",
+
+  "profile": "Profil",
+  "signout": "Çıkış Yap",
+
+  "account": "Hesap",
+  "allAnnouncements": "Tüm Duyurular",
+  "activeAnnouncements": "Aktif Duyurular",
+  "inactiveAnnouncements": "Pasif Duyurular",
+  "waitingAnnouncements": "Bekleyen Duyurular",
+  "myAnnouncements": "Benim Duyurularım",
+  "accountBalance": "Hesap Bakiyesi",
+  "regularAnnouncementBalance": "Normal Duyuru Bakiyesi",
+  "premiumAnnouncementBalance": "Premium Duyuru Bakiyesi",
+  "addBalance": "Bakiye Ekle",
+  "buyAnnouncementBalance": "Duyuru Bakiyesi Satın Al",
+
+  "personalData": "Kişisel Bilgiler",
+  "name": "Ad",
+  "surname": "Soyad",
+  "email": "E-posta",
+  "accountType": "Hesap Türü",
+  "phoneNumber": "Telefon Numarası",
+
+  "removeAccount": "Hesabı Kaldır",
+  "changePassword": "Şifre Değiştir",
+  "updateAccount": "Hesabı Güncelle",
+  "cardNumber": "Kart Numarası",
+  "expirationYear": "Son Kullanma Yılı",
+  "expirationMonth": "Son Kullanma Ayı",
+  "sum": "Toplam",
+
+  "quantity": "Miktar",
+  "Regular Announcement": "Normal İlan",
+  "Premium Announcement": "Premium İlan"
 
 }

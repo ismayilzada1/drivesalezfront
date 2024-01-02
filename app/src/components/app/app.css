@@ -15,8 +15,8 @@
 }
 
 .azerbaijani-font {
-    font-family: 'Nunito', sans-serif !important;
-
+    font-family: 'PT Sans', sans-serif !important;
+    font-size: 88% !important;
 }
 
 .russian-font {
@@ -25,7 +25,8 @@
 }
 
 .turkish-font {
-    font-family: 'Lato', sans-serif !important;
+    font-family: 'PT Sans', sans-serif !important;
+    font-size: 90% !important;
 }
 
 

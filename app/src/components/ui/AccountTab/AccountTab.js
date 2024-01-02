@@ -4,11 +4,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {GetUserLimits} from "../../../Store/Announcement/AnnouncementActions";
 import {AddAnnouncementLimit, TopUpBalance} from "../../../Store/Payment/PaymentActions";
 import CommonDataService from "../../../api-services/CommonDataService";
+import {useTranslation} from "react-i18next";
 
 
 const AccountTab = () => {
 
     const {accessToken}=useSelector(state => state.auth)
+    const {t}=useTranslation();
 
     const commonDataService=new CommonDataService();
 
@@ -97,18 +99,18 @@ const AccountTab = () => {
             <div className='account-container'>
                 <div className='card custom-premium-announcement-balance-card text-center'>
                     <i className="bi bi-cash-stack modified"></i>
-                    <h5>Account Balance</h5>
+                    <h5>{t("accountBalance")}</h5>
                     <hr/>
 
                     <div className='d-flex flex-column align-items-start justify-content-center'>
                         <h1>{accountBalance} AZN</h1>
-                        <button className='btn btn-add-announcement' data-bs-toggle={'modal'} data-bs-target={'#AddBalanceModal'} style={{marginTop: '30px'}}>Add Balance</button>
+                        <button className='btn btn-add-announcement' data-bs-toggle={'modal'} data-bs-target={'#AddBalanceModal'} style={{marginTop: '30px'}}>{t("addBalance")}</button>
                     </div>
                 </div>
 
                 <div className='card custom-premium-announcement-balance-card text-center'>
                     <i className="bi bi-megaphone modified"></i>
-                    <h5>Regular Announcement Balance</h5>
+                    <h5>{t("regularAnnouncementBalance")}</h5>
                     <hr/>
 
                     <div className='d-flex flex-column align-items-start justify-content-center'>
@@ -118,7 +120,7 @@ const AccountTab = () => {
 
                 <div className='card custom-premium-announcement-balance-card text-center'>
                     <i className="bi bi-gem modified"></i>
-                    <h5>Premium Announcement Balance</h5>
+                    <h5>{t("premiumAnnouncementBalance")}</h5>
                     <hr/>
 
                     <div className='d-flex flex-column align-items-start justify-content-center'>
@@ -166,7 +168,7 @@ const AccountTab = () => {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add Balance</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">{t("addBalance")}</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
@@ -174,18 +176,18 @@ const AccountTab = () => {
 
 
                             <div className="form-group">
-                                <label htmlFor="exampleInputEmail1">First Name</label>
+                                <label htmlFor="exampleInputEmail1">{t("nav.firstName")}</label>
                                 <input value={firstName} onChange={(e) => setFirstName (e.target.value)}
                                        type="text" className="form-control mb-0" id="exampleInputEmail1"
                                 />
 
-                                <label htmlFor="exampleInputEmail1">Last Name</label>
+                                <label htmlFor="exampleInputEmail1">{t("nav.lastName")}</label>
                                 <input value={lastName} onChange={(e) => setLastName (e.target.value)}
                                        type="text" className="form-control mb-0" id="exampleInputEmail1"
                                 />
 
 
-                                <label htmlFor="exampleInputEmail1">Card Number</label>
+                                <label htmlFor="exampleInputEmail1">{t("cardNumber")}</label>
                                 <input value={cardNumber} onChange={(e) => setCardNumber (e.target.value)}
                                        type="text" className="form-control mb-0" id="exampleInputEmail1"
                                        />
@@ -199,7 +201,7 @@ const AccountTab = () => {
                                 <div className={'row'}>
 
                                     <div className={'col sm-6'}>
-                                <label htmlFor="expireMonth">Expiration Year</label>
+                                <label htmlFor="expireMonth">{t("expirationYear")}</label>
                                 <input
                                     value={expireYear}
                                     onChange={(e) => setExpireYear(e.target.value)}
@@ -209,7 +211,7 @@ const AccountTab = () => {
                                 />
                                     </div>
                                     <div className={'col sm-6'}>
-                                <label htmlFor="expireMonth">Expiration Month</label>
+                                <label htmlFor="expireMonth">{t("expirationMonth")}</label>
                                         <input
                                             value={expireMonth}
                                             onChange={(e) => setExpireMonth(e.target.value)}
@@ -220,7 +222,7 @@ const AccountTab = () => {
                                     </div>
                                 </div>
 
-                                <label htmlFor="exampleInputEmail1">Sum</label>
+                                <label htmlFor="exampleInputEmail1">{t("sum")}</label>
                                 <input value={sum} maxLength={4} min={0} onChange={(e) => setSum (e.target.value)}
                                        type="number" className="form-control mb-0" id="exampleInputEmail1"
                                 />
@@ -230,7 +232,7 @@ const AccountTab = () => {
 
                         </div>
                         <button type="button" data-toggle="modal"
-                                data-target="#changeModal" onClick={handleAddBalance} className="btn btn-warning m-3">Add Balance</button>
+                                data-target="#changeModal" onClick={handleAddBalance} className="btn btn-warning m-3">{t("addBalance")}</button>
 
                     </div>
                 </div>
@@ -241,7 +243,7 @@ const AccountTab = () => {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Add Announcement Balance</h5>
+                            <h5 className="modal-title" id="exampleModalLabel">{t("buyAnnouncementBalance")}</h5>
                             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
@@ -262,20 +264,20 @@ const AccountTab = () => {
                                                 htmlFor={Pricing.id}
                                                 className="form-check-label"
                                             >
-                                                {Pricing.pricingName} {Pricing.price.price}{' '}
+                                                {t(Pricing?.pricingName)} {Pricing.price.price}{' '}
                                                 {Pricing.price.currency.currencyName}
                                             </label>
                                         </div>
                                     </div>
                                 ))}
 
-                                <label htmlFor="exampleInputEmail1">Quantity</label>
+                                <label htmlFor="exampleInputEmail1">{t("quantity")}</label>
                                 <input value={SubscriptionCount} min={1} onChange={(e) => setSubscriptionCount(e.target.value)}
                                        type="number" className="form-control mb-0" id="exampleInputEmail1"
                                 />
 
                                 <label className={'h4 mt-2'}>
-                                    Total Price: {SelectedSubscription ? SelectedSubscription.price.price * SubscriptionCount : 0}
+                                    {t("sum")}: {SelectedSubscription ? SelectedSubscription.price.price * SubscriptionCount : 0}
                                 </label>
 
 
@@ -288,7 +290,7 @@ const AccountTab = () => {
                 </div>
             </div>
             <div className="d-flex  mt-auto p-3">
-                <button className='btn btn-add-announcement'  data-bs-toggle={'modal'} data-bs-target={'#AddAnnouncementBalanceModal'}>Buy Announcement Balance</button>
+                <button className='btn btn-add-announcement'  data-bs-toggle={'modal'} data-bs-target={'#AddAnnouncementBalanceModal'}>{t("buyAnnouncementBalance")}</button>
             </div>
         </>
     );

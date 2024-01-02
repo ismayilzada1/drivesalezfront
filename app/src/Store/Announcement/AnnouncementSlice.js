@@ -116,6 +116,7 @@ const announcementSlice = createSlice({
             state.filterParams = action.payload;
         },
 
+
     },
 });
 

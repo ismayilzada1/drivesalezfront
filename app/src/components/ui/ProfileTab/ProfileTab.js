@@ -2,15 +2,22 @@ import React, {useEffect, useState} from "react";
 import './ProfileTab.css'
 import {useDispatch, useSelector} from "react-redux";
 import {GetUserLimits} from '../../../Store/Announcement/AnnouncementActions'
+import {useTranslation} from "react-i18next";
 
-const createLabelValue = (label, value) => (
-    <li className="list-group-item">
-        <span className="label info-key">{label} :</span>
-        <span className="value"><strong>{value}</strong></span>
-    </li>
-);
+
+
 
 const ProfileTab=()=>{
+
+    const {t}=useTranslation();
+
+
+    const createLabelValue = (label, value) => (
+        <li className="list-group-item">
+            <span className="label info-key">{t(label)} :</span>
+            <span className="value"><strong>{value}</strong></span>
+        </li>
+    );
 
     const { user } = useSelector((state) => state.auth);
 
@@ -18,7 +25,7 @@ const ProfileTab=()=>{
         return (
             <div className="card card-profile-tab">
                 <div className="card-body pe-2">
-                    <h5 className="card-title">Personal Data</h5>
+                    <h5 className="card-title">{t("personalData")}</h5>
                     <hr/>
                 </div>
                 <div className="card-body">
@@ -33,20 +40,20 @@ const ProfileTab=()=>{
     return (
         <div className="card card-profile-tab">
             <div className="card-body pe-2">
-                <h5 className="card-title">Personal Data</h5>
+                <h5 className="card-title">{t("personalData")}</h5>
                 <hr/>
             </div>
             <ul className="list-group list-group-flush">
-                {createLabelValue("Name", user?.firstName)}
-                {createLabelValue("Surname", user?.lastName)}
-                {createLabelValue("Email", user?.email)}
-                {createLabelValue("Account Type", user?.userRole)}
-                {createLabelValue("Phone Number", user?.phoneNumbers?.[0]?.phoneNumber)}
+                {createLabelValue("name", user?.firstName)}
+                {createLabelValue("surname", user?.lastName)}
+                {createLabelValue("email", user?.email)}
+                {createLabelValue("accountType", user?.userRole)}
+                {createLabelValue("phoneNumber", user?.phoneNumbers?.[0]?.phoneNumber)}
             </ul>
             <div className="card-body d-flex flex-row justify-content-between">
-                <a href="#" className="card-link">Remove Account</a>
-                <a href="/auth/changePassword" className="card-link">Change Password</a>
-                <a href="/updateAccount" className="card-link">Update Account</a>
+                <a href="#" className="card-link">{t("removeAccount")}</a>
+                <a href="/auth/changePassword" className="card-link">{t("changePassword")}</a>
+                <a href="/updateAccount" className="card-link">{t("updateAccount")}</a>
             </div>
         </div>
     );

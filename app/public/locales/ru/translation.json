@@ -109,11 +109,49 @@
   "nav.rememberMe": "Запомнить меня",
   "nav.forgotPassword": "Забыли пароль",
   "nav.dontHaveAnAccount": "Нет аккаунта",
-  "nav.clickHereToSignUp": "Нажмите здесь, чтобы зарегистрироваться"
+  "nav.clickHereToSignUp": "Нажмите здесь, чтобы зарегистрироваться",
 
 
 
+  "fuelType": "Тип топлива",
+  "year": "Год",
+  "mileage": "Пробег",
+  "engineVolume": "Объем двигателя",
+  "Gasoline": "Бензин",
 
+  "profile": "Профиль",
+  "signout": "Выйти",
+
+  "account": "Аккаунт",
+  "allAnnouncements": "Все объявления",
+  "activeAnnouncements": "Активные объявления",
+  "inactiveAnnouncements": "Неактивные объявления",
+  "waitingAnnouncements": "Ожидающие объявления",
+  "myAnnouncements": "Мои объявления",
+  "accountBalance": "Баланс счета",
+  "regularAnnouncementBalance": "Баланс обычных объявлений",
+  "premiumAnnouncementBalance": "Баланс премиум объявлений",
+  "addBalance": "Пополнить баланс",
+  "buyAnnouncementBalance": "Купить баланс объявлений",
+
+  "personalData": "Личные данные",
+  "name": "Имя",
+  "surname": "Фамилия",
+  "email": "Электронная почта",
+  "accountType": "Тип аккаунта",
+  "phoneNumber": "Номер телефона",
+
+  "removeAccount": "Удалить аккаунт",
+  "changePassword": "Изменить пароль",
+  "updateAccount": "Обновить аккаунт",
+  "cardNumber": "Номер карты",
+  "expirationYear": "Год истечения срока",
+  "expirationMonth": "Месяц истечения срока",
+  "sum": "Сумма",
+
+  "quantity": "Количество",
+  "Regular Announcement": "Обычное объявление",
+  "Premium Announcement": "Премиум объявление"
 
 
 

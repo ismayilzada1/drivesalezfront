@@ -107,5 +107,47 @@
   "nav.rememberMe": "Remember me",
   "nav.forgotPassword": "Forgot Password",
   "nav.dontHaveAnAccount": "Don't have an account",
-  "nav.clickHereToSignUp": "Click here to sign up"
+  "nav.clickHereToSignUp": "Click here to sign up",
+
+
+
+  "fuelType": "Fuel Type",
+  "year": "Year",
+  "mileage": "Mileage",
+  "engineVolume": "Engine Volume",
+  "Gasoline": "Gasoline",
+
+  "profile":"Profile",
+  "signout":"Sign Out",
+
+  "account": "Account",
+  "allAnnouncements": "All Announcements",
+  "activeAnnouncements": "Active Announcements",
+  "inactiveAnnouncements": "Inactive Announcements",
+  "waitingAnnouncements": "Waiting Announcements",
+  "myAnnouncements": "My Announcements",
+  "accountBalance": "Account Balance",
+  "regularAnnouncementBalance": "Regular Announcement Balance",
+  "premiumAnnouncementBalance": "Premium Announcement Balance",
+  "addBalance": "Add Balance",
+  "buyAnnouncementBalance": "Buy Announcement Balance",
+
+  "personalData": "Personal Data",
+  "name": "Name",
+  "surname": "Surname",
+  "email": "Email",
+  "accountType": "Account Type",
+  "phoneNumber": "Phone Number",
+
+  "removeAccount": "Remove Account",
+  "changePassword": "Change Password",
+  "updateAccount": "Update Account",
+  "cardNumber": "Card Number",
+  "expirationYear": "Expiration Year",
+  "expirationMonth": "Expiration Month",
+  "sum": "Sum",
+  "quantity": "Quantity",
+  "Regular Announcement": "Regular Announcement",
+  "Premium Announcement": "Premium Announcement"
+
 }

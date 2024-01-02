@@ -284,6 +284,37 @@ export const GetAllFilterAnnouncements = (filter) => async (dispatch) => {
     }
 };
 
+export const DeleteAnnouncementAuthorize = (requestBody,accessToken) => async (dispatch) => {
+    // dispatch(sendAnnouncementStart());
+    try {
+        let token = accessToken || sessionStorage.getItem("authToken");
+
+        if (!token) {
+            return null;
+        }
+
+        const response = await AnnouncementService.DeleteAnnouncementAuthorize(requestBody,token);
+
+        if (response.status===200) {
+            console.log("SUCCESFULL DELETE ANNOUNCEMENT");
+            // dispatch(sendAnnouncementSuccess(response.data));
+            return response;
+        }
+        else if(response.status===401){
+            refreshToken().then(()=>{
+                return SendAnnouncement(requestBody);
+            });
+        }
+        else {
+            // dispatch(sendAnnouncementFailure('Email or password is invalid'));
+        }
+    } catch (error) {
+        console.log(error);
+        // dispatch(sendAnnouncementFailure('An error occurred while processing your request'));
+    }
+};
+
+
 async function refreshToken() {
     const token = localStorage.getItem("authToken") || sessionStorage.getItem("authToken");
     const refreshToken = localStorage.getItem("refreshToken") || sessionStorage.getItem("refreshToken");

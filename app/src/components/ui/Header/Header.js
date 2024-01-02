@@ -26,6 +26,8 @@ const Header = () => {
 
 
 
+
+
     const pageSize = 4;
 
     useEffect (() => {
@@ -102,11 +104,11 @@ const Header = () => {
 
         try {
             dispatch (setFilterParams (filterUrl));
-            dispatch (setAnnouncements ([]));
-            dispatch (setPageNumber (1));
+            // dispatch (setAnnouncements ([]));
+            // dispatch (setPageNumber (1));
 
-            const response = await dispatch (GetAllFilterAnnouncements (filterUrl));
-            console.log (response);
+            // const response = await dispatch (GetAllFilterAnnouncements (filterUrl));
+            // console.log (response);
 
         } catch (error) {
             console.log (error);
@@ -409,11 +411,11 @@ const Header = () => {
                                         </div>
                                     </a>
                                     <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <li><a className="dropdown-item" href="/profile">Profile</a></li>
+                                        <li><a className="dropdown-item" href="/profile">{t("profile")}</a></li>
                                         <li>
                                             <hr className="dropdown-divider"/>
                                         </li>
-                                        <li><a className="dropdown-item" href='/' onClick={handleLogout}>Logout</a></li>
+                                        <li><a className="dropdown-item" href='/' onClick={handleLogout}>{t("signout")}</a></li>
                                     </ul>
                                 </li>
                             ) :
