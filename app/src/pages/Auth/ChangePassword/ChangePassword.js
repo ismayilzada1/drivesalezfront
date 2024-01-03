@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {resetPassword} from "../../../Store/Auth/authActions";
 import Logo from "../../../components/ui/Logo";
 import {changePassword} from "../../../Store/Account/AccountActions";
+import {useTranslation} from "react-i18next";
 
 const ChangePassword = () => {
 
@@ -14,6 +15,8 @@ const ChangePassword = () => {
     const email = useSelector((state) => state.auth.email);
     const loading = useSelector((state) => state.auth.loading);
     const error = useSelector((state) => state.auth.error);
+
+    const {t}=useTranslation();
 
 
     const [Password,setPassword]=useState('');
@@ -89,25 +92,25 @@ const ChangePassword = () => {
                                     <div className="card-body col-5 offset-7">
                                         <div className="auth-form">
                                             <div className="text-center">
-                                                <h2>Change Password</h2>
+                                                <h2>{t("changePassword")}</h2>
                                             </div>
                                             <div>
-                                                <p className="mt-3 text-center"> Enter Current Password and your new password </p>
+                                                <p className="mt-3 text-center"> {t("changePasswordDescription")}</p>
                                                 <div className="form-floating mb-3">
                                                     <input type="password" className="form-control" value={Password} onChange={(e) => setPassword(e.target.value)} id="floatingInput" placeholder="123456" />
-                                                    <label htmlFor="floatingInput">Current Password</label>
+                                                    <label htmlFor="floatingInput">{t("currentPassword")}</label>
                                                 </div>
                                                 <div className="form-floating mb-3">
                                                     <input type="password" className="form-control" value={NewPassword} onChange={(e) => setNewPassword(e.target.value)} id="floatingInput" placeholder="123456" />
-                                                    <label htmlFor="floatingInput">New Password</label>
+                                                    <label htmlFor="floatingInput">{t("newPassword")}</label>
                                                 </div>
                                                 <div className="form-floating mb-3">
                                                     <input type="password" className="form-control" value={ConfirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} id="floatingInput" placeholder="123456" />
-                                                    <label htmlFor="floatingInput">Confirm New Password</label>
+                                                    <label htmlFor="floatingInput">{t("confirmNewPassword")}</label>
                                                 </div>
                                             </div>
                                             <div className="text-center">
-                                                <button onClick={handleChangePassword} className="btn btn-primary mt-3" disabled={loading}>{loading ? 'Change Password ...' : 'Change Password'}</button>
+                                                <button onClick={handleChangePassword} className="btn btn-primary mt-3" disabled={loading}>{loading ? `${t("changePassword")} ...` : t("changePassword")}</button>
                                             </div>
 
                                             {errorMessage && (
@@ -150,22 +153,22 @@ const ChangePassword = () => {
                                 <h2>Change Password</h2>
                             </div>
                             <div>
-                                <p className="mt-3 text-center">Enter Current Password and your new password</p>
+                                <p className="mt-3 text-center">{t("changePasswordDescription")}</p>
                                 <div className="form-floating mb-3">
                                     <input type="password" className="form-control"  value={Password} onChange={(e) => setPassword(e.target.value)} id="floatingInput"   placeholder="123456" />
-                                    <label htmlFor="floatingInput">Current Password</label>
+                                    <label htmlFor="floatingInput">{t("currentPassword")}</label>
                                 </div>
                                 <div className="form-floating mb-3">
                                     <input type="password" className="form-control" value={NewPassword} onChange={(e) => setNewPassword(e.target.value)} id="floatingInput" placeholder="123456" />
-                                    <label htmlFor="floatingInput">New Password</label>
+                                    <label htmlFor="floatingInput">{t("newPassword")}</label>
                                 </div>
                                 <div className="form-floating mb-3">
                                     <input type="password" className="form-control" value={ConfirmNewPassword} onChange={(e) => setConfirmNewPassword(e.target.value)} id="floatingInput" placeholder="123456" />
-                                    <label htmlFor="floatingInput">Confirm New Password</label>
+                                    <label htmlFor="floatingInput">{t("confirmNewAnnouncement")}</label>
                                 </div>
                             </div>
                             <div className="text-center">
-                                <button onClick={handleChangePassword} className="btn btn-primary mt-3" disabled={loading}>{loading ? 'Change Password ...' : 'Change Password'}</button>
+                                <button onClick={handleChangePassword} className="btn btn-primary mt-3" disabled={loading}>{loading ? `${t("changePassword")} ...` : t("changePassword") }</button>
                             </div>
 
                             {errorMessage && (

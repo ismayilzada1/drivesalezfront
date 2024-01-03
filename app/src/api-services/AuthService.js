@@ -136,4 +136,42 @@ export default class AuthService {
         }
     }
 
+
+
+
+    async DeleteAccount(requestBody,token) {
+        try {
+            const response = await fetch(`${this.baseUrl}/Account/delete-user`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(requestBody),
+            });
+            return response;
+        } catch (error) {
+            console.error('Error in Delete Account:', error);
+            throw error;
+        }
+    }
+
+    async ChangeEmail(requestBody,token) {
+        try {
+            const response = await fetch(`${this.baseUrl}/Account/change-email`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(requestBody),
+            });
+            return response;
+        } catch (error) {
+            console.error('Error in Delete Account:', error);
+            throw error;
+        }
+    }
+
+
 }

@@ -32,8 +32,7 @@ const AnnouncementCard = (props) => {
 
     return (
         <a>
-            <div className="col-sm-3">
-                <div className="card iq-mb-3 announcement-card" onClick={handleCardClick}>
+                <div className="card me-3 iq-mb-3 announcement-card" onClick={handleCardClick}>
 
                     {imageUrl  &&(
                         <img
@@ -57,8 +56,6 @@ const AnnouncementCard = (props) => {
                         <h5 className="card-title text-success float-start h3 mt-2">{price} {currency?.currencyName}</h5>
                     </div>
                 </div>
-            </div>
-
         </a>
     );
 }

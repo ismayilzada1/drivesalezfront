@@ -13,7 +13,9 @@ import {
     logoutUserSuccess,
     otpSendStart,
     otpSendFailure,
-    otpSendSuccess, resetPasswordSuccess, resetPasswordFailure, resetPasswordStart,
+    otpSendSuccess, resetPasswordSuccess, resetPasswordFailure, resetPasswordStart,deleteAccountFailure,
+    deleteAccountStart,
+    deleteAccountSuccess
 } from './AuthSlice';
 import authService from '../../api-services/AuthService';
 import otpService from '../../api-services/OtpService';
@@ -89,11 +91,13 @@ export const verifyEmail = (userData) => async (dispatch) => {
     }
 };
 
-export const logoutUser = (token) => async (dispatch) => {
+export const logoutUser = (accessToken) => async (dispatch) => {
     dispatch (logoutUserStart ());
     try {
+        let token = accessToken || sessionStorage.getItem("authToken");
+
         if (!token) {
-            return null
+            return null;
         }
 
         const response = await AuthService.Logout (token);
@@ -148,3 +152,48 @@ export const resetPassword = (requestBody) => async (dispatch) => {
 };
 
 
+export const DeleteAccount = (requestBody,accessToken) => async (dispatch) => {
+    dispatch(deleteAccountStart());
+    try {
+        let token = accessToken || sessionStorage.getItem("authToken");
+
+        if (!token) {
+            return null;
+        }
+
+        const response = await AuthService.DeleteAccount(requestBody,token);
+
+        if (response.status === 200) {
+            console.log('SUCCESSFUL DELETE ACCOUNT');
+            dispatch(deleteAccountSuccess());
+            return response;
+        } else {
+            dispatch(deleteAccountFailure('Delete Account failed'));
+        }
+    } catch (error) {
+        dispatch(deleteAccountFailure('An error occurred while processing your request'));
+    }
+};
+
+export const ChangeEmail = (requestBody,accessToken) => async (dispatch) => {
+    // dispatch(deleteAccountStart());
+    try {
+        let token = accessToken || sessionStorage.getItem("authToken");
+
+        if (!token) {
+            return null;
+        }
+
+        const response = await AuthService.ChangeEmail(requestBody,token);
+
+        if (response.status === 200) {
+            console.log('SUCCESSFUL CHANGE EMAIL');
+            // dispatch(deleteAccountSuccess());
+            return response;
+        } else {
+            // dispatch(deleteAccountFailure('Delete Account failed'));
+        }
+    } catch (error) {
+        // dispatch(deleteAccountFailure('An error occurred while processing your request'));
+    }
+};

@@ -237,6 +237,7 @@ const NewAnnouncement=()=> {
 
     const clearForm=()=>{
         setFormData(null);
+        setImages([]);
     }
 
     const handleSubmit = async(e) => {

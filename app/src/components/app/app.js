@@ -3,6 +3,7 @@ import './app.css'
 import {useRoutes} from 'react-router-dom'
 import routes from '../../routes'
 import {useTranslation} from "react-i18next";
+import Helmet from "react-helmet"
 
 function App() {
 
@@ -23,6 +24,11 @@ function App() {
 
     return(
         <div className={`app-container ${getFontClass()}`}>
+           <Helmet>
+               <link  rel="icon" type="image/x-icon" href="../../../assets/images/favicon.ico" />
+               <link rel="shortcut icon" type="image/x-icon" href="../../../assets/images/favicon.ico" />
+           </Helmet>
+
             {useRoutes(routes)}
         </div>
     )

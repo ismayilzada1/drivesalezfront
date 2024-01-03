@@ -15,17 +15,27 @@
 }
 
 
-@media (max-width: 290px){
+@media (max-width: 372px){
     .navbar-brand{
         padding:0 ;
         margin:0 !important;
     }
     .navbar-brand img {
-        max-width: 130px;
+        max-width: 40px;
     }
 
     .sidebar-toggle.sidebar-toggle-responsive{
         display:none;
     }
+    a.navbar-brand >span{
+        font-size: 1.3rem !important;
+    }
 
+}
+
+
+@media only screen and (max-width: 1200px) {
+    .header-user-info{
+        display: none !important;
+    }
 }

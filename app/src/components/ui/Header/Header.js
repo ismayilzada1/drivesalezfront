@@ -104,11 +104,11 @@ const Header = () => {
 
         try {
             dispatch (setFilterParams (filterUrl));
-            // dispatch (setAnnouncements ([]));
-            // dispatch (setPageNumber (1));
+            dispatch (setAnnouncements ([]));
+            dispatch (setPageNumber (1));
 
-            // const response = await dispatch (GetAllFilterAnnouncements (filterUrl));
-            // console.log (response);
+            const response = await dispatch (GetAllFilterAnnouncements (filterUrl));
+            console.log (response);
 
         } catch (error) {
             console.log (error);
@@ -405,7 +405,7 @@ const Header = () => {
                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <img src="../assets/images/icons/user.png" alt="User-Profile"
                                              className="img-fluid avatar avatar-50 avatar-rounded"/>
-                                        <div className="caption ms-3 d-none d-md-block ">
+                                        <div className="header-user-info caption ms-3 d-none d-md-block ">
                                             <h6 className="mb-0 caption-title">{user.firstName} {user.lastName}</h6>
                                             <p className="mb-0 caption-sub-title">{user.email}</p>
                                         </div>

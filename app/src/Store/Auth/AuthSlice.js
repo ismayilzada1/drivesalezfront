@@ -136,6 +136,32 @@ const authSlice = createSlice({
             state.error = action.payload;
         },
 
+
+        deleteAccountStart: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+        deleteAccountSuccess: (state,action) => {
+            state.loading = false;
+            state.isLoggedIn = false;
+            state.user.firstName = null;
+            state.user.lastName = null;
+            state.user.email = null;
+            state.user.phoneNumbers = null;
+            state.user.userRole = null;
+
+            state.accessToken=null;
+            state.refreshToken=null;
+            localStorage.removeItem("authToken");
+            sessionStorage.removeItem("authToken");
+            sessionStorage.removeItem("refreshToken");
+
+        },
+        deleteAccountFailure: (state,action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+
     },
 });
 
@@ -157,7 +183,10 @@ export const {
     otpSendFailure,
     resetPasswordStart,
     resetPasswordSuccess,
-    resetPasswordFailure
+    resetPasswordFailure,
+    deleteAccountFailure,
+    deleteAccountStart,
+    deleteAccountSuccess
 } = authSlice.actions;
 
 export default authSlice.reducer;

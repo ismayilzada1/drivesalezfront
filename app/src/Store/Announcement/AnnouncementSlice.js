@@ -112,6 +112,20 @@ const announcementSlice = createSlice({
             state.error=action.payload;
         },
 
+        DeleteAnnouncementStart(state){
+            state.loading=true;
+        },
+
+        DeleteAnnouncementSuccess:(state,action)=>{
+            state.loading=false;
+            state.error = null;
+        },
+
+        DeleteAnnouncementFailure(state,action){
+            state.loading=false;
+            state.error=action.payload;
+        },
+
         setFilterParams(state,action){
             state.filterParams = action.payload;
         },
@@ -132,7 +146,10 @@ export const {
     setAnnouncementStart,
     setAnnouncementSuccess,
     setAnnouncementFailure,
-    setFilterParams
+    setFilterParams,
+    DeleteAnnouncementSuccess,
+    DeleteAnnouncementFailure,
+    DeleteAnnouncementStart
 } = announcementSlice.actions;
 
 export default announcementSlice.reducer;

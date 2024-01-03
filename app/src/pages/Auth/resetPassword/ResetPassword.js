@@ -4,6 +4,7 @@ import Service from "../../../api-services/AuthService";
 import { useNavigate } from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {resetPassword} from "../../../Store/Auth/authActions";
+import {useTranslation} from "react-i18next";
 
 const ResetPassword=()=> {
 
@@ -12,6 +13,7 @@ const ResetPassword=()=> {
     const email = useSelector((state) => state.auth.email);
     const loading = useSelector((state) => state.auth.loading);
     const error = useSelector((state) => state.auth.error);
+    const {t}=useTranslation();
 
 
     const [Password,setPassword]=useState('');

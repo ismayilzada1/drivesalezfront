@@ -9,7 +9,11 @@ import {
     setAnnouncements,
     setAnnouncementSuccess,
     setAnnouncementFailure,
-    setAnnouncementStart
+    setAnnouncementStart,
+    DeleteAnnouncementFailure,
+    DeleteAnnouncementStart,
+    DeleteAnnouncementSuccess
+
 } from "./AnnouncementSlice"
 
 import annonucementService from "../../api-services/AnnouncementService"
@@ -285,7 +289,7 @@ export const GetAllFilterAnnouncements = (filter) => async (dispatch) => {
 };
 
 export const DeleteAnnouncementAuthorize = (requestBody,accessToken) => async (dispatch) => {
-    // dispatch(sendAnnouncementStart());
+    dispatch(DeleteAnnouncementStart());
     try {
         let token = accessToken || sessionStorage.getItem("authToken");
 
@@ -297,7 +301,7 @@ export const DeleteAnnouncementAuthorize = (requestBody,accessToken) => async (d
 
         if (response.status===200) {
             console.log("SUCCESFULL DELETE ANNOUNCEMENT");
-            // dispatch(sendAnnouncementSuccess(response.data));
+            dispatch(DeleteAnnouncementSuccess());
             return response;
         }
         else if(response.status===401){
@@ -306,11 +310,11 @@ export const DeleteAnnouncementAuthorize = (requestBody,accessToken) => async (d
             });
         }
         else {
-            // dispatch(sendAnnouncementFailure('Email or password is invalid'));
+            dispatch(DeleteAnnouncementFailure('Something is wrong !'));
         }
     } catch (error) {
         console.log(error);
-        // dispatch(sendAnnouncementFailure('An error occurred while processing your request'));
+        dispatch(DeleteAnnouncementFailure('An error occurred while processing your request'));
     }
 };
 

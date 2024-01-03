@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import "./announcementDetailsUserProfile.css";
 import {Modal, Button} from 'react-bootstrap';
 import {useDispatch, useSelector} from "react-redux";
@@ -9,12 +9,14 @@ import {
     SetAnnouncementAuthorize
 } from '../../Store/Announcement/AnnouncementActions'
 import LoadingPage from "../../components/ui/LoadingPage";
+import {useTranslation} from "react-i18next";
 
 const AnnouncementDetailsUserProfile = () => {
 
     const {id} = useParams ();
 
     const {announcement, loading, error} = useSelector ((state) => state.announcement);
+    const {t}=useTranslation();
 
     const {accessToken} = useSelector (state => state.auth);
 
@@ -29,8 +31,14 @@ const AnnouncementDetailsUserProfile = () => {
     const Images = announcement?.imageUrls?.map (image => image.url) || [];
 
 
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
+
+    const navigate=useNavigate();
+
     const handleTabClick = (tabId) => {
-        console.log (loading);
         setActiveTab (tabId);
     };
 
@@ -177,7 +185,7 @@ const AnnouncementDetailsUserProfile = () => {
 
     const createLabelValue = (label, value) => (
         <div className="list-group-item d-flex align-items-center">
-            <span className="label info-key mr-3">{label}:</span>
+            <span className="label info-key mr-3">{t(label)}:</span>
             <span className="value">{value}</span>
         </div>
     );
@@ -189,19 +197,21 @@ const AnnouncementDetailsUserProfile = () => {
         try {
 
             const response= await dispatch(DeleteAnnouncementAuthorize(id,accessToken));
-            console.log (response);
 
             if (response.status === 200) {
-                // setAlertMessage("Announcement request sent succesfully !");
-                // setShowSuccessAlert(true);
-                // clearForm();
+                setAlertMessage("Announcement request sent succesfully !");
+                setShowSuccessAlert(true);
+
+                setTimeout(() => {
+                   navigate('/');
+                }, 2000);
             } else {
-                // setShowAlert(true);
-                // setAlertMessage('Something went wrong !');
+                setShowAlert(true);
+                setAlertMessage('Something went wrong !');
             }
         } catch (error) {
-            // setShowAlert(true);
-            // setAlertMessage('Something went wrong !');
+            setShowAlert(true);
+            setAlertMessage('Something went wrong !');
         }
 
     }
@@ -212,6 +222,7 @@ const AnnouncementDetailsUserProfile = () => {
                 <LoadingPage/>
             ) : (
                 <>
+
                     <section className="section mt-2" id="trainers">
                         <div className="container">
                             <div id="carouselExampleCaptions" className="carousel slide">
@@ -280,172 +291,179 @@ const AnnouncementDetailsUserProfile = () => {
 
                             <div className='d-flex flex-row justify-content-end align-items-center mt-3'>
                                 {announcementState=="Active" && (
-                                <button className='btn btn-outline-danger'
-                                        data-bs-toggle="modal" data-bs-target="#DeleteModal">Delete
-                                </button>
+                                    <button className='btn btn-outline-danger'
+                                            data-bs-toggle="modal" data-bs-target="#DeleteModal">{t("delete")}
+                                    </button>
                                 )}
-                                {/*<button data-toggle="modal" data-target="#UpgradeModal"*/}
-                                {/*        className='btn btn-outline-success ms-4'>Upgrade*/}
-                                {/*</button>*/}
                             </div>
-
 
                             <div className="row mt-3" id="tabs">
                                 <div className="col-lg-4">
                                     <ul>
                                         <li>
                                             <a href='#tabs-1' onClick={() => handleTabClick ('tabs-1')}>
-                                                <i className="fa fa-cog"></i> Vehicle Specs
+                                                <i className="fa fa-cog"></i> {t("vehicleSpecs")}
                                             </a>
                                         </li>
                                         <li>
                                             <a href='#tabs-2' onClick={() => handleTabClick ('tabs-2')}>
-                                                <i className="fa fa-info-circle"></i> Vehicle Description
+                                                <i className="fa fa-info-circle"></i> {t("vehicleDescription")}
                                             </a>
                                         </li>
                                         <li>
                                             <a href='#tabs-3' onClick={() => handleTabClick ('tabs-3')}>
-                                                <i className="fa fa-plus-circle"></i> Vehicle Extras
+                                                <i className="fa fa-plus-circle"></i> {t("vehicleExtras")}
                                             </a>
                                         </li>
                                         <li>
                                             <a href='#tabs-4' onClick={() => handleTabClick ('tabs-4')}>
-                                                <i className="fa fa-phone"></i> Contact Details
+                                                <i className="fa fa-phone"></i> {t("contactDetails")}
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
+
+
+
+
                                 <div className="col-lg-8">
-
                                     <section className='tabs-content' style={{width: '100%'}}>
-
                                         <article id='tabs-1'
                                                  className={`fade-in-element ${activeTab === 'tabs-1' ? 'active-tab' : ''}`}>
 
 
-                                            <h4>Vehicle Specs</h4>
+                                            <h4>{t("vehicleSpecs")}</h4>
 
                                             <div className="row">
 
                                                 <div className="col-sm-6">
-                                                    <label>Make</label>
+                                                    <label>{t('mainLabelMake')}</label>
                                                     <p>{make?.makeName}</p>
-
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label> Model</label>
+                                                    <label>{t('labelVehicleModel')}</label>
                                                     <p>{model?.modelName}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>Body Type</label>
+                                                    <label>{t('labelBodyType')}</label>
                                                     <p>{bodyType?.bodyType}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>First registration</label>
+                                                    <label>{t("firstRegistration")}</label>
                                                     <p>{year?.year}</p>
                                                 </div>
 
 
                                                 <div className="col-sm-6">
-                                                    <label>Mileage</label>
+                                                    <label>{t("mileage")}</label>
                                                     <p>{mileage} {mileageType}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>Fuel Type</label>
+                                                    <label>{t("fuelType")}</label>
                                                     <p>{fuelType?.fuelType}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>Engine Volume</label>
+                                                    <label>{t("engineVolume")}</label>
                                                     <p>{engineVolume} cc</p>
                                                 </div>
 
 
                                                 <div className="col-sm-6">
-                                                    <label>Horse Power</label>
+                                                    <label>{t("labelHorsePower")}</label>
                                                     <p>{horsePower}</p>
                                                 </div>
 
 
                                                 <div className="col-sm-6">
-                                                    <label>Gearbox</label>
+                                                    <label>{t("labelGearboxType")}</label>
                                                     <p>{gearboxType?.gearboxType}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>Number of seats</label>
+                                                    <label>{t("seatCount")}</label>
                                                     <p>{seatCount}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>Market Version</label>
+                                                    <label>{t("labelMarketVersion")}</label>
                                                     <p>{marketVersion?.marketVersion}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>Drive Train Type</label>
+                                                    <label>{t("labelWheelDrive")}</label>
                                                     <p>{drivetrainType?.drivetrainType}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>Owner Quantity</label>
+                                                    <label>{t("ownerQuantity")}</label>
                                                     <p>{ownerQuantity}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>Brand New</label>
-                                                    <p>{isBrandNew ? 'Yes' : 'No'}</p>
+                                                    <label>{t("brandNew")}</label>
+                                                    <p>{isBrandNew ? t("Yes") : t("No")}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>Color</label>
+                                                    <label>{t("labelVehicleColor")}</label>
                                                     <p>{color?.color}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>Barter</label>
-                                                    <p>{barter ? 'Yes' : 'No'}</p>
+                                                    <label>{t("barter")}</label>
+                                                    <p>{barter ? t("Yes") : t("No")}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>On Credit</label>
-                                                    <p>{onCredit ? 'Yes' : 'No'}</p>
+                                                    <label>{t("onCredit")}</label>
+                                                    <p>{onCredit ? t("Yes") : t("No")}</p>
                                                 </div>
 
                                                 <div className="col-sm-12">
-                                                    <label style={{fontSize: '1.4em'}}>Price</label>
+                                                    <label style={{fontSize: '1.4em'}}>{t("labelPrice")}</label>
                                                     <p className="main-price text-success font-weight-bold"
                                                        style={{fontSize: '2.2em'}}>
-                                                        {price && `${price} ${currency.currencyName}`}
+                                                        {price && `${price} ${currency?.currencyName}`}
                                                     </p>
                                                 </div>
+
+                                                <p>{t("announcementNumber")}:  {id}</p>
 
                                                 <div className="col-sm-6">
-                                                    <p>{formatTimestamp (expirationDate)}</p>
+                                                    <p>{t("expirationDate")}: {formatTimestamp (expirationDate)}</p>
                                                 </div>
-                                                <div className="col-sm-6 d-flex align-items-center">
-                                                    <p><i className="far fa-eye me-2"></i>
-                                                        <span>{viewCount} views</span>
+
+                                                <div className="col-sm-6 d-flex align-items-center" >
+                                                    <p><i className="far fa-eye me-2" ></i>
+                                                        <span>{viewCount} {t("views")}</span>
                                                     </p>
                                                 </div>
 
-                                            </div>
 
+                                            </div>
 
                                         </article>
                                         <article id='tabs-2'
                                                  className={`fade-in-element ${activeTab === 'tabs-2' ? 'active-tab' : ''}`}>
-                                            <h4>Vehicle Description</h4>
+                                            <h4>{t("vehicleDescription")}</h4>
 
                                             <div className='row'>
-                                                <p className='col-sm-12'>{description}</p>
+                                                <p className='col-sm-12' style={{maxWidth: '800px', margin: '0 auto',maxHeight: '400px', overflowY: 'auto' }}>
+                                                    {description.split('\n').map((line, index) => (
+                                                        <React.Fragment key={index}>
+                                                            {line}
+                                                            <br />
+                                                        </React.Fragment>
+                                                    ))}
+                                                </p>
 
-                                                <p className='col-sm-12 font-weight-bold' style={{fontSize: '1.2em'}}>
-                                                    VIN CODE:
+                                                <p className='col-sm-12 font-weight-bold mt-3' style={{fontSize: '1.2em'}}>
+                                                    {t("vinCode")} :
                                                     <a
                                                         href={`https://www.google.com/search?q=${vinCode}&tbm=isch`}
                                                         target="_blank"
@@ -462,7 +480,7 @@ const AnnouncementDetailsUserProfile = () => {
                                         </article>
                                         <article id='tabs-3'
                                                  className={`fade-in-element ${activeTab === 'tabs-3' ? 'active-tab' : ''}`}>
-                                            <h4>Vehicle Extras</h4>
+                                            <h4>{t("vehicleExtras")}</h4>
 
                                             <div className="row">
                                                 {options?.map ((option, index) => (
@@ -474,7 +492,7 @@ const AnnouncementDetailsUserProfile = () => {
 
                                             {conditions && conditions.length > 0 && (
                                                 <div>
-                                                    <h4>Vehicle Conditions</h4>
+                                                    <h4>{t("vehicleConditions")}</h4>
                                                     <div className="row">
                                                         {conditions.map ((condition, index) => (
                                                             <div key={condition.id} className="col-sm-6">
@@ -491,33 +509,33 @@ const AnnouncementDetailsUserProfile = () => {
                                         </article>
                                         <article id='tabs-4'
                                                  className={`fade-in-element ${activeTab === 'tabs-4' ? 'active-tab' : ''}`}>
-                                            <h4>Contact Details</h4>
+                                            <h4>{t("contactDetails")}</h4>
 
                                             <div className="row">
                                                 <div className="col-sm-6">
-                                                    <label>Name Surname</label>
+                                                    <label>{t("name")} {t("surname")}</label>
 
                                                     <p>{firstName} {lastName}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>Email</label>
+                                                    <label>{t("email")}</label>
                                                     <p><a href="#">{email}</a></p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>Country</label>
+                                                    <label>{t("mainLabelCountry")}</label>
                                                     <p>{country?.countryName}</p>
                                                 </div>
 
                                                 <div className="col-sm-6">
-                                                    <label>City</label>
+                                                    <label>{t("labelCity")}</label>
                                                     <p>{city?.cityName}</p>
                                                 </div>
 
 
                                                 <div className="col-sm-6">
-                                                    <label className="mb-2">Mobile phones</label>
+                                                    <label className="mb-2">{t("mobilePhones")}</label>
                                                     {phoneNumbers?.map ((phone, index) => (
                                                         <p key={index} className="m-2">
                                                             {phone.phoneNumber}
@@ -525,13 +543,11 @@ const AnnouncementDetailsUserProfile = () => {
                                                     ))}
                                                 </div>
 
-
                                             </div>
                                         </article>
 
                                     </section>
                                 </div>
-
                             </div>
                         </div>
                     </section>
@@ -542,19 +558,19 @@ const AnnouncementDetailsUserProfile = () => {
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">Delete Announcement</h5>
+                                    <h5 className="modal-title" id="exampleModalLabel">{t("deleteAnnouncement")}</h5>
                                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div className="modal-body">
                                     <p className={'m-2'}>{description}</p>
 
                                     <ul className="list-group mt-3">
-                                        {createLabelValue ("Make", make?.makeName)}
-                                        {createLabelValue ("Model", model?.modelName)}
-                                        {createLabelValue ("Body Type", bodyType?.bodyType)}
-                                        {createLabelValue ("Fuel Type", fuelType?.fuelType)}
-                                        {createLabelValue ("Year", year?.year)}
-                                        {createLabelValue ("Color", color?.color)}
+                                        {createLabelValue ("make", make?.makeName)}
+                                        {createLabelValue ("model", model?.modelName)}
+                                        {createLabelValue ("bodyType", bodyType?.bodyType)}
+                                        {createLabelValue ("fuelType", t(fuelType?.fuelType))}
+                                        {createLabelValue ("year", year?.year)}
+                                        {createLabelValue ("color", color?.color)}
                                     </ul>
                                     <p className={'m-2'}>{id}</p>
                                     <h5 className='text-success text-lg-right mt-5'>{price} {currency?.currencyName}</h5>
@@ -562,9 +578,19 @@ const AnnouncementDetailsUserProfile = () => {
                                 </div>
 
                                     <button type="button" data-toggle="modal"
-                                            data-target="#DeleteModal" onClick={handleDeleteAnnouncement} className="btn btn-danger m-3">Delete
+                                            data-target="#DeleteModal" onClick={handleDeleteAnnouncement} disabled={loading} className="btn btn-danger m-3">{loading ? t('deleteLoading') : t('delete')}
                                     </button>
 
+                                {showAlert && (
+                                    <div className="alert alert-warning mt-3" role="alert">
+                                        {alertMessage}
+                                    </div>
+                                )}
+                                {showSuccessAlert && (
+                                    <div className="alert alert-success mt-3" role="alert">
+                                        {alertMessage}
+                                    </div>
+                                )}
 
 
                             </div>
