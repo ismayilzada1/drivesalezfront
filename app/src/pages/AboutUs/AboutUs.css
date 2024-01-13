@@ -32,6 +32,18 @@
     color: #f54114 !important;
 }
 
+.custom-partner-card:not(:hover) img {
+    transition: transform 0.45s ease-in;
+}
+.custom-partner-card:hover{
+
+    & img{
+        filter:grayscale(0%) !important;
+        transform: scale(1.35);
+        transition: transform 0.45s ease-in;
+    }
+}
+
 .team4 ul li a {
     color: #8d97ad;
     padding-right: 15px;

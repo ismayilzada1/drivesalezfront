@@ -192,6 +192,7 @@
   "changePasswordDescription": "Введите текущий пароль и ваш новый пароль",
   "currentPassword": "Текущий пароль",
   "newPassword": "Новый пароль",
-  "confirmNewPassword": "Подтвердите новый пароль"
+  "confirmNewPassword": "Подтвердите новый пароль",
+  "thanksTo": "Большое спасибо всем, кто вносит свой вклад в наше путешествие."
 
 }

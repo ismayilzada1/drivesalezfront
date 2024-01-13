@@ -8,13 +8,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {forEach} from "react-bootstrap/ElementChildren";
 import {GetAllFilterAnnouncements, SendAnnouncement} from "../../../Store/Announcement/AnnouncementActions";
 import {useTranslation} from "react-i18next";
+import {setFilterParams} from "../../../Store/Announcement/AnnouncementSlice";
 
 const HomeFilter = () => {
 
     const{t}=useTranslation();
 
     const {  user } = useSelector((state) => state.auth);
-    const { announcements, loading, error } = useSelector((state) => state.announcement);
+    const { announcements,filterParams, loading, error } = useSelector((state) => state.announcement);
 
     const dispatch = useDispatch();
 
@@ -288,7 +289,6 @@ const HomeFilter = () => {
         setSelectedMaxYear('');
         setSelectedMinYear('');
         setSelectedUsedNew('');
-
         selectedValuesBodyTypes.length=0;
         selectedValuesMarketVersion.length=0;
         selectedValuesDriveTrainType.length=0;
@@ -299,14 +299,40 @@ const HomeFilter = () => {
         // selectedValuesOwnerQuantity.length=0;
         // selectedValuesSeatCount.length=0;
         selectedValuesGearboxTypes.length=0;
-
         setShowDetails(false);
     };
 
-    const buildApiUrl = (data) => {
+    // const buildApiUrl = (data) => {
+    //     if(!filterParams) {
+    //         const queryParams = Object.entries (data)
+    //             .map (([key, value]) => {
+    //                 if (value === '') {
+    //                     return null;
+    //                 }
+    //
+    //                 if (Array.isArray (value)) {
+    //                     return value.map (item => `${key}=${item}`).join ('&');
+    //                 } else if (typeof value === 'object') {
+    //                     return `${key}=${value.id}`;
+    //                 } else {
+    //                     return `${key}=${value}`;
+    //                 }
+    //             })
+    //             .filter (Boolean)
+    //             .join ('&');
+    //         return queryParams;
+    //     }
+    //     else{
+    //
+    //     }
+    // };
+
+    const buildApiUrl = (data, filterQuery) => {
         const queryParams = Object.entries(data)
             .map(([key, value]) => {
-                if(value===''){return null;}
+                if (value === '') {
+                    return null;
+                }
 
                 if (Array.isArray(value)) {
                     return value.map(item => `${key}=${item}`).join('&');
@@ -318,8 +344,14 @@ const HomeFilter = () => {
             })
             .filter(Boolean)
             .join('&');
-        return queryParams;
+
+        if (filterParams) {
+            return `${filterParams}&${queryParams}`;
+        } else {
+            return queryParams;
+        }
     };
+
 
 
     const handleMinPriceChange = (e) => {
@@ -395,7 +427,10 @@ const HomeFilter = () => {
                 ToEngineVolume:selectedMaxEngineVolume,
             });
 
-            console.log (apiUrl);
+
+            if(apiUrl){
+                dispatch(setFilterParams(apiUrl));
+            }
 
             try {
                 const response= await dispatch(GetAllFilterAnnouncements(apiUrl));
@@ -503,7 +538,7 @@ const HomeFilter = () => {
             <section className="featured-places mb-2">
                 <Row className="container">
                     <Form onSubmit={search}>
-                        <Row id={'home-filter'}>
+                        <Row id={'Home-filter'}>
                             <Col lg={3}  md={4} sm={6} xs={6}>
                                 <CustomDropdown
                                     mainLabel={t('mainLabelMake')}

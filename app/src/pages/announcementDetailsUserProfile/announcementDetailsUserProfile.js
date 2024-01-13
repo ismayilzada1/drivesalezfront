@@ -5,7 +5,6 @@ import {Modal, Button} from 'react-bootstrap';
 import {useDispatch, useSelector} from "react-redux";
 import {
     DeleteAnnouncementAuthorize,
-    SendAnnouncement,
     SetAnnouncementAuthorize
 } from '../../Store/Announcement/AnnouncementActions'
 import LoadingPage from "../../components/ui/LoadingPage";
@@ -201,10 +200,8 @@ const AnnouncementDetailsUserProfile = () => {
             if (response.status === 200) {
                 setAlertMessage("Announcement request sent succesfully !");
                 setShowSuccessAlert(true);
+                navigate('/profile');
 
-                setTimeout(() => {
-                   navigate('/');
-                }, 2000);
             } else {
                 setShowAlert(true);
                 setAlertMessage('Something went wrong !');
@@ -565,21 +562,21 @@ const AnnouncementDetailsUserProfile = () => {
                                     <p className={'m-2'}>{description}</p>
 
                                     <ul className="list-group mt-3">
-                                        {createLabelValue ("make", make?.makeName)}
-                                        {createLabelValue ("model", model?.modelName)}
-                                        {createLabelValue ("bodyType", bodyType?.bodyType)}
+                                        {createLabelValue ("mainLabelMake", make?.makeName)}
+                                        {createLabelValue ("labelVehicleModel", model?.modelName)}
+                                        {createLabelValue ("labelBodyType", bodyType?.bodyType)}
                                         {createLabelValue ("fuelType", t(fuelType?.fuelType))}
                                         {createLabelValue ("year", year?.year)}
-                                        {createLabelValue ("color", color?.color)}
+                                        {createLabelValue ("labelVehicleColor", color?.color)}
                                     </ul>
                                     <p className={'m-2'}>{id}</p>
                                     <h5 className='text-success text-lg-right mt-5'>{price} {currency?.currencyName}</h5>
 
                                 </div>
 
-                                    <button type="button" data-toggle="modal"
-                                            data-target="#DeleteModal" onClick={handleDeleteAnnouncement} disabled={loading} className="btn btn-danger m-3">{loading ? t('deleteLoading') : t('delete')}
-                                    </button>
+                                <button type="button" data-bs-toggle="modal"
+                                        data-bs-target="#DeleteModal" onClick={handleDeleteAnnouncement} disabled={loading} className="btn btn-danger m-3">{loading ? t('deleteLoading') : t('delete')}
+                                </button>
 
                                 {showAlert && (
                                     <div className="alert alert-warning mt-3" role="alert">

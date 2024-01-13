@@ -192,5 +192,7 @@
   "changePasswordDescription": "Mevcut şifrenizi ve yeni şifrenizi girin",
   "currentPassword": "Mevcut Şifre",
   "newPassword": "Yeni Şifre",
-  "confirmNewPassword": "Yeni şifreyi onayla"
+  "confirmNewPassword": "Yeni şifreyi onayla",
+  "thanksTo": "Yolculuğumuza katkıda bulunan herkese büyük teşekkürler."
+
 }

@@ -8,7 +8,7 @@ import HomeFilter from '../../components/ui/HomeFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import {GetAllFilterAnnouncements, GetAnnouncements, SetPageNumber} from '../../Store/Announcement/AnnouncementActions';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import {setAnnouncements, setPageNumber} from '../../Store/Announcement/AnnouncementSlice';
+import {setAnnouncements, setFilterParams, setPageNumber} from '../../Store/Announcement/AnnouncementSlice';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -19,6 +19,7 @@ const Home = () => {
     useEffect (() => {
          dispatch(setAnnouncements([]));
          dispatch(setPageNumber(1));
+         dispatch(setFilterParams(null));
     }, []);
 
     useEffect(() => {
