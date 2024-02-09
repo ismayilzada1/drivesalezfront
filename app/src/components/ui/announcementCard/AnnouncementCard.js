@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import "./AnnouncementCard.css";
-import {GetAnnouncements} from "../../../Store/Announcement/AnnouncementActions";
 import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
@@ -8,7 +7,9 @@ const AnnouncementCard = (props) => {
 
     const navigate=useNavigate();
 
-    const {id, make,model,price,mileage,mileageType,engineVolume,fuelType,year,currency,imageUrl } = props;
+    const {id, make,model,price,mileage,mileageType,engineVolume,fuelType,year,currency,imageUrl,isPremium } = props;
+
+
     const { t } = useTranslation();
 
     const createLabelValue = (label, value) => (
@@ -30,6 +31,7 @@ const AnnouncementCard = (props) => {
     };
 
 
+
     return (
         <a>
                 <div className="card me-3 iq-mb-3 announcement-card" onClick={handleCardClick}>
@@ -42,8 +44,14 @@ const AnnouncementCard = (props) => {
                         />
                     )}
 
+                    {isPremium && (
+                        <div className="premium-announcement-icon">
+                            <i className="bi bi-gem"></i>
+                        </div>
+                    )}
+
                     <div className="card-body announcement-card-body">
-                        <h4 className="card-title">{make.makeName} {model.modelName}</h4>
+                        <h4 className="card-title">{make?.makeName} {model?.modelName}</h4>
 
                         <ul className="list-group list-group-flush m-0 p-0 b-0">
                             {createLabelValue("fuelType", t(fuelType?.fuelType))}
