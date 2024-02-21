@@ -57,3 +57,47 @@
     transform: translate3d(0px, -5px, 0px);
     color: #316ce8;
 }
+
+.AboutUsTitle{
+    font-size: 40px;
+    font-weight: bold;
+    color:#000;
+    margin:0;
+    cursor: pointer;
+}
+.AboutUsEclipseImg {
+    width: 160%;
+    margin-left: -50%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.AboutUsEclipseImg img {
+    width: 400px;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: slideRight 5s ease-in-out infinite backwards;
+    cursor: pointer;
+}
+
+@keyframes slideRight {
+    0% {
+        transform:rotate(-5deg) translateX(-1100px);
+    }
+
+    50%{
+        transform:rotate(-10deg);
+    }
+
+
+    100% {
+        transform:rotate(5deg) translateX(1100px);
+    }
+}

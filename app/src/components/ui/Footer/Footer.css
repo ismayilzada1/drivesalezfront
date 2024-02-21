@@ -1,4 +1,19 @@
 .footer{
     margin-top: auto;
+    border-radius: 15px 15px 0 0;
 }
 
+.footer-body{
+    padding: 8px 14px  !important;
+}
+
+.right-panel
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer-year{
+    margin-bottom:0;
+    margin-right: 8px;
+}

@@ -7,6 +7,10 @@ const AboutUs = () => {
 
     const {t}=useTranslation();
 
+    const handleEclipseClick = () => {
+        window.open("https://eclipsedg.site/", "_blank");
+    };
+
     return (
         <>
 
@@ -15,55 +19,63 @@ const AboutUs = () => {
             </Helmet>
 
             <div className="py-5 team4">
-                <div className="container text-center my-auto">
-                    <div className="row justify-content-center mb-4">
-                        <div className="col-md-7 text-center">
-                            <h3 className="mb-3">{t("TeamSectionTitle")}</h3>
-                            <h6 className="subtitle">{t("TeamSectionSubtitle")}</h6>
-                        </div>
+                <div className="container text-center my-auto ">
+
+                    <p onClick={handleEclipseClick} className={"AboutUsTitle"}>Eclipse DG</p>
+
+                    <div className={"AboutUsEclipseImg"}>
+                        <img onClick={handleEclipseClick} src="../assets/images/aboutUs/eclipse.png" alt="Eclipse"/>
                     </div>
-                    <div className="row d-flex justify-content-center align-items-center">
-                        <div className="col-lg-6 mt-4 mb-5">
-                            <div className="row align-items-center">
-                                <div className="col-md-12 d-flex align-items-center justify-content-center">
-                                    <img src="../assets/images/aboutUs/team-member1.jpeg" alt="wrapkit" className=" team-image img-fluid rounded-circle" />
-                                </div>
-                                <div className="col-md-12 text-center">
-                                    <div className="pt-2">
-                                        <h5 className="mt-4 font-weight-medium mb-0">Ismayilzada Mahammad</h5>
-                                        <h6 className="subtitle mb-3">{t("TeamMember1Role")}</h6>
-                                        <p>{t("TeamMember1Description")}</p>
-                                        <ul className="list-inline">
-                                            <li className="list-inline-item"><a href="https://www.linkedin.com/in/ismayilzada-mahammad/" target={"_blank"} className="text-decoration-none d-block px-1"><i className="fab fa-linkedin"></i></a></li>
-                                            <li className="list-inline-item"><a href="https://www.instagram.com/ichbinmaqa" target={"_blank"} className="text-decoration-none d-block px-1"><i className="fab fa-instagram"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-lg-6 mt-4 mb-5">
-                            <div className="row align-items-center">
-                                <div className="col-md-12 d-flex align-items-center justify-content-center">
-                                    <img src="../assets/images/aboutUs/team-member2.jpg" alt="wrapkit" className="team-image img-fluid rounded-circle" />
-                                </div>
-                                <div className="col-md-12 text-center">
-                                    <div className="pt-2">
-                                        <h5 className="mt-4 font-weight-medium mb-0">Ahmad Ahmadzada</h5>
-                                        <h6 className="subtitle mb-3">{t("TeamMember2Role")}</h6>
-                                        <p>{t("TeamMember2Description")}</p>
-                                        <ul className="list-inline">
-                                            <li className="list-inline-item"><a href="https://www.linkedin.com/in/ahmadzada-ahmad/" target={"_blank"} className="text-decoration-none d-block px-1"><i className="fab fa-linkedin"></i></a></li>
-                                            <li className="list-inline-item"><a href="https://www.instagram.com/a.ahmadoff" target={"_blank"} className="text-decoration-none d-block px-1"><i className="fab fa-instagram"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
+                    {/*<div className="row justify-content-center mb-4">*/}
+                    {/*    <div className="col-md-7 text-center">*/}
+                    {/*        <h3 className="mb-3">{t("TeamSectionTitle")}</h3>*/}
+                    {/*        <h6 className="subtitle">{t("TeamSectionSubtitle")}</h6>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                    {/*<div className="row d-flex justify-content-center align-items-center">*/}
+                    {/*    <div className="col-lg-6 mt-4 mb-5">*/}
+                    {/*        <div className="row align-items-center">*/}
+                    {/*            <div className="col-md-12 d-flex align-items-center justify-content-center">*/}
+                    {/*                <img src="../assets/images/aboutUs/team-member1.jpeg" alt="wrapkit" className=" team-image img-fluid rounded-circle" />*/}
+                    {/*            </div>*/}
+                    {/*            <div className="col-md-12 text-center">*/}
+                    {/*                <div className="pt-2">*/}
+                    {/*                    <h5 className="mt-4 font-weight-medium mb-0">Ismayilzada Mahammad</h5>*/}
+                    {/*                    <h6 className="subtitle mb-3">{t("TeamMember1Role")}</h6>*/}
+                    {/*                    <p>{t("TeamMember1Description")}</p>*/}
+                    {/*                    <ul className="list-inline">*/}
+                    {/*                        <li className="list-inline-item"><a href="https://www.linkedin.com/in/ismayilzada-mahammad/" target={"_blank"} className="text-decoration-none d-block px-1"><i className="fab fa-linkedin"></i></a></li>*/}
+                    {/*                        <li className="list-inline-item"><a href="https://www.instagram.com/ichbinmaqa" target={"_blank"} className="text-decoration-none d-block px-1"><i className="fab fa-instagram"></i></a></li>*/}
+                    {/*                    </ul>*/}
+                    {/*                </div>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="col-lg-6 mt-4 mb-5">*/}
+                    {/*        <div className="row align-items-center">*/}
+                    {/*            <div className="col-md-12 d-flex align-items-center justify-content-center">*/}
+                    {/*                <img src="../assets/images/aboutUs/team-member2.jpg" alt="wrapkit" className="team-image img-fluid rounded-circle" />*/}
+                    {/*            </div>*/}
+                    {/*            <div className="col-md-12 text-center">*/}
+                    {/*                <div className="pt-2">*/}
+                    {/*                    <h5 className="mt-4 font-weight-medium mb-0">Ahmad Ahmadzada</h5>*/}
+                    {/*                    <h6 className="subtitle mb-3">{t("TeamMember2Role")}</h6>*/}
+                    {/*                    <p>{t("TeamMember2Description")}</p>*/}
+                    {/*                    <ul className="list-inline">*/}
+                    {/*                        <li className="list-inline-item"><a href="https://www.linkedin.com/in/ahmadzada-ahmad/" target={"_blank"} className="text-decoration-none d-block px-1"><i className="fab fa-linkedin"></i></a></li>*/}
+                    {/*                        <li className="list-inline-item"><a href="https://www.instagram.com/a.ahmadoff" target={"_blank"} className="text-decoration-none d-block px-1"><i className="fab fa-instagram"></i></a></li>*/}
+                    {/*                    </ul>*/}
+                    {/*                </div>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
 
 
-                <section className="py-3 py-md-5 py-xl-8">
+                <section className="py-3 ">
                     <div className="container">
                         <div className="row justify-content-md-center">
                             <div className="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">

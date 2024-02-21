@@ -52,7 +52,7 @@ const routes=[
             {
                 path:'new-announcement',
                 element:<NewAnnouncement/>,
-                auth:true
+                // auth:true
             },
             {
                 path:'AnnouncementDetails/:id',

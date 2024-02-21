@@ -29,6 +29,7 @@ const NewAnnouncement=()=> {
     const [images, setImages] = useState([]);
 
 
+
     const [Countries, setCountries] = useState([]);
     const [Cities, setCities] = useState([]);
 
@@ -110,6 +111,65 @@ const NewAnnouncement=()=> {
     };
 
 
+    // const handleFrontSideImageUpload = (event) => {
+    //     const file = event.target.files[0];
+    //     const imageUrl = URL.createObjectURL(file);
+    //     setFrontSideImage({ file, url: imageUrl });
+    // };
+    //
+    // const handleDeleteFrontSideImage=(e)=>{
+    //     e.preventDefault();
+    //     setFrontSideImage(null);
+    // }
+
+    const [frontSideImage,setFrontSideImage]=useState(null);
+    const [rearSideImage,setRearSideImage]=useState(null);
+    const [interiorSideImage,setInteriorSideImage]=useState(null);
+
+    const handleSideImageUpload = (side) => (event) => {
+        const file = event.target.files[0];
+        const imageUrl = URL.createObjectURL(file);
+        switch (side) {
+            case 'front':
+                setFrontSideImage({ file, url: imageUrl });
+                break;
+            case 'back':
+                setRearSideImage({ file, url: imageUrl });
+                break;
+            case 'interior':
+                setInteriorSideImage({ file, url: imageUrl });
+                break;
+            default:
+                break;
+        }
+    };
+
+    const handleDeleteSideImage = (side) => (e) => {
+        e.preventDefault();
+        switch (side) {
+            case 'front':
+                setFrontSideImage(null);
+                break;
+            case 'back':
+                setRearSideImage(null);
+                break;
+            case 'interior':
+                setInteriorSideImage(null);
+                break;
+            default:
+                break;
+        }
+    };
+
+    const handleFrontSideImageUpload = handleSideImageUpload('front');
+    const handleDeleteFrontSideImage = handleDeleteSideImage('front');
+
+    const handleRearSideImageUpload = handleSideImageUpload('back');
+    const handleDeleteRearSideImage = handleDeleteSideImage('back');
+
+    const handleInteriorImageUpload = handleSideImageUpload('interior');
+    const handleDeleteInteriorImage = handleDeleteSideImage('interior');
+
 
     const handleImageUpload = (event) => {
         const files = Array.from(event.target.files);
@@ -133,6 +193,8 @@ const NewAnnouncement=()=> {
         newImages.splice(index, 1);
         setImages(newImages);
     };
+
+
 
     const handleSelectChange = (event, field) => {
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
@@ -476,35 +538,161 @@ const NewAnnouncement=()=> {
 
                             <div className="form-group col-md-12">
                                 <label className="form-label" htmlFor="photos">Upload Images:</label>
-                                <div className="input-group">
-                                    {images?.map((image, index) => (
-                                        <div key={index} className="image-preview me-3 ms-3 mb-2 mt-2">
-                                            <div className="image-container d-flex justify-content-center align-items-center">
-                                                <img
-                                                    src={image.url}
-                                                    alt={`Uploaded Image ${index + 1}`}
-                                                    className="uploaded-image"
-                                                    style={{ maxWidth: '250px', maxHeight: '250px' }}
-                                                />
-                                                <button className="delete-button" onClick={(e) => handleDeleteImage(e, index)}>
-                                                    &times;
-                                                </button>
+                                <div className={"image-boxes-container"}>
+
+                                    <div className="image-box-input-group">
+                                        {frontSideImage ? (
+                                            <div
+                                                className="d-flex flex-column justify-content-center align-items-center ">
+                                                <div
+                                                    className="image-container d-flex justify-content-center align-items-center">
+                                                    <img
+                                                        src={frontSideImage.url}
+                                                        alt={"Front Side of transport"}
+                                                        className="uploaded-image"
+                                                        style={{maxWidth: '200px', maxHeight: '200px'}}
+                                                    />
+                                                    <button className="delete-button"
+                                                            onClick={(e) => handleDeleteFrontSideImage(e)}>
+                                                        &times;
+                                                    </button>
+                                                    <span className="image-upload-text delete-button mt-5">Front</span>
+
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                    <label className="input-group-text image-upload-label me-3 ms-3 mb-2 mt-2">
-                                        <div className="image-upload-box">
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                multiple
-                                                style={{ display: 'none' }}
-                                                onChange={handleImageUpload}
-                                            />
-                                            <span className="plus-sign">+</span>
-                                        </div>
-                                    </label>
+                                        ) : (
+                                            <label className="input-group-text image-upload-label me-3 ms-3 mb-2 mt-2">
+                                                <div className="image-upload-box-with-icon">
+                                                    <input
+                                                        type="file"
+                                                        accept="image/*"
+                                                        multiple
+                                                        style={{display: 'none'}}
+                                                        onChange={handleFrontSideImageUpload}
+                                                    />
+
+                                                    <img src="./assets/images/icons/car-front.png" alt="Front Side Car"
+                                                         className="image-upload-box-img"/>
+                                                    <span className="image-upload-box-text">Front</span>
+
+                                                </div>
+                                            </label>
+                                        )}
+                                    </div>
+
+                                    <div className="image-box-input-group">
+                                        {rearSideImage ? (
+                                            <div
+                                                className="d-flex flex-column justify-content-center align-items-center ">
+                                                <div
+                                                    className="image-container d-flex justify-content-center align-items-center">
+                                                    <img
+                                                        src={rearSideImage.url}
+                                                        alt={"Front Side of transport"}
+                                                        className="uploaded-image"
+                                                        style={{maxWidth: '200px', maxHeight: '200px',}}
+                                                    />
+                                                    <button className="delete-button"
+                                                            onClick={(e) => handleDeleteRearSideImage(e)}>
+                                                        &times;
+                                                    </button>
+                                                    <span className="image-upload-text delete-button mt-5">Rear</span>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <label className="input-group-text image-upload-label me-3 ms-3 mb-2 mt-2">
+                                                <div className="image-upload-box-with-icon">
+                                                    <input
+                                                        type="file"
+                                                        accept="image/*"
+                                                        multiple
+                                                        style={{display: 'none'}}
+                                                        onChange={handleRearSideImageUpload}
+                                                    />
+
+                                                    <img src="./assets/images/icons/car-back.png" alt="Back Side Car"
+                                                         className="image-upload-box-img"/>
+                                                    <span className="image-upload-box-text">Rear</span>
+
+                                                </div>
+                                            </label>
+                                        )}
+                                    </div>
+
+                                    <div className="image-box-input-group">
+                                        {interiorSideImage ? (
+                                            <div className="d-flex flex-column justify-content-center align-items-center ">
+                                                <div
+                                                    className="image-container d-flex justify-content-center align-items-center">
+                                                    <img
+                                                        src={interiorSideImage.url}
+                                                        alt={"Front Side of transport"}
+                                                        className="uploaded-image"
+                                                        style={{maxWidth: '200px', maxHeight: '200px'}}
+                                                    />
+                                                    <button className="delete-button"
+                                                            onClick={(e) => handleDeleteInteriorImage(e)}>
+                                                        &times;
+                                                    </button>
+                                                    <span className="image-upload-text delete-button mt-5">Interior</span>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <label className="input-group-text image-upload-label me-3 ms-3 mb-2 mt-2">
+                                                <div className="image-upload-box-with-icon">
+                                                    <input
+                                                        type="file"
+                                                        accept="image/*"
+                                                        multiple
+                                                        style={{display: 'none'}}
+                                                        onChange={handleInteriorImageUpload}
+                                                    />
+
+                                                    <img src="./assets/images/icons/car-interior.png" alt="Interior Car"
+                                                         className="image-upload-box-img"/>
+
+                                                    <span className="image-upload-box-text">Interior</span>
+
+                                                </div>
+                                            </label>
+                                        )}
+                                    </div>
+
+
+                                    {images?.map((image, index) => (
+                                            <div key={index} className="image-box-input-group d-flex flex-column justify-content-center align-items-center">
+                                                <div
+                                                    className="image-container d-flex justify-content-center align-items-center">
+                                                    <img
+                                                        src={image.url}
+                                                        alt={`Uploaded Image ${index + 1}`}
+                                                        className="uploaded-image"
+                                                        style={{maxWidth: '200px', maxHeight: '200px',}}
+
+                                                    />
+                                                    <button className="delete-button"
+                                                            onClick={(e) => handleDeleteImage(e, index)}>
+                                                        &times;
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    <label className="input-group-text image-upload-label images-box-input  mb-2 mt-2">
+                                            <div className="images-upload-box">
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    multiple
+                                                    style={{display: 'none'}}
+                                                    onChange={handleImageUpload}
+                                                />
+                                                <span className="plus-sign">+</span>
+                                            </div>
+                                        </label>
+
+
                                 </div>
+
                             </div>
 
                             <div className="form-group col-md-12">
@@ -514,7 +702,8 @@ const NewAnnouncement=()=> {
                                         carOptions.map((option) => (
                                             <div className="col-md-3">
                                                 <div className="form-check">
-                                                    <input type="checkbox" className="form-check-input" value={option.id} id={option.id} onChange={(e) => {
+                                                    <input type="checkbox" className="form-check-input"
+                                                           value={option.id} id={option.id} onChange={(e) => {
                                                         const selectedOptions = [...formData?.options];
                                                         if (e.target.checked) {
                                                             selectedOptions.push(option.id);
@@ -530,10 +719,11 @@ const NewAnnouncement=()=> {
                                                         });
                                                     }}/>
 
-                                                    <label className="form-check-label" htmlFor="barter_checkbox1">{option.option}</label>
+                                                    <label className="form-check-label"
+                                                           htmlFor="barter_checkbox1">{option.option}</label>
                                                 </div>
                                             </div>
-                                            ))
+                                        ))
                                     }
 
                                 </div>
@@ -546,7 +736,8 @@ const NewAnnouncement=()=> {
                                         carConditions.map((condition) => (
                                             <div className="col-md-4">
                                                 <div className="form-check">
-                                                    <input type="checkbox" className="form-check-input" value={condition.id} id={condition.id} onChange={(e) => {
+                                                    <input type="checkbox" className="form-check-input"
+                                                           value={condition.id} id={condition.id} onChange={(e) => {
                                                         const selectedConditions = [...formData?.conditions];
                                                         if (e.target.checked) {
                                                             selectedConditions.push(condition.id);
@@ -561,7 +752,8 @@ const NewAnnouncement=()=> {
                                                             conditions: selectedConditions,
                                                         });
                                                     }}/>
-                                                    <label className="form-check-label" htmlFor="barter_checkbox1">{condition.name}</label>
+                                                    <label className="form-check-label"
+                                                           htmlFor="barter_checkbox1">{condition.name}</label>
                                                 </div>
                                                 <label className="form-check-label" htmlFor="barter_checkbox1">{condition.description}</label>
                                             </div>
