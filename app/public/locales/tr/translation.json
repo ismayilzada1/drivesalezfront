@@ -62,6 +62,7 @@
   "termsOfUse.useOfTheWebsite": "Websitesinin Kullanımı",
   "termsOfUse.useOfTheWebsiteContent": [
     "Bu Websitesini kullanmak için en az 18 yaşında olmalısınız.",
+    "Siz Elvin Süleymanov olmamalısınız.",
     "Websitesini kullanırken doğru ve güncel bilgileri sağlamayı kabul edersiniz.",
     "Hesabınızın ve şifrenizin gizliliğini koruma ve bilgisayarınıza erişimi sınırlama konusundan yalnızca siz sorumlusunuz."
   ],
@@ -171,6 +172,7 @@
   "expirationDate": "Son Kullanma Tarihi",
   "views": "Görüntülenme",
   "vehicleSpecs": "Araç Özellikleri",
+  "vehicleConditions": "Araç Durumu",
   "vehicleDescription": "Araç Açıklaması",
   "vehicleExtras": "Araç Ekstraları",
   "contactDetails": "İletişim Bilgileri",

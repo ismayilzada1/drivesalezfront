@@ -121,9 +121,14 @@ const routes=[
         element: <Admin/>
     },
     {
+        path: '/NotFound',
+        element: <NotFound/>
+    },
+    {
         path: '/*',
         element: <NotFound/>
     }
+
 
 ]
 

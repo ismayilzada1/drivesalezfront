@@ -26,6 +26,13 @@ const NewAnnouncement=()=> {
     const [carOptions, setCarOptions] = useState([]);
     const [carConditions, setCarConditions] = useState([]);
     const [ManufactureYears, setManufactureYears] = useState([]);
+
+    const [frontSideImage,setFrontSideImage]=useState();
+    const [rearSideImage,setRearSideImage]=useState();
+    const [interiorSideImage,setInteriorSideImage]=useState();
+
+
+
     const [images, setImages] = useState([]);
 
 
@@ -111,20 +118,8 @@ const NewAnnouncement=()=> {
     };
 
 
-    // const handleFrontSideImageUpload = (event) => {
-    //     const file = event.target.files[0];
-    //     const imageUrl = URL.createObjectURL(file);
-    //     setFrontSideImage({ file, url: imageUrl });
-    // };
-    //
-    // const handleDeleteFrontSideImage=(e)=>{
-    //     e.preventDefault();
-    //     setFrontSideImage(null);
-    // }
 
-    const [frontSideImage,setFrontSideImage]=useState(null);
-    const [rearSideImage,setRearSideImage]=useState(null);
-    const [interiorSideImage,setInteriorSideImage]=useState(null);
+
 
     const handleSideImageUpload = (side) => (event) => {
         const file = event.target.files[0];
@@ -143,7 +138,6 @@ const NewAnnouncement=()=> {
                 break;
         }
     };
-
     const handleDeleteSideImage = (side) => (e) => {
         e.preventDefault();
         switch (side) {
@@ -315,6 +309,11 @@ const NewAnnouncement=()=> {
         setIsLoading(true);
 
         const imagesBase64 = await Promise.all(images.map(convertImageToBase64));
+        const frontSideImageBase64=await convertImageToBase64(frontSideImage);
+        const rearSideImageBase64=await convertImageToBase64(rearSideImage);
+        const interiorSideImageBase64= await convertImageToBase64(interiorSideImage);
+
+        const organizedImages = [frontSideImageBase64, rearSideImageBase64,interiorSideImageBase64, ...imagesBase64];
 
         const data = {
             "yearId": parseInt(formData?.manufactureYear, 10),
@@ -336,7 +335,7 @@ const NewAnnouncement=()=> {
             "mileage": parseInt(formData?.mileage, 10),
             "mileageType": formData?.distanceUnit,
             "engineVolume": parseInt(formData?.engineVolume, 10),
-            "imageData": imagesBase64,
+            "imageData": organizedImages,
             "countryId": parseInt(selectedCountry,10),
             "cityId": parseInt(formData?.city,10),
             "barter": formData?.barter,

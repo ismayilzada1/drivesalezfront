@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Helmet} from "react-helmet"
-import {useParams} from "react-router-dom";
+import {useNavigate, useNavigation, useParams} from "react-router-dom";
 import "./announcementDetails.css";
 import {Modal, Button} from 'react-bootstrap';
 import {useDispatch, useSelector} from "react-redux";
@@ -13,6 +13,8 @@ const AnnouncementDetails = () => {
     const {id} = useParams ();
 
     const {announcement, loading, error} = useSelector ((state) => state.announcement);
+
+    const navigate = useNavigate();
 
     const{t}=useTranslation();
 
@@ -101,20 +103,24 @@ const AnnouncementDetails = () => {
     useEffect (() => {
         const fetchData = async () => {
             try {
-                dispatch (SetAnnouncement (id));
+                dispatch(SetAnnouncement(id));
             } catch (error) {
                 console.error ('Error fetching announcement:', error);
             }
         };
 
         fetchData ();
-        console.log (announcement);
+
     }, [dispatch, id]);
 
-    if (loading || !announcement) {
+    if (loading) {
         return <LoadingPage/>;
     }
 
+    if (!announcement) {
+        navigate("/NotFound");
+        return null;
+    }
 
     const {
         make,
@@ -197,7 +203,8 @@ const AnnouncementDetails = () => {
                                             className={`carousel-item ${index === 0 ? 'active' : ''}`}
                                         >
 
-                                            <div className="image-container img-container">
+                                            <div
+                                                className={`image-container img-container ${announcement.isPremium ? 'premium-announcement-detail' : ''}`}>
                                                 <div className="background-container"
                                                      style={{backgroundImage: `url(${image})`}}></div>
                                                 <img
@@ -205,7 +212,7 @@ const AnnouncementDetails = () => {
                                                     className="d-block"
                                                     alt={`Slide ${index}`}
                                                     onClick={() => {
-                                                        setShowModal (true);
+                                                        setShowModal(true);
                                                     }}
                                                 />
                                             </div>

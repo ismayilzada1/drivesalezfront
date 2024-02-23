@@ -19,6 +19,7 @@
   "labelPrice": "Price",
   "labelMileage": "Mileage",
   "labelVehicleColor": "Vehicle Color",
+  "vehicleConditions": "Vehicle Conditions",
   "mainLabelMinYear": "Min Year",
   "mainLabelMaxYear": "Max Year",
   "labelMarketVersion": "Market Version",
@@ -60,6 +61,7 @@
   "termsOfUse.useOfTheWebsite": "Use of the Website",
   "termsOfUse.useOfTheWebsiteContent": [
     "You must be at least 18 years old to use this Website.",
+    "You shouldn't be Elvin Suleymanov",
     "You agree to provide accurate and up-to-date information when using the Website.",
     "You are solely responsible for maintaining the confidentiality of your account and password and for restricting access to your computer."
   ],
@@ -191,5 +193,5 @@
   "currentPassword": "Current Password",
   "newPassword": "New Password",
   "confirmNewPassword": "Confirm new password",
-  "thanksTo": "A Big Thank You to All Who Contribute to Our Journey."
+  "thanksTo": "A Big Thank to All Who Contributed to Our Journey."
 }

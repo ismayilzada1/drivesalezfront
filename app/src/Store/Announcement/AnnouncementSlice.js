@@ -108,6 +108,7 @@ const announcementSlice = createSlice({
             },
 
         setAnnouncementFailure(state,action){
+            state.announcement=null;
             state.loading=false;
             state.error=action.payload;
         },

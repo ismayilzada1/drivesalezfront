@@ -61,6 +61,7 @@
   "termsOfUse.useOfTheWebsite": "Veb Saytın İstifadəsi",
   "termsOfUse.useOfTheWebsiteContent": [
     "Bu veb saytından istifadə üçün ən azı 18 yaşında olmalısınız.",
+    "Siz Elvin Süleymanov olmamalısınız.",
     "Veb sayt istifadə edərkən düzgün və yenilənmiş məlumat təqdim etməyə razılaşırsınız.",
     "Hesabınızın və şifrənizin gizliliyini qorumaq və kompüterinizə girişi məhdudlaşdırmaq tamamilə sizin məsuliyyətinizdir."
   ],
@@ -171,6 +172,7 @@
   "views": "Baxışlar",
   "vehicleSpecs": "Avtomobil Xüsusiyyətləri",
   "vehicleDescription": "Avtomobil Təsviri",
+  "vehicleConditions": "Nəqliyyat Vasitəsinin Vəziyyəti",
   "vehicleExtras": "Avtomobil Əlavələri",
   "contactDetails": "Əlaqə Məlumatları",
   "vinCode": "VIN KOD",

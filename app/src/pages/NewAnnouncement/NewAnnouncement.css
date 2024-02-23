@@ -58,9 +58,10 @@
 .image-container {
     position: relative;
     display: inline-block;
-    border: 8px solid rgba(245,65,20,.85);;
     border-radius: 18px;
 }
+
+
 
 
 
@@ -112,7 +113,6 @@
     .image-container {
         position: relative;
         display: inline-block;
-        border: 5px solid rgba(245,65,20,.85);;
         border-radius: 16px;
         margin-bottom: .4rem;
     }

@@ -25,8 +25,11 @@ const Header = () => {
     const {pageNumber} = useSelector ((state) => state.announcement);
 
 
+    const [searchByAnnouncementId,setSearchByAnnouncementId]=useState(null);
 
-
+    const handleSearchInputChange = (event) => {
+        setSearchByAnnouncementId(event.target.value);
+    };
 
     const pageSize = 4;
 
@@ -83,7 +86,6 @@ const Header = () => {
 
     const handleLogout = async (e) => {
         e.preventDefault ();
-
         if (accessToken) {
             await dispatch (logoutUser (accessToken));
         }
@@ -101,24 +103,19 @@ const Header = () => {
     const handleMotorcycleButton = async () => {
         const motorcycleId = carBodyTypes.find (type => type.bodyType === 'Motorcycle')?.id;
         const filterUrl = `&bodyTypesIds=${motorcycleId}`
-
         try {
             dispatch (setFilterParams (filterUrl));
             dispatch (setAnnouncements ([]));
             dispatch (setPageNumber (1));
-
             const response = await dispatch (GetAllFilterAnnouncements (filterUrl));
             console.log (response);
-
         } catch (error) {
             console.log (error);
         }
     }
-
     const handleTruckButton = async () => {
         const TruckId = carBodyTypes.find (type => type.bodyType === 'Truck')?.id;
         const filterUrl = `&bodyTypesIds=${TruckId}`
-
         try {
             dispatch (setFilterParams (filterUrl));
             dispatch (setAnnouncements ([]));
@@ -132,7 +129,6 @@ const Header = () => {
     }
 
     const handleHomeButton = async () => {
-
         try {
             dispatch (setFilterParams (null));
             dispatch (setAnnouncements ([]));
@@ -147,7 +143,25 @@ const Header = () => {
         } catch (error) {
             console.log (error);
         }
+    }
 
+
+    const handleSearchById= async()=>{
+        try {
+            if(searchByAnnouncementId){
+                const url = `/AnnouncementDetails/${searchByAnnouncementId}`;
+
+                if (isMobile) {
+                    navigate(url);
+                } else {
+                    window.open(url, "_blank");
+                }
+            }
+
+        }
+        catch (err){
+            console.log(err);
+        }
     }
 
     return (
@@ -190,33 +204,48 @@ const Header = () => {
 
                     <ul className="navbar-nav ms-auto align-items-center navbar-list mb-2 mb-lg-0">
 
+                        <li className="nav-item  d-lg-block me-2">
+                            <button data-bs-toggle="collapse"
+                                    data-bs-target="#searchBoxInput" className='btn btn-plus btn-square d-flex justify-content-center align-items-center'
+                                    style={{backgroundColor: '#f54114', color: '#ffffff', border: 'none'}}>
+                                {isMobile ? <i className="fas fa-search"></i> : <><i
+                                    className="fa fa-search me-2"></i>Find</>}
+                            </button >
 
+
+                            <form action="#" id={"searchBoxInput"} className="search-box collapse">
+                                <input type="text" onChange={handleSearchInputChange} className="text nav-search-input" placeholder="Enter Announcement Id..."/>
+                                <a onClick={handleSearchById} className={"ms-2"} style={{cursor:"pointer"}}>
+                                    <i className="bi bi-search" style={{color: "#000"}}></i>
+                                </a>
+                            </form>
+                        </li>
 
 
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/" onClick={handleHomeButton} className="nav-link" activeclassname="active">
-                                {t ('home')}
+                                {t('home')}
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/" className="nav-link" onClick={handleMotorcycleButton}
                                      activeclassname="active">
-                                {t ('motorcycles')}
+                            {t('motorcycles')}
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/" onClick={handleTruckButton} className="nav-link" activeclassname="active">
-                                {t ('trucks')}
+                                {t('trucks')}
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/coming-soon" className="nav-link" activeclassname="active">
-                                {t ('boats')}
+                                {t('boats')}
                             </NavLink>
                         </li>
                         <li className="nav-item d-none d-lg-block me-3">
                             <NavLink to="/coming-soon" className="nav-link" activeclassname="active">
-                                {t ('aircrafts')}
+                                {t('aircrafts')}
                             </NavLink>
                         </li>
 
@@ -233,14 +262,15 @@ const Header = () => {
                                     <div className=" p-0 ">
                                         <ul className="list-group list-group-flush p-0">
                                             <li className="iq-sub-card list-group-item"
-                                                onClick={(e) => handleLanguageChange ('en',e)}><a className="p-0" href="#"><img
+                                                onClick={(e) => handleLanguageChange('en', e)}><a className="p-0"
+                                                                                                  href="#"><img
                                                 src="../assets/images/flag/flag-en.png" alt="img-flaf"
                                                 className="img-fluid me-2"
                                                 style={{height: '30px', minWidth: '30px', width: '30px'}}/>English</a>
                                             </li>
                                             <li className="iq-sub-card list-group-item"
-                                                onClick={(e) => handleLanguageChange ('aze',e)}><a className="p-0"
-                                                                                                href="#"><img
+                                                onClick={(e) => handleLanguageChange('aze', e)}><a className="p-0"
+                                                                                                   href="#"><img
                                                 src="../assets/images/flag/flag-aze.png" alt="img-flaf"
                                                 className="img-fluid me-2" style={{
                                                 height: '30px',
@@ -248,13 +278,15 @@ const Header = () => {
                                                 width: '30px'
                                             }}/>Azerbaijani</a></li>
                                             <li className="iq-sub-card list-group-item"
-                                                onClick={(e) => handleLanguageChange ('ru',e)}><a className="p-0" href="#"><img
+                                                onClick={(e) => handleLanguageChange('ru', e)}><a className="p-0"
+                                                                                                  href="#"><img
                                                 src="../assets/images/flag/flag-ru.png" alt="img-flaf"
                                                 className="img-fluid me-2"
                                                 style={{height: '30px', minWidth: '30px', width: '30px'}}/>Russian</a>
                                             </li>
                                             <li className="iq-sub-card list-group-item"
-                                                onClick={(e) => handleLanguageChange ('tr',e)}><a className="p-0" href="#"><img
+                                                onClick={(e) => handleLanguageChange('tr', e)}><a className="p-0"
+                                                                                                  href="#"><img
                                                 src="../assets/images/flag/flag-tr.png" alt="img-flaf"
                                                 className="img-fluid me-2"
                                                 style={{height: '30px', minWidth: '30px', width: '30px'}}/>Turkish</a>
@@ -276,32 +308,36 @@ const Header = () => {
                             >
                                 Menu
                             </a>
+
+
                             <ul className="dropdown-menu mx-auto" aria-labelledby="navbarDropdown">
                                 <li>
                                     <a className="dropdown-item" href="/">
-                                        {t ('home')}
+                                        {t('home')}
                                     </a>
                                 </li>
                                 <li>
                                     <a className="dropdown-item" href="/">
-                                        {t ('trucks')}
+                                        {t('trucks')}
                                     </a>
                                 </li>
                                 <li>
                                     <a className="dropdown-item" href="/">
-                                        {t ('motorcycles')}
+                                        {t('motorcycles')}
                                     </a>
                                 </li>
                                 <li>
                                     <a className="dropdown-item" href="/coming-soon">
-                                        {t ('boats')}
+                                        {t('boats')}
                                     </a>
                                 </li>
                                 <li>
                                     <a className="dropdown-item" href="/coming-soon">
-                                        {t ('aircrafts')}
+                                        {t('aircrafts')}
                                     </a>
                                 </li>
+
+
                             </ul>
                         </li>
 
@@ -415,7 +451,8 @@ const Header = () => {
                                         <li>
                                             <hr className="dropdown-divider"/>
                                         </li>
-                                        <li><a className="dropdown-item" href='/' onClick={handleLogout}>{t("signout")}</a></li>
+                                        <li><a className="dropdown-item" href='/'
+                                               onClick={handleLogout}>{t("signout")}</a></li>
                                     </ul>
                                 </li>
                             ) :
@@ -425,7 +462,7 @@ const Header = () => {
                                             className='btn btn-plus btn-square d-flex justify-content-center align-items-center'
                                             style={{backgroundColor: '#f54114', color: '#ffffff', border: 'none'}}>
                                         {isMobile ? <i className="fas fa-user"></i> : <><i
-                                            className="fas fa-user me-2"></i>{t ('sign_up')}</>}
+                                            className="fas fa-user me-2"></i>{t('sign_up')}</>}
                                     </button>
                                 </li>
                             )}

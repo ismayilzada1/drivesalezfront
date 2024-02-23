@@ -13065,8 +13065,7 @@ th {
   .sidebar-default.sidebar-boxed + .main-content .content-inner {
     padding: -webkit-calc(var(--bs-gutter-x, .75rem) * 1.25);
     padding: calc(var(--bs-gutter-x, .75rem) * 1.25); }
-  .search-input {
-    display: none; } }
+
 
 @media (min-width: 400px) and (max-width: 768px) {
   .creadit-card-menu {

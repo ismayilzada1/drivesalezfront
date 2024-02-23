@@ -283,7 +283,7 @@ const AccountTab = () => {
 
                             </div>
                         </div>
-                        <button type="button" data-toggle="modal"
+                        <button type="button" data-toggle="modal" disabled={!SelectedSubscription}
                                  onClick={handleAddAnnouncementBalance} className="btn btn-warning m-3">Buy</button>
 
                     </div>

@@ -29,6 +29,10 @@
     z-index: 2;
 }
 
+.premium-announcement-detail{
+    border: 14px solid #f54114;
+}
+
 .carousel-inner {
     text-align: center;
 }
