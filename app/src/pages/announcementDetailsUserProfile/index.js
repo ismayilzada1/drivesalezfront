@@ -1,2 +1,0 @@
-import AnnouncementDetailsUserProfile from "./announcementDetailsUserProfile";
-export default AnnouncementDetailsUserProfile
