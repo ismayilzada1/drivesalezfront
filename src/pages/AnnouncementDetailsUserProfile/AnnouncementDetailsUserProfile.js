@@ -220,7 +220,7 @@ const AnnouncementDetailsUserProfile = () => {
             ) : (
                 <>
 
-                    <section className="section mt-2" id="trainers">
+                    <section className="section mt-2 mb-2" id="trainers">
                         <div className="container">
                             <div id="carouselExampleCaptions" className="carousel slide">
                                 <div className="carousel-indicators">
@@ -333,90 +333,90 @@ const AnnouncementDetailsUserProfile = () => {
 
                                             <div className="row">
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t('mainLabelMake')}</label>
                                                     <p>{make?.makeName}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t('labelVehicleModel')}</label>
                                                     <p>{model?.modelName}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t('labelBodyType')}</label>
                                                     <p>{bodyType?.bodyType}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("firstRegistration")}</label>
                                                     <p>{year?.year}</p>
                                                 </div>
 
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("mileage")}</label>
                                                     <p>{mileage} {mileageType}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("fuelType")}</label>
                                                     <p>{fuelType?.fuelType}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("engineVolume")}</label>
                                                     <p>{engineVolume} cc</p>
                                                 </div>
 
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("labelHorsePower")}</label>
                                                     <p>{horsePower}</p>
                                                 </div>
 
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("labelGearboxType")}</label>
                                                     <p>{gearboxType?.gearboxType}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("seatCount")}</label>
                                                     <p>{seatCount}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("labelMarketVersion")}</label>
                                                     <p>{marketVersion?.marketVersion}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("labelWheelDrive")}</label>
                                                     <p>{drivetrainType?.drivetrainType}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("ownerQuantity")}</label>
                                                     <p>{ownerQuantity}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("brandNew")}</label>
                                                     <p>{isBrandNew ? t("Yes") : t("No")}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("labelVehicleColor")}</label>
                                                     <p>{color?.color}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("barter")}</label>
                                                     <p>{barter ? t("Yes") : t("No")}</p>
                                                 </div>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <label>{t("onCredit")}</label>
                                                     <p>{onCredit ? t("Yes") : t("No")}</p>
                                                 </div>
@@ -431,11 +431,11 @@ const AnnouncementDetailsUserProfile = () => {
 
                                                 <p>{t("announcementNumber")}:  {id}</p>
 
-                                                <div className="col-sm-6">
+                                                <div className="col-6 col-sm-6">
                                                     <p>{t("expirationDate")}: {formatTimestamp (expirationDate)}</p>
                                                 </div>
 
-                                                <div className="col-sm-6 d-flex align-items-center" >
+                                                <div className="col-6 col-sm-6 d-flex align-items-center" >
                                                     <p><i className="far fa-eye me-2" ></i>
                                                         <span>{viewCount} {t("views")}</span>
                                                     </p>
@@ -481,7 +481,7 @@ const AnnouncementDetailsUserProfile = () => {
 
                                             <div className="row">
                                                 {options?.map ((option, index) => (
-                                                    <div className="col-sm-6">
+                                                    <div className="col-6 col-sm-6">
                                                         <p>{option.option}</p>
                                                     </div>
                                                 ))}

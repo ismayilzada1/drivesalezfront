@@ -38,6 +38,10 @@
     }
 }
 
+.nav-item a{
+    text-align: center;
+}
+
 .nav-search-input {
     width: 20rem !important;
     height: 30px;

@@ -30,10 +30,12 @@
 }
 
 .premium-announcement-detail{
-    border: 14px solid #f54114;
+    border: 6px solid #f54114;
 }
 
+
 .carousel-inner {
+    border-radius: 16px;
     text-align: center;
 }
 

@@ -81,6 +81,137 @@
     }
 }
 
+@media screen and (max-width: 1400px) {
+    .announcement-card {
+        min-width: 250px !important;
+    }
 
+    .card-body{
+        padding:1rem 1rem;
+    }
+
+    .info-key ,.value
+    {
+        font-size: 90%;
+    }
+
+    .card-title {
+        font-size: 100%;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .announcement-card {
+        min-width: 200px !important;
+        margin-right: .5rem  !important;
+        margin-bottom: 10px !important;
+    }
+
+    .card-body{
+        padding:.8rem .8rem;
+    }
+
+    .info-key ,.value
+    {
+        font-size: 70%;
+    }
+
+    .card-title {
+        font-size: 90%;
+    }
+
+    .tall-image {
+        height: 100px;
+    }
+
+    .premium-announcement-icon i{
+        font-size: 1.2em !important;
+    }
+
+}
+
+
+@media screen and (max-width: 512px) {
+    .announcement-card {
+        min-width: 170px !important;
+        margin-right: .35rem  !important;
+        margin-bottom: 6px !important;
+    }
+
+    .card-body{
+        padding:.4rem .4rem;
+    }
+
+    .info-key ,.value
+    {
+        font-size: 80%;
+    }
+
+    .card-title {
+        font-size: 80%;
+    }
+
+    .tall-image {
+        height: 80px;
+    }
+
+    .premium-announcement-icon{
+        top:23%;
+    }
+    .premium-announcement-icon i{
+        font-size: 1em !important;
+
+    }
+
+}
+
+
+@media screen and (max-width: 447px) {
+    .announcement-card {
+        min-width: 150px !important;
+        margin-right: .25rem  !important;
+        margin-bottom: 4px !important;
+    }
+
+    .card-body{
+        padding:.3rem .3rem;
+    }
+
+    .info-key ,.value
+    {
+        font-size: 80%;
+    }
+
+    .card-title {
+        font-size: 80%;
+        margin:0
+    }
+
+    .tall-image {
+        height: 70px;
+    }
+
+    .premium-announcement-icon{
+        top:20%;
+    }
+
+    .premium-announcement-icon i{
+        font-size: 1em !important;
+    }
+
+    .announcement-card-body .list-group-item{
+        padding: .3rem !important;
+    }
+
+    .infinite-scroll-component .container-fluid{
+        padding-right: 0;
+        padding-left: 0;
+        display:flex;
+        flex:1;
+        justify-content: center;
+        align-items: center;
+    }
+
+}
 
 

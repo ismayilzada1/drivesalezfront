@@ -75,7 +75,7 @@ const Home = () => {
                 hasMore={hasMore}
                 scrollThreshold={0.6}
             >
-                <div className="container-fluid pt-3">
+                <div className="container-fluid pt-3 ">
                         <div className="d-flex flex-row flex-wrap justify-content-start align-items-center announcement-cards-container">
                             {announcements?.map((car, index) => (
                                 <div key={index} className="col-lg-3 mb-2">

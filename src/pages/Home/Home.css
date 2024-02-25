@@ -45,7 +45,7 @@
 
 }
 
-@media screen and (max-width: 850px)
+@media screen and (max-width: 765px)
 {
     .announcement-cards-container{
         justify-content: center !important;
