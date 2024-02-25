@@ -37,6 +37,11 @@
     box-sizing: border-box;
 }
 
+.regular-announcements-container{
+    border-top:2px solid #d3d3d3;
+
+}
+
 @media screen and (max-width: 1440px) {
     .announcement-card-div {
         width: 70%;

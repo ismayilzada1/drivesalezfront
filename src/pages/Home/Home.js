@@ -69,23 +69,58 @@ const Home = () => {
             </Helmet>
 
             <HomeFilter />
-            <InfiniteScroll
-                dataLength={announcements.length}
-                next={fetchData}
-                hasMore={hasMore}
-                scrollThreshold={0.6}
-            >
-                <div className="container-fluid pt-3 ">
-                        <div className="d-flex flex-row flex-wrap justify-content-start align-items-center announcement-cards-container">
-                            {announcements?.map((car, index) => (
-                                <div key={index} className="col-lg-3 mb-2">
-                                    <AnnouncementCard {...car} />
-                                </div>
-                            ))}
-                        </div>
-                    </div>
 
-            </InfiniteScroll>
+            <div className="container-fluid pt-3">
+                <div className="pt-3">
+
+                    <h2 className="text-dark">Premium Announcements</h2>
+
+                    <InfiniteScroll
+                        dataLength={announcements.length}
+                        next={fetchData}
+                        hasMore={hasMore}
+                        scrollThreshold={0.6}
+                    >
+                        <div className="container-fluid pt-3 ">
+                            <div
+                                className="d-flex flex-row flex-wrap justify-content-start align-items-center announcement-cards-container">
+                                {announcements?.map((car, index) => (
+                                    <div key={index} className="col-lg-3 mb-2">
+                                        <AnnouncementCard {...car} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                    </InfiniteScroll>
+                </div>
+
+                <div className="regular-announcements-container pt-3">
+
+                    <h2 className="text-dark">Regular Announcements</h2>
+
+                    <InfiniteScroll
+                        dataLength={announcements.length}
+                        next={fetchData}
+                        hasMore={hasMore}
+                        scrollThreshold={0.6}
+                    >
+                        <div className="pt-3 ">
+                            <div
+                                className="d-flex flex-row flex-wrap justify-content-start align-items-center announcement-cards-container">
+                                {announcements?.map((car, index) => (
+                                    <div key={index} className="col-lg-3 mb-2">
+                                        <AnnouncementCard {...car} />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                    </InfiniteScroll>
+
+                </div>
+            </div>
+
         </Row>
     );
 };

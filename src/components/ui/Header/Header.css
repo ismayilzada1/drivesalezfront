@@ -27,6 +27,10 @@
     transform: translateY(0);
 }
 
+.nav-item.active a{
+    color:#f54114 !important;
+}
+
 @keyframes fade-in-bottom {
     0% {
         opacity: 0;

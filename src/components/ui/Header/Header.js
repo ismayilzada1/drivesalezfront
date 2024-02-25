@@ -56,22 +56,25 @@ const Header = () => {
     }, []);
 
     const [isMobile, setIsMobile] = useState (window.innerWidth <= 767);
+    const [isTablet, setIsTablet] = useState (window.innerWidth <= 1200);
     const navigate = useNavigate ();
 
     const {t, i18n} = useTranslation ();
 
 
-    useEffect (() => {
+    useEffect(() => {
         const handleResize = () => {
-            setIsMobile (window.innerWidth <= 767);
+            setIsTablet(window.innerWidth <= 1200);
+            setIsMobile(window.innerWidth <= 767);
         };
 
-        window.addEventListener ('resize', handleResize);
+        window.addEventListener('resize', handleResize);
 
         return () => {
-            window.removeEventListener ('resize', handleResize);
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
+
 
     const handleAddVehicleButton = () => navigate ('/new-announcement');
 
@@ -101,6 +104,7 @@ const Header = () => {
     };
 
     const handleMotorcycleButton = async () => {
+        setActiveLink("motorcycle");
         const motorcycleId = carBodyTypes.find (type => type.bodyType === 'Motorcycle')?.id;
         const filterUrl = `&bodyTypesIds=${motorcycleId}`
         try {
@@ -114,6 +118,7 @@ const Header = () => {
         }
     }
     const handleTruckButton = async () => {
+        setActiveLink("truck");
         const TruckId = carBodyTypes.find (type => type.bodyType === 'Truck')?.id;
         const filterUrl = `&bodyTypesIds=${TruckId}`
         try {
@@ -129,6 +134,7 @@ const Header = () => {
     }
 
     const handleHomeButton = async () => {
+        setActiveLink("home");
         try {
             dispatch (setFilterParams (null));
             dispatch (setAnnouncements ([]));
@@ -163,6 +169,12 @@ const Header = () => {
             console.log(err);
         }
     }
+
+    const [activeLink, setActiveLink] = useState('home');
+
+    const handleNavLinkClick = (link) => {
+        setActiveLink(link);
+    };
 
     return (
 
@@ -206,47 +218,55 @@ const Header = () => {
 
                         <li className="nav-item  d-lg-block me-2">
                             <button data-bs-toggle="collapse"
-                                    data-bs-target="#searchBoxInput" className='btn btn-plus btn-square d-flex justify-content-center align-items-center'
+                                    data-bs-target="#searchBoxInput"
+                                    className='btn btn-plus btn-square d-flex justify-content-center align-items-center'
                                     style={{backgroundColor: '#f54114', color: '#ffffff', border: 'none'}}>
-                                {isMobile ? <i className="fas fa-search"></i> : <><i
+                                {isTablet ? <i className="fa fa-search"></i> : <><i
                                     className="fa fa-search me-2"></i>{t('find')}</>}
-                            </button >
+
+
+                            </button>
 
 
                             <form action="#" id={"searchBoxInput"} className="search-box collapse">
-                                <input type="text" onChange={handleSearchInputChange} className="text nav-search-input" placeholder={t('enter_announcement_id')}/>
-                                <a onClick={handleSearchById} className={"ms-2"} style={{cursor:"pointer"}}>
+                                <input type="text" onChange={handleSearchInputChange} className="text nav-search-input"
+                                       placeholder={t('enter_announcement_id')}/>
+                                <a onClick={handleSearchById} className={"ms-2"} style={{cursor: "pointer"}}>
                                     <i className="bi bi-search" style={{color: "#000"}}></i>
                                 </a>
                             </form>
                         </li>
 
 
-                        <li className="nav-item d-none d-lg-block me-3">
+                        <li className={`nav-item d-none d-lg-block me-3 ${activeLink === 'home' ? 'active' : ''}`}>
                             <NavLink exact to="/" onClick={handleHomeButton} className="nav-link" activeclassname="active">
                                 {t('home')}
                             </NavLink>
                         </li>
-                        <li className="nav-item d-none d-lg-block me-3">
+                        <li className={`nav-item d-none d-lg-block me-3 ${activeLink === 'motorcycle' ? 'active' : ''}`}>
                             <NavLink exact to="/" className="nav-link" onClick={handleMotorcycleButton} activeclassname="active">
                             {t('motorcycles')}
                             </NavLink>
                         </li>
-                        <li className="nav-item d-none d-lg-block me-3">
+                        <li className={`nav-item d-none d-lg-block me-3 ${activeLink === 'truck' ? 'active' : ''}`}>
                             <NavLink to="/" onClick={handleTruckButton} className="nav-link" activeclassname="active">
                                 {t('trucks')}
                             </NavLink>
                         </li>
-                        <li className="nav-item d-none d-lg-block me-3">
-                            <NavLink to="/coming-soon" className="nav-link" activeclassname="active">
+                        <li className={`nav-item d-none d-lg-block me-3 ${activeLink === 'boats' ? 'active' : ''}`}>
+                            <NavLink to="/coming-soon" onClick={() => setActiveLink('boats')} className="nav-link" activeclassname="active">
                                 {t('boats')}
                             </NavLink>
                         </li>
-                        <li className="nav-item d-none d-lg-block me-3">
-                            <NavLink to="/coming-soon" className="nav-link" activeclassname="active">
+                        <li className={`nav-item d-none d-lg-block me-3 ${activeLink === 'aircrafts' ? 'active' : ''}`}>
+                            <NavLink to="/coming-soon" onClick={() => setActiveLink('aircrafts')} className="nav-link" activeclassname="active">
                                 {t('aircrafts')}
                             </NavLink>
                         </li>
+
+
+
+
 
                         <li className="nav-item dropdown">
                             <a href="#" className="search-toggle nav-link" id="flagDropdown"

@@ -345,6 +345,11 @@ Our Classes
         display: none;
     }
 
+    .main-price{
+        font-size: 1.4em !important;
+        text-align: center !important;
+    }
+
     .fade.modal.show {
         background-color: black !important;
     }
