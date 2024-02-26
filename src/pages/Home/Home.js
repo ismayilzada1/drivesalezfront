@@ -12,7 +12,7 @@ import {setAnnouncements, setFilterParams, setPageNumber} from '../../Store/Anno
 
 const Home = () => {
     const dispatch = useDispatch();
-    const { announcements,filterParams, loading, error, pageNumber,hasMore } = useSelector((state) => state.announcement);
+    const { regularAnnouncements,premiumAnnouncements,filterParams, loading, error, pageNumber,hasMore } = useSelector((state) => state.announcement);
 
     const pageSize = 4;
 
@@ -64,7 +64,7 @@ const Home = () => {
         <Row className="wrapper">
 
             <Helmet>
-                <title>Home Page</title>
+                <title>Drivesalez - They choose vehicles in here</title>
                 <meta name='description' content={"Welcome to DriveSalez - the largest pan-Azerbaijan online car market."}/>
             </Helmet>
 
@@ -73,10 +73,15 @@ const Home = () => {
             <div className="container-fluid pt-3">
                 <div className="pt-3">
 
-                    <h2 className="text-dark">Premium Announcements</h2>
 
+                    <div className="d-flex justify-content-between align-items-center">
+                        <h2 className="text-dark">Premium Announcements</h2>
+                        <div>
+                            <a href="">Show All</a>
+                        </div>
+                    </div>
                     <InfiniteScroll
-                        dataLength={announcements.length}
+                        dataLength={premiumAnnouncements.length}
                         next={fetchData}
                         hasMore={hasMore}
                         scrollThreshold={0.6}
@@ -84,7 +89,7 @@ const Home = () => {
                         <div className="container-fluid pt-3 ">
                             <div
                                 className="d-flex flex-row flex-wrap justify-content-start align-items-center announcement-cards-container">
-                                {announcements?.map((car, index) => (
+                                {premiumAnnouncements?.map((car, index) => (
                                     <div key={index} className="col-lg-3 mb-2">
                                         <AnnouncementCard {...car} />
                                     </div>
@@ -93,14 +98,22 @@ const Home = () => {
                         </div>
 
                     </InfiniteScroll>
+
+
                 </div>
 
                 <div className="regular-announcements-container pt-3">
 
-                    <h2 className="text-dark">Regular Announcements</h2>
+                    <div className="d-flex justify-content-between align-items-center">
+                        <h2 className="text-dark">Regular Announcements</h2>
+                        <div>
+                            <a href="">Show All</a>
+                        </div>
+                    </div>
+
 
                     <InfiniteScroll
-                        dataLength={announcements.length}
+                        dataLength={regularAnnouncements.length}
                         next={fetchData}
                         hasMore={hasMore}
                         scrollThreshold={0.6}
@@ -108,7 +121,7 @@ const Home = () => {
                         <div className="pt-3 ">
                             <div
                                 className="d-flex flex-row flex-wrap justify-content-start align-items-center announcement-cards-container">
-                                {announcements?.map((car, index) => (
+                                {regularAnnouncements?.map((car, index) => (
                                     <div key={index} className="col-lg-3 mb-2">
                                         <AnnouncementCard {...car} />
                                     </div>

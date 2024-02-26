@@ -1,0 +1,5 @@
+.scrollable-dropdown {
+    max-height: 9rem;
+    overflow-y: auto;
+    background-color: red !important;
+}

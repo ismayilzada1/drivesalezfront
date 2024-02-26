@@ -171,7 +171,7 @@ const Login = () => {
                                            </div>
                                         </div>
                                         <div className="form-group">
-                                           <a href="/auth/forgot-password">{t("nav.ForgotPassword")}?</a>
+                                           <a href="/auth/forgot-password">{t("nav.forgotPassword")}?</a>
                                         </div>
                                      </div>
                                      <div className="text-center">
@@ -273,7 +273,7 @@ const Login = () => {
                                </div>
                             </div>
                             <div className="form-group">
-                               <a href="#">{t("nav.ForgotPassword")}?</a>
+                               <a href="#">{t("nav.forgotPassword")}?</a>
                             </div>
                          </div>
                          <div className="text-center">

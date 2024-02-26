@@ -10,10 +10,7 @@
     max-width: 4.5rem;
 }
 
-.scrollable-dropdown {
-    max-height: 9rem;
-    overflow-y: auto;
-}
+
 
 .form-check{
     margin-left:5px;

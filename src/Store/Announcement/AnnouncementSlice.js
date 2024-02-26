@@ -1,4 +1,3 @@
-// announcementSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const announcementSlice = createSlice({
@@ -7,7 +6,8 @@ const announcementSlice = createSlice({
         loading: false,
         error: null,
         announcement:null,
-        announcements: [],
+        regularAnnouncements: [],
+        premiumAnnouncements: [],
         filterParams:null,
         pageNumber: 1,
         pageSize: 3,
@@ -61,14 +61,25 @@ const announcementSlice = createSlice({
             state.loading = true;
         },
         getAnnouncementsSuccess(state, action) {
-            const newAnnouncements = action.payload;
+            console.log(action.payload);
+            const { regularAnnouncements, premiumAnnouncements } = action.payload;
 
-
-            state.announcements = [
-                ...state.announcements,
-                ...newAnnouncements.filter(
+            state.regularAnnouncements = [
+                ...state.regularAnnouncements,
+                ...(regularAnnouncements || []).filter(
                     (newAnnouncement) =>
-                        !state.announcements.some(
+                        !state.regularAnnouncements.some(
+                            (existingAnnouncement) =>
+                                existingAnnouncement.id === newAnnouncement.id
+                        )
+                ),
+            ];
+
+            state.premiumAnnouncements = [
+                ...state.premiumAnnouncements,
+                ...(premiumAnnouncements || []).filter(
+                    (newAnnouncement) =>
+                        !state.premiumAnnouncements.some(
                             (existingAnnouncement) =>
                                 existingAnnouncement.id === newAnnouncement.id
                         )
@@ -77,8 +88,11 @@ const announcementSlice = createSlice({
 
             state.loading = false;
             state.error = null;
-            state.hasMore = newAnnouncements.length > 0;
+            state.hasMore = (regularAnnouncements && regularAnnouncements.length > 0) ||
+                (premiumAnnouncements && premiumAnnouncements.length > 0);
         },
+
+
         getAnnouncementsFailure(state, action) {
             state.loading = false;
             state.error = action.payload;
@@ -86,7 +100,8 @@ const announcementSlice = createSlice({
 
 
         setAnnouncements(state,action){
-            state.announcements=action.payload;
+            state.regularAnnouncements=action.payload;
+            state.premiumAnnouncements=action.payload;
         },
 
         // Pagination

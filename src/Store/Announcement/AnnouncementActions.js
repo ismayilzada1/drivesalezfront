@@ -13,7 +13,6 @@ import {
     DeleteAnnouncementFailure,
     DeleteAnnouncementStart,
     DeleteAnnouncementSuccess
-
 } from "./AnnouncementSlice"
 
 import annonucementService from "../../api-services/AnnouncementService"
@@ -52,37 +51,74 @@ export const SendAnnouncement = (requestBody,accessToken) => async (dispatch) =>
     }
 };
 
-export const GetAnnouncements = (pageNumber,PageSize) => async (dispatch) => {
+// export const GetAnnouncements = (pageNumber,PageSize) => async (dispatch) => {
+//     try {
+//         dispatch(getAnnouncementsStart());
+//
+//         const response = await AnnouncementService.GetAnnouncements(pageNumber,PageSize);
+//         console.log(response);
+//         if (response.status===200) {
+//             console.log("SUCCESFULL FETCH ANNOUNCEMENTS");
+//             const data=await response.json();
+//             console.log("data");
+//             console.log(data);
+//
+//             if(data.length===0){
+//                 return {
+//                     response,
+//                     hasMore:false
+//                 }
+//             }
+//             dispatch(getAnnouncementsSuccess(data));
+//             return {
+//                 response,
+//                 hasMore:true
+//             }
+//         } else {
+//             dispatch(getAnnouncementsFailure('Email or password is invalid'));
+//         }
+//     } catch (error) {
+//         console.log(error);
+//         dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
+//     }
+// };
+
+export const GetAnnouncements = (pageNumber, pageSize) => async (dispatch) => {
     try {
         dispatch(getAnnouncementsStart());
 
-        const response = await AnnouncementService.GetAnnouncements(pageNumber,PageSize);
+        const response = await AnnouncementService.GetAnnouncements(pageNumber, pageSize);
         console.log(response);
-        if (response.status===200) {
-            console.log("SUCCESFULL FETCH ANNOUNCEMENTS");
-            const data=await response.json();
+        if (response.status === 200) {
+            console.log("SUCCESSFUL FETCH ANNOUNCEMENTS");
+            const data = await response.json();
             console.log("data");
             console.log(data);
-            console.log(data.length);
-            if(data.length===0){
+
+            if (data.length === 0) {
                 return {
                     response,
-                    hasMore:false
-                }
+                    hasMore: false
+                };
             }
-            dispatch(getAnnouncementsSuccess(data.reverse()));
+
+            const regularAnnouncements = data.item1;
+            const premiumAnnouncements = data.item2;
+
+            dispatch(getAnnouncementsSuccess({ regularAnnouncements,  premiumAnnouncements}));
             return {
                 response,
-                hasMore:true
-            }
+                hasMore: true
+            };
         } else {
-            dispatch(getAnnouncementsFailure('Email or password is invalid'));
+            dispatch(getAnnouncementsFailure('An error occurred while fetching announcements'));
         }
     } catch (error) {
         console.log(error);
         dispatch(getAnnouncementsFailure('An error occurred while processing your request'));
     }
 };
+
 
 export const GetUserLimits = (accessToken) => async (dispatch) => {
     try {
