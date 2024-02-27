@@ -7,7 +7,7 @@ const AnnouncementCard = (props) => {
 
     const navigate=useNavigate();
 
-    const {id, make,model,price,mileage,mileageType,engineVolume,fuelType,year,currency,imageUrl,isPremium } = props;
+    const {id, make,model,price,mileage,mileageType,engineVolume,fuelType,year,currency,imageUrl,isPremium,barter,onCredit,vinCode } = props;
 
 
     const { t } = useTranslation();
@@ -32,38 +32,56 @@ const AnnouncementCard = (props) => {
 
 
 
+
     return (
         <a>
-                <div className="card me-3 iq-mb-3 announcement-card" onClick={handleCardClick}>
+            <div className="card me-3 iq-mb-3 announcement-card" onClick={handleCardClick}>
 
-                    {imageUrl  &&(
-                        <img
-                            src={imageUrl.url}
-                            className="card-img-top img-fluid tall-image"
-                            alt="vehicle-image"
-                        />
-                    )}
+                {imageUrl && (
+                    <img
+                        src={imageUrl.url}
+                        className="card-img-top img-fluid tall-image"
+                        alt="vehicle-image"
+                    />
+                )}
 
-                    {isPremium && (
-                        <div className="premium-announcement-icon">
-                            <i className="bi bi-gem"></i>
-                        </div>
-                    )}
-
-                    <div className="card-body announcement-card-body">
-                        <h4 className="card-title">{make?.makeName} {model?.modelName}</h4>
-
-                        <ul className="list-group list-group-flush m-0 p-0 b-0">
-                            {createLabelValue("fuelType", t(fuelType?.fuelType))}
-                            {createLabelValue("year", year?.year)}
-                            {createLabelValue("mileage", `${mileage} ${mileageType}`)}
-                            {createLabelValue("engineVolume", engineVolume)}
-
-                        </ul>
-
-                        <h5 className="card-title text-success float-start h3 mt-2">{price} {currency?.currencyName}</h5>
+                {isPremium && (
+                    <div className="premium-announcement-icon" title="Premium">
+                        <i className="bi bi-gem"></i>
                     </div>
+                )}
+
+
+                <div className="barter-and-credit-icon">
+                    {barter && (
+                        <i className="bi bi-arrow-repeat barter-icon" title="Barter"></i>
+                    )}
+                    {onCredit && (
+                        <i className="bi bi-percent percent-icon" title="On Credit"></i>
+                    )}
                 </div>
+
+                {vinCode && (
+                    <div className="vin-code-icon" title="VIN CODE">
+                        VIN
+                    </div>
+                )}
+
+
+                <div className="card-body announcement-card-body">
+                <h4 className="card-title">{make?.makeName} {model?.modelName}</h4>
+
+                    <ul className="list-group list-group-flush m-0 p-0 b-0">
+                        {createLabelValue("fuelType", t(fuelType?.fuelType))}
+                        {createLabelValue("year", year?.year)}
+                        {createLabelValue("mileage", `${mileage} ${mileageType}`)}
+                        {createLabelValue("engineVolume", engineVolume)}
+
+                    </ul>
+
+                    <h5 className="card-title text-success float-start h3 mt-2">{price} {currency?.currencyName}</h5>
+                </div>
+            </div>
         </a>
     );
 }

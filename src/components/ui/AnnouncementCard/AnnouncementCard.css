@@ -37,11 +37,62 @@
     padding:0 4px;
 }
 
+.vin-code-icon{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.7em;
+    width: 2em;
+    position: absolute;
+    top:29%;
+    left:2%;
+    bottom: 0;
+    z-index: 990009;
+    background-color: #fff;
+    border-radius: 6px;
+    font-size: 1em;
+}
+
+
+.barter-and-credit-icon{
+    display:flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 3em;
+    width: 6em;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left:0;
+    z-index: 990009;
+    padding-left: 6px;
+    gap:6px;
+
+}
+
+.barter-and-credit-icon .barter-icon{
+    border-radius: 10px;
+    color: #fff !important;
+    font-size:1.1em !important;
+    background-color: #2db40a;
+    padding:2px 6px 4px 6px;
+}
+
+.barter-and-credit-icon .percent-icon{
+    border-radius: 10px;
+    color: #fff !important;
+    font-size:1.1em !important;
+    background-color: #f5a623;
+    padding:2px 5px 2px 6px;
+}
+
+
 
 @media (max-width: 768px) {
     .premium-announcement-icon i {
         font-size: 1.2em !important;
     }
+
 }
 
 
@@ -128,6 +179,21 @@
         font-size: 1.2em !important;
     }
 
+    .vin-code-icon{
+        font-size: .8em;
+        top:22%
+    }
+
+    .barter-and-credit-icon{
+        top:-6px;
+    }
+
+
+    .barter-and-credit-icon .barter-icon,
+    .barter-and-credit-icon .percent-icon{
+        font-size: .9em !important;
+    }
+
 }
 
 
@@ -160,7 +226,19 @@
     }
     .premium-announcement-icon i{
         font-size: 1em !important;
+    }
 
+    .vin-code-icon{
+        font-size: .7em !important;
+    }
+
+    .barter-and-credit-icon{
+        left: -3px;
+        top:-8px;
+    }
+    .barter-and-credit-icon .barter-icon,
+    .barter-and-credit-icon .percent-icon{
+        font-size: .7em !important;
     }
 
 }
@@ -198,6 +276,20 @@
     .premium-announcement-icon i{
         font-size: 1em !important;
     }
+
+    .vin-code-icon{
+        top:23%;
+    }
+
+    .barter-and-credit-icon{
+        left:1px;
+    }
+    .barter-and-credit-icon .barter-icon,
+    .barter-and-credit-icon .percent-icon
+    {
+        font-size: .5em !important;
+    }
+
 
     .announcement-card-body .list-group-item{
         padding: .3rem !important;
