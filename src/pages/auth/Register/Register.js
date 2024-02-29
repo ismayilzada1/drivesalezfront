@@ -455,7 +455,7 @@ function Register() {
                             <div className="new-account mt-3 text-center">
                                 <p className="mb-0">
                                     {t("nav.alreadyHaveAccount")}{' '}
-                                    <a className="text-primary" href="/src/pages/auth/Login">
+                                    <a className="text-primary" href="/auth/Login">
                                         {t("nav.signIn")}
                                     </a>
                                 </p>

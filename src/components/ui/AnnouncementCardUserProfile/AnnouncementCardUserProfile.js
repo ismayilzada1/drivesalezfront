@@ -14,9 +14,17 @@ const AnnouncementCardUserProfile = (announcement) => {
         </li>
     );
 
-    const handleCardClick=()=>{
-        navigate(`/AnnouncementDetailsUserProfile/${id}`);
-    }
+
+    const handleCardClick = () => {
+        const isMobile = window.innerWidth <= 768;
+        const url = `/AnnouncementDetailsUserProfile/${id}`;
+
+        if (isMobile) {
+            navigate(url);
+        } else {
+            window.open(url, "_blank");
+        }
+    };
 
 
 

@@ -5,6 +5,8 @@ import {Modal, Button} from 'react-bootstrap';
 import {useDispatch, useSelector} from "react-redux";
 import {
     DeleteAnnouncementAuthorize,
+    MakeAnnouncementActiveAuthorize,
+    MakeAnnouncementInactiveAuthorize,
     SetAnnouncementAuthorize
 } from '../../Store/Announcement/AnnouncementActions'
 import LoadingPage from "../../components/ui/LoadingPage";
@@ -12,22 +14,22 @@ import {useTranslation} from "react-i18next";
 
 const AnnouncementDetailsUserProfile = () => {
 
-    const {id} = useParams ();
+    const {id} = useParams();
 
-    const {announcement, loading, error} = useSelector ((state) => state.announcement);
-    const {t}=useTranslation();
+    const {announcement, loading, error} = useSelector((state) => state.announcement);
+    const {t} = useTranslation();
 
-    const {accessToken} = useSelector (state => state.auth);
+    const {accessToken} = useSelector(state => state.auth);
 
 
-    const dispatch = useDispatch ();
+    const dispatch = useDispatch();
 
-    const [selectedImageIndex, setSelectedImageIndex] = useState (0);
-    const [isTransitioning, setIsTransitioning] = useState (false);
-    const [showModal, setShowModal] = useState (false);
-    const [activeTab, setActiveTab] = useState ('tabs-1');
+    const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+    const [isTransitioning, setIsTransitioning] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [activeTab, setActiveTab] = useState('tabs-1');
 
-    const Images = announcement?.imageUrls?.map (image => image.url) || [];
+    const Images = announcement?.imageUrls?.map(image => image.url) || [];
 
 
     const [showAlert, setShowAlert] = useState(false);
@@ -35,59 +37,59 @@ const AnnouncementDetailsUserProfile = () => {
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     const handleTabClick = (tabId) => {
-        setActiveTab (tabId);
+        setActiveTab(tabId);
     };
 
 
     const handleCloseModal = () => {
-        console.log (options);
-        setShowModal (false);
+        console.log(options);
+        setShowModal(false);
     };
 
 
     const handleThumbnailClick = (index) => {
         if (!isTransitioning) {
-            setIsTransitioning (true);
-            setSelectedImageIndex (index);
+            setIsTransitioning(true);
+            setSelectedImageIndex(index);
         }
     };
 
     const handlePrevButtonClick = () => {
         if (!isTransitioning) {
-            setIsTransitioning (true);
-            setSelectedImageIndex ((prevIndex) => (prevIndex - 1 + Images.length) % Images.length);
+            setIsTransitioning(true);
+            setSelectedImageIndex((prevIndex) => (prevIndex - 1 + Images.length) % Images.length);
         }
     };
 
     const handleNextButtonClick = () => {
         if (!isTransitioning) {
-            setIsTransitioning (true);
-            setSelectedImageIndex ((prevIndex) => (prevIndex + 1) % Images.length);
+            setIsTransitioning(true);
+            setSelectedImageIndex((prevIndex) => (prevIndex + 1) % Images.length);
         }
     };
 
-    useEffect (() => {
-        const transitionTimeout = setTimeout (() => {
-            setIsTransitioning (false);
+    useEffect(() => {
+        const transitionTimeout = setTimeout(() => {
+            setIsTransitioning(false);
         }, 200);
 
-        return () => clearTimeout (transitionTimeout);
+        return () => clearTimeout(transitionTimeout);
     }, [isTransitioning]);
 
-    useEffect (() => {
-        const carousel = document.getElementById ("carouselExampleCaptions");
+    useEffect(() => {
+        const carousel = document.getElementById("carouselExampleCaptions");
 
         if (carousel) {
-            const carouselItems = carousel.querySelectorAll (".carousel-item");
+            const carouselItems = carousel.querySelectorAll(".carousel-item");
 
-            carouselItems.forEach ((item, index) => {
+            carouselItems.forEach((item, index) => {
                 if (index === selectedImageIndex) {
-                    item.classList.add ("active");
+                    item.classList.add("active");
                 } else {
-                    item.classList.remove ("active");
+                    item.classList.remove("active");
                 }
             });
         }
@@ -95,28 +97,28 @@ const AnnouncementDetailsUserProfile = () => {
 
 
     const renderIndicators = () => {
-        return Images?.map ((_, index) => (
+        return Images?.map((_, index) => (
             <button
                 key={index}
                 type="button"
                 data-bs-target="#carouselExampleCaptions"
-                onClick={() => handleThumbnailClick (index)}
+                onClick={() => handleThumbnailClick(index)}
                 className={`carousel-indicator-button ${selectedImageIndex === index ? 'active' : ''}`}
             ></button>
         ));
     };
 
 
-    useEffect (() => {
+    useEffect(() => {
         const fetchData = async () => {
             try {
-                dispatch (SetAnnouncementAuthorize (id, accessToken));
+                dispatch(SetAnnouncementAuthorize(id, accessToken));
             } catch (error) {
-                console.error ('Error fetching announcement:', error);
+                console.error('Error fetching announcement:', error);
             }
         };
 
-        fetchData ();
+        fetchData();
     }, [dispatch, id]);
 
     if (loading || !announcement) {
@@ -167,7 +169,7 @@ const AnnouncementDetailsUserProfile = () => {
     } = announcement;
 
     function formatTimestamp(timestamp) {
-        const dateObject = new Date (timestamp);
+        const dateObject = new Date(timestamp);
         const options = {
             year: 'numeric',
             month: '2-digit',
@@ -177,7 +179,7 @@ const AnnouncementDetailsUserProfile = () => {
             second: '2-digit',
             hour12: false
         };
-        const formattedDate = dateObject.toLocaleString ('en-GB', options);
+        const formattedDate = dateObject.toLocaleString('en-GB', options);
         return formattedDate;
     }
 
@@ -189,19 +191,63 @@ const AnnouncementDetailsUserProfile = () => {
         </div>
     );
 
-    const handleDeleteAnnouncement=async()=>
-    {
-        if(id===null|| id===undefined){return null}
+    const makeAnnouncementInactive = async () => {
+        if (id === null || id === undefined) {
+            return null
+        }
 
         try {
 
-            const response= await dispatch(DeleteAnnouncementAuthorize(id,accessToken));
+            const response = await dispatch(MakeAnnouncementInactiveAuthorize(id, accessToken));
 
             if (response.status === 200) {
                 setAlertMessage("Announcement request sent succesfully !");
                 setShowSuccessAlert(true);
                 navigate('/profile');
+            } else {
+                setShowAlert(true);
+                setAlertMessage('Something went wrong !');
+            }
+        } catch (error) {
+            setShowAlert(true);
+            setAlertMessage('Something went wrong !');
+        }
 
+    }
+
+    const makeAnnouncementActive = async () => {
+        if (id === null || id === undefined) {
+            return null
+        }
+        try {
+            const response = await dispatch(MakeAnnouncementActiveAuthorize(id, accessToken));
+
+            if (response.status === 200) {
+                setAlertMessage("Announcement request sent succesfully !");
+                setShowSuccessAlert(true);
+                navigate('/profile');
+            } else {
+                setShowAlert(true);
+                setAlertMessage('Something went wrong !');
+            }
+        } catch (error) {
+            setShowAlert(true);
+            setAlertMessage('Something went wrong !');
+        }
+
+    }
+
+    const deleteAnnouncement = async () => {
+        if (id === null || id === undefined) {
+            return null
+        }
+        try {
+            const response = await dispatch(DeleteAnnouncementAuthorize(id, accessToken));
+
+            if (response.status === 200) {
+                setAlertMessage("Announcement request sent succesfully !");
+                setShowSuccessAlert(true);
+                navigate('/profile');
             } else {
                 setShowAlert(true);
                 setAlertMessage('Something went wrong !');
@@ -224,12 +270,12 @@ const AnnouncementDetailsUserProfile = () => {
                         <div className="container">
                             <div id="carouselExampleCaptions" className="carousel slide">
                                 <div className="carousel-indicators">
-                                    {renderIndicators ()}
+                                    {renderIndicators()}
                                 </div>
 
 
                                 <div className="carousel-inner">
-                                    {Images?.map ((image, index) => (
+                                    {Images?.map((image, index) => (
                                         <div
                                             key={index}
                                             className={`carousel-item ${index === 0 ? 'active' : ''}`}
@@ -243,7 +289,7 @@ const AnnouncementDetailsUserProfile = () => {
                                                     className="d-block"
                                                     alt={`Slide ${index}`}
                                                     onClick={() => {
-                                                        setShowModal (true);
+                                                        setShowModal(true);
                                                     }}
                                                 />
                                             </div>
@@ -266,7 +312,7 @@ const AnnouncementDetailsUserProfile = () => {
                                 </button>
                             </div>
                             <div className="d-flex flex-wrap flex-row justify-content-center align-items-center mt-3">
-                                {Images?.map ((image, index) => (
+                                {Images?.map((image, index) => (
                                     <div className="d-flex flex-row justify-content-center align-items-center"
                                          key={index}>
                                         <div className="thumbnail-container">
@@ -275,7 +321,7 @@ const AnnouncementDetailsUserProfile = () => {
                                                 className="thumbnail-image"
                                                 data-bs-target="#carouselExampleCaptions"
 
-                                                onClick={() => handleThumbnailClick (index)}
+                                                onClick={() => handleThumbnailClick(index)}
                                                 style={{
                                                     opacity: selectedImageIndex === index ? 1 : 0.7,
                                                 }}
@@ -287,40 +333,53 @@ const AnnouncementDetailsUserProfile = () => {
                             </div>
 
                             <div className='d-flex flex-row justify-content-end align-items-center mt-3'>
-                                {announcementState=="Active" && (
+                                {announcementState == "Active" && (
                                     <button className='btn btn-outline-danger'
-                                            data-bs-toggle="modal" data-bs-target="#DeleteModal">{t("delete")}
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#MakeInactiveModal">{t("makeInactive")}
                                     </button>
                                 )}
+
+                                {announcementState == "Inactive" && (
+                                    <button className='btn btn-outline-success'
+                                            data-bs-toggle="modal" data-bs-target="#MakeActiveModal">{t("makeActive")}
+                                    </button>
+                                )}
+
+                                {announcementState == "Inactive" && (
+                                    <button className='btn btn-outline-danger ms-2'
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#DeleteAnnouncementModal">{t("delete")}
+                                    </button>
+                                )}
+
                             </div>
 
                             <div className="row mt-3" id="tabs">
                                 <div className="col-lg-4">
                                     <ul>
                                         <li>
-                                            <a href='#tabs-1' onClick={() => handleTabClick ('tabs-1')}>
+                                            <a href='#tabs-1' onClick={() => handleTabClick('tabs-1')}>
                                                 <i className="fa fa-cog"></i> {t("vehicleSpecs")}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href='#tabs-2' onClick={() => handleTabClick ('tabs-2')}>
+                                            <a href='#tabs-2' onClick={() => handleTabClick('tabs-2')}>
                                                 <i className="fa fa-info-circle"></i> {t("vehicleDescription")}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href='#tabs-3' onClick={() => handleTabClick ('tabs-3')}>
+                                            <a href='#tabs-3' onClick={() => handleTabClick('tabs-3')}>
                                                 <i className="fa fa-plus-circle"></i> {t("vehicleExtras")}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href='#tabs-4' onClick={() => handleTabClick ('tabs-4')}>
+                                            <a href='#tabs-4' onClick={() => handleTabClick('tabs-4')}>
                                                 <i className="fa fa-phone"></i> {t("contactDetails")}
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
-
-
 
 
                                 <div className="col-lg-8">
@@ -429,14 +488,14 @@ const AnnouncementDetailsUserProfile = () => {
                                                     </p>
                                                 </div>
 
-                                                <p>{t("announcementNumber")}:  {id}</p>
+                                                <p>{t("announcementNumber")}: {id}</p>
 
                                                 <div className="col-6 col-sm-6">
-                                                    <p>{t("expirationDate")}: {formatTimestamp (expirationDate)}</p>
+                                                    <p>{t("expirationDate")}: {formatTimestamp(expirationDate)}</p>
                                                 </div>
 
-                                                <div className="col-6 col-sm-6 d-flex align-items-center" >
-                                                    <p><i className="far fa-eye me-2" ></i>
+                                                <div className="col-6 col-sm-6 d-flex align-items-center">
+                                                    <p><i className="far fa-eye me-2"></i>
                                                         <span>{viewCount} {t("views")}</span>
                                                     </p>
                                                 </div>
@@ -450,16 +509,22 @@ const AnnouncementDetailsUserProfile = () => {
                                             <h4>{t("vehicleDescription")}</h4>
 
                                             <div className='row'>
-                                                <p className='col-sm-12' style={{maxWidth: '800px', margin: '0 auto',maxHeight: '400px', overflowY: 'auto' }}>
+                                                <p className='col-sm-12' style={{
+                                                    maxWidth: '800px',
+                                                    margin: '0 auto',
+                                                    maxHeight: '400px',
+                                                    overflowY: 'auto'
+                                                }}>
                                                     {description.split('\n').map((line, index) => (
                                                         <React.Fragment key={index}>
                                                             {line}
-                                                            <br />
+                                                            <br/>
                                                         </React.Fragment>
                                                     ))}
                                                 </p>
 
-                                                <p className='col-sm-12 font-weight-bold mt-3' style={{fontSize: '1.2em'}}>
+                                                <p className='col-sm-12 font-weight-bold mt-3'
+                                                   style={{fontSize: '1.2em'}}>
                                                     {t("vinCode")} :
                                                     <a
                                                         href={`https://www.google.com/search?q=${vinCode}&tbm=isch`}
@@ -480,7 +545,7 @@ const AnnouncementDetailsUserProfile = () => {
                                             <h4>{t("vehicleExtras")}</h4>
 
                                             <div className="row">
-                                                {options?.map ((option, index) => (
+                                                {options?.map((option, index) => (
                                                     <div className="col-6 col-sm-6">
                                                         <p>{option.option}</p>
                                                     </div>
@@ -491,7 +556,7 @@ const AnnouncementDetailsUserProfile = () => {
                                                 <div>
                                                     <h4>{t("vehicleConditions")}</h4>
                                                     <div className="row">
-                                                        {conditions.map ((condition, index) => (
+                                                        {conditions.map((condition, index) => (
                                                             <div key={condition.id} className="col-sm-6">
                                                                 <p className={'mb-1'}
                                                                    style={{fontWeight: "bold"}}>{condition.condition}</p>
@@ -533,7 +598,7 @@ const AnnouncementDetailsUserProfile = () => {
 
                                                 <div className="col-sm-6">
                                                     <label className="mb-2">{t("mobilePhones")}</label>
-                                                    {phoneNumbers?.map ((phone, index) => (
+                                                    {phoneNumbers?.map((phone, index) => (
                                                         <p key={index} className="m-2">
                                                             {phone.phoneNumber}
                                                         </p>
@@ -550,24 +615,25 @@ const AnnouncementDetailsUserProfile = () => {
                     </section>
 
 
-                    <div className="modal fade" id="DeleteModal" tabIndex="-1"   role="dialog"
-                         aria-labelledby="DeleteModal" aria-hidden="true">
+                    <div className="modal fade" id="MakeInactiveModal" tabIndex="-1" role="dialog"
+                         aria-labelledby="MakeInactiveModal" aria-hidden="true">
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h5 className="modal-title" id="exampleModalLabel">{t("deleteAnnouncement")}</h5>
-                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    <h5 className="modal-title" id="exampleModalLabel">{t("makeInactive")}</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                 </div>
                                 <div className="modal-body">
                                     <p className={'m-2'}>{description}</p>
 
                                     <ul className="list-group mt-3">
-                                        {createLabelValue ("mainLabelMake", make?.makeName)}
-                                        {createLabelValue ("labelVehicleModel", model?.modelName)}
-                                        {createLabelValue ("labelBodyType", bodyType?.bodyType)}
-                                        {createLabelValue ("fuelType", t(fuelType?.fuelType))}
-                                        {createLabelValue ("year", year?.year)}
-                                        {createLabelValue ("labelVehicleColor", color?.color)}
+                                        {createLabelValue("mainLabelMake", make?.makeName)}
+                                        {createLabelValue("labelVehicleModel", model?.modelName)}
+                                        {createLabelValue("labelBodyType", bodyType?.bodyType)}
+                                        {createLabelValue("fuelType", t(fuelType?.fuelType))}
+                                        {createLabelValue("year", year?.year)}
+                                        {createLabelValue("labelVehicleColor", color?.color)}
                                     </ul>
                                     <p className={'m-2'}>{id}</p>
                                     <h5 className='text-success text-lg-right mt-5'>{price} {currency?.currencyName}</h5>
@@ -575,7 +641,9 @@ const AnnouncementDetailsUserProfile = () => {
                                 </div>
 
                                 <button type="button" data-bs-toggle="modal"
-                                        data-bs-target="#DeleteModal" onClick={handleDeleteAnnouncement} disabled={loading} className="btn btn-danger m-3">{loading ? t('deleteLoading') : t('delete')}
+                                        data-bs-target="#MakeInactiveModal" onClick={makeAnnouncementInactive}
+                                        disabled={loading}
+                                        className="btn btn-danger m-3">{loading ? t('makeInactiveLoading') : t('makeInactive')}
                                 </button>
 
                                 {showAlert && (
@@ -585,6 +653,100 @@ const AnnouncementDetailsUserProfile = () => {
                                 )}
                                 {showSuccessAlert && (
                                     <div className="alert alert-success mt-3" role="alert">
+                                        {alertMessage}
+                                    </div>
+                                )}
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="modal fade" id="MakeActiveModal" tabIndex="-1" role="dialog"
+                         aria-labelledby="MakeActiveModal" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLabel">{t("makeActive")}</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div className="modal-body">
+                                    <p className={'m-2'}>{description}</p>
+
+                                    <ul className="list-group mt-3">
+                                        {createLabelValue("mainLabelMake", make?.makeName)}
+                                        {createLabelValue("labelVehicleModel", model?.modelName)}
+                                        {createLabelValue("labelBodyType", bodyType?.bodyType)}
+                                        {createLabelValue("fuelType", t(fuelType?.fuelType))}
+                                        {createLabelValue("year", year?.year)}
+                                        {createLabelValue("labelVehicleColor", color?.color)}
+                                    </ul>
+                                    <p className={'m-2'}>{id}</p>
+                                    <h5 className='text-success text-lg-right mt-5'>{price} {currency?.currencyName}</h5>
+
+                                </div>
+
+                                <button type="button" data-bs-toggle="modal"
+                                        data-bs-target="#MakeActiveModal" onClick={makeAnnouncementActive}
+                                        disabled={loading}
+                                        className="btn btn-success m-3">{loading ? t('makeActiveLoading') : t('makeActive')}
+                                </button>
+
+                                {showAlert && (
+                                    <div className="alert alert-warning mt-3" role="alert">
+                                        {alertMessage}
+                                    </div>
+                                )}
+                                {showSuccessAlert && (
+                                    <div className="alert alert-success mt-3" role="alert">
+                                        {alertMessage}
+                                    </div>
+                                )}
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="modal fade" id="DeleteAnnouncementModal" tabIndex="-1" role="dialog"
+                         aria-labelledby="DeleteAnnouncementModal" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLabel">{t("deleteAnnouncement")}</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div className="modal-body">
+                                    <p className={'m-2'}>{description}</p>
+
+                                    <ul className="list-group mt-3">
+                                        {createLabelValue("mainLabelMake", make?.makeName)}
+                                        {createLabelValue("labelVehicleModel", model?.modelName)}
+                                        {createLabelValue("labelBodyType", bodyType?.bodyType)}
+                                        {createLabelValue("fuelType", t(fuelType?.fuelType))}
+                                        {createLabelValue("year", year?.year)}
+                                        {createLabelValue("labelVehicleColor", color?.color)}
+                                    </ul>
+                                    <p className={'m-2'}>{id}</p>
+                                    <h5 className='text-success text-lg-right mt-5'>{price} {currency?.currencyName}</h5>
+
+                                </div>
+
+                                <button type="button" data-bs-toggle="modal"
+                                        data-bs-target="#DeleteAnnouncementModal" onClick={deleteAnnouncement}
+                                        disabled={loading}
+                                        className="btn btn-danger m-3">{loading ? t('deleteLoading') : t('delete')}
+                                </button>
+
+                                {showAlert && (
+                                    <div className="alert alert-warning mt-3 m-4" role="alert">
+                                        {alertMessage}
+                                    </div>
+                                )}
+                                {showSuccessAlert && (
+                                    <div className="alert alert-success mt-3 m-4" role="alert">
                                         {alertMessage}
                                     </div>
                                 )}
@@ -611,16 +773,16 @@ const AnnouncementDetailsUserProfile = () => {
                                 src={Images[selectedImageIndex]}
                                 alt={`Slide ${selectedImageIndex}`}
                                 className="modal-image"
-                                onClick={(e) => e.stopPropagation ()}
+                                onClick={(e) => e.stopPropagation()}
                             />
                             <div className="thumbnails-container">
-                                {Images?.map ((image, index) => (
+                                {Images?.map((image, index) => (
                                     <img
                                         key={index}
                                         src={image}
                                         alt={`Thumbnail ${index}`}
                                         className={`thumbnail-image ${selectedImageIndex === index ? 'active' : ''}`}
-                                        onClick={() => handleThumbnailClick (index)}
+                                        onClick={() => handleThumbnailClick(index)}
                                     />
                                 ))}
                             </div>

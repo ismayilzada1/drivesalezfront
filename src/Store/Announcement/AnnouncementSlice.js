@@ -6,8 +6,8 @@ const announcementSlice = createSlice({
         loading: false,
         error: null,
         announcement:null,
-        regularAnnouncements: [],
         premiumAnnouncements: [],
+        allAnnouncements: [],
         filterParams:null,
         pageNumber: 1,
         pageSize: 3,
@@ -62,18 +62,7 @@ const announcementSlice = createSlice({
         },
         getAnnouncementsSuccess(state, action) {
             console.log(action.payload);
-            const { regularAnnouncements, premiumAnnouncements } = action.payload;
-
-            state.regularAnnouncements = [
-                ...state.regularAnnouncements,
-                ...(regularAnnouncements || []).filter(
-                    (newAnnouncement) =>
-                        !state.regularAnnouncements.some(
-                            (existingAnnouncement) =>
-                                existingAnnouncement.id === newAnnouncement.id
-                        )
-                ),
-            ];
+            const { premiumAnnouncements, allAnnouncements,hasMore } = action.payload;
 
             state.premiumAnnouncements = [
                 ...state.premiumAnnouncements,
@@ -86,10 +75,23 @@ const announcementSlice = createSlice({
                 ),
             ];
 
+            state.allAnnouncements = [
+                ...state.allAnnouncements,
+                ...(allAnnouncements || []).filter(
+                    (newAnnouncement) =>
+                        !state.allAnnouncements.some(
+                            (existingAnnouncement) =>
+                                existingAnnouncement.id === newAnnouncement.id
+                        )
+                ),
+            ];
+
             state.loading = false;
             state.error = null;
-            state.hasMore = (regularAnnouncements && regularAnnouncements.length > 0) ||
-                (premiumAnnouncements && premiumAnnouncements.length > 0);
+            // state.hasMore = (premiumAnnouncements && premiumAnnouncements.length > 0) ||
+            //     (allAnnouncements && allAnnouncements.length > 0);
+
+            state.hasMore=hasMore;
         },
 
 
@@ -100,8 +102,8 @@ const announcementSlice = createSlice({
 
 
         setAnnouncements(state,action){
-            state.regularAnnouncements=action.payload;
             state.premiumAnnouncements=action.payload;
+            state.allAnnouncements=action.payload;
         },
 
         // Pagination

@@ -1,7 +1,7 @@
 export default class PaymentService {
-    _base_url = 'https://drivesalez.azurewebsites.net/api';
+    // _base_url = 'https://drivesalez.azurewebsites.net/api';
     // _base_url = 'https://localhost:7261/api';
-
+    _base_url='https://217.64.21.237:7261/api'
 
     async TopUpBalance(data,token){
         try {
@@ -13,7 +13,7 @@ export default class PaymentService {
                 },
                 body: JSON.stringify(data),
             });
-            console.log ("ah")
+            console.log ("elvin");
             console.log (response);
             return response;
         } catch (error) {

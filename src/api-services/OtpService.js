@@ -1,6 +1,7 @@
 export default class OtpService {
-    _base_url = 'https://drivesalez.azurewebsites.net/api';
+    // _base_url = 'https://drivesalez.azurewebsites.net/api';
     // _base_url = 'https://localhost:7261/api';
+    _base_url='https://217.64.21.237:7261/api'
 
     async  VerifyOTP(requestBody) {
         try {

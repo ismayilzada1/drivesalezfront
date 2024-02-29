@@ -6,6 +6,11 @@
     cursor: pointer;
 }
 
+.required-input{
+    color: red;
+    margin:5px;
+}
+
 
 .image-upload-box {
     display: flex;

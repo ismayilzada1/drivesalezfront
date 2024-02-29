@@ -12,7 +12,7 @@ import {setAnnouncements, setFilterParams, setPageNumber} from '../../Store/Anno
 
 const Home = () => {
     const dispatch = useDispatch();
-    const { regularAnnouncements,premiumAnnouncements,filterParams, loading, error, pageNumber,hasMore } = useSelector((state) => state.announcement);
+    const { allAnnouncements,premiumAnnouncements,filterParams, loading, error, pageNumber,hasMore } = useSelector((state) => state.announcement);
 
     const pageSize = 4;
 
@@ -54,8 +54,6 @@ const Home = () => {
 
 
 
-
-
     if (error) {
         return <p>Error: {error}</p>;
     }
@@ -70,9 +68,11 @@ const Home = () => {
 
             <HomeFilter />
 
-            <div className="container-fluid pt-3">
-                <div className="pt-3">
 
+            <div className="container-fluid pt-3">
+                {premiumAnnouncements.length > 0 && (
+
+                <div className="pt-3">
 
                     <div className="d-flex justify-content-between align-items-center">
                         <h2 className="text-dark">Premium Announcements</h2>
@@ -80,13 +80,15 @@ const Home = () => {
                             <a href="">Show All</a>
                         </div>
                     </div>
-                    <InfiniteScroll
-                        dataLength={premiumAnnouncements.length}
-                        next={fetchData}
-                        hasMore={hasMore}
-                        scrollThreshold={0.6}
-                    >
-                        <div className="container-fluid pt-3 ">
+
+
+                    {/*<InfiniteScroll*/}
+                    {/*    dataLength={premiumAnnouncements.length}*/}
+                    {/*    next={fetchData}*/}
+                    {/*    hasMore={hasMore}*/}
+                    {/*    scrollThreshold={0.6}*/}
+                    {/*>*/}
+                        <div className="pt-3">
                             <div
                                 className="d-flex flex-row flex-wrap justify-content-start align-items-center announcement-cards-container">
                                 {premiumAnnouncements?.map((car, index) => (
@@ -97,23 +99,23 @@ const Home = () => {
                             </div>
                         </div>
 
-                    </InfiniteScroll>
+                    {/*</InfiniteScroll>*/}
 
 
                 </div>
 
+                )}
+
+
                 <div className="regular-announcements-container pt-3">
 
                     <div className="d-flex justify-content-between align-items-center">
-                        <h2 className="text-dark">Regular Announcements</h2>
-                        <div>
-                            <a href="">Show All</a>
-                        </div>
+                        <h2 className="text-dark">All Announcements</h2>
                     </div>
 
 
                     <InfiniteScroll
-                        dataLength={regularAnnouncements.length}
+                        dataLength={allAnnouncements.length}
                         next={fetchData}
                         hasMore={hasMore}
                         scrollThreshold={0.6}
@@ -121,7 +123,7 @@ const Home = () => {
                         <div className="pt-3 ">
                             <div
                                 className="d-flex flex-row flex-wrap justify-content-start align-items-center announcement-cards-container">
-                                {regularAnnouncements?.map((car, index) => (
+                                {allAnnouncements?.map((car, index) => (
                                     <div key={index} className="col-lg-3 mb-2">
                                         <AnnouncementCard {...car} />
                                     </div>
@@ -133,6 +135,7 @@ const Home = () => {
 
                 </div>
             </div>
+
 
         </Row>
     );

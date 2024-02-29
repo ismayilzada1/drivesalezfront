@@ -292,7 +292,38 @@ const NewAnnouncement=()=> {
 
 
     const clearForm=()=>{
-        setFormData(null);
+        const { priceCurrency, distanceUnit } = formData;
+        setFormData({
+                priceCurrency,
+                distanceUnit,
+                model: '',
+                bodyType: '',
+                fuelType: '',
+                driveTrainType:'',
+                gearboxType:'',
+                color:'',
+                marketVersion:'',
+                options:[],
+                conditions:[],
+                manufactureYear:'',
+                city:'',
+                mileage:'',
+                ownerQuantity:'',
+                engineVolume:'',
+                horsePower:'',
+                seatCount:'',
+                vinCode:'',
+                price:'',
+                credit:false,
+                barter:false,
+                brandNew:false,
+                description:'',
+                IsPremium:false,
+            });
+        setSelectedBrand(null);
+        setFrontSideImage(null);
+        setRearSideImage(null);
+        setInteriorSideImage(null);
         setImages([]);
     }
 
@@ -374,8 +405,10 @@ const NewAnnouncement=()=> {
 
     const CustomDropdown = ({ options, OnChange, value, mainLabel, dataProperty, id }) => (
         <div className="form-group col-md-6">
+
             <label className="form-label" htmlFor={id}>
                 {mainLabel}:
+                <span className="required-input">*</span>
             </label>
             <select onChange={OnChange} className="form-control" id={id} value={value}>
                 <option disabled value="" defaultValue={value === ""}>
@@ -393,11 +426,10 @@ const NewAnnouncement=()=> {
     const {
         premiumLimit,
         regularLimit
-    }=userLimit;
+    } = userLimit;
 
 
-
-    return(
+    return (
 
         <div className="card">
             {isLoading ? (
@@ -473,15 +505,23 @@ const NewAnnouncement=()=> {
 
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="mobno">Mileage</label>
+                                <span className="required-input">*</span>
                                 <div className="input-group">
-                                    <input onChange={handleInputChange} type="number" className="form-control rounded me-2" min="0" id="mileage" name="mileage" />
+                                    <input onChange={handleInputChange} type="number"
+                                           className="form-control rounded me-2" min="0" id="mileage" name="mileage"/>
                                     <div className="input-group-append d-flex align-items-center">
                                         <div className="form-check form-check-inline">
-                                            <input onChange={(e) => handleSelectChange(e, 'distanceUnit')} checked={formData?.distanceUnit == 'KM'} type="radio" className="form-check-input"  id="radio_KM" name="distanceUnit" value={"KM"} />
+                                            <input onChange={(e) => handleSelectChange(e, 'distanceUnit')}
+                                                   checked={formData?.distanceUnit == 'KM'} type="radio"
+                                                   className="form-check-input" id="radio_KM" name="distanceUnit"
+                                                   value={"KM"}/>
                                             <label className="form-check-label" htmlFor="radio_KM">KM</label>
                                         </div>
                                         <div className="form-check form-check-inline">
-                                            <input onChange={(e) => handleSelectChange(e, 'distanceUnit')} checked={formData?.distanceUnit == 'MI'} type="radio" className="form-check-input" id="radio_MI" name="distanceUnit" value={"MI"} />
+                                            <input onChange={(e) => handleSelectChange(e, 'distanceUnit')}
+                                                   checked={formData?.distanceUnit == 'MI'} type="radio"
+                                                   className="form-check-input" id="radio_MI" name="distanceUnit"
+                                                   value={"MI"}/>
                                             <label className="form-check-label" htmlFor="radio_MI">MI</label>
                                         </div>
                                     </div>
@@ -506,11 +546,15 @@ const NewAnnouncement=()=> {
                             />
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="pno">Owner Quantity:</label>
-                                <input onChange={handleInputChange} type="number" name="ownerQuantity" className="form-control rounded" min="0"/>
+                                <span className="required-input">*</span>
+                                <input onChange={handleInputChange} type="number" name="ownerQuantity"
+                                       className="form-control rounded" min="0"/>
                             </div>
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="pno">Engine Volume:</label>
-                                <input onChange={handleInputChange} name="engineVolume" type="number" className="form-control rounded" min="0"/>
+                                <span className="required-input">*</span>
+                                <input onChange={handleInputChange} name="engineVolume" type="number"
+                                       className="form-control rounded" min="0"/>
                             </div>
                             <CustomDropdown
                                 mainLabel="Market Version"
@@ -522,21 +566,29 @@ const NewAnnouncement=()=> {
                             />
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="pno">Horse Power:</label>
-                                <input onChange={handleInputChange} name="horsePower" type="number" className="form-control rounded" min="0"/>
+                                <span className="required-input">*</span>
+                                <input onChange={handleInputChange} name="horsePower" type="number"
+                                       className="form-control rounded" min="0"/>
                             </div>
                             <div className="form-group col-md-6">
                                 <label className="form-label" htmlFor="pno">Seat Count:</label>
-                                <input onChange={handleInputChange} name="seatCount" type="number" className="form-control rounded" min="0"/>
+                                <span className="required-input">*</span>
+                                <input onChange={handleInputChange} name="seatCount" type="number"
+                                       className="form-control rounded" min="0"/>
                             </div>
 
 
                             <div className="form-group col-md-12">
                                 <label className="form-label" htmlFor="pno">VIN Code:</label>
-                                <input onChange={handleInputChange} name="vinCode" type="text" className="form-control rounded" />
+                                <span className="required-input">*</span>
+                                <input onChange={handleInputChange} name="vinCode" type="text"
+                                       className="form-control rounded"/>
                             </div>
 
                             <div className="form-group col-md-12">
+
                                 <label className="form-label" htmlFor="photos">Upload Images:</label>
+                                <span className="required-input">*</span>
                                 <div className={"image-boxes-container"}>
 
                                     <div className="image-box-input-group">
@@ -620,7 +672,8 @@ const NewAnnouncement=()=> {
 
                                     <div className="image-box-input-group">
                                         {interiorSideImage ? (
-                                            <div className="d-flex flex-column justify-content-center align-items-center ">
+                                            <div
+                                                className="d-flex flex-column justify-content-center align-items-center ">
                                                 <div
                                                     className="image-container d-flex justify-content-center align-items-center">
                                                     <img
@@ -633,7 +686,8 @@ const NewAnnouncement=()=> {
                                                             onClick={(e) => handleDeleteInteriorImage(e)}>
                                                         &times;
                                                     </button>
-                                                    <span className="image-upload-text delete-button mt-5">Interior</span>
+                                                    <span
+                                                        className="image-upload-text delete-button mt-5">Interior</span>
                                                 </div>
                                             </div>
                                         ) : (
@@ -659,35 +713,36 @@ const NewAnnouncement=()=> {
 
 
                                     {images?.map((image, index) => (
-                                            <div key={index} className="image-box-input-group d-flex flex-column justify-content-center align-items-center">
-                                                <div
-                                                    className="image-container d-flex justify-content-center align-items-center">
-                                                    <img
-                                                        src={image.url}
-                                                        alt={`Uploaded Image ${index + 1}`}
-                                                        className="uploaded-image"
-                                                        style={{maxWidth: '200px', maxHeight: '200px',}}
+                                        <div key={index}
+                                             className="image-box-input-group d-flex flex-column justify-content-center align-items-center">
+                                            <div
+                                                className="image-container d-flex justify-content-center align-items-center">
+                                                <img
+                                                    src={image.url}
+                                                    alt={`Uploaded Image ${index + 1}`}
+                                                    className="uploaded-image"
+                                                    style={{maxWidth: '200px', maxHeight: '200px',}}
 
-                                                    />
-                                                    <button className="delete-button"
-                                                            onClick={(e) => handleDeleteImage(e, index)}>
-                                                        &times;
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    <label className="input-group-text image-upload-label images-box-input  mb-2 mt-2">
-                                            <div className="images-upload-box">
-                                                <input
-                                                    type="file"
-                                                    accept="image/*"
-                                                    multiple
-                                                    style={{display: 'none'}}
-                                                    onChange={handleImageUpload}
                                                 />
-                                                <span className="plus-sign">+</span>
+                                                <button className="delete-button"
+                                                        onClick={(e) => handleDeleteImage(e, index)}>
+                                                    &times;
+                                                </button>
                                             </div>
-                                        </label>
+                                        </div>
+                                    ))}
+                                    <label className="input-group-text image-upload-label images-box-input  mb-2 mt-2">
+                                        <div className="images-upload-box">
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                multiple
+                                                style={{display: 'none'}}
+                                                onChange={handleImageUpload}
+                                            />
+                                            <span className="plus-sign">+</span>
+                                        </div>
+                                    </label>
 
 
                                 </div>
@@ -805,19 +860,30 @@ const NewAnnouncement=()=> {
 
                                 <div className="form-group col-md-12">
                                     <label className="form-label" htmlFor="mobno">Price</label>
+                                    <span className="required-input">*</span>
                                     <div className="input-group">
-                                        <input onChange={handleInputChange} name="price" type="number" className="form-control rounded me-2" min="0" id="price"  />
+                                        <input onChange={handleInputChange} name="price" type="number"
+                                               className="form-control rounded me-2" min="0" id="price"/>
                                         <div className="input-group-append d-flex align-items-center">
                                             <div className="form-check form-check-inline">
-                                                <input onChange={(e) => handleSelectChange(e, 'priceCurrency')} checked={formData?.priceCurrency == '1'}  type="radio" className="form-check-input"  id="radio_AZN" name="priceCurrency" value="1" />
+                                                <input onChange={(e) => handleSelectChange(e, 'priceCurrency')}
+                                                       checked={formData?.priceCurrency == '1'} type="radio"
+                                                       className="form-check-input" id="radio_AZN" name="priceCurrency"
+                                                       value="1"/>
                                                 <label className="form-check-label" htmlFor="radio_AZN">AZN</label>
                                             </div>
                                             <div className="form-check form-check-inline">
-                                                <input onChange={(e) => handleSelectChange(e, 'priceCurrency')} checked={formData?.priceCurrency == '2'}  type="radio" className="form-check-input"  id="radio_USD" name="priceCurrency" value="2" />
+                                                <input onChange={(e) => handleSelectChange(e, 'priceCurrency')}
+                                                       checked={formData?.priceCurrency == '2'} type="radio"
+                                                       className="form-check-input" id="radio_USD" name="priceCurrency"
+                                                       value="2"/>
                                                 <label className="form-check-label" htmlFor="radio_USD">USD</label>
                                             </div>
                                             <div className="form-check form-check-inline">
-                                                <input onChange={(e) => handleSelectChange(e, 'priceCurrency')} checked={formData?.priceCurrency == '3'} type="radio" className="form-check-input" id="radio_EUR" name="priceCurrency" value="3" />
+                                                <input onChange={(e) => handleSelectChange(e, 'priceCurrency')}
+                                                       checked={formData?.priceCurrency == '3'} type="radio"
+                                                       className="form-check-input" id="radio_EUR" name="priceCurrency"
+                                                       value="3"/>
                                                 <label className="form-check-label" htmlFor="radio_EUR">EUR</label>
                                             </div>
                                         </div>
@@ -826,7 +892,9 @@ const NewAnnouncement=()=> {
 
                                 <div className="form-group col-md-12">
                                     <label className="form-label" htmlFor="pno">Description:</label>
-                                    <textarea onChange={handleInputChange} name="description" className="form-control rounded"></textarea>
+                                    <span className="required-input">*</span>
+                                    <textarea onChange={handleInputChange} name="description"
+                                              className="form-control rounded"></textarea>
                                 </div>
 
 

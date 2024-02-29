@@ -512,7 +512,7 @@ const HomeFilter = () => {
                 >
                     {value && value.name ? value.name : `${t('choose')} ${mainLabel}`}
                 </button>
-                <ul className={`dropdown-menu${isOpen ? ' show' : ''}`} aria-labelledby={`dropdownMenuButton${id}`}>
+                <ul className={`dropdown-menu${isOpen ? ' show' : ''}`} style={{ maxHeight: '150px', overflowY: 'auto' }}  aria-labelledby={`dropdownMenuButton${id}`}>
                     {options.map((option, index) => (
                         <li key={index}>
                             <a

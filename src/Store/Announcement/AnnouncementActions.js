@@ -92,23 +92,35 @@ export const GetAnnouncements = (pageNumber, pageSize) => async (dispatch) => {
         if (response.status === 200) {
             console.log("SUCCESSFUL FETCH ANNOUNCEMENTS");
             const data = await response.json();
-            console.log("data");
+            console.log("elvin data");
             console.log(data);
 
-            if (data.length === 0) {
+            // elvine qoyum backde deyishek ( has more for paging)
+            if (data.item2.length === 0) {
                 return {
                     response,
                     hasMore: false
                 };
             }
+            else if (data.item2.length < pageSize) {
 
-            const regularAnnouncements = data.item1;
-            const premiumAnnouncements = data.item2;
+                const premiumAnnouncements = data.item1;
+                const allAnnouncements = data.item2;
+                const hasMore=false;
+                dispatch(getAnnouncementsSuccess({ premiumAnnouncements,  allAnnouncements,hasMore}));
+                return {
+                    response,
+                    hasMore: hasMore
+                };
+            }
 
-            dispatch(getAnnouncementsSuccess({ regularAnnouncements,  premiumAnnouncements}));
+            const premiumAnnouncements = data.item1;
+            const allAnnouncements = data.item2;
+            const hasMore=true;
+            dispatch(getAnnouncementsSuccess({ premiumAnnouncements,  allAnnouncements,hasMore}));
             return {
                 response,
-                hasMore: true
+                hasMore: hasMore
             };
         } else {
             dispatch(getAnnouncementsFailure('An error occurred while fetching announcements'));
@@ -324,7 +336,7 @@ export const GetAllFilterAnnouncements = (filter) => async (dispatch) => {
     }
 };
 
-export const DeleteAnnouncementAuthorize = (requestBody,accessToken) => async (dispatch) => {
+export const MakeAnnouncementInactiveAuthorize = (requestBody, accessToken) => async (dispatch) => {
     dispatch(DeleteAnnouncementStart());
     try {
         let token = accessToken || sessionStorage.getItem("authToken");
@@ -333,7 +345,7 @@ export const DeleteAnnouncementAuthorize = (requestBody,accessToken) => async (d
             return null;
         }
 
-        const response = await AnnouncementService.DeleteAnnouncementAuthorize(requestBody,token);
+        const response = await AnnouncementService.MakeAnnouncementInactiveAuthorize(requestBody,token);
 
         if (response.status===200) {
             console.log("SUCCESFULL DELETE ANNOUNCEMENT");
@@ -353,6 +365,68 @@ export const DeleteAnnouncementAuthorize = (requestBody,accessToken) => async (d
         dispatch(DeleteAnnouncementFailure('An error occurred while processing your request'));
     }
 };
+
+export const MakeAnnouncementActiveAuthorize = (requestBody, accessToken) => async (dispatch) => {
+    dispatch(DeleteAnnouncementStart());
+    try {
+        let token = accessToken || sessionStorage.getItem("authToken");
+
+        if (!token) {
+            return null;
+        }
+
+        const response = await AnnouncementService.MakeAnnouncementActiveAuthorize(requestBody,token);
+
+        if (response.status===200) {
+            console.log("SUCCESFULL Activate ANNOUNCEMENT");
+            dispatch(DeleteAnnouncementSuccess());
+            return response;
+        }
+        else if(response.status===401){
+            refreshToken().then(()=>{
+                return SendAnnouncement(requestBody);
+            });
+        }
+        else {
+            dispatch(DeleteAnnouncementFailure('Something is wrong !'));
+        }
+    } catch (error) {
+        console.log(error);
+        dispatch(DeleteAnnouncementFailure('An error occurred while processing your request'));
+    }
+};
+
+export const DeleteAnnouncementAuthorize = (requestBody, accessToken) => async (dispatch) => {
+    dispatch(DeleteAnnouncementStart());
+    try {
+        let token = accessToken || sessionStorage.getItem("authToken");
+
+        if (!token) {
+            return null;
+        }
+
+        const response = await AnnouncementService.DeleteAnnouncementAuthorize(requestBody,token);
+
+        if (response.status===200) {
+            console.log("SUCCESFULL Activate ANNOUNCEMENT");
+            dispatch(DeleteAnnouncementSuccess());
+            return response;
+        }
+        else if(response.status===401){
+            refreshToken().then(()=>{
+                return SendAnnouncement(requestBody);
+            });
+        }
+        else {
+            dispatch(DeleteAnnouncementFailure('Something is wrong !'));
+        }
+    } catch (error) {
+        console.log(error);
+        dispatch(DeleteAnnouncementFailure('An error occurred while processing your request'));
+    }
+};
+
+
 
 
 async function refreshToken() {

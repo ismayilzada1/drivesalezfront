@@ -195,5 +195,9 @@
   "confirmNewPassword": "Confirm new password",
   "thanksTo": "A Big Thank to All Who Contributed to Our Journey.",
   "find": "Find",
-  "enter_announcement_id": "Enter Announcement No..."
+  "enter_announcement_id": "Enter Announcement No...",
+  "makeInactive": "Make Inactive",
+  "makeActive": "Make Active",
+  "makeInactiveLoading": "Make Inactive...",
+  "makeActiveLoading": "Make Active..."
 }

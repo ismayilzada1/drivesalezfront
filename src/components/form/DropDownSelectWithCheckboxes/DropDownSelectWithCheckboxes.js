@@ -114,7 +114,7 @@ const DropDownSelectWithCheckboxes = ({
                 >
                     {getPlaceholderText()}
                 </button>
-                <ul className={`dropdown-menu${isOpen ? ' show' : ''} scrollable-dropdown`} aria-labelledby="dropdownMenuButton">
+                <ul className={`dropdown-menu${isOpen ? ' show' : ''} scrollable-dropdown`} style={{ maxHeight: '150px', overflowY: 'auto' }} aria-labelledby="dropdownMenuButton">
                     {options.map((option) => (
                         <li className="form-check" key={option.value}>
                             <input

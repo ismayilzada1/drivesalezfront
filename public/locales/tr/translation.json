@@ -197,6 +197,8 @@
   "confirmNewPassword": "Yeni şifreyi onayla",
   "thanksTo": "Yolculuğumuza katkıda bulunan herkese büyük teşekkürler.",
   "find": "Bulmak",
-  "enter_announcement_id": "Ilan Numarasını Girin..."
+  "enter_announcement_id": "Ilan Numarasını Girin...",
+  "makeInactive": "Deaktif Yap",
+  "makeActive": "Aktif Yap"
 
 }

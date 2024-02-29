@@ -196,5 +196,7 @@
   "confirmNewPassword": "Yeni şifrəni təsdiqləyin",
   "thanksTo": "Səfərimizə töhfə verən bütün insanlara böyük təşəkkür.",
   "find": "Tapmaq",
-  "enter_announcement_id": "Elan Nömrəsini Daxil Edin..."
+  "enter_announcement_id": "Elan Nömrəsini Daxil Edin...",
+  "makeInactive": "Deaktiv Edin",
+  "makeActive": "Aktiv Edin"
 }
