@@ -32,6 +32,8 @@ export const SendAnnouncement = (requestBody,accessToken) => async (dispatch) =>
 
         const response = await AnnouncementService.SendNewAnnouncement(requestBody,token);
 
+        console.log(response);
+
         if (response.status===200) {
             console.log("SUCCESFULL SEND ANNOUNCEMENT");
             dispatch(sendAnnouncementSuccess(response.data));

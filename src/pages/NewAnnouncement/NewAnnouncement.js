@@ -95,7 +95,7 @@ const NewAnnouncement=()=> {
             formData?.engineVolume !== '' &&
             formData?.horsePower !== '' &&
             formData?.seatCount !== '' &&
-            formData?.vinCode !== '' &&
+            // formData?.vinCode !== '' &&
             formData?.price !== '' &&
             formData?.priceCurrency !== '' &&
             formData?.description !== ''
@@ -380,7 +380,6 @@ const NewAnnouncement=()=> {
         console.log (data);
 
         try {
-
             console.log ("access token before token");
             console.log (accessToken);
 
@@ -580,7 +579,6 @@ const NewAnnouncement=()=> {
 
                             <div className="form-group col-md-12">
                                 <label className="form-label" htmlFor="pno">VIN Code:</label>
-                                <span className="required-input">*</span>
                                 <input onChange={handleInputChange} name="vinCode" type="text"
                                        className="form-control rounded"/>
                             </div>

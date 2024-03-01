@@ -26,11 +26,12 @@ export default class AnnouncementService {
                 body: JSON.stringify(data),
             });
 
+            console.log(response);
+
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
 
-            console.log(response);
 
 
             return response;
